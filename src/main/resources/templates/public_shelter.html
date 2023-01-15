@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 
 <head>
 	<title>公立領養 -寵物資訊平台</title>
@@ -23,6 +24,7 @@
 
 	<link rel="stylesheet" href="css/flaticon.css">
 	<link rel="stylesheet" href="css/style.css">
+	<script  src="js/split.page.js"></script>
 </head>
 
 <body>
@@ -82,18 +84,56 @@
 		</div>
 	</section>
 
-	<section class="ftco-section bg-light">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section"></h2>
+	<section id="animalContext">
+
+		<div th:each="animal:${animals}"    style=" display: flex;justify-content:center;flex-wrap: wrap;">
+
+			<div  style="width: 300px; margin: 10px;">
+				<a th:href="@{'images/animal/'+${animal.animalAlbumFile}}">
+					<img th:src="@{'images/animal/'+${animal.animalAlbumFile}}" width="300" height="400">
+				</a>
+				<div >
+					<h3 >
+						<a  th:href="@{'images/animal/'+${animal.animalAlbumFile}}" ><b th:text="${animal.animalVariety}"></b></a>
+					</h3>
+					<ul>
+						<li th:text="${animal.animalShelterName}">
+
+						</li >
+						<li th:text="${animal.animalShelterTel}">
+
+						</li>
+						<li th:text="${animal.animalShelterAddress}">
+
+						</li>
+						<li th:text="${animal.animalAge}">
+
+						</li>
+					</ul>
+					<p ></p>
+					<div >
+						<a th:href="@{'tel:'+${animal.animalShelterTel}}" >撥打電話</a>
+					</div>
 				</div>
 			</div>
+		</div>
+
+
 	</section>
 
 
 
 
+
+	<div style="margin: auto; width: 220px;">
+		<button onclick="goPrePage()">上一頁</button>
+		<select id="page"  onchange="sendPageToServer()">
+
+			<option th:each="i:${pages}"><b  th:text="${i}"></b> </option>
+
+		</select>
+		<button onclick="goNextPage()">下一頁</button>
+	</div>
 	<footer class="footer">
 		<div class="row mt-5">
 			<div class="col-md-12 text-center">
