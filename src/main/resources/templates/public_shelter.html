@@ -74,8 +74,7 @@
 		<div class="container">
 			<div class="row no-gutters slider-text align-items-end">
 				<div class="col-md-9 ftco-animate pb-5">
-					<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">首頁 <i
-									class="ion-ios-arrow-forward"></i></a></span>
+					<p class="breadcrumbs mb-2">
 						<span>公立領養 <i class="ion-ios-arrow-forward"></i></span>
 					</p>
 					<h1 class="mb-0 bread">公立領養</h1>
@@ -83,6 +82,23 @@
 			</div>
 		</div>
 	</section>
+
+
+	<div style="margin: auto; width: 220px;">
+			<select name="animalKind" id="kind">
+				<option>不分種類</option>
+				<option>狗</option>
+				<option>貓</option>
+				<option>其他</option>
+			</select>
+			<select name="shelterName" id="shelter">
+				<option>所有收容所</option>
+				<option th:each="s:${shelters}"><b  th:text="${s.getName()}"></b> </option>
+			</select>
+	</div>
+	<div style="margin: auto; width: 220px;">
+		<button onclick="search()">搜尋</button>
+	</div>
 
 	<section id="animalContext">
 
@@ -130,6 +146,7 @@
 		<select id="page"  onchange="sendPageToServer()">
 
 			<option th:each="i:${pages}"><b  th:text="${i}"></b> </option>
+
 
 		</select>
 		<button onclick="goNextPage()">下一頁</button>
