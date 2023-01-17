@@ -28,11 +28,5 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @GetMapping("/users/{email}")
-    public ResponseEntity getUserById(@PathVariable Integer id){
 
-
-
-        return null;
-    }
 }
