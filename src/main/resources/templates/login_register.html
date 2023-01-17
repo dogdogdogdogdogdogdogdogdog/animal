@@ -20,6 +20,7 @@
 
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
+	  <script  src="js/button.click.js"></script>
   </head>
   <body>
 
@@ -91,7 +92,7 @@
 			<div class="row d-md-flex justify-content-end">
 				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
 					<h2 class="mb-">登入</h2>
-					<form action="#" class="appointment">
+					<form action="" class="appointment">
 						<div class="row">
 							<div class="col-md-12">
 
@@ -129,7 +130,7 @@
 			<div class="row d-md-flex justify-content-end">
 				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
 					<h2 class="mb-4">註冊</h2>
-					<form action="#" class="appointment">
+					<form   class="appointment">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
@@ -140,29 +141,29 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="電子郵件 帳號">
+									<input id="emailAjax" type="text" class="form-control" placeholder="電子郵件 帳號">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="密碼">
+									<input id="passwordAjax" type="text" class="form-control" placeholder="密碼">
 								</div>
 							</div>
 							
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="姓名">
+									<input id="nameAjax" type="text" class="form-control" placeholder="姓名">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="聯絡電話">
+									<input id="telAjax" type="text" class="form-control" placeholder="聯絡電話">
 								</div>
 							</div>
 
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="submit" value="送出" class="btn btn-primary py-3 px-4">
+									<button onclick="send()"   class="btn btn-primary py-3 px-4">送出</button>
 								</div>
 							</div>
 						</div>

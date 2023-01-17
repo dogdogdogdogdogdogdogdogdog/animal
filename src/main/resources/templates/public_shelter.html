@@ -84,25 +84,30 @@
 	</section>
 
 
-	<div style="margin: auto; width: 220px;">
+	<div style="display: flex;justify-content:center;flex-wrap: wrap;">
+		<div>
 			<select name="animalKind" id="kind">
 				<option>不分種類</option>
 				<option>狗</option>
 				<option>貓</option>
 				<option>其他</option>
 			</select>
+			</div>
+		<div>
 			<select name="shelterName" id="shelter">
 				<option>所有收容所</option>
 				<option th:each="s:${shelters}"><b  th:text="${s.getName()}"></b> </option>
 			</select>
-	</div>
-	<div style="margin: auto; width: 220px;">
+			</div>
+		<div>
 		<button onclick="search()">搜尋</button>
+			</div>
 	</div>
 
-	<section id="animalContext">
 
-		<div th:each="animal:${animals}"    style=" display: flex;justify-content:center;flex-wrap: wrap;">
+	<section id="animalContext" style=" display: flex;justify-content:center;flex-wrap: wrap;">
+
+		<div th:each="animal:${animals}"    >
 
 			<div  style="width: 300px; margin: 10px;">
 				<a th:href="@{'images/animal/'+${animal.animalAlbumFile}}">

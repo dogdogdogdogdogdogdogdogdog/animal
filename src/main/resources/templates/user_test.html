@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        function test() {
+            console.log('ok')
+            var account = {
+                email: 'tt12344@gmail.com',
+                password: 'weffef123',
+                name: 'w123444',
+                tel: '0912312678'
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener('load',function(){
+                console.log('已新增')
+            })
+            xhr.open('post', 'http://localhost:8080/user/register', true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            var data = JSON.stringify(account);
+            xhr.send(data);
+
+
+
+        }
+    </script>
+
+</head>
+<body>
+
+<!--<form  action="http://localhost:8080/add" th:object="${user}" method="post" >-->
+<!--    <input type="text" th:field="*{email}"/>-->
+<!--    <input type="text" th:field="*{password}"/>-->
+<!--    <input type="text" th:field="*{name}"/>-->
+<!--    <input type="text" th:field="*{tel}"/>-->
+<!--    <input type="submit"/>-->
+
+
+    <button onclick="test()">button</button>
+<!--</form>-->
+</body>
+</html>

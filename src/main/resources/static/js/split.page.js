@@ -1,18 +1,11 @@
-
 function search() {
 
-var kind = document.getElementById("kind").value;
-var shelter = document.getElementById("shelter").value;
-
-
-
-    var x = document.getElementById("page").value;
+    var kind = document.getElementById("kind").value;
+    var shelter = document.getElementById("shelter").value;
     var request = new XMLHttpRequest();
+    ajaxToServer(request,"http://localhost:8080/public_shelter?page="+1+"&animalKind="+kind+"&shelterName="+shelter,[["page","select",2],["animalContext","section",1]])
 
-    ajaxToServer(request,"select",2,"http://localhost:8080/public_shelter?page="+x+"&animalKind="+kind+"&shelterName="+shelter,"page")
 
-
-   ajaxToServer(request,"section",1,"http://localhost:8080/public_shelter?page="+x+"&animalKind="+kind+"&shelterName="+shelter,"animalContext")
 
 }
 
@@ -23,10 +16,10 @@ function sendPageToServer() {
     if(hasSearchCondition()){
         var kind = document.getElementById("kind").value;
         var shelter = document.getElementById("shelter").value;
-        ajaxToServer(request,"section",1,"http://localhost:8080/public_shelter?page="+x+"&animalKind="+kind+"&shelterName="+shelter,"animalContext")
+        ajaxToServer(request,"http://localhost:8080/public_shelter?page="+x+"&animalKind="+kind+"&shelterName="+shelter,[["animalContext","section",1]])
 
     }else {
-        ajaxToServer(request,"section",1,"http://localhost:8080/public_shelter?page="+x,"animalContext")
+        ajaxToServer(request,"http://localhost:8080/public_shelter?page="+x,[["animalContext","section",1]])
     }
 }
 function sendPageToServerBySearch(){
@@ -34,7 +27,7 @@ function sendPageToServerBySearch(){
     var shelter = document.getElementById("shelter").value;
     var x = document.getElementById("page").value;
     var request = new XMLHttpRequest();
-    ajaxToServer(request,"section",1,"http://localhost:8080/public_shelter?page="+x+"&animalKind="+kind+"&shelterName="+shelter,"animalContext")
+    ajaxToServer(request,"http://localhost:8080/public_shelter?page="+x+"&animalKind="+kind+"&shelterName="+shelter,[["animalContext","section",1]])
 }
 function goPrePage(){
     var x = document.getElementById("page").value;
@@ -43,11 +36,11 @@ function goPrePage(){
         p=1
     }
     document.getElementById("page").value=p;
-if(hasSearchCondition()){
-    sendPageToServerBySearch()
-}else {
-    sendPageToServer()
-}
+    if(hasSearchCondition()){
+        sendPageToServerBySearch()
+    }else {
+        sendPageToServer()
+    }
 
 }
 function goNextPage(){
@@ -69,15 +62,22 @@ function goNextPage(){
 
 
 function stringToHtml(str,tagName,index){
+
     var parser = new DOMParser();
     var doc = parser.parseFromString(str, 'text/html');
+
+    console.log(doc.body.getElementsByTagName("animalContext"))
     return doc.body.getElementsByTagName(tagName)[index].innerHTML;
 }
-function ajaxToServer(request,tagName,index,url,changeTag){
-    var request = new XMLHttpRequest();
-    request.addEventListener('load',function(){
+function ajaxToServer(request,url,changeList){
 
-        document.getElementById(changeTag).innerHTML =  stringToHtml(request.responseText,tagName,index)
+    request.addEventListener('load',function(){
+        for(var i=0;i<changeList.length;i++){
+           var changeTag=changeList[i][0]
+           var tagName =changeList[i][1]
+           var index=changeList[i][2]
+            document.getElementById(changeTag).innerHTML =  stringToHtml(request.responseText,tagName,index)
+        }
     })
     request.open('get',url)
     request.send();
@@ -90,3 +90,6 @@ function hasSearchCondition(){
     }
     return false
 }
+
+
+
