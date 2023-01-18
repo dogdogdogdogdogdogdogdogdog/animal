@@ -81,11 +81,11 @@ public class AnimalDaoImpl implements AnimalDao {
         HashSet<String> set = new HashSet<>();
         List<Shelter> result = new ArrayList<>();
 
-        System.out.println(dataList.size());
+        //System.out.println(dataList.size());
         for (int i = 0; i < dataList.size(); i++) {
             if (set.add(dataList.get(i).getName())) {
                 result.add(dataList.get(i));
-                System.out.println(i + dataList.get(i).getName());
+                //System.out.println(i + dataList.get(i).getName());
             }
         }
         dataList.clear();

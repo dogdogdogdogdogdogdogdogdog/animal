@@ -93,47 +93,44 @@
     </select>
     <select name="shelterName" id="shelter">
         <option>所有收容所</option>
-        <option th:each="s:${shelters}"><b th:text="${s.getName()}"></b></option>
+        <option th:each="s:${shelters}" th:text="${s.getName()}"></option>
     </select>
 </div>
 <div style="margin: auto; width: 220px;">
     <button onclick="search()">搜尋</button>
 </div>
 
-<section style="display: flex;justify-content: center;flex-wrap: wrap" id="animalContext">
-
-    <div th:each="animal:${animals}" style=" display: flex;justify-content:center;flex-wrap: wrap;">
-
-        <div style="width: 300px; margin: 10px;">
-            <a th:href="${animal.animalAlbumFile}">
-                <img th:src="${animal.animalAlbumFile}" width="300" height="400">
-            </a>
-            <div>
-                <h3>
-                    <a th:href="${animal.animalAlbumFile}"><b th:text="${animal.animalVariety}"></b></a>
-                </h3>
-                <ul>
-                    <li th:text="${animal.animalShelterName}">
-
-                    </li>
-                    <li th:text="${animal.animalShelterTel}">
-
-                    </li>
-                    <li th:text="${animal.animalShelterAddress}">
-
-                    </li>
-                    <li th:text="${animal.animalAge}">
-
-                    </li>
-                </ul>
-                <p></p>
-                <div>
-                    <a th:href="@{'tel:'+${animal.animalShelterTel}}">撥打電話</a>
+<section class="ftco-section" id="animalContext">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 ftco-animate" th:each="animal:${animals}">
+                <div class="work mb-4 img d-flex align-items-end"
+                     th:style="'background-image: url('+${animal.animalAlbumFile}+');'">
+                    <a th:href="${animal.animalAlbumFile}"
+                       class="icon image-popup d-flex justify-content-center align-items-center">
+                        <span class="fa fa-expand"></span>
+                    </a>
+                    <div class="desc w-100 px-4">
+                        <div class="text w-100 mb-3">
+                            <span th:text="${animal.animalKind}"></span>
+                            <h2>
+                                <a th:href="work-single.html" th:text="'編號 :  '+ ${animal.animalId}"></a>
+                            </h2>
+                        </div>
+                    </div>
                 </div>
+                <ul>
+                    <li th:text="'品種 :  '+ ${animal.animalVariety}"></li>
+                    <li th:text="'性別 :  '+ ${animal.sex}"></li>
+                    <li th:text="'毛色 :  '+ ${animal.animalColour}"></li>
+                    <li th:text="'更新日期 :  '+ ${animal.animalUpdate}"></li>
+                    <li th:text="'聯絡電話 :  '+ ${animal.animalShelterTel}"></li>
+                    <li th:text="'收容所 :  '+ ${animal.animalShelterName}"></li>
+                    <li th:text="${animal.animalShelterAddress}"></li>
+                </ul>
             </div>
         </div>
     </div>
-
 
 </section>
 
@@ -142,7 +139,7 @@
     <button onclick="goPrePage()">上一頁</button>
     <select id="page" onchange="sendPageToServer()">
 
-        <option th:each="i:${pages}"><b th:text="${i}"></b></option>
+        <option th:each="i:${pages}" th:text="${i}"></option>
 
 
     </select>
