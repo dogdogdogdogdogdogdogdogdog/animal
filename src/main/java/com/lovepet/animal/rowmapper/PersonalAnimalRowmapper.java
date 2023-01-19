@@ -17,7 +17,7 @@ public class PersonalAnimalRowmapper implements RowMapper<PersonalAnimal> {
         personalAnimal.setAnimalSex(resultSet.getString("animal_sex"));
         personalAnimal.setAnimalSterilization(resultSet.getString("animal_sterilization"));
         personalAnimal.setAnimalBacterin(resultSet.getString("animal_bacterin"));
-        personalAnimal.setAnimalBacterin(resultSet.getString("image_url"));
+        personalAnimal.setImageUrl(resultSet.getString("image_url"));
         personalAnimal.setDescription(resultSet.getString("description"));
         personalAnimal.setCreatedDate(resultSet.getDate("created_date"));
         personalAnimal.setLastModifiedDate(resultSet.getDate("last_modified_date"));
