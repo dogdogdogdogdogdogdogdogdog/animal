@@ -27,12 +27,30 @@ public class PersonalAnimalController {
         }
     }
 
-    @PostMapping("/personalAnimal")
+    @PostMapping("/personalAnimal")//新增個人收容所資料
     public ResponseEntity<PersonalAnimal> createPersonalAnimal(@RequestBody @Valid PersonalAnimalRequest personalAnimalRequest) {
         Integer personalAnimalId = personalAnimalService.createPersonalAnimal(personalAnimalRequest);
 
         PersonalAnimal personalAnimal = personalAnimalService.getPersonalAnimalById(personalAnimalId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(personalAnimal);
+    }
+    @PutMapping("/personalAnimal/{personalAnimalId}")//修改個人收容所資料
+    public  ResponseEntity<PersonalAnimal> updatePersonalAnimal(@PathVariable Integer personalAnimalId,
+                                                                @RequestBody @Valid PersonalAnimalRequest personalAnimalRequest) {
+
+        //檢查personalAnimal Id 是否存在
+        PersonalAnimal personalAnimal = personalAnimalService.getPersonalAnimalById(personalAnimalId);
+
+        if (personalAnimal == null) {//找不到回傳404 NOT_FOUND
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        //修改動物的數據
+        personalAnimalService.updatePersonalAnimal(personalAnimalId, personalAnimalRequest);
+
+        PersonalAnimal updatedPersonalAnimal = personalAnimalService.getPersonalAnimalById(personalAnimalId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedPersonalAnimal);
     }
 }

@@ -8,4 +8,6 @@ public interface PersonalAnimalDao {
     PersonalAnimal getPersonalAnimalById(Integer personalAnimalId);
 
     Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest);
+
+    void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest);
 }

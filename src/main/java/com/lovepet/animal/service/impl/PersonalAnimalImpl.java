@@ -21,4 +21,9 @@ public class PersonalAnimalImpl implements PersonalAnimalService {
     public Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest) {
         return personalAnimalDao.createPersonalAnimal(personalAnimalRequest);
     }
+
+    @Override
+    public void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest) {
+        personalAnimalDao.updatePersonalAnimal(personalAnimalId, personalAnimalRequest);
+    }
 }

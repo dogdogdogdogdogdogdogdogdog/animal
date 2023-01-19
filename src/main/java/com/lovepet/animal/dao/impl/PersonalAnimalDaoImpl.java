@@ -65,4 +65,25 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         return personalAnimalId;
     }
+
+    @Override
+    public void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest) {
+        String sql = "UPDATE personal_shelter SET animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
+                "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, description = :description, " +
+                "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("animalId", personalAnimalId);
+        map.put("animalKind", personalAnimalRequest.getAnimalKind());
+        map.put("animalVariety", personalAnimalRequest.getAnimalVariety());
+        map.put("animalSex", personalAnimalRequest.getAnimalSex());
+        map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
+        map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
+        map.put("imageUrl", personalAnimalRequest.getImageUrl());
+        map.put("description", personalAnimalRequest.getDescription());
+
+        map.put("lastModifiedDate", new Date());
+
+        namedParameterJdbcTemplate.update(sql, map);
+    }
 }

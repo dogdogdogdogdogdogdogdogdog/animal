@@ -8,4 +8,5 @@ public interface PersonalAnimalService {
 
     Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest);
 
+    void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest);
 }
