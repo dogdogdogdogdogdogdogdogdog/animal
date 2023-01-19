@@ -11,22 +11,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AnimalController {
     @Autowired
-   private AnimalService animalService;
+    private AnimalService animalService;
 
     @GetMapping("/login_register_test")
     public String goLoginRegister(){
         return "login_register_test";
     }
+
     @GetMapping("/missing")
-    public String goMissing(){
+    public String goMissing() {
         return "missing";
     }
+
     @GetMapping("/personal_shelter")
-    public String goPersonalShelter(){
+    public String goPersonalShelter() {
         return "personal_shelter";
     }
-        @GetMapping("/publish")
-    public String goPublish(){
+
+    @GetMapping("/publish")
+    public String goPublish() {
         return "publish";
     }
 
@@ -35,23 +38,23 @@ public class AnimalController {
     public String goPublicShelter(
             Model model,
             @RequestParam(defaultValue = "12") Integer limit,
-            @RequestParam(defaultValue = "0")  Integer offset,
-            @RequestParam(defaultValue = "1")  Integer page,
-            @RequestParam(defaultValue = "所有收容所")  String shelterName,
-            @RequestParam(defaultValue = "不分種類")  String animalKind
-            ){
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "所有收容所") String shelterName,
+            @RequestParam(defaultValue = "不分種類") String animalKind
+    ) {
 
-        AnimalQueryParams animalQueryParams=new AnimalQueryParams();
+        AnimalQueryParams animalQueryParams = new AnimalQueryParams();
         animalQueryParams.setLimit(limit);
-       animalQueryParams.setOffset(offset);
-       animalQueryParams.setPage(page);
+        animalQueryParams.setOffset(offset);
+        animalQueryParams.setPage(page);
         animalQueryParams.setShelter(shelterName);
         animalQueryParams.setKind(animalKind);
 
         System.out.println(animalService.getAnimals(animalQueryParams).getPages().size());
-        model.addAttribute("shelters",animalService.getShelter());
-        model.addAttribute("pages",animalService.getAnimals(animalQueryParams).getPages());
-        model.addAttribute("animals",animalService.getAnimals(animalQueryParams).getAnimals());
+        model.addAttribute("shelters", animalService.getShelter());
+        model.addAttribute("pages", animalService.getAnimals(animalQueryParams).getPages());
+        model.addAttribute("animals", animalService.getAnimals(animalQueryParams).getAnimals());
         return "public_shelter";
     }
 
