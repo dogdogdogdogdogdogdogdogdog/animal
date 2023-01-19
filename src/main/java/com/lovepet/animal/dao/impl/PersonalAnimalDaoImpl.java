@@ -21,11 +21,25 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Override
+    public List<PersonalAnimal> getPersonalAnimals() {
+        String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
+                "image_url, description, created_date, last_modified_date " +
+                "FROM personal_animal";
+
+        Map<String, Object> map = new HashMap<>();
+
+        List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+
+        return personalAnimalList;
+    }
+
     @Override
     public PersonalAnimal getPersonalAnimalById(Integer personalAnimalId) {
         String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
                 "image_url, description, created_date, last_modified_date " +
-                "FROM personal_shelter WHERE animal_id = :personalAnimalId";
+                "FROM personal_animal WHERE animal_id = :personalAnimalId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
@@ -41,7 +55,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest) {
-        String sql = "INSERT INTO personal_shelter(animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, image_url, description, created_date, last_modified_date) " +
+        String sql = "INSERT INTO personal_animal(animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, image_url, description, created_date, last_modified_date) " +
                 "VALUES (:animalKind, :animalVariety, :animalSex, :animalSterilization, :animalBacterin, :imageUrl, :description, :createdDate, :lastModifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
@@ -68,7 +82,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest) {
-        String sql = "UPDATE personal_shelter SET animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
+        String sql = "UPDATE personal_animal SET animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
                 "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
 
@@ -89,7 +103,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public void deletePersonalAnimalById(Integer personalAnimalId) {
-        String sql = "DELETE FROM personal_shelter WHERE animal_id = :personalAnimalId";
+        String sql = "DELETE FROM personal_animal WHERE animal_id = :personalAnimalId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);

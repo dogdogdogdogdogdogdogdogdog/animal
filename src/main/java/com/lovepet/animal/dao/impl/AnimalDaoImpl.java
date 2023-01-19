@@ -22,13 +22,12 @@ public class AnimalDaoImpl implements AnimalDao {
     public PageContent getAnimals(AnimalQueryParams animalQueryParams) {
         PageContent pageContent = new PageContent();
         Map<String, Object> map = new HashMap<>();
-        boolean hasOtherQuery = false;
-        //String sql="select animal_id,animal_kind,animal_Variety,animal_sex,animal_bodytype,animal_colour,animal_age,animal_sterilization,animal_bacterin,animal_foundplace,animal_remark,album_file,shelter_name,shelter_address,shelter_tel,animal_opendate,animal_createtime,animal_update from shelter INNER join (select time.animal_id,animal_kind,animal_Variety,animal_sex,animal_bodytype,animal_colour,animal_age,animal_sterilization,animal_bacterin,animal_foundplace,animal_remark,album_file,animal_shelter_pkid,animal_opendate,animal_update,animal_createtime from animal INNER join time   on animal.animal_id= time.animal_id) animalJoinTime on shelter.animal_shelter_pkid=animalJoinTime.animal_shelter_pkid where 1=1 ";
-        String sql = "SElECT * FROM public_animal WHERE 1=1";
+        String sql = "SELECT animal_id, animal_kind, animal_Variety, animal_sex, animal_colour, animal_bodytype, animal_age, animal_sterilization, " +
+                "animal_bacterin, animal_foundplace, animal_remark, album_file, shelter_name, shelter_address, shelter_tel, animal_opendate, " +
+                "animal_createtime, animal_update, animal_status animal_area FROM public_animal WHERE 1=1 ";
 
         String shelterAndKindQuery = "";
         if (!(animalQueryParams.getShelter().equals("所有收容所")) || !(animalQueryParams.getKind().equals("不分種類"))) {
-            hasOtherQuery = true;
             if (!(animalQueryParams.getShelter().equals("所有收容所"))) {
                 shelterAndKindQuery = shelterAndKindQuery + " and shelter_name= :shelterName ";
                 map.put("shelterName", animalQueryParams.getShelter());
@@ -40,8 +39,7 @@ public class AnimalDaoImpl implements AnimalDao {
 
             pageContent.setPages(getPages(animalQueryParams, map, shelterAndKindQuery));
 
-        }
-        if (!hasOtherQuery) {
+        }else {
             pageContent.setPages(getPages(animalQueryParams, map, ""));
         }
 

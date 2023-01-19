@@ -81,6 +81,7 @@ function ajaxToServer(request, tagName, index, url, changeTag) {
                 var request = new XMLHttpRequest();
                 request.addEventListener('load', function () {
                     document.getElementById(changeTag).innerHTML = stringToHtml(request.responseText, tagName, index)
+                    console.log(document.getElementById(changeTag).innerHTML);
                 })
                 request.open('get', url)
                 request.send();
