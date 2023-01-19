@@ -58,7 +58,7 @@ public class PersonalAnimalController {
     public ResponseEntity<?> deletePersonalAnimal(@PathVariable Integer personalAnimalId){
         personalAnimalService.deletePersonalAnimalById(personalAnimalId);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 

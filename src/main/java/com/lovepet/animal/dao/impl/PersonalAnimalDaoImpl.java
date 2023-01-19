@@ -86,4 +86,14 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         namedParameterJdbcTemplate.update(sql, map);
     }
+
+    @Override
+    public void deletePersonalAnimalById(Integer personalAnimalId) {
+        String sql = "DELETE FROM personal_shelter WHERE animal_id = :personalAnimalId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("personalAnimalId", personalAnimalId);
+
+        namedParameterJdbcTemplate.update(sql, map);
+    }
 }
