@@ -83,25 +83,22 @@
     </div>
 </section>
 
-
-<div style="margin: auto; width: 220px;">
-    <select name="animalKind" id="kind">
-        <option>不分種類</option>
-        <option>狗</option>
-        <option>貓</option>
-        <option>其他</option>
-    </select>
-    <select name="shelterName" id="shelter">
-        <option>所有收容所</option>
-        <option th:each="s:${shelters}" th:text="${s.getName()}"></option>
-    </select>
-</div>
-<div style="margin: auto; width: 220px;">
-    <button onclick="search()">搜尋</button>
-</div>
-
 <section class="ftco-section" id="animalContext">
     <div class="container">
+        <div style="margin: auto; width: 600px;">
+            <select name="animalKind" id="kind">
+                <option>不分種類</option>
+                <option>狗</option>
+                <option>貓</option>
+                <option>其他</option>
+            </select>
+            <select name="shelterName" id="shelter">
+                <option>所有收容所</option>
+                <option th:each="s:${shelters}" th:text="${s.getName()}"></option>
+            </select>
+            <button onclick="search()">搜尋</button>
+        </div>
+        <hr>
         <div class="row">
             <div class="col-md-4 ftco-animate" th:each="animal:${animals}">
                 <div class="work mb-4 img d-flex align-items-end"

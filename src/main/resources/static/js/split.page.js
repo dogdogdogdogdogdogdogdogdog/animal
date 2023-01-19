@@ -8,11 +8,11 @@ function search() {
     var request = new XMLHttpRequest();
 
     ajaxToServer(request, "select", 2, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "page")
-        .then(loadOk)
+
 
 
     ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
-        .then(loadOk)
+
 }
 
 
@@ -23,10 +23,10 @@ function sendPageToServer() {
         var kind = document.getElementById("kind").value;
         var shelter = document.getElementById("shelter").value;
         ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
-            .then(loadOk)
+
     } else {
         ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x, "animalContext")
-            .then(loadOk)
+
     }
 }
 
@@ -36,7 +36,6 @@ function sendPageToServerBySearch() {
     var x = document.getElementById("page").value;
     var request = new XMLHttpRequest();
     ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
-        .then(loadOk)
 }
 
 function goPrePage() {
@@ -79,18 +78,33 @@ function stringToHtml(str, tagName, index) {
 }
 
 function ajaxToServer(request, tagName, index, url, changeTag) {
-    return new Promise(function(resolve, reject){
-        window.setTimeout(function(){
-            var request = new XMLHttpRequest();
-            request.addEventListener('load', function () {
 
-                document.getElementById(changeTag).innerHTML = stringToHtml(request.responseText, tagName, index)
-            })
-            request.open('get', url)
-            request.send();
-            resolve('A');
-        }, 100);
-    });
+    function main(){
+        return new Promise(function(resolve, reject){
+            window.setTimeout(function(){
+                var request = new XMLHttpRequest();
+                request.addEventListener('load', function () {
+                    document.getElementById(changeTag).innerHTML = stringToHtml(request.responseText, tagName, index)
+                })
+                request.open('get', url)
+                request.send();
+                console.log('查詢資料');
+                resolve('查詢資料');
+            }, 500);
+        });
+    }
+    function loadOk(){
+        return new Promise(function(resolve, reject){
+            window.setTimeout(function(){
+                $.getScript('js/main.js');
+                console.log('顯示列表');
+                resolve('顯示列表');
+            }, 500);
+        });
+    }
+
+    main().then(loadOk);
+
 }
 
 function hasSearchCondition() {
@@ -100,13 +114,4 @@ function hasSearchCondition() {
         return true
     }
     return false
-}
-function loadOk(){
-    return new Promise(function(resolve, reject){
-        window.setTimeout(function(){
-            $.getScript('js/main.js');
-            console.log("OK")
-
-        }, 100);
-    });
 }
