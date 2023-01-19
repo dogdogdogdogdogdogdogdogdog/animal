@@ -53,4 +53,13 @@ public class PersonalAnimalController {
 
         return ResponseEntity.status(HttpStatus.OK).body(updatedPersonalAnimal);
     }
+
+    @DeleteMapping("/personalAnimal/{personalAnimalId}")
+    public ResponseEntity<?> deletePersonalAnimal(@PathVariable Integer personalAnimalId){
+        personalAnimalService.deletePersonalAnimalById(personalAnimalId);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
+
+
 }
