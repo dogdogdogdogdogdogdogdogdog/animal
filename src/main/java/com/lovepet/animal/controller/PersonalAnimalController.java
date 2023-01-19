@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class PersonalAnimalController {
@@ -16,7 +17,16 @@ public class PersonalAnimalController {
     @Autowired
     private PersonalAnimalService personalAnimalService;
 
-    @GetMapping("/personalAnimal/{personalAnimalId}")//查詢個人收容所資料
+    @GetMapping("/personalAnimals")//查詢個人收容所資料(全部)
+    public ResponseEntity<List<PersonalAnimal>> getPersonalAnimals(
+            
+    ) {
+        List<PersonalAnimal> personalAnimalList = personalAnimalService.getPersonalAnimals();
+
+        return ResponseEntity.status(HttpStatus.OK).body(personalAnimalList);
+    }
+
+    @GetMapping("/personalAnimals/{personalAnimalId}")//查詢個人收容所資料(單筆)
     public ResponseEntity<PersonalAnimal> getPersonalAnimal(@PathVariable Integer personalAnimalId) {
         PersonalAnimal personalAnimal = personalAnimalService.getPersonalAnimalById(personalAnimalId);
 
@@ -27,7 +37,7 @@ public class PersonalAnimalController {
         }
     }
 
-    @PostMapping("/personalAnimal")//新增個人收容所資料
+    @PostMapping("/personalAnimals")//新增個人收容所資料
     public ResponseEntity<PersonalAnimal> createPersonalAnimal(@RequestBody @Valid PersonalAnimalRequest personalAnimalRequest) {
         Integer personalAnimalId = personalAnimalService.createPersonalAnimal(personalAnimalRequest);
 
@@ -35,7 +45,7 @@ public class PersonalAnimalController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(personalAnimal);
     }
-    @PutMapping("/personalAnimal/{personalAnimalId}")//修改個人收容所資料
+    @PutMapping("/personalAnimals/{personalAnimalId}")//修改個人收容所資料
     public  ResponseEntity<PersonalAnimal> updatePersonalAnimal(@PathVariable Integer personalAnimalId,
                                                                 @RequestBody @Valid PersonalAnimalRequest personalAnimalRequest) {
 
@@ -54,7 +64,7 @@ public class PersonalAnimalController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedPersonalAnimal);
     }
 
-    @DeleteMapping("/personalAnimal/{personalAnimalId}")
+    @DeleteMapping("/personalAnimals/{personalAnimalId}")
     public ResponseEntity<?> deletePersonalAnimal(@PathVariable Integer personalAnimalId){
         personalAnimalService.deletePersonalAnimalById(personalAnimalId);
 
