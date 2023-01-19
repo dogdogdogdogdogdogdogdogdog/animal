@@ -2,14 +2,10 @@ function search() {
 
     var kind = document.getElementById("kind").value;
     var shelter = document.getElementById("shelter").value;
-
-
     var x = document.getElementById("page").value;
     var request = new XMLHttpRequest();
 
     ajaxToServer(request, "select", 2, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "page")
-
-
 
     ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
 

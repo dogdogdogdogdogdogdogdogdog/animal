@@ -13,9 +13,9 @@ public class AnimalController {
     @Autowired
     private AnimalService animalService;
 
-    @GetMapping("/login_register")
-    public String goLoginRegister() {
-        return "login_register";
+    @GetMapping("/login_register_test")
+    public String goLoginRegister(){
+        return "login_register_test";
     }
 
     @GetMapping("/missing")
