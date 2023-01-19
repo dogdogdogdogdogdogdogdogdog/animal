@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AnimalController {
     @Autowired
     private AnimalService animalService;
-    private String testtest;
 
     @GetMapping("/login_register_test")
     public String goLoginRegister(){
