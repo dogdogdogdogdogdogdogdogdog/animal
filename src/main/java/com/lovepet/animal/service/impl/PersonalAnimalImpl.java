@@ -1,6 +1,7 @@
 package com.lovepet.animal.service.impl;
 
 import com.lovepet.animal.dao.PersonalAnimalDao;
+import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
 import com.lovepet.animal.model.PersonalAnimal;
 import com.lovepet.animal.service.PersonalAnimalService;
@@ -16,8 +17,8 @@ public class PersonalAnimalImpl implements PersonalAnimalService {
     private PersonalAnimalDao personalAnimalDao;
 
     @Override
-    public List<PersonalAnimal> getPersonalAnimals(String kind, String sex) {
-        return personalAnimalDao.getPersonalAnimals(kind, sex);
+    public List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams) {
+        return personalAnimalDao.getPersonalAnimals(personalAnimalQueryParams);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.lovepet.animal.dao.impl;
 
 import com.lovepet.animal.dao.PersonalAnimalDao;
+import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
 import com.lovepet.animal.model.PersonalAnimal;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
@@ -23,21 +24,21 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public List<PersonalAnimal> getPersonalAnimals(String kind, String sex) {
+    public List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams) {
         String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
                 "image_url, description, created_date, last_modified_date " +
                 "FROM personal_animal WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
 
-        if (kind !=null) {
+        if (personalAnimalQueryParams.getKind() !=null) {
             sql = sql + " AND animal_kind = :animalKind";
-            map.put("animalKind", kind);
+            map.put("animalKind", personalAnimalQueryParams.getKind());
         }
 
-        if (sex !=null) {
+        if (personalAnimalQueryParams.getSex() !=null) {
             sql = sql + " AND animal_sex = :animalSex";
-            map.put("animalSex", sex);
+            map.put("animalSex", personalAnimalQueryParams.getSex());
         }
 
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());

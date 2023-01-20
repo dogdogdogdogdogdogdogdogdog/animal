@@ -1,5 +1,6 @@
 package com.lovepet.animal.controller;
 
+import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
 import com.lovepet.animal.model.PersonalAnimal;
 import com.lovepet.animal.service.PersonalAnimalService;
@@ -22,7 +23,11 @@ public class PersonalAnimalController {
             @RequestParam(required = false) String kind,
             @RequestParam(required = false) String sex
     ) {
-        List<PersonalAnimal> personalAnimalList = personalAnimalService.getPersonalAnimals(kind, sex);
+        PersonalAnimalQueryParams personalAnimalQueryParams = new PersonalAnimalQueryParams();
+        personalAnimalQueryParams.setKind(kind);
+        personalAnimalQueryParams.setSex(sex);
+
+        List<PersonalAnimal> personalAnimalList = personalAnimalService.getPersonalAnimals(personalAnimalQueryParams);
 
         return ResponseEntity.status(HttpStatus.OK).body(personalAnimalList);
     }
