@@ -4,6 +4,7 @@ import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
 import com.lovepet.animal.model.PersonalAnimal;
 import com.lovepet.animal.service.PersonalAnimalService;
+import com.lovepet.animal.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class PersonalAnimalController {
     private PersonalAnimalService personalAnimalService;
 
     @GetMapping("/personalAnimals")//查詢個人收容所資料(全部)
-    public ResponseEntity<List<PersonalAnimal>> getPersonalAnimals(
+    public ResponseEntity<Page<PersonalAnimal>> getPersonalAnimals(
             //查詢條件
             @RequestParam(required = false) String kind,
             @RequestParam(required = false) String sex,
@@ -44,9 +45,20 @@ public class PersonalAnimalController {
         personalAnimalQueryParams.setLimit(limit);
         personalAnimalQueryParams.setOffset(offset);
 
+        //取得list
         List<PersonalAnimal> personalAnimalList = personalAnimalService.getPersonalAnimals(personalAnimalQueryParams);
 
-        return ResponseEntity.status(HttpStatus.OK).body(personalAnimalList);
+        //取的總筆數
+        Integer total = personalAnimalService.countPersonalAnimal(personalAnimalQueryParams);
+
+        //分頁
+        Page<PersonalAnimal> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResults(personalAnimalList);
+
+        return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
     @GetMapping("/personalAnimals/{personalAnimalId}")//查詢個人收容所資料(單筆)

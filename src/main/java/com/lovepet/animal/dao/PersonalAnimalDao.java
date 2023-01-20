@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface PersonalAnimalDao {
 
+    Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams);
+
     List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams);
 
     PersonalAnimal getPersonalAnimalById(Integer personalAnimalId);

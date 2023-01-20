@@ -17,6 +17,11 @@ public class PersonalAnimalImpl implements PersonalAnimalService {
     private PersonalAnimalDao personalAnimalDao;
 
     @Override
+    public Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams) {
+        return personalAnimalDao.countPersonalAnimal(personalAnimalQueryParams);
+    }
+
+    @Override
     public List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams) {
         return personalAnimalDao.getPersonalAnimals(personalAnimalQueryParams);
     }

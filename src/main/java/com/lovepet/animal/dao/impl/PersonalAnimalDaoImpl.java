@@ -24,6 +24,28 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
+    public Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams) {
+        String sql = "SELECT count(*) FROM personal_animal WHERE 1=1";
+
+        Map<String, Object> map = new HashMap<>();
+
+        //查詢條件
+        if (personalAnimalQueryParams.getKind() !=null) {
+            sql = sql + " AND animal_kind = :animalKind";
+            map.put("animalKind", personalAnimalQueryParams.getKind());
+        }
+
+        if (personalAnimalQueryParams.getSex() !=null) {
+            sql = sql + " AND animal_sex = :animalSex";
+            map.put("animalSex", personalAnimalQueryParams.getSex());
+        }
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
+    }
+
+    @Override
     public List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams) {
         String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
                 "image_url, description, created_date, last_modified_date " +
