@@ -1,0 +1,191 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "3a3e13f7-ee80-4ef6-8c9b-9e4afd39b4cf",
+        "name": "Animal"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n\"animalKind\": \"貓\",\n\"animalVariety\": \"混種貓\",\n\"animalSex\": \"公\",\n\"animalSterilization\": \"T\",\n\"animalBacterin\": \"T\",\n\"imageUrl\": \"https://asms.coa.gov.tw/amlapp/upload/pic/a0727630-d58d-4797-93a1-9ab1853f8617_org.jpg\",\n\"description\": \"\",\n\"createdDate\": \"2023-01-19\",\n\"lastModifiedDate\": \"2023-01-19\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
+              "path": "//personalAnimals"
+            },
+            "id": "bec579e5-cb22-496c-af8c-1aa61b44f060",
+            "name": "createPersonalAnimal",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+              "name": "DELETE"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
+              "path": "//personalAnimals/3"
+            },
+            "id": "2c22f906-1aaf-4c27-8b41-3be1f0b4dcdb",
+            "name": "deletePersonalAnimal",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n\"animalKind\": \"貓\",\n\"animalVariety\": \"混種貓\",\n\"animalSex\": \"公\",\n\"animalSterilization\": \"T\",\n\"animalBacterin\": \"T\",\n\"imageUrl\": \"https://asms.coa.gov.tw/amlapp/upload/pic/ca7f484a-4e74-464e-bb5f-e6161f5aa9c3_org.jpg\",\n\"description\": \"受傷\",\n\"createdDate\": \"2023-01-19\",\n\"lastModifiedDate\": \"2023-01-19\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
+              "path": "//personalAnimals/1"
+            },
+            "id": "1810fb46-e174-40d8-9708-eb3b7124e70a",
+            "name": "getPersonalAnimal",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
+              "path": "//personalAnimals"
+            },
+            "id": "3c339f02-0849-41c4-b303-ebb95931038e",
+            "name": "getPersonalAnimals",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+              "name": "PUT"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n\"animalKind\": \"貓\",\n\"animalVariety\": \"混種貓\",\n\"animalSex\": \"公\",\n\"animalSterilization\": \"F\",\n\"animalBacterin\": \"F\",\n\"imageUrl\": \"https://asms.coa.gov.tw/amlapp/upload/pic/ca7f484a-4e74-464e-bb5f-e6161f5aa9c3_org.jpg\",\n\"description\": \"受傷\",\n\"createdDate\": \"2023-01-19\",\n\"lastModifiedDate\": \"2023-01-19\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
+              "path": "//personalAnimals/1"
+            },
+            "id": "e2a9293b-1bd0-4f6c-bd88-9d80de9797d5",
+            "name": "updatePersonalAnimal",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.lovepet.animal.dao;
 
+import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
 import com.lovepet.animal.model.PersonalAnimal;
 
@@ -7,7 +8,9 @@ import java.util.List;
 
 public interface PersonalAnimalDao {
 
-    List<PersonalAnimal> getPersonalAnimals();
+    Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams);
+
+    List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams);
 
     PersonalAnimal getPersonalAnimalById(Integer personalAnimalId);
 
