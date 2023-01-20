@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PersonalAnimalService {
 
-    List<PersonalAnimal> getPersonalAnimals();
+    List<PersonalAnimal> getPersonalAnimals(String kind, String sex);
 
     PersonalAnimal getPersonalAnimalById(Integer personalAnimalId);
 

@@ -16,8 +16,8 @@ public class PersonalAnimalImpl implements PersonalAnimalService {
     private PersonalAnimalDao personalAnimalDao;
 
     @Override
-    public List<PersonalAnimal> getPersonalAnimals() {
-        return personalAnimalDao.getPersonalAnimals();
+    public List<PersonalAnimal> getPersonalAnimals(String kind, String sex) {
+        return personalAnimalDao.getPersonalAnimals(kind, sex);
     }
 
     @Override

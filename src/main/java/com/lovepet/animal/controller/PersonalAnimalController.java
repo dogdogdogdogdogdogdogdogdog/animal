@@ -19,9 +19,10 @@ public class PersonalAnimalController {
 
     @GetMapping("/personalAnimals")//查詢個人收容所資料(全部)
     public ResponseEntity<List<PersonalAnimal>> getPersonalAnimals(
-            
+            @RequestParam(required = false) String kind,
+            @RequestParam(required = false) String sex
     ) {
-        List<PersonalAnimal> personalAnimalList = personalAnimalService.getPersonalAnimals();
+        List<PersonalAnimal> personalAnimalList = personalAnimalService.getPersonalAnimals(kind, sex);
 
         return ResponseEntity.status(HttpStatus.OK).body(personalAnimalList);
     }
