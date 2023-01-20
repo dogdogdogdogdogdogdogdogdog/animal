@@ -31,6 +31,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         Map<String, Object> map = new HashMap<>();
 
+        //查詢條件
         if (personalAnimalQueryParams.getKind() !=null) {
             sql = sql + " AND animal_kind = :animalKind";
             map.put("animalKind", personalAnimalQueryParams.getKind());
@@ -41,7 +42,13 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
             map.put("animalSex", personalAnimalQueryParams.getSex());
         }
 
+        //排序
         sql = sql + " ORDER BY " + personalAnimalQueryParams.getOrderBy() + " " + personalAnimalQueryParams.getSort();
+
+        //分頁
+        sql = sql + " LIMIT :limit OFFSET :offset";
+        map.put("limit", personalAnimalQueryParams.getLimit());
+        map.put("offset", personalAnimalQueryParams.getOffset());
 
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
