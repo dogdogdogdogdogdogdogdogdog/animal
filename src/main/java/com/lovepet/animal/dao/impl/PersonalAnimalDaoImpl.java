@@ -41,6 +41,8 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
             map.put("animalSex", personalAnimalQueryParams.getSex());
         }
 
+        sql = sql + " ORDER BY " + personalAnimalQueryParams.getOrderBy() + " " + personalAnimalQueryParams.getSort();
+
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
         return personalAnimalList;

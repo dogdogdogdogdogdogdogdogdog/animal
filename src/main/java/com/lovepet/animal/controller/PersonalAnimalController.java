@@ -20,12 +20,19 @@ public class PersonalAnimalController {
 
     @GetMapping("/personalAnimals")//查詢個人收容所資料(全部)
     public ResponseEntity<List<PersonalAnimal>> getPersonalAnimals(
+            //查詢條件
             @RequestParam(required = false) String kind,
-            @RequestParam(required = false) String sex
+            @RequestParam(required = false) String sex,
+
+            //排序
+            @RequestParam(defaultValue = "last_modified_date") String orderBy,
+            @RequestParam(defaultValue = "desc") String sort
     ) {
         PersonalAnimalQueryParams personalAnimalQueryParams = new PersonalAnimalQueryParams();
         personalAnimalQueryParams.setKind(kind);
         personalAnimalQueryParams.setSex(sex);
+        personalAnimalQueryParams.setOrderBy(orderBy);
+        personalAnimalQueryParams.setSort(sort);
 
         List<PersonalAnimal> personalAnimalList = personalAnimalService.getPersonalAnimals(personalAnimalQueryParams);
 

@@ -5,7 +5,8 @@ public class PersonalAnimalQueryParams {
     private String kind;
     private String variety;
     private String sex;
-    private String modifiedDate;
+    private String orderBy;
+    private String sort;
 
     public Integer getId() {
         return id;
@@ -39,11 +40,19 @@ public class PersonalAnimalQueryParams {
         this.sex = sex;
     }
 
-    public String getModifiedDate() {
-        return modifiedDate;
+    public String getOrderBy() {
+        return orderBy;
     }
 
-    public void setModifiedDate(String modifiedDate) {
-        this.modifiedDate = modifiedDate;
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }
