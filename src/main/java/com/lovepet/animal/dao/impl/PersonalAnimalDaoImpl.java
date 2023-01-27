@@ -30,15 +30,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
 
         //查詢條件
-        if (personalAnimalQueryParams.getKind() !=null) {
-            sql = sql + " AND animal_kind = :animalKind";
-            map.put("animalKind", personalAnimalQueryParams.getKind());
-        }
-
-        if (personalAnimalQueryParams.getSex() !=null) {
-            sql = sql + " AND animal_sex = :animalSex";
-            map.put("animalSex", personalAnimalQueryParams.getSex());
-        }
+        sql = addFilteringSql(sql, map, personalAnimalQueryParams);
 
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
@@ -54,15 +46,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
 
         //查詢條件
-        if (personalAnimalQueryParams.getKind() !=null) {
-            sql = sql + " AND animal_kind = :animalKind";
-            map.put("animalKind", personalAnimalQueryParams.getKind());
-        }
-
-        if (personalAnimalQueryParams.getSex() !=null) {
-            sql = sql + " AND animal_sex = :animalSex";
-            map.put("animalSex", personalAnimalQueryParams.getSex());
-        }
+        sql = addFilteringSql(sql, map, personalAnimalQueryParams);
 
         //排序
         sql = sql + " ORDER BY " + personalAnimalQueryParams.getOrderBy() + " " + personalAnimalQueryParams.getSort();
@@ -152,4 +136,19 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         namedParameterJdbcTemplate.update(sql, map);
     }
+
+    private String addFilteringSql(String sql, Map<String, Object> map, PersonalAnimalQueryParams personalAnimalQueryParams) {
+        if (personalAnimalQueryParams.getKind() !=null) {
+            sql = sql + " AND animal_kind = :animalKind";
+            map.put("animalKind", personalAnimalQueryParams.getKind());
+        }
+
+        if (personalAnimalQueryParams.getSex() !=null) {
+            sql = sql + " AND animal_sex = :animalSex";
+            map.put("animalSex", personalAnimalQueryParams.getSex());
+        }
+
+        return sql;
+    }
+
 }
