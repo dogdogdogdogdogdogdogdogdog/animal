@@ -5,11 +5,14 @@ import java.util.Date;
 public class PersonalAnimal {
 
     private Integer animalId;
+    private String animalName;
     private String animalKind;
     private String animalVariety;
     private String animalSex;
     private String animalSterilization;
     private String animalBacterin;
+    private String area;
+    private String phone;
     private String imageUrl;
     private String description;
     private Date createdDate;
@@ -21,6 +24,14 @@ public class PersonalAnimal {
 
     public void setAnimalId(Integer animalId) {
         this.animalId = animalId;
+    }
+
+    public String getAnimalName() {
+        return animalName;
+    }
+
+    public void setAnimalName(String animalName) {
+        this.animalName = animalName;
     }
 
     public String getAnimalKind() {
@@ -61,6 +72,22 @@ public class PersonalAnimal {
 
     public void setAnimalBacterin(String animalBacterin) {
         this.animalBacterin = animalBacterin;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getImageUrl() {

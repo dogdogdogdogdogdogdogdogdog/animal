@@ -256,7 +256,7 @@
                 "                        </div>" +
                 "                    </div>" +
                 "                    <div class='text pt-3 px-3 pb-4 text-center' style='cursor: pointer;'>" +
-                "                        <h3 id='" + item.animalId + "'>編號: " + item.animalId + "</h3>" +
+                "                        <h3 id='" + item.animalId + "'>" + item.animalName + "</h3>" +
                 "                        <div class='faded'>" +
                 "                                <p>物種: " + item.animalKind + "</p>" +
                 "                                <p>品種: " + item.animalVariety + "</p>" +
@@ -357,8 +357,8 @@
                 // $("#lastModifiedDate_static").text(data.lastModifiedDate);
                 // $("#imageUrl_static").attr("src", data.imageUrl);
 
-                console.log("編號:" + data.animalId + "\n物種:" + data.animalKind + "\n品種:" + data.animalVariety + "\n性別:" + data.animalSex + "\n絕育:" + data.animalSterilization + "\n疫苗:" + data.animalBacterin +
-                    "\n圖片:" + data.imageUrl + "\n備註:" + data.description + "\n刊登日期:" + data.createdDate + "\n更新日期:" + data.lastModifiedDate);
+                console.log("編號:" + data.animalId + "\n名字:" + data.animalName + "\n物種:" + data.animalKind + "\n品種:" + data.animalVariety + "\n性別:" + data.animalSex + "\n絕育:" + data.animalSterilization + "\n疫苗:" + data.animalBacterin +
+                    "\n地區:" + data.area + "\n電話:" + data.phone + "\n圖片:" + data.imageUrl + "\n備註:" + data.description + "\n刊登日期:" + data.createdDate + "\n更新日期:" + data.lastModifiedDate);
 
             }
         });

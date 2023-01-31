@@ -5,6 +5,9 @@ import javax.validation.constraints.NotNull;
 public class PersonalAnimalRequest {
 
     @NotNull
+    private String animalName;
+
+    @NotNull
     private String animalKind;
 
     @NotNull
@@ -19,7 +22,19 @@ public class PersonalAnimalRequest {
     @NotNull
     private String animalBacterin;
     private String imageUrl;
+
+    private String area;
+
+    private String phone;
     private String description;
+
+    public String getAnimalName() {
+        return animalName;
+    }
+
+    public void setAnimalName(String animalName) {
+        this.animalName = animalName;
+    }
 
     public String getAnimalKind() {
         return animalKind;
@@ -67,6 +82,22 @@ public class PersonalAnimalRequest {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getDescription() {
