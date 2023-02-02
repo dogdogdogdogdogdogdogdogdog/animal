@@ -124,7 +124,6 @@ public class AnimalData {
     }
 
 
-
     public String getAnimalShelterName() {
         return animalShelterName;
     }

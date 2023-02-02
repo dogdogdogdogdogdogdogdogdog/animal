@@ -67,7 +67,7 @@ public class PersonalAnimalController {
 
         if (personalAnimal != null) {
             return ResponseEntity.status(HttpStatus.OK).body(personalAnimal);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -80,9 +80,10 @@ public class PersonalAnimalController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(personalAnimal);
     }
+
     @PutMapping("/personalAnimals/{personalAnimalId}")//修改個人收容所資料
-    public  ResponseEntity<PersonalAnimal> updatePersonalAnimal(@PathVariable Integer personalAnimalId,
-                                                                @RequestBody @Valid PersonalAnimalRequest personalAnimalRequest) {
+    public ResponseEntity<PersonalAnimal> updatePersonalAnimal(@PathVariable Integer personalAnimalId,
+                                                               @RequestBody @Valid PersonalAnimalRequest personalAnimalRequest) {
 
         //檢查personalAnimal Id 是否存在
         PersonalAnimal personalAnimal = personalAnimalService.getPersonalAnimalById(personalAnimalId);
@@ -100,7 +101,7 @@ public class PersonalAnimalController {
     }
 
     @DeleteMapping("/personalAnimals/{personalAnimalId}")
-    public ResponseEntity<?> deletePersonalAnimal(@PathVariable Integer personalAnimalId){
+    public ResponseEntity<?> deletePersonalAnimal(@PathVariable Integer personalAnimalId) {
         personalAnimalService.deletePersonalAnimalById(personalAnimalId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

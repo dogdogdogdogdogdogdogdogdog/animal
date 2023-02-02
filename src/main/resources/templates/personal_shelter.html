@@ -2,6 +2,94 @@
 <html lang="en">
 
 <head>
+    <script src="js/checkLogin.js"></script>
+    <script>
+
+        xhr = new XMLHttpRequest()
+        xhr.addEventListener("load", function () {
+
+            if (xhr.status = 200) {
+                var animalContext = document.getElementById("animalContext")
+                var publishAll = JSON.parse(xhr.responseText)
+
+                for (let i = 0; i < publishAll.length; i++) {
+
+                    var divAnimal = document.createElement('div')
+                    divAnimal.setAttribute('style', "width: 300px; margin: 10px;")
+
+                    var divout = document.createElement('div')
+                    var h3 = document.createElement('h3')
+                    var a = document.createElement('a')
+                    const variety = document.createTextNode(publishAll[i].variety)
+                    a.setAttribute('href', `http://localhost:8080/images/publish/${publishAll[i].photo_url}.jpg`)
+                    a.appendChild(variety)
+                    h3.appendChild(a)
+
+                    var ul = document.createElement('ul')
+                    const body = document.createTextNode(publishAll[i].bodyShape)
+                    var li = document.createElement('li')
+                    li.appendChild(body)
+                    ul.appendChild(li)
+                    const age = document.createTextNode(publishAll[i].age)
+                    var li = document.createElement('li')
+                    li.appendChild(age)
+                    ul.appendChild(li)
+                    const color = document.createTextNode(publishAll[i].color)
+                    var li = document.createElement('li')
+                    li.appendChild(color)
+                    ul.appendChild(li)
+                    const kind = document.createTextNode(publishAll[i].kind)
+                    var li = document.createElement('li')
+                    li.appendChild(kind)
+                    ul.appendChild(li)
+                    const ligation = document.createTextNode(publishAll[i].ligation)
+                    var li = document.createElement('li')
+                    li.appendChild(ligation)
+                    ul.appendChild(li)
+                    const sex = document.createTextNode(publishAll[i].sex)
+                    var li = document.createElement('li')
+                    li.appendChild(sex)
+                    ul.appendChild(li)
+                    const remark = document.createTextNode(publishAll[i].remark)
+                    var li = document.createElement('li')
+                    li.appendChild(remark)
+                    ul.appendChild(li)
+
+                    divout.appendChild(h3)
+                    divout.appendChild(ul)
+                    var divinner = document.createElement('div')
+                    var atel = document.createElement('a')
+                    const tel = document.createTextNode("撥打電話")
+                    atel.setAttribute('href', `tel:${publishAll[i].tel}`)
+                    atel.appendChild(tel)
+                    divinner.appendChild(atel)
+
+                    divout.appendChild(divinner)
+
+
+                    var img = document.createElement('img')
+                    img.setAttribute('src', `http://localhost:8080/images/publish/${publishAll[i].photo_url}.jpg`)
+                    img.setAttribute('width', "300")
+                    img.setAttribute('height', '400')
+                    var aimg = document.createElement('a')
+                    aimg.setAttribute('href', `http://localhost:8080/images/publish/${publishAll[i].photo_url}.jpg`)
+                    aimg.appendChild(img)
+
+                    divAnimal.appendChild(aimg)
+                    divAnimal.appendChild(divout)
+                    animalContext.appendChild(divAnimal)
+
+                }
+            }
+
+        })
+
+        xhr.open("get", "http://localhost:8080/publish_animals/all")
+
+        xhr.send()
+
+
+    </script>
     <title>一般領養 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +112,32 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="css/kidz.css">
+    <style>
+        .page_show {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .page_show span {
+            display: inline-block;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 11px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 1px;
+            border: #b7b7b7 solid 1px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        span.page_cur {
+            color: #fff;;
+            border: #282828 solid 1px;
+            background-color: #424242;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,7 +163,7 @@
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand"><span class="flaticon-pawprint-1 mr-2"></span>寵物資訊平台</a>
+        <a class="navbar-brand">🐾寵物資訊平台</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="fa fa-bars"></span>
@@ -60,10 +173,16 @@
 
                 <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
                 <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
 
-                <li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登寵物</a></li>
+                <li id="userPublishHistory" class="nav-item"></li>
+
+                <li id="userManagement" class="nav-item"></li>
+
+                <li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register"
+                                                            class="nav-link">登入註冊</a></li>
+
             </ul>
         </div>
     </div>
@@ -150,7 +269,7 @@
 
 
 <hr>
-<div style="margin: auto; width: 600px;">
+<div style="margin: auto; width: 800px;">
     物種 :
     <select name="animalKind" id="kind">
         <option>不分種類</option>
@@ -173,17 +292,12 @@
     </div>
 </section>
 
-<div style="margin: auto; width: 220px;">
+
+<div style="margin: auto; width: 800px;">
     <p id="pageInfo"></p><br>
-    <button onclick="goPrePage()">上一頁</button>
-    <select id="page" onchange="sendPageToServer()">
-
-        <option th:each="i:${pages}" th:text="${i}"></option>
-
-
-    </select>
-    <button onclick="goNextPage()">下一頁</button>
+    <div class="page_show"></div>
 </div>
+
 
 <footer class="footer">
     <div class="row mt-5">
@@ -230,6 +344,8 @@
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 <script>
+    var limit;
+    var pages;
 
     $.ajax({
         type: "GET",
@@ -272,69 +388,20 @@
 
 
             $("#test1Result").append(html);
-
-            var pages = Math.ceil(data.total/data.limit);
-            var page = 1;
-
-            if (data.offset/data.limit!=0) {
-                page = data.offset / data.limit;
-            }
-
-
-
         })
-        console.log("單頁筆數limit:"+data["limit"]);
-        console.log("跳過幾筆資料offset:"+data["offset"]);
-        console.log("總筆數:"+data["total"]);
-        pageSet(data);
+
+        pages = Math.ceil(data.total / data.limit);
+        console.log(data.offset / data.limit)
+        limit = data.limit;
+
+        $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+        pageSet(pages);
+
+        console.log("單頁筆數limit:" + data["limit"]);
+        console.log("跳過幾筆資料offset:" + data["offset"]);
+        console.log("總筆數:" + data["total"]);
+
         $.getScript('js/main.js');
-    }
-    function pageSet(data) {
-        var pages = Math.ceil(data.total/data.limit);
-        var page;
-        console.log(data.offset/data.limit)
-        if (data.offset/data.limit!=0) {
-            page = (data.offset / data.limit)+1;
-        }else {
-            page = 1;
-        }
-        $("#pageInfo").text("頁碼:"+page+" / 總頁數:"+pages+"  總筆數:"+data.total);
-        $("#pageInfo").attr("limit", data.limit);
-        $("#pageInfo").attr("page", page);
-        $("#pageInfo").attr("pages", pages);
-    }
-    function goNextPage() {
-        var limit = parseInt($("#pageInfo").attr("limit"));
-        var page = parseInt($("#pageInfo").attr("page"));
-        var pages = parseInt($("#pageInfo").attr("pages"));
-        if (page < pages) {
-            page = page+1;
-            $("#pageInfo").attr("page", page);
-            $.ajax({
-                type: "GET",
-                url: "/personalAnimals?offset=" + limit*(page-1),
-                success: function (data) {
-                    getAnimalList(data);
-                }
-            })
-        }
-    }
-
-    function goPrePage() {
-        var limit = parseInt($("#pageInfo").attr("limit"));
-        var page = parseInt($("#pageInfo").attr("page"));
-        if (page>1) {
-            page = page-1;
-            $("#pageInfo").attr("page", page);
-            $.ajax({
-                type: "GET",
-                url: "/personalAnimals?offset=" + limit*(page-1),
-                success: function (data) {
-                    getAnimalList(data);
-                }
-            })
-        }
-
     }
 
     function getAnimalInfo(gid) {
@@ -346,25 +413,95 @@
             type: "GET",
             url: "/personalAnimals/" + id,
             success: function (data) {
-                // $("#animalId_static").text(data.animalId);
-                // $("#animalKind_static").text(data.animalKind);
-                // $("#animalVariety_static").text(data.animalVariety);
-                // $("#animalSex_static_static").text(data.animalSex_static);
-                // $("#animalSterilization_static").text(data.animalSterilization);
-                // $("#animalBacterin_static").text(data.animalBacterin);
-                // $("#description_static").text(data.description);
-                // $("#createdDate_static").text(data.createdDate);
-                // $("#lastModifiedDate_static").text(data.lastModifiedDate);
-                // $("#imageUrl_static").attr("src", data.imageUrl);
 
-                console.log("編號:" + data.animalId + "\n名字:" + data.animalName + "\n物種:" + data.animalKind + "\n品種:" + data.animalVariety + "\n性別:" + data.animalSex + "\n絕育:" + data.animalSterilization + "\n疫苗:" + data.animalBacterin +
-                    "\n地區:" + data.area + "\n電話:" + data.phone + "\n圖片:" + data.imageUrl + "\n備註:" + data.description + "\n刊登日期:" + data.createdDate + "\n更新日期:" + data.lastModifiedDate);
-
+                console.log("會員:" + data.userId +
+                    "\n編號:" + data.animalId +
+                    "\n名字:" + data.animalName +
+                    "\n物種:" + data.animalKind +
+                    "\n品種:" + data.animalVariety +
+                    "\n性別:" + data.animalSex +
+                    "\n年齡:" + data.animalAge +
+                    "\n體型:" + data.animalBodysize +
+                    "\n毛色:" + data.animalColor +
+                    "\n絕育:" + data.animalSterilization +
+                    "\n疫苗:" + data.animalBacterin +
+                    "\n圖片:" + data.imageUrl +
+                    "\n地區:" + data.area +
+                    "\n備註:" + data.description +
+                    "\n刊登日期:" + data.createdDate +
+                    "\n更新日期:" + data.lastModifiedDate);
             }
         });
     }
 
+    //輸出頁碼
+    function pageSet(pages) {
+        var pageHtml = '';
+        var start, end;
+        if (listPage < 6) {
+            start = 1;
+        } else {
+            start = listPage - 5;
+        }
+        if (listPage > pages - 5) {
+            end = pages;
+        } else {
+            end = listPage + 5;
+        }
 
+        if (listPage > 1) {
+            pageHtml += '<span>上一頁</span>';
+        }
+        for (var i = start, page_cur = ''; i <= end; i++) {
+            if (listPage == i) {
+                page_cur = 'page_cur';
+            } else {
+                page_cur = '';
+            }
+            pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+        }
+        if (listPage < pages) {
+            pageHtml += '<span>下一頁</span>';
+        }
+        $('.page_show').empty().append(pageHtml);
+    }
+
+    //選擇分頁
+    $('body').on('click', '.page_show span', function () {
+        var $this = $(this);
+        if ($this.hasClass('page_cur')) {
+            return;
+        }
+        var page = $this.html();
+        if (page == '上一頁') {
+            listPage = listPage - 1;
+            changePage(listPage);
+            // goPrePage();
+        } else if (page == '下一頁') {
+            listPage = listPage + 1;
+            changePage(listPage);
+            // goNextPage();
+        } else {
+            listPage = parseInt(page);
+            changePage(listPage);
+        }
+        //根據頁碼獲取當前頁列表數據
+        pageSet(pages);
+    });
+    var listPage = 1;
+
+    function changePage(page) {
+        var offset = limit * (page - 1);
+        console.log(offset);
+        console.log(page);
+        $.ajax({
+            type: "GET",
+            url: "/personalAnimals?offset=" + limit * (page - 1),
+            success: function (data) {
+                getAnimalList(data);
+            }
+        })
+    }
 </script>
 
 

@@ -5,6 +5,8 @@ import javax.validation.constraints.NotNull;
 public class PersonalAnimalRequest {
 
     @NotNull
+    private Integer userId;
+    @NotNull
     private String animalName;
 
     @NotNull
@@ -17,16 +19,32 @@ public class PersonalAnimalRequest {
     private String animalSex;
 
     @NotNull
+    private String animalAge;
+
+    @NotNull
+    private String animalBodysize;
+
+    private String animalColor;
+
+    @NotNull
     private String animalSterilization;
 
     @NotNull
     private String animalBacterin;
+
     private String imageUrl;
 
     private String area;
 
-    private String phone;
     private String description;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public String getAnimalName() {
         return animalName;
@@ -60,6 +78,30 @@ public class PersonalAnimalRequest {
         this.animalSex = animalSex;
     }
 
+    public String getAnimalAge() {
+        return animalAge;
+    }
+
+    public void setAnimalAge(String animalAge) {
+        this.animalAge = animalAge;
+    }
+
+    public String getAnimalBodysize() {
+        return animalBodysize;
+    }
+
+    public void setAnimalBodysize(String animalBodysize) {
+        this.animalBodysize = animalBodysize;
+    }
+
+    public String getAnimalColor() {
+        return animalColor;
+    }
+
+    public void setAnimalColor(String animalColor) {
+        this.animalColor = animalColor;
+    }
+
     public String getAnimalSterilization() {
         return animalSterilization;
     }
@@ -90,14 +132,6 @@ public class PersonalAnimalRequest {
 
     public void setArea(String area) {
         this.area = area;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getDescription() {

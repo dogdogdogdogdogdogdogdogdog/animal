@@ -5,8 +5,8 @@ import com.lovepet.animal.model.AnimalData;
 import java.util.List;
 
 public class PageContent {
-   private List<Integer> pages;
-   private List<AnimalData> animals;
+    private List<Integer> pages;
+    private List<AnimalData> animals;
 
     public List<Integer> getPages() {
         return pages;
