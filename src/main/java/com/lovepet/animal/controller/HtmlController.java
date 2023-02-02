@@ -14,15 +14,17 @@ public class HtmlController {
     private AnimalService animalService;
 
     @GetMapping("/user_publish_history")
-    public String goUserPublishHistory(){
+    public String goUserPublishHistory() {
         return "user_publish_history";
     }
+
     @GetMapping("/user_management")
-    public String goUserManagement(){
+    public String goUserManagement() {
         return "user_management";
     }
+
     @GetMapping("/login_register")
-    public String goLoginRegister(){
+    public String goLoginRegister() {
         return "login_register";
     }
 
@@ -40,6 +42,7 @@ public class HtmlController {
     public String goPublish() {
         return "publish";
     }
+
     @GetMapping("/public_shelter")
     public String goPublicShelter(
             Model model,
@@ -58,9 +61,9 @@ public class HtmlController {
         animalQueryParams.setKind(animalKind);
 
 
-        model.addAttribute("shelters",animalService.getShelter());
-        model.addAttribute("pages",animalService.getAnimals(animalQueryParams).getPages());
-        model.addAttribute("animals",animalService.getAnimals(animalQueryParams).getAnimals());
+        model.addAttribute("shelters", animalService.getShelter());
+        model.addAttribute("pages", animalService.getAnimals(animalQueryParams).getPages());
+        model.addAttribute("animals", animalService.getAnimals(animalQueryParams).getAnimals());
         return "public_shelter";
     }
 

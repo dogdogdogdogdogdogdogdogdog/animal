@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class MissingDataRowmapper implements RowMapper {
     @Override
     public MissingData mapRow(ResultSet resultSet, int i) throws SQLException {
-        MissingData missingData=new MissingData();
+        MissingData missingData = new MissingData();
         missingData.setKind(resultSet.getString("kind"));
         missingData.setVariety(resultSet.getString("variety"));
         missingData.setSex(resultSet.getString("sex"));

@@ -11,7 +11,7 @@ public class ShelterRowmapper implements RowMapper {
 
     @Override
     public Shelter mapRow(ResultSet resultSet, int i) throws SQLException {
-        Shelter shelter=new Shelter();
+        Shelter shelter = new Shelter();
         shelter.setName(resultSet.getString("shelter_name"));
 
         return shelter;

@@ -21,24 +21,21 @@ public class PublishController {
     private PublishService publishService;
 
     @GetMapping("/publish_animals/{userId}")
-    public ResponseEntity<List<PublishData>> getPublishData(@PathVariable String userId){
+    public ResponseEntity<List<PublishData>> getPublishData(@PathVariable String userId) {
         List<PublishData> publishData;
-        if(userId.equals("all")){
-         publishData= publishService.getPublishById(null);
-        }else {
-           publishData = publishService.getPublishById(Integer.parseInt(userId));
+        if (userId.equals("all")) {
+            publishData = publishService.getPublishById(null);
+        } else {
+            publishData = publishService.getPublishById(Integer.parseInt(userId));
         }
 
-        if(publishData!=null){
+        if (publishData != null) {
             return ResponseEntity.status(HttpStatus.OK).body(publishData);
         }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
 
     }
-
-
-
 
 
     @PostMapping("/publish_animal/textData")
@@ -52,8 +49,8 @@ public class PublishController {
                                   @RequestParam("ligation") String ligation,
                                   @RequestParam("address") String address,
                                   @RequestParam("remark") String remark,
-                                  HttpSession session){
-        PublishAnimalRequest publishAnimalRequest=new PublishAnimalRequest();
+                                  HttpSession session) {
+        PublishAnimalRequest publishAnimalRequest = new PublishAnimalRequest();
         publishAnimalRequest.setAnimalPhoto(animalPhoto);
         publishAnimalRequest.setKind(kind);
         publishAnimalRequest.setVariety(variety);
@@ -71,21 +68,21 @@ public class PublishController {
     }
 
     @PutMapping("/publish_animals")
-    public ResponseEntity updatePublish(@RequestParam(value = "userId" ,required = false) Integer userId,
-                                                @RequestParam(value = "animalPhoto",required = false) MultipartFile animalPhoto,
-                                                @RequestParam(value = "updateKind",required = false) String kind,
-                                                @RequestParam(value = "updateVariety",required = false) String variety,
-                                                @RequestParam(value = "updateSex",required = false) String sex,
-                                                @RequestParam(value = "updateBodyShape",required = false) String body,
-                                                @RequestParam(value = "updateColor",required = false) String color,
-                                                @RequestParam(value = "updateAge",required = false) String age,
-                                                @RequestParam(value = "updateLigation",required = false) String ligation,
-                                                @RequestParam(value = "updateAddress",required = false) String address,
-                                                @RequestParam(value = "updateRemark",required = false) String remark,
-                                        @RequestParam(value = "item",required = true) Integer item
-                              ){
+    public ResponseEntity updatePublish(@RequestParam(value = "userId", required = false) Integer userId,
+                                        @RequestParam(value = "animalPhoto", required = false) MultipartFile animalPhoto,
+                                        @RequestParam(value = "updateKind", required = false) String kind,
+                                        @RequestParam(value = "updateVariety", required = false) String variety,
+                                        @RequestParam(value = "updateSex", required = false) String sex,
+                                        @RequestParam(value = "updateBodyShape", required = false) String body,
+                                        @RequestParam(value = "updateColor", required = false) String color,
+                                        @RequestParam(value = "updateAge", required = false) String age,
+                                        @RequestParam(value = "updateLigation", required = false) String ligation,
+                                        @RequestParam(value = "updateAddress", required = false) String address,
+                                        @RequestParam(value = "updateRemark", required = false) String remark,
+                                        @RequestParam(value = "item", required = true) Integer item
+    ) {
 
-        PublishAnimalRequest publishAnimalRequest=new PublishAnimalRequest();
+        PublishAnimalRequest publishAnimalRequest = new PublishAnimalRequest();
         publishAnimalRequest.setAnimalPhoto(animalPhoto);
         publishAnimalRequest.setKind(kind);
         publishAnimalRequest.setVariety(variety);
@@ -102,12 +99,12 @@ public class PublishController {
         return ResponseEntity.status(HttpStatus.OK).build();
 
     }
-@DeleteMapping("/publish_animals/{userId}/{item}")
-        public ResponseEntity delPublish(@PathVariable(required = true) Integer userId,@PathVariable(required = true) Integer item){
-        publishService.delPublish(userId,item);
-        return ResponseEntity.status(HttpStatus.OK).build();
-}
 
+    @DeleteMapping("/publish_animals/{userId}/{item}")
+    public ResponseEntity delPublish(@PathVariable(required = true) Integer userId, @PathVariable(required = true) Integer item) {
+        publishService.delPublish(userId, item);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 
 }

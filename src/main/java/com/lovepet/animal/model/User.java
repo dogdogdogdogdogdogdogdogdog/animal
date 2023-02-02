@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class User {
 
-    private  Integer id;
+    private Integer id;
     private String email;
     @JsonIgnore
     private String password;

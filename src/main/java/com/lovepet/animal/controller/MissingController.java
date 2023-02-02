@@ -22,19 +22,19 @@ public class MissingController {
     MissingService missingService;
 
     @GetMapping("/missing_animals/{userId}")
-    public ResponseEntity<List<MissingData>> getPublishData(@PathVariable Integer userId){
+    public ResponseEntity<List<MissingData>> getPublishData(@PathVariable Integer userId) {
 
-        List<MissingData> missingData= missingService.getMissingById(userId);
+        List<MissingData> missingData = missingService.getMissingById(userId);
 
 
-        if(missingData!=null){
+        if (missingData != null) {
             return ResponseEntity.status(HttpStatus.OK).body(missingData);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
 
-
     }
+
     @PostMapping("missing_animal/textData")
     public ResponseEntity publishMissing(@RequestParam("missingAnimalPhoto") MultipartFile animalPhoto,
                                          @RequestParam("missingKind") String kind,
@@ -46,9 +46,9 @@ public class MissingController {
                                          @RequestParam("missingDate") String date,
                                          @RequestParam("missingPlace") String place,
                                          @RequestParam("missingRemark") String remark,
-                                         HttpSession session){
+                                         HttpSession session) {
 
-        MissingAnimalRequest missingAnimalRequest=new MissingAnimalRequest();
+        MissingAnimalRequest missingAnimalRequest = new MissingAnimalRequest();
         missingAnimalRequest.setMissingAnimalPhoto(animalPhoto);
         missingAnimalRequest.setMissingKind(kind);
         missingAnimalRequest.setMissingVariety(variety);
@@ -59,12 +59,11 @@ public class MissingController {
         missingAnimalRequest.setMissingDate(date);
         missingAnimalRequest.setMissingPlace(place);
         missingAnimalRequest.setMissingRemark(remark);
-        missingAnimalRequest.setMissingId((Integer)session.getAttribute("userId"));
+        missingAnimalRequest.setMissingId((Integer) session.getAttribute("userId"));
         missingService.createMissing(missingAnimalRequest);
 
-return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
 
 }

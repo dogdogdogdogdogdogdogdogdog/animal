@@ -14,7 +14,7 @@ public class PublishData {
     private String address;
     private String remark;
     private String photo_url;
-    private  String name;
+    private String name;
     private String tel;
 
     public String getName() {

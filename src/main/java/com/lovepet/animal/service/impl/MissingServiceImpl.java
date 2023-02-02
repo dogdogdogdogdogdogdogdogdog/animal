@@ -19,21 +19,22 @@ import java.util.List;
 public class MissingServiceImpl implements MissingService {
     @Autowired
     private MissingDao missingDao;
+
     @Override
     public void createMissing(MissingAnimalRequest missingAnimalRequest) {
         try {
-            InputStream fis=missingAnimalRequest.getMissingAnimalPhoto().getInputStream();
-            String   path =String.format("D:/animal/src/main/resources/static/images/missing/%s",missingAnimalRequest.getMissingId()+".jpg");
-            FileOutputStream fos=new FileOutputStream(path);
-            byte[] buffer=new byte[1024];
+            InputStream fis = missingAnimalRequest.getMissingAnimalPhoto().getInputStream();
+            String path = String.format("D:/animal/src/main/resources/static/images/missing/%s", missingAnimalRequest.getMissingId() + ".jpg");
+            FileOutputStream fos = new FileOutputStream(path);
+            byte[] buffer = new byte[1024];
             int len;
-            while((len=fis.read(buffer))!=-1) {
-                fos.write(buffer,0,len);
+            while ((len = fis.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
             }
             fos.flush();
             fis.close();
             fos.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         missingDao.createMissing(missingAnimalRequest);

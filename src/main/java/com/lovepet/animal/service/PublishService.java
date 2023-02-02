@@ -8,9 +8,12 @@ import java.util.List;
 public interface PublishService {
 
     public void createPublish(PublishAnimalRequest publishAnimalRequest);
+
     public void updatePublish(PublishAnimalRequest publishAnimalRequest);
+
     public List<PublishData> getPublishById(Integer id);
-    public void delPublish(Integer userId,Integer item);
+
+    public void delPublish(Integer userId, Integer item);
 
 
 }

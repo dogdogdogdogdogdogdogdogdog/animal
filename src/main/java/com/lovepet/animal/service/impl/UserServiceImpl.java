@@ -18,18 +18,17 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
 
-
     @Override
     public Integer registerUser(UserRegisterRequest userRegisterRequest) {
 
-       User user= userDao.getUserByEmail(userRegisterRequest.getEmail());
+        User user = userDao.getUserByEmail(userRegisterRequest.getEmail());
 
 
-       if(user!=null){
-           throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-       }
-    String hashedPassword =    DigestUtils.md5DigestAsHex(userRegisterRequest.getPassword().getBytes());
-    userRegisterRequest.setPassword(hashedPassword);
+        if (user != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        String hashedPassword = DigestUtils.md5DigestAsHex(userRegisterRequest.getPassword().getBytes());
+        userRegisterRequest.setPassword(hashedPassword);
         return userDao.createUser(userRegisterRequest);
     }
 
@@ -41,23 +40,22 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public User login(UserLoginRequest userLoginRequest) {
-           User user= userDao.getUserByEmail(userLoginRequest.getEmail());
-        if (user==null){
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+        if (user == null) {
 //            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-            return  null;
+            return null;
         }
-      String  hashedPassword= DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
+        String hashedPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
 
 
-        if(user.getPassword().equals(hashedPassword)){
-            return  user;
+        if (user.getPassword().equals(hashedPassword)) {
+            return user;
         }
 
 //        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        return  null;
+        return null;
     }
 
     @Override

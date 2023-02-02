@@ -25,7 +25,7 @@ public class PublishServiceImpl implements PublishService {
     @Override
     public void updatePublish(PublishAnimalRequest publishAnimalRequest) {
 
-       publishDao.updatePublish(publishAnimalRequest);
+        publishDao.updatePublish(publishAnimalRequest);
     }
 
     @Override
@@ -35,6 +35,6 @@ public class PublishServiceImpl implements PublishService {
 
     @Override
     public void delPublish(Integer userId, Integer item) {
-         publishDao.delPublish(userId,item);
+        publishDao.delPublish(userId, item);
     }
 }

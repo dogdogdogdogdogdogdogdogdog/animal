@@ -3,20 +3,19 @@ package com.lovepet.animal.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 
-
 public class MissingAnimalRequest {
 
-private Integer missingId;
-private String missingKind;
-private String missingVariety;
-private String missingSex;
-private String missingBodyShape;
-private String missingColor;
-private String missingAge;
-private String missingDate;
-private String missingPlace;
-private String missingRemark;
-private MultipartFile missingAnimalPhoto;
+    private Integer missingId;
+    private String missingKind;
+    private String missingVariety;
+    private String missingSex;
+    private String missingBodyShape;
+    private String missingColor;
+    private String missingAge;
+    private String missingDate;
+    private String missingPlace;
+    private String missingRemark;
+    private MultipartFile missingAnimalPhoto;
 
     public Integer getMissingId() {
         return missingId;

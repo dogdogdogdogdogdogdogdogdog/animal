@@ -20,71 +20,69 @@ import java.util.Map;
 @Component
 public class UserDaoImpl implements UserDao {
     @Autowired
-   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 
     @Override
     public Integer createUser(UserRegisterRequest userRegisterRequest) {
 
-        String sql =" insert into user (email,password,name,tel,created_date,last_modified_date)values(:email,:password,:name,:tel,:create_date,:last_modified_date) ";
-        Map<String,Object> map=new HashMap<>();
-        map.put("email",userRegisterRequest.getEmail());
-        map.put("password",userRegisterRequest.getPassword());
-        map.put("name",userRegisterRequest.getName());
-        map.put("tel",userRegisterRequest.getTel());
-       Date now = new Date();
-        map.put("create_date",now);
-        map.put("last_modified_date",now);
+        String sql = " insert into user (email,password,name,tel,created_date,last_modified_date)values(:email,:password,:name,:tel,:create_date,:last_modified_date) ";
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", userRegisterRequest.getEmail());
+        map.put("password", userRegisterRequest.getPassword());
+        map.put("name", userRegisterRequest.getName());
+        map.put("tel", userRegisterRequest.getTel());
+        Date now = new Date();
+        map.put("create_date", now);
+        map.put("last_modified_date", now);
 
-        KeyHolder keyHolder=new GeneratedKeyHolder();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
-       Integer id= keyHolder.getKey().intValue();
+        Integer id = keyHolder.getKey().intValue();
         return id;
-
 
 
     }
 
     @Override
     public User getUserById(Integer id) {
-        String sql="select user_id,email,password,name,tel from user where user_id=:userId ";
-        Map<String,Object> map=new HashMap<>();
-        map.put("userId",id);
+        String sql = "select user_id,email,password,name,tel from user where user_id=:userId ";
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", id);
 
-       List<User> userList= namedParameterJdbcTemplate.query(sql,map,new UserRowmapper());
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
 
-       if (userList.size()>0){
-           return userList.get(0);
-       }
-       return null;
+        if (userList.size() > 0) {
+            return userList.get(0);
+        }
+        return null;
     }
 
     @Override
     public User getUserByEmail(String email) {
-        String sql="select user_id,email,password,name,tel from user where email=:email ";
-        Map<String,Object> map=new HashMap<>();
-        map.put("email",email);
+        String sql = "select user_id,email,password,name,tel from user where email=:email ";
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", email);
 
-        List<User> userList= namedParameterJdbcTemplate.query(sql,map,new UserRowmapper());
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
 
-        if (userList.size()>0){
+        if (userList.size() > 0) {
             return userList.get(0);
         }
         return null;
     }
 
 
-
     @Override
     public Integer getUserIdByEmail(String email) {
-        String sql="select user_id from user where email=:email ";
-        Map<String,Object> map=new HashMap<>();
-        map.put("email",email);
-        List<User> userList= namedParameterJdbcTemplate.query(sql,map,new UserGetIdRowmapper());
+        String sql = "select user_id from user where email=:email ";
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", email);
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserGetIdRowmapper());
 
-        if (userList.size()>0){
+        if (userList.size() > 0) {
             return userList.get(0).getId();
         }
         return null;

@@ -74,9 +74,9 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
-        if (personalAnimalList.size()>0) {
+        if (personalAnimalList.size() > 0) {
             return personalAnimalList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
@@ -145,12 +145,12 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     }
 
     private String addFilteringSql(String sql, Map<String, Object> map, PersonalAnimalQueryParams personalAnimalQueryParams) {
-        if (personalAnimalQueryParams.getKind() !=null) {
+        if (personalAnimalQueryParams.getKind() != null) {
             sql = sql + " AND animal_kind = :animalKind";
             map.put("animalKind", personalAnimalQueryParams.getKind());
         }
 
-        if (personalAnimalQueryParams.getSex() !=null) {
+        if (personalAnimalQueryParams.getSex() != null) {
             sql = sql + " AND animal_sex = :animalSex";
             map.put("animalSex", personalAnimalQueryParams.getSex());
         }

@@ -16,7 +16,6 @@ public class MissingData {
     private String photoUrl;
 
 
-
     public String getKind() {
         return kind;
     }
