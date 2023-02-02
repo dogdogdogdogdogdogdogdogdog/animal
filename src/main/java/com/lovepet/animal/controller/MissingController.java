@@ -3,7 +3,6 @@ package com.lovepet.animal.controller;
 
 import com.lovepet.animal.dto.MissingAnimalRequest;
 import com.lovepet.animal.model.MissingData;
-import com.lovepet.animal.model.PublishData;
 import com.lovepet.animal.service.MissingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

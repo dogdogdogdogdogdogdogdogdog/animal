@@ -1,11 +1,8 @@
 package com.lovepet.animal.service.impl;
 
 import com.lovepet.animal.dao.MissingDao;
-import com.lovepet.animal.dao.PublishDao;
 import com.lovepet.animal.dto.MissingAnimalRequest;
-import com.lovepet.animal.dto.PublishAnimalRequest;
 import com.lovepet.animal.model.MissingData;
-import com.lovepet.animal.model.PublishData;
 import com.lovepet.animal.service.MissingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

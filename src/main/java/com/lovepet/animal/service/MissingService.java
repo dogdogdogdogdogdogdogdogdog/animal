@@ -3,7 +3,6 @@ package com.lovepet.animal.service;
 import com.lovepet.animal.dto.MissingAnimalRequest;
 
 import com.lovepet.animal.model.MissingData;
-import com.lovepet.animal.model.PublishData;
 
 import java.util.List;
 
