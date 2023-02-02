@@ -84,7 +84,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     @Override
     public Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest) {
         String sql = "INSERT INTO personal_animal(animal_name, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, image_url, area, phone, description, created_date, last_modified_date) " +
-                "VALUES (:animalName, :animalKind, :animalVariety, :animalSex, :animalSterilization, :animalBacterin, :area, :phone, :imageUrl, :description, :createdDate, :lastModifiedDate)";
+                "VALUES (:animalName, :animalKind, :animalVariety, :animalSex, :animalSterilization, :animalBacterin, :imageUrl, :area, :phone, :description, :createdDate, :lastModifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
         map.put("animalName", personalAnimalRequest.getAnimalName());
@@ -95,6 +95,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
         map.put("area", personalAnimalRequest.getArea());
         map.put("phone", personalAnimalRequest.getPhone());
+        map.put("imageUrl", personalAnimalRequest.getImageUrl());
         map.put("description", personalAnimalRequest.getDescription());
 
         Date now = new Date();
