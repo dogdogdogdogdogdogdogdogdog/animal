@@ -12,7 +12,8 @@ public interface AnimalFoodService {
 
     List<AnimalFood> getAnimalFoods(AnimalFoodQueryParams animalFoodQueryParams);
 
-    Set<String> getProductionPlaceSet(AnimalFoodQueryParams animalFoodQueryParams);
+    Set<String> getProductionPlaceSet();
 
-    Set<String> getCategorySet(AnimalFoodQueryParams animalFoodQueryParams);
+    Set<String> getCategorySet();
+
 }
