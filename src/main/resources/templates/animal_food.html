@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>註冊登入 -寵物資訊平台</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/animate.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/button.click.js"></script>
+
+    <style>
+        table {
+            border-collapse: separate;
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffce;
+        }
+        tr:nth-child(even) {
+            background-color: #ffffce;
+        }
+        th:first-child {
+            border-radius: 10px 0px 0px 0px;
+        }
+        th:last-child {
+            border-radius: 0px 10px 0px 0px;
+        }
+        tr:last-child td:first-child {
+            border-radius: 0px 0px 0px 10px;
+        }
+        tr:last-child td:last-child {
+            border-radius: 0px 0px 10px 0px;
+        }
+        .div-shadow {
+            box-shadow:3px 3px 9px grey;
+        }
+        .block-27 ul li a, .block-27 ul li span {
+            color: black;
+            border: 2px solid #e6e6e6;
+            background: #ffffce;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center">
+            </div>
+            <div class="col-md-6 d-flex justify-content-md-end">
+                <div class="social-media">
+                    <p class="mb-0 d-flex">
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand"><span class="flaticon-pawprint-1 mr-2"></span>寵物資訊平台</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
+
+                <li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+<section class="hero-wrap hero-wrap-2" style="ackground-image: url('images/bg_2.jpg');"
+         data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span>登入註冊 <i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-0 bread">登入註冊</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 表格SQL查詢測試用 -->
+<!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
+         style="background-color: blanchedalmond; display: flex !important; position: static !important;">
+    <div class="container" style="display: flex !important;">
+        <div class="row d-md-flex">
+<!--
+            API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
+            可以做的搜尋條件：
+
+            下拉選單
+                產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
+                產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
+                適用寵物： {犬} | {貓} | {其他(一大堆)}
+                主要原料： {魚} | {雞} | {牛}
+            搜尋框(產品名稱)
+
+            建議：
+            1. 類別說明
+            產品種類 ( ※資料整齊)
+            產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
+            適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
+
+            2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
+            3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
+            4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
+            5. 本頁網址 http://localhost:8080/animal_food
+-->
+            <div class="col-md-auto p-3 m-auto ftco-animate">
+                <span>產地 :</span>
+                <select name="place" id="place">
+                    <option value="">產地</option>
+                    <option value="">台灣</option>
+                    <option value="">日本</option>
+<!--           棄用             -->
+<!--                    <option th:each="place:${hashset_place}" th:text="${place}"></option>-->
+                </select>
+                <span>產品種類 :</span>
+                <select name="category" id="category">
+                    <option value="">產品種類</option>
+                    <option value="">貓</option>
+                    <option value="">犬</option>
+<!--           棄用             -->
+<!--                    <option th:each="category:${hashset_category}" th:text="${category}"></option>-->
+                </select>
+                <button onclick="search()">搜尋</button>
+            </div>
+
+            <div class="col-md-auto p-3 m-auto ftco-animate div-shadow" style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
+                <table class="table-hover text-center">
+                    <tr class="">
+                        <th class="table-primary">產品名稱</th>
+                        <th class="table-secondary" style="width: 8%;">產地</th>
+                        <th class="table-info" style="width: 10%;">種類</th>
+                        <th class="table-success" style="width: 10%;">重量</th>
+                        <th class="table-danger" style="width: 10%;">適用</th>
+                        <th class="table-light" style="width: 22%;">主要原料</th>
+                        <th class="table-warning" style="width: 22%;">營養成份</th>
+                    </tr>
+                    <tr>
+                        <td>CIAO多樂米2000億乳酸菌貓罐.雞肉+鰹魚+小魚80g</td>
+                        <td>日本</td>
+                        <td>罐頭</td>
+                        <td>0.08公斤</td>
+                        <td>犬</td>
+                        <td>雞肉、金槍魚、銀魚、鰹魚提取物、醣類（低聚醣等）、滅菌乳酸菌、植物油、增稠穩定劑（加工澱粉、增稠多醣）、礦物質（na、p、cl）、調味料（多種氨基酸）、維生素e、紅趜色素、綠茶提取物、類胡蘿蔔素色素。</td>
+                        <td>蛋白質：65%以上、/脂質：02%以上、/粗纖維：01%以下、/灰分：17%以下、/水分：915%以下、/熱量約30kcal／罐</td>
+                    </tr>
+                    <tr th:each="animal_food:${animal_food_list}">
+                        <td th:text="${animal_food.name}"></td>
+                        <td th:text="${animal_food.productionPlace}"></td>
+                        <td th:text="${animal_food.category}"></td>
+                        <td th:text="${animal_food.weight}"></td>
+                        <td th:text="${animal_food.suitable}"></td>
+                        <td th:text="${animal_food.material}"></td>
+                        <td th:text="${animal_food.nutrient}"></td>
+                    </tr>
+                </table>
+            </div>
+
+<!--            沒有完成的分頁功能 可以刪掉    -->
+            <div class="col-md-12 p-3 m-auto ftco-animate text-center">
+                <div class="block-27" id="change_page">
+                    <ul>
+                        <li><a href="javascript: goPrePage()">&lt;</a></li>
+                        <li class="active"><span>1</span></li>
+                        <li><a href="?page=2">2</a></li>
+                        <li><a href="?page=3">3</a></li>
+                        <li><a href="?page=4">4</a></li>
+                        <li><a href="?page=5">5</a></li>
+                        <li><a href="">6</a></li>
+                        <li><a href="">7</a></li>
+                        <li><a href="">8</a></li>
+                        <li><a href="">9</a></li>
+                        <li><a href="">10</a></li>
+                        <li><a href="javascript: goNextPage()">&gt;</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- 佔位調整版面用 -->
+<!-- class效果:  display: flex 區塊排列平衡 position: static 使此區塊不覆蓋前區塊的陰影效果-->
+<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
+         style="background-color: blanchedalmond; display: flex !important; position: static !important;">
+    <div class="container">
+        <div class="row d-md-flex justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section"></h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <p class="copyright">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/google-map.js"></script>
+<script src="js/main.js"></script>
+
+<script type="text/javascript">
+<!-- 全部都是未完成的功能測試 可以刪掉 -->
+    function search() {
+        let url = "http://localhost:8080/public_shelter?"
+        let page = "page=";
+        let page_value = document.getElementById("page").value;
+        let production_place = "&place=";
+        let place_value = document.getElementById("place").value;
+        let category = "&category="
+        let category_value = document.getElementById("category").value;
+        ajaxToServer("change_page", url + page + page_value +
+            production_place + place_value +
+            + category + category_value);
+        ajaxToServer("query_block", url + page + page_value +
+            production_place + place_value +
+            + category + category_value);
+    }
+
+    function sendPageToServer() {
+        let url = "http://localhost:8080/public_shelter?"
+        let page = "page=";
+        let page_value = document.getElementById("page").value;
+        let production_place = "&place=";
+        let category = "&category="
+        if (hasSearchCondition()) {
+            let place_value = document.getElementById("place").value;
+            let category_value = document.getElementById("category").value;
+            ajaxToServer("query_block", url + page + page_value +
+                production_place + place_value +
+                + category + category_value);
+        } else {
+            ajaxToServer("query_block", url + page + page_value);
+        }
+    }
+
+    function sendPageToServerBySearch() {
+        let url = "http://localhost:8080/public_shelter?"
+        let page = "page=";
+        let page_value = document.getElementById("page").value;
+        let production_place = "&place=";
+        let place_value = document.getElementById("place").value;
+        let category = "&category="
+        let category_value = document.getElementById("category").value;
+        ajaxToServer("query_block", url + page + page_value +
+            production_place + place_value +
+            + category + category_value);
+    }
+
+    function goPrePage() {
+        var x = document.getElementById("page").value;
+        var p = parseInt(x, 10) - 1;
+        if (p == 0) {
+            p = 1
+        }
+        document.getElementById("page").value = p;
+        if (hasSearchCondition()) {
+            sendPageToServerBySearch()
+        } else {
+            sendPageToServer()
+        }
+    }
+
+    function goNextPage() {
+        var x = document.getElementById("page").value;
+        var p = parseInt(x, 10) + 1;
+        var pages = document.getElementById("page").lastElementChild.value
+        pages = parseInt(pages, 10)
+        if (p > pages) {
+            p = pages
+        }
+        document.getElementById("page").value = p;
+
+        if (hasSearchCondition()) {
+            sendPageToServerBySearch()
+        } else {
+            sendPageToServer()
+        }
+    }
+
+    function hasSearchCondition() {
+        var kind = document.getElementById("kind").value;
+        var shelter = document.getElementById("shelter").value;
+        if ((kind != "不分種類") || (shelter != "所有收容所")) {
+            return true
+        }
+        return false
+    }
+
+    function ajaxToServer(id, url) {
+        function main() {
+            return new Promise(function (resolve, reject) {
+                window.setTimeout(function () {
+                    let request = new XMLHttpRequest();
+                    // 請求方法及網址
+                    request.open("GET", url);
+                    // 請求完成並執行函式
+                    request.onload = function () {
+                        let parser = new DOMParser();
+                        let docParsed = parser.parseFromString(request.responseText, "text/html");
+                        // 替換指定元素內容
+                        document.getElementById(id).innerHTML = docParsed.body.getElementById(id).innerHTML;
+                    };
+                    // 送出執行完畢之請求內容
+                    request.send();
+                    resolve("查詢資料");
+                }, 500);
+            });
+        }
+        function loadOk(){
+            return new Promise(function(resolve, reject){
+                window.setTimeout(function(){
+                    $.getScript('js/main.js');
+                    console.log('顯示列表');
+                    resolve('顯示列表');
+                }, 500);
+            });
+        }
+
+        main().then(loadOk);
+
+    }
+
+    function test() {
+        let a = 147;
+        let b = 10;
+        let quo = Math.ceil(a/b);
+        console.log(quo);
+    }
+
+    function login(){
+        var email = $("#input_email").val();
+        var password = $("#input_password").val();
+        var params = {
+            email: email,
+            password: password
+        };
+        // console.log("帳號" +　email);
+        // console.log("密碼" +　password);
+        // console.log("參數" + JSON.stringify(params));
+
+        $.ajax({
+            url: "/users/login",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                email: email,
+                password: password
+            }),
+            success: function (data) {
+                if (data == true) {
+                    console.log("1" + data)
+                    window.location.href = "/test.html"
+                } else {
+                    console.log("2" + data)
+                    $("#input_password").val("");
+                    alert("密碼錯誤！！");
+                }
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>
