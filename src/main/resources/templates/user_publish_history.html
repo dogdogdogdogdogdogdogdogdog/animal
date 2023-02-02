@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script  src="js/checkLogin.js"></script>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        dialog{
+            border: none;
+            box-shadow: 0 2px 6px #ccc;
+            border-radius: 10px;
+        }
+    </style>
+    <title>會員中心 -寵物資訊平台</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/animate.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center">
+
+            </div>
+            <div class="col-md-6 d-flex justify-content-md-end">
+                <div class="social-media">
+                    <p class="mb-0 d-flex">
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" >🐾寵物資訊平台</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
+                <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登寵物</a></li>
+                <li id="userPublishHistory" class="nav-item"></li>
+                <li id="userManagement" class="nav-item"></li>
+
+                <li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
+         data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span>會員刊登資訊<i class="ion-ios-arrow-forward"></i></span>
+                </p>
+                <h1 class="mb-0 bread">會員刊登資訊</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<dialog id="delinfoModal">
+    <p>確定刪除?</p>
+    <button id="delConfirm" onclick="delPublish()">確定</button>
+    <button id="delclose">close</button>
+</dialog>
+
+
+<dialog id="infoModal">
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateKind" type="text" class="form-control" placeholder="種類" >
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateVariety" type="text" class="form-control" placeholder="品種">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateSex" type="text" class="form-control" placeholder="性別">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateBodyShape" type="text" class="form-control" placeholder="體型">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateColor" type="text" class="form-control" placeholder="顏色">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateAge" type="text" class="form-control" placeholder="年齡">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateLigation" type="text" class="form-control" placeholder="是否結扎">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateAddress" type="text" class="form-control" placeholder="地址">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input id="updateRemark" type="text" class="form-control" placeholder="備註">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input type="file" id="animalPhoto" />
+        </div>
+    </div>
+    <button onclick="updatePublish()">修改</button>
+    <button id="close">close</button>
+</dialog>
+<table id="publishContent">
+    <tr>
+        <th>項目</th>
+        <th>種類</th>
+        <th>品種</th>
+        <th>性別</th>
+        <th>體型</th>
+        <th>顏色</th>
+        <th>年紀</th>
+        <th>是否結扎</th>
+        <th>地址</th>
+        <th>備註</th>
+    </tr>
+
+
+
+</table>
+
+
+<footer class="footer">
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i
+                        class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                                                          target="_blank">Colorlib.com</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+    <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+    <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+            stroke="#F96D00" />
+</svg></div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/google-map.js"></script>
+<script src="js/main.js"></script>
+<script src="js/updatePublish.js"></script>
+<script src="js/delPublish.js"></script>
+
+
+
+
+
+<script>
+    let close=document.querySelector("#close");
+close.addEventListener("click", function(){
+    infoModal.close();
+})
+ let delclose=document.querySelector("#delclose");
+    delclose.addEventListener("click", function(){
+    delinfoModal.close();
+})</script>
+</body>
+
+</html>

@@ -3,32 +3,14 @@ package com.lovepet.animal.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class UserRegisterRequest {
+public class UserLoginRequest {
+
+
     @NotBlank
     @Email
     private String email;
     @NotBlank
     private String password;
-    @NotBlank
-    private String name;
-    @NotBlank
-    private String tel;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
 
     public String getEmail() {
         return email;

@@ -9,10 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class AnimalController {
+public class HtmlController {
     @Autowired
     private AnimalService animalService;
 
+    @GetMapping("/user_publish_history")
+    public String goUserPublishHistory(){
+        return "user_publish_history";
+    }
+    @GetMapping("/user_management")
+    public String goUserManagement(){
+        return "user_management";
+    }
     @GetMapping("/login_register")
     public String goLoginRegister(){
         return "login_register";
@@ -32,8 +40,6 @@ public class AnimalController {
     public String goPublish() {
         return "publish";
     }
-
-
     @GetMapping("/public_shelter")
     public String goPublicShelter(
             Model model,
@@ -51,10 +57,10 @@ public class AnimalController {
         animalQueryParams.setShelter(shelterName);
         animalQueryParams.setKind(animalKind);
 
-        System.out.println(animalService.getAnimals(animalQueryParams).getPages().size());
-        model.addAttribute("shelters", animalService.getShelter());
-        model.addAttribute("pages", animalService.getAnimals(animalQueryParams).getPages());
-        model.addAttribute("animals", animalService.getAnimals(animalQueryParams).getAnimals());
+
+        model.addAttribute("shelters",animalService.getShelter());
+        model.addAttribute("pages",animalService.getAnimals(animalQueryParams).getPages());
+        model.addAttribute("animals",animalService.getAnimals(animalQueryParams).getAnimals());
         return "public_shelter";
     }
 
