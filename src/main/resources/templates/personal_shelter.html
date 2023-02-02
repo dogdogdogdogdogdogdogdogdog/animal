@@ -112,8 +112,6 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="css/kidz.css">
-
     <style>
         .page_show {
             padding: 40px 0;
@@ -415,19 +413,23 @@
             type: "GET",
             url: "/personalAnimals/" + id,
             success: function (data) {
-                // $("#animalId_static").text(data.animalId);
-                // $("#animalKind_static").text(data.animalKind);
-                // $("#animalVariety_static").text(data.animalVariety);
-                // $("#animalSex_static_static").text(data.animalSex_static);
-                // $("#animalSterilization_static").text(data.animalSterilization);
-                // $("#animalBacterin_static").text(data.animalBacterin);
-                // $("#description_static").text(data.description);
-                // $("#createdDate_static").text(data.createdDate);
-                // $("#lastModifiedDate_static").text(data.lastModifiedDate);
-                // $("#imageUrl_static").attr("src", data.imageUrl);
 
-                console.log("編號:" + data.animalId + "\n名字:" + data.animalName + "\n物種:" + data.animalKind + "\n品種:" + data.animalVariety + "\n性別:" + data.animalSex + "\n絕育:" + data.animalSterilization + "\n疫苗:" + data.animalBacterin +
-                    "\n地區:" + data.area + "\n圖片:" + data.imageUrl + "\n備註:" + data.description + "\n刊登日期:" + data.createdDate + "\n更新日期:" + data.lastModifiedDate);
+                console.log("會員:" + data.userId +
+                    "\n編號:" + data.animalId +
+                    "\n名字:" + data.animalName +
+                    "\n物種:" + data.animalKind +
+                    "\n品種:" + data.animalVariety +
+                    "\n性別:" + data.animalSex +
+                    "\n年齡:" + data.animalAge +
+                    "\n體型:" + data.animalBodysize +
+                    "\n毛色:" + data.animalColor +
+                    "\n絕育:" + data.animalSterilization +
+                    "\n疫苗:" + data.animalBacterin +
+                    "\n圖片:" + data.imageUrl +
+                    "\n地區:" + data.area +
+                    "\n備註:" + data.description +
+                    "\n刊登日期:" + data.createdDate +
+                    "\n更新日期:" + data.lastModifiedDate);
             }
         });
     }
