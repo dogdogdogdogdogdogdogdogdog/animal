@@ -31,6 +31,7 @@ public class AnimalDaoImpl implements AnimalDao {
 
         String shelterAndKindQuery="";
         if( !(animalQueryParams.getShelter().equals("所有收容所")) || !(animalQueryParams.getKind().equals("不分種類")) ){
+
             hasOtherQuery=true;
             if(!(animalQueryParams.getShelter().equals("所有收容所"))){
                 shelterAndKindQuery=shelterAndKindQuery+" and shelter_name= :shelterName ";
@@ -53,7 +54,6 @@ public class AnimalDaoImpl implements AnimalDao {
         sql=sql+shelterAndKindQuery+splitPage;
         map.put("limit",animalQueryParams.getLimit());
         map.put("offset",animalQueryParams.getOffset());
-
 
         pageContent.setAnimals(namedParameterJdbcTemplate.query(sql,map,new AnimalRowmapper()));
 

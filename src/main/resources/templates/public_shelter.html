@@ -3,6 +3,13 @@
 
 
 <head>
+	<script  src="js/checkLogin.js"></script>
+
+
+
+
+
+
 	<title>公立領養 -寵物資訊平台</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -49,7 +56,7 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand"><span class="flaticon-pawprint-1 mr-2"></span>寵物資訊平台</a>
+			<a class="navbar-brand">🐾寵物資訊平台</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="fa fa-bars"></span> 
@@ -59,10 +66,14 @@
 			
 					<li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
 					<li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-					<li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
 					<li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
+					<li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登寵物</a></li>
+					<li id="userPublishHistory" class="nav-item"></li>
 
-					<li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+					<li id="userManagement" class="nav-item"></li>
+
+					<li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+
 				</ul>
 			</div>
 		</div>

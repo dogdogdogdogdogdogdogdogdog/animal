@@ -1,16 +1,27 @@
 package com.lovepet.animal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class User {
 
-
+    private  Integer id;
     private String email;
+    @JsonIgnore
     private String password;
     private String name;
     private String tel;
     private Date createdDate;
     private Date lastModifiedDate;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

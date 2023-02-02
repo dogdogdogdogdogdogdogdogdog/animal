@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
     <title>註冊登入 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,7 +21,11 @@
 
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-	  <script  src="js/button.click.js"></script>
+	  <script  src="js/login.click.js"></script>
+	  <script  src="js/regist.click.js"></script>
+	  <script  src="js/judgeRegistEmail.js"></script>
+	  <script  src="js/judgeLoginEmail.js"></script>
+
   </head>
   <body>
 
@@ -44,7 +49,7 @@
 		</div>
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	    	<a class="navbar-brand" ><span class="flaticon-pawprint-1 mr-2"></span>寵物資訊平台</a>
+	    	<a class="navbar-brand" >🐾寵物資訊平台</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" 
 		  	aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="fa fa-bars"></span>
@@ -54,8 +59,8 @@
 
 				<li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
 					<li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-					<li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
 					<li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
+				<li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登寵物</a></li>
 
 					<li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
 	        </ul>
@@ -75,21 +80,16 @@
       </div>
     </section>
 
-    <section class="ftco-section bg-light">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-6 text-center mb-5">
-						<h2 class="heading-section"></h2>
-					</div>
-				</div>
-		</section>
+
 
 		<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
 		style="background-color: blanchedalmond; ">
 	
 		<div class="overlay"></div>
 		<div class="container">
+			<h2 class="mb-">登入</h2>
 			<div class="row d-md-flex justify-content-end">
+
 				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
 					<h2 class="mb-">登入</h2>
 					<form action="" class="appointment">
@@ -103,12 +103,13 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="電子郵件 帳號">
+									<input id="loginEmail" type="text" class="form-control" placeholder="電子郵件 帳號" onchange="judgeLoginEmail(this.id)">
+									<b id="loginPromptEmail" ></b>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="密碼">
+									<input id="loginPassword" type="text" class="form-control" placeholder="密碼">
 								</div>
 							</div>
 							
@@ -116,7 +117,7 @@
 
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="submit" value="送出" class="btn btn-primary py-3 px-4">
+<!--									<button onclick="login()"   class="btn btn-primary py-3 px-4">送出</button>-->
 								</div>
 							</div>
 						</div>
@@ -129,7 +130,7 @@
 		<div class="container">
 			<div class="row d-md-flex justify-content-end">
 				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
-					<h2 class="mb-4">註冊</h2>
+					<h2 id="registStatus" class="mb-4">註冊</h2>
 					<form   class="appointment">
 						<div class="row">
 							<div class="col-md-12">
@@ -141,29 +142,33 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input id="emailAjax" type="text" class="form-control" placeholder="電子郵件 帳號">
+									<input id="emailAjax" type="email"  class="form-control" placeholder="電子郵件 帳號" onchange="judgeRegistEmail(this.id)" required/>
+									<b id="promptEmail" ></b>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input id="passwordAjax" type="text" class="form-control" placeholder="密碼">
+									<input id="passwordAjax" type="text" class="form-control" placeholder="密碼" >
+
 								</div>
 							</div>
 							
 							<div class="col-md-6">
 								<div class="form-group">
-									<input id="nameAjax" type="text" class="form-control" placeholder="姓名">
+									<input id="nameAjax" type="text" class="form-control" placeholder="姓名"  >
+
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input id="telAjax" type="text" class="form-control" placeholder="聯絡電話">
+									<input id="telAjax" type="text" class="form-control" placeholder="聯絡電話"	>
+
 								</div>
 							</div>
 
 							<div class="col-md-12">
 								<div class="form-group">
-									<button onclick="send()"   class="btn btn-primary py-3 px-4">送出</button>
+<!--									<button onclick="regist()"   class="btn btn-primary py-3 px-4">送出</button>-->
 								</div>
 							</div>
 						</div>
@@ -172,6 +177,9 @@
 			</div>
 		</div>
 	</section>
+
+	<button id="loginBtn" onclick="login()"   class="btn btn-primary py-3 px-4">登入</button>
+	<button id="registBtn" onclick="regist()"   class="btn btn-primary py-3 px-4">註冊</button>
 
 	<footer class="footer">
 		<div class="row mt-5">
@@ -184,8 +192,7 @@
 </footer>
 
 
-    
-  
+
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>

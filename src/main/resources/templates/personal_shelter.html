@@ -2,6 +2,94 @@
 <html lang="en">
 
 <head>
+	<script  src="js/checkLogin.js"></script>
+	<script>
+
+			xhr = new XMLHttpRequest()
+			xhr.addEventListener("load", function (){
+
+				if(xhr.status=200){
+					var animalContext = document.getElementById("animalContext")
+					var publishAll= JSON.parse(xhr.responseText)
+
+					for(let i=0;i<publishAll.length;i++){
+
+						var divAnimal=document.createElement('div')
+						divAnimal.setAttribute('style',"width: 300px; margin: 10px;")
+
+						var divout=document.createElement('div')
+						var h3= document.createElement('h3')
+						var a=document.createElement('a')
+						const variety=document.createTextNode(publishAll[i].variety)
+						a.setAttribute('href',`http://localhost:8080/images/publish/${publishAll[i].photo_url}.jpg`)
+						a.appendChild(variety)
+						h3.appendChild(a)
+
+						var ul=document.createElement('ul')
+						const body=document.createTextNode(publishAll[i].bodyShape)
+						var li=document.createElement('li')
+						li.appendChild(body)
+						ul.appendChild(li)
+						const age=document.createTextNode(publishAll[i].age)
+						var li=document.createElement('li')
+						li.appendChild(age)
+						ul.appendChild(li)
+						const color=document.createTextNode(publishAll[i].color)
+						var li=document.createElement('li')
+						li.appendChild(color)
+						ul.appendChild(li)
+						const kind=document.createTextNode(publishAll[i].kind)
+						var li=document.createElement('li')
+						li.appendChild(kind)
+						ul.appendChild(li)
+						const ligation=document.createTextNode(publishAll[i].ligation)
+						var li=document.createElement('li')
+						li.appendChild(ligation)
+						ul.appendChild(li)
+						const sex=document.createTextNode(publishAll[i].sex)
+						var li=document.createElement('li')
+						li.appendChild(sex)
+						ul.appendChild(li)
+						const remark=document.createTextNode(publishAll[i].remark)
+						var li=document.createElement('li')
+						li.appendChild(remark)
+						ul.appendChild(li)
+
+						divout.appendChild(h3)
+						divout.appendChild(ul)
+						var divinner=document.createElement('div')
+						var atel=document.createElement('a')
+						const tel=document.createTextNode("撥打電話")
+						atel.setAttribute('href',`tel:${publishAll[i].tel}`)
+						atel.appendChild(tel)
+						divinner.appendChild(atel)
+
+						divout.appendChild(divinner)
+
+
+						var img=document.createElement('img')
+						img.setAttribute('src',`http://localhost:8080/images/publish/${publishAll[i].photo_url}.jpg`)
+						img.setAttribute('width',"300")
+						img.setAttribute('height','400')
+						var aimg=document.createElement('a')
+						aimg.setAttribute('href',`http://localhost:8080/images/publish/${publishAll[i].photo_url}.jpg`)
+						aimg.appendChild(img)
+
+						divAnimal.appendChild(aimg)
+						divAnimal.appendChild(divout)
+						animalContext.appendChild(divAnimal)
+
+					}
+				}
+
+			})
+
+			xhr.open("get","http://localhost:8080/publish_animals/all")
+
+			xhr.send()
+
+
+	</script>
 	<title>一般領養 -寵物資訊平台</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,7 +136,7 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" ><span class="flaticon-pawprint-1 mr-2"></span>寵物資訊平台</a>
+			<a class="navbar-brand" >🐾寵物資訊平台</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="fa fa-bars"></span> 
@@ -58,10 +146,15 @@
 				
 					<li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
 					<li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-					<li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
-					<li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
 
-					<li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+					<li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
+					<li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登寵物</a></li>
+					<li id="userPublishHistory" class="nav-item"></li>
+
+					<li id="userManagement" class="nav-item"></li>
+
+					<li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+
 				</ul>
 			</div>
 		</div>
@@ -81,247 +174,16 @@
 		</div>
 	</section>
 
-	<section class="ftco-section bg-light">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(./images/cat.jpeg);">
-							</div>
-						</div>
-						
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Lloyd Wilson</h3>
-							<span class="position mb-2">Health Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(images/staff-2.jpg);">
-							</div>
-						</div>
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Rachel Parker</h3>
-							<span class="position mb-2">Life &amp; Business Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(images/staff-3.jpg);">
-							</div>
-						</div>
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Ian Smith</h3>
-							<span class="position mb-2">Executive Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(images/staff-4.jpg);">
-							</div>
-						</div>
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Alicia Henderson</h3>
-							<span class="position mb-2">Health Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+	<section id="animalContext" style=" display: flex;justify-content:center;flex-wrap: wrap;">
 
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(images/staff-5.jpg);">
-							</div>
-						</div>
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Lloyd Wilson</h3>
-							<span class="position mb-2">Executive Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(images/staff-6.jpg);">
-							</div>
-						</div>
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Rachel Parker</h3>
-							<span class="position mb-2">Health Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(images/staff-7.jpg);">
-							</div>
-						</div>
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Ian Smith</h3>
-							<span class="position mb-2">Health Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="staff">
-						<div class="img-wrap d-flex align-items-stretch">
-							<div class="img align-self-stretch" style="background-image: url(images/staff-8.jpg);">
-							</div>
-						</div>
-						<div class="text pt-3 px-3 pb-4 text-center">
-							<h3>Fred Henderson</h3>
-							<span class="position mb-2">Executive Coach</span>
-							<div class="faded">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-								<ul class="ftco-social text-center">
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-google"></span></a></li>
-									<li class="ftco-animate"><a href="#"
-											class="d-flex align-items-center justify-content-center"><span
-												class="fa fa-instagram"></span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+
+
+
+
+
+
 	</section>
-
+pages
 	<footer class="footer">
 		<div class="row mt-5">
 			<div class="col-md-12 text-center">
@@ -365,7 +227,6 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
-
 
 
 </body>
