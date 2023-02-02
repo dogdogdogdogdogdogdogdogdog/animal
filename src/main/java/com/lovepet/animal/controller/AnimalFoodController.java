@@ -19,8 +19,8 @@ public class AnimalFoodController {
     @Autowired
     private AnimalFoodService animalFoodService;
 
-    @GetMapping("/testpage")
-    public String goTestpage(
+    @GetMapping("/animal_food")
+    public String goAnimalFood(
             Model model,
             // 查詢條件 Filtering
             @RequestParam(required = false) String place,
@@ -51,7 +51,7 @@ public class AnimalFoodController {
         page.setTotal(total);
         page.setResults(animalFoodList);
 
-        // 搜尋條件-下拉選單
+        // 搜尋條件-送資料至下拉選單
         HashSet<String> hashSetPlace = new HashSet<>();
         HashSet<String> hashSetCategory = new HashSet<>();
 

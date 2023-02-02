@@ -101,7 +101,7 @@
     </div>
 </nav>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
+<section class="hero-wrap hero-wrap-2" style="ackground-image: url('images/bg_2.jpg');"
          data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -113,111 +113,49 @@
         </div>
     </div>
 </section>
-
-<!-- 測試用-會員資料修改表單 -->
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
-         style="background-color: blanchedalmond; display: flex !important;">
-    <div class="container">
-        <div class="row d-md-flex justify-content-center">
-            <div class="col-sm-10 col-md-8 col-lg-6 half p-5 ftco-animate">
-                <h2 class="mb-4" style="color: #fc7000 !important;">會員資料修改</h2>
-                <form action="" class="">
-                    <div class="row" style="display: block !important;">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <input id="emailAjax" type="text" class="form-control" placeholder="電子郵件">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <input id="passwordAjax" type="text" class="form-control" placeholder="密碼">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <input id="telAjax" type="text" class="form-control" placeholder="聯絡電話">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <!--                                <button onclick="send()" class="btn btn-primary py-3 px-4">送出</button>-->
-                                <button type="submit" class="btn btn-primary py-3 px-4">送出</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 表格測試用 -->
-<!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
-         style="background-color: blanchedalmond; display: flex !important;">
-    <div class="container">
-        <div class="row d-md-flex justify-content-end">
-            <div class="col-md-12 p-3 m-auto ftco-animate div-shadow" style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
-                <table class="table-hover text-center">
-                    <tr class="">
-                        <th class="table-primary">產品名稱</th>
-                        <th class="table-secondary" style="width: 5%;">產地</th>
-                        <th class="table-info" style="width: 5%;">種類</th>
-                        <th class="table-success" style="width: 8%;">重量</th>
-                        <th class="table-danger" style="width: 5%;">適用</th>
-                        <th class="table-light" style="width: 25%;">主要原料</th>
-                        <th class="table-warning" style="width: 25%;">營養成份</th>
-                    </tr>
-                    <tr>
-                        <td>CIAO多樂米2000億乳酸菌貓罐.雞肉+鰹魚+小魚80g</td>
-                        <td>日本</td>
-                        <td>罐頭</td>
-                        <td>0.08公斤</td>
-                        <td>犬</td>
-                        <td>雞肉、金槍魚、銀魚、鰹魚提取物、醣類（低聚醣等）、滅菌乳酸菌、植物油、增稠穩定劑（加工澱粉、增稠多醣）、礦物質（na、p、cl）、調味料（多種氨基酸）、維生素e、紅趜色素、綠茶提取物、類胡蘿蔔素色素。</td>
-                        <td>蛋白質：65%以上、/脂質：02%以上、/粗纖維：01%以下、/灰分：17%以下、/水分：915%以下、/熱量約30kcal／罐</td>
-                    </tr>
-                    <tr>
-                        <td>none</td>
-                        <td>none</td>
-                        <td>none</td>
-                        <td>none</td>
-                        <td>none</td>
-                        <td>none</td>
-                        <td>none</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <!-- 表格SQL查詢測試用 -->
 <!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
 <section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
          style="background-color: blanchedalmond; display: flex !important; position: static !important;">
     <div class="container" style="display: flex !important;">
         <div class="row d-md-flex">
+<!--
+            API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
+            可以做的搜尋條件：
 
+            下拉選單
+                產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
+                產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
+                適用寵物： {犬} | {貓} | {其他(一大堆)}
+                主要原料： {魚} | {雞} | {牛}
+            搜尋框(產品名稱)
+
+            建議：
+            1. 類別說明
+            產品種類 ( ※資料整齊)
+            產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
+            適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
+
+            2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
+            3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
+            4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
+            5. 本頁網址 http://localhost:8080/animal_food
+-->
             <div class="col-md-auto p-3 m-auto ftco-animate">
                 <span>產地 :</span>
                 <select name="place" id="place">
-                    <option>產地</option>
-                    <option>台灣</option>
-                    <option>日本</option>
+                    <option value="">產地</option>
+                    <option value="">台灣</option>
+                    <option value="">日本</option>
+<!--           棄用             -->
 <!--                    <option th:each="place:${hashset_place}" th:text="${place}"></option>-->
                 </select>
                 <span>產品種類 :</span>
                 <select name="category" id="category">
-                    <option>產品種類</option>
-                    <option>貓</option>
-                    <option>犬</option>
+                    <option value="">產品種類</option>
+                    <option value="">貓</option>
+                    <option value="">犬</option>
+<!--           棄用             -->
 <!--                    <option th:each="category:${hashset_category}" th:text="${category}"></option>-->
                 </select>
                 <button onclick="search()">搜尋</button>
@@ -255,16 +193,7 @@
                 </table>
             </div>
 
-            <div class="col-md-12 p-3 m-auto ftco-animate text-center" >
-                <span>
-                <button onclick="goPrePage()">上一頁</button>
-                <select id="page" onchange="sendPageToServer()">
-<!--                    <option th:each="i:${pages}" th:text="${i}"></option>-->
-                </select>
-                <button onclick="goNextPage()">下一頁</button>
-                </span>
-            </div>
-
+<!--            沒有完成的分頁功能 可以刪掉    -->
             <div class="col-md-12 p-3 m-auto ftco-animate text-center">
                 <div class="block-27" id="change_page">
                     <ul>
@@ -282,31 +211,6 @@
                         <li><a href="javascript: goNextPage()">&gt;</a></li>
                     </ul>
                 </div>
-            </div>
-
-<!--  // 純備份 -->
-<!--            <div class="col-md-12 p-3 m-auto ftco-animate text-center">-->
-<!--                <div class="block-27">-->
-<!--                    <ul>-->
-<!--                        <li><a href="?page=${prev }">&lt;</a></li>-->
-<!--                        <li class="active"><span>1</span></li>-->
-<!--                        <li><a href="?page=2">2</a></li>-->
-<!--                        <li><a href="?page=3">3</a></li>-->
-<!--                        <li><a href="?page=4">4</a></li>-->
-<!--                        <li><a href="?page=5">5</a></li>-->
-<!--                        <li><a href="">6</a></li>-->
-<!--                        <li><a href="">7</a></li>-->
-<!--                        <li><a href="">8</a></li>-->
-<!--                        <li><a href="">9</a></li>-->
-<!--                        <li><a href="">10</a></li>-->
-<!--                        <li><a href="?page=${next }">&gt;</a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-
-
-            <div class="col-md-12 p-3 m-auto ftco-animate text-center">
-                <button onclick="test()">測試按鈕</button>
             </div>
 
         </div>
@@ -368,7 +272,7 @@
 <script src="js/main.js"></script>
 
 <script type="text/javascript">
-
+<!-- 全部都是未完成的功能測試 可以刪掉 -->
     function search() {
         let url = "http://localhost:8080/public_shelter?"
         let page = "page=";
