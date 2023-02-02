@@ -33,13 +33,18 @@ showSlides();
 function showSlides(){
     var i;
     var sildes = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
     for(i = 0; i<sildes.length; i++){
         sildes[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" w3-white", "");
     }
     slideIndex++;
     if(slideIndex > sildes.length){
         slideIndex = 1
     }
     sildes[slideIndex -1].style.display = "block";
-    setTimeout(showSlides,5000);
+    dots[slideIndex-1].className += " w3-white";
+    setTimeout(showSlides,2500);
 }
