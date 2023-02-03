@@ -27,6 +27,8 @@ SET time_zone = "+00:00";
 -- 資料表結構 `public_animal`
 --
 
+
+
 CREATE TABLE `public_animal` (
   `animal_id` int(10) NOT NULL,
   `animal_kind` varchar(10) DEFAULT NULL,
