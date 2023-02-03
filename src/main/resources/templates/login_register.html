@@ -7,25 +7,34 @@
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/login.click.js"></script>
     <script src="js/regist.click.js"></script>
     <script src="js/judgeRegistEmail.js"></script>
     <script src="js/judgeLoginEmail.js"></script>
-
+    <!--  自訂樣式  -->
+    <style>
+        .btn.btn-primary {
+            font-size: 1rem;
+            letter-spacing: 10px;
+        }
+        .btn.btn-primary:hover {
+            color: #fff;
+            background: #fcd601;
+            opacity: 0.5;
+        }
+        input, button {
+            font-size: 20px !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -56,23 +65,21 @@
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-
                 <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
                 <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
                 <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
                 <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登寵物</a></li>
-
                 <li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
-         data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+<section class="hero-wrap hero-wrap-2"
+         style="background-image: url('/images/_nav1.jpg'); background-position: center center; height: 300px;">
+    <!--    <div class="overlay"></div>-->
     <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
                 <p class="breadcrumbs mb-2"><span>登入註冊 <i class="ion-ios-arrow-forward"></i></span></p>
                 <h1 class="mb-0 bread">登入註冊</h1>
@@ -81,105 +88,75 @@
     </div>
 </section>
 
-
 <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
-         style="background-color: blanchedalmond; ">
-
+         style="background-color: blanchedalmond;">
     <div class="overlay"></div>
-    <div class="container">
-        <h2 class="mb-">登入</h2>
-        <div class="row d-md-flex justify-content-end">
-
-            <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
-                <h2 class="mb-">登入</h2>
-                <form action="" class="appointment">
-                    <div class="row">
-                        <div class="col-md-12">
-
-
-                        </div>
-                    </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="loginEmail" type="text" class="form-control" placeholder="電子郵件 帳號"
-                           onchange="judgeLoginEmail(this.id)">
-                    <b id="loginPromptEmail"></b>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="loginPassword" type="text" class="form-control" placeholder="密碼">
-                </div>
-            </div>
-
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <!--									<button onclick="login()"   class="btn btn-primary py-3 px-4">送出</button>-->
-                </div>
-            </div>
-        </div>
-        </form>
-    </div>
-    </div>
-    </div>
-
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row d-md-flex justify-content-end">
-            <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
-                <h2 id="registStatus" class="mb-4">註冊</h2>
-                <form class="appointment">
-                    <div class="row">
+    <div class="container d-flex flex-wrap" style="max-width: 1200px;">
+        <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
+            <h2 class="m-3" style="color: #fc7000 !important;">登入</h2>
+            <form class="appointment">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <div class="form-field">
-                                    <div class="select-wrap">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="emailAjax" type="email" class="form-control" placeholder="電子郵件 帳號"
-                                           onchange="judgeRegistEmail(this.id)" required/>
-                                    <b id="promptEmail"></b>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="passwordAjax" type="text" class="form-control" placeholder="密碼">
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="telAjax" type="text" class="form-control" placeholder="聯絡電話">
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <!--									<button onclick="regist()"   class="btn btn-primary py-3 px-4">送出</button>-->
-                                </div>
+                                <input id="loginEmail" type="email" class="form-control" placeholder="電子郵件"
+                                       onchange="judgeLoginEmail(this.id)">
+                                <b id="loginPromptEmail"></b>
                             </div>
                         </div>
-                </form>
-            </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="loginPassword" type="password" class="form-control" placeholder="密碼">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="loginBtn" onclick="login()" class="btn btn-primary py-3 px-4">登入</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
+            <h2 id="registStatus" class="m-3">註冊</h2>
+            <form class="appointment">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="emailAjax" type="email" class="form-control" placeholder="電子郵件"
+                                       onchange="judgeRegistEmail(this.id)" required/>
+                                <b id="promptEmail"></b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="passwordAjax" type="password" class="form-control" placeholder="密碼">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="telAjax" type="tel" class="form-control" placeholder="聯絡電話">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="registBtn" onclick="regist()" class="btn btn-primary py-3 px-4">註冊
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>
-
-<button id="loginBtn" onclick="login()" class="btn btn-primary py-3 px-4">登入</button>
-<button id="registBtn" onclick="regist()" class="btn btn-primary py-3 px-4">註冊</button>
 
 <footer class="footer">
     <div class="row mt-5">
@@ -193,7 +170,6 @@
     </div>
 </footer>
 
-
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
@@ -202,7 +178,6 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
-
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -220,7 +195,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
-
 
 </body>
 </html>

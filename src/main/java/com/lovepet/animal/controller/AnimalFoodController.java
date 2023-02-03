@@ -27,7 +27,7 @@ public class AnimalFoodController {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String search,
             // 分頁 Pagination
-            @RequestParam(defaultValue = "10") Integer limit,
+            @RequestParam(defaultValue = "9999") Integer limit,
             @RequestParam(defaultValue = "0") Integer offset
     ) {
 
@@ -61,6 +61,7 @@ public class AnimalFoodController {
             hashSetPlace.add(placeStr);
             hashSetCategory.add(categoryStr);
         }
+        hashSetCategory.remove("");
 
         model.addAttribute("hashset_place", hashSetPlace);
         model.addAttribute("hashset_category", hashSetCategory);
