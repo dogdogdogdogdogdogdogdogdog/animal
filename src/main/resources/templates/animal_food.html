@@ -1,62 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>註冊登入 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/button.click.js"></script>
-
+    <!--  自訂樣式  -->
     <style>
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        .nav-img {
+            background-image: url('/images/_nav1.jpg');
+            height: 300px !important;
+        }
+
         table {
             border-collapse: separate;
         }
+
         th, td {
             padding: 15px;
             text-align: center;
         }
+
         tr:nth-child(odd) {
             background-color: #ffffce;
         }
+
         tr:nth-child(even) {
             background-color: #ffffce;
         }
+
         th:first-child {
             border-radius: 10px 0px 0px 0px;
         }
+
         th:last-child {
             border-radius: 0px 10px 0px 0px;
         }
+
         tr:last-child td:first-child {
             border-radius: 0px 0px 0px 10px;
         }
+
         tr:last-child td:last-child {
             border-radius: 0px 0px 10px 0px;
         }
+
         .div-shadow {
-            box-shadow:3px 3px 9px grey;
+            box-shadow: 3px 3px 9px grey;
         }
+
         .block-27 ul li a, .block-27 ul li span {
             color: black;
             border: 2px solid #e6e6e6;
             background: #ffffce;
         }
+
         .page_show {
             padding: 40px 0;
             text-align: center;
@@ -86,50 +100,53 @@
         /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
     </style>
 </head>
+
 <body>
-<div class="headerPage"></div>
+<div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="ackground-image: url('images/bg_2.jpg');"
-         data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+<section class="hero-wrap hero-wrap-2 img nav-img">
     <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span>登入註冊 <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-0 bread">登入註冊</h1>
+                <p class="breadcrumbs mb-2">
+                    <span>首頁 &gt;</span>
+                    <span class="ion-ios-arrow-forward"></span>
+                </p>
+                <h1 class="mb-0 bread">寵物食品</h1>
             </div>
         </div>
     </div>
 </section>
+
 <!-- 表格SQL查詢測試用 -->
 <!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
-<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img"
          style="background-color: blanchedalmond; display: flex !important; position: static !important;">
     <div class="container" style="display: flex !important;">
         <div class="row d-md-flex">
-<!--
-            API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
-            可以做的搜尋條件：
+            <!--
+                        API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
+                        可以做的搜尋條件：
 
-            下拉選單
-                產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
-                產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
-                適用寵物： {犬} | {貓} | {其他(一大堆)}
-                主要原料： {魚} | {雞} | {牛}
-            搜尋框(產品名稱)
+                        下拉選單
+                            產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
+                            產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
+                            適用寵物： {犬} | {貓} | {其他(一大堆)}
+                            主要原料： {魚} | {雞} | {牛}
+                        搜尋框(產品名稱)
 
-            建議：
-            1. 類別說明
-            產品種類 ( ※資料整齊)
-            產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
-            適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
+                        建議：
+                        1. 類別說明
+                        產品種類 ( ※資料整齊)
+                        產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
+                        適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
 
-            2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
-            3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
-            4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
-            5. 本頁網址 http://localhost:8080/animal_food
--->
-<!--            篩選區-->
+                        2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
+                        3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
+                        4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
+                        5. 本頁網址 http://localhost:8080/animal_food
+            -->
+            <!--            篩選區-->
             <div class="col-md-auto p-3 m-auto ftco-animate" id="top">
                 <span>產地 :</span>
                 <select name="place" id="place">
@@ -142,12 +159,13 @@
                 <button id="search">搜尋</button>
             </div>
 
-<!--            顯示資料內容-->
-            <div class="col-md-auto p-3 m-auto ftco-animate div-shadow" style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
+            <!--            顯示資料內容-->
+            <div class="col-md-auto p-3 m-auto ftco-animate div-shadow"
+                 style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
                 <table class="table-hover text-center" id="test1Result">
                 </table>
             </div>
-<!--            顯示查詢資訊-->
+            <!--            顯示查詢資訊-->
             <div class="col-md-12 p-3 m-auto ftco-animate text-center">
                 <div class="block-27">
                     <p id="pageInfo"></p><br>
@@ -155,19 +173,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-</section>
-
-<!-- 佔位調整版面用 -->
-<!-- class效果:  display: flex 區塊排列平衡 position: static 使此區塊不覆蓋前區塊的陰影效果-->
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
-         style="background-color: blanchedalmond; display: flex !important; position: static !important;">
-    <div class="container">
-        <div class="row d-md-flex justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section"></h2>
-            </div>
         </div>
     </div>
 </section>
@@ -214,186 +219,188 @@
 <script src="js/main.js"></script>
 
 <script type="text/javascript">
-<!-- 全部都是未完成的功能測試 可以刪掉 -->
-var limit;
-var pages;
+    <!--
+    全部都是未完成的功能測試
+    可以刪掉 -->
+    var limit;
+    var pages;
 
-$.ajax({//載入頁面先執行一次
-    type: "GET",
-    url: "/animal_foods",
-    success: function (data) {
-        getAnimalFoodList(data);
-    }
-});
-
-$.ajax({//載入下拉選單
-    type: "GET",
-    url: "/getAnimalFoodsComboBox",
-    success: function (data) {
-        console.log(data);
-        console.log(data[0]);
-        console.log(data[1]);
-
-        $("#place").append("<option value='全部'>全部</option>");
-        $("#category").append("<option value='全部'>全部</option>");
-
-        $.each(data[0], function (index, item) {
-            $("#place").append("<option value='"+item+"'>"+item+"</option>");
-        })
-        $.each(data[1], function (index, item) {
-            $("#category").append("<option value='"+item+"'>"+item+"</option>");
-        })
-    }
-});
-
-function getAnimalFoodList(data) {//秀出搜尋結果
-    $("#test1Result").empty();//清空元素
-
-    var title = "<tr class=''>" +
-        "<th class='table-primary'>產品名稱</th>" +
-        "<th class='table-secondary' style='width: 8%;'>產地</th>" +
-        "<th class='table-info' style='width: 10%;'>種類</th>" +
-        "<th class='table-success' style='width: 10%;'>重量</th>" +
-        "<th class='table-danger' style='width: 10%;'>適用</th>" +
-        "<th class='table-light' style='width: 22%;'>主要原料</th>" +
-        "<th class='table-warning' style='width: 22%;'>營養成份</th>" +
-        "</tr>";
-
-    $("#test1Result").append(title);//加入標題
-
-    $.each(data["results"], function (index, item) {
-        var html = "" +
-            "<tr>" +
-            "<td>"+item.name+"</td>" +
-            "<td>"+item.productionPlace+"</td>" +
-            "<td>"+item.category+"</td>" +
-            "<td>"+item.weight+"</td>" +
-            "<td>"+item.suitable+"</td>" +
-            "<td>"+item.material+"</td>" +
-            "<td>"+item.nutrient+"</td>" +
-            "</tr>";
-
-        $("#test1Result").append(html);//加入內容
-    })
-
-    pages = Math.ceil(data.total / data.limit);
-    console.log(data.offset / data.limit)
-    limit = data.limit;
-
-    if (data.total==0) {
-        $("#pageInfo").text("查無資料");
-    }else {
-        $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
-    }
-
-    pageSet(pages);
-
-    console.log("單頁筆數limit:" + data["limit"]);
-    console.log("跳過幾筆資料offset:" + data["offset"]);
-    console.log("總筆數:" + data["total"]);
-
-    $( "html,body").animate({ "scrollTop" : $("#top").offset().top }, 500);//捲動視窗至篩選欄
-    $.getScript('js/main.js');
-}
-
-//輸出頁碼
-function pageSet(pages) {
-    var pageHtml = '';
-    var start, end;
-    if (listPage < 6) {
-        start = 1;
-    } else {
-        start = listPage - 5;
-    }
-    if (listPage > pages - 5) {
-        end = pages;
-    } else {
-        end = listPage + 5;
-    }
-
-    if (listPage > 1) {
-        pageHtml += '<span>上一頁</span>';
-    }
-    for (var i = start, page_cur = ''; i <= end; i++) {
-        if (listPage == i) {
-            page_cur = 'page_cur';
-        } else {
-            page_cur = '';
-        }
-        pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
-    }
-    if (listPage < pages) {
-        pageHtml += '<span>下一頁</span>';
-    }
-    $('.page_show').empty().append(pageHtml);
-}
-
-//點擊分頁執行
-$('body').on('click', '.page_show span', function () {
-    var $this = $(this);
-    if ($this.hasClass('page_cur')) {
-        return;
-    }
-    var page = $this.html();
-    if (page == '上一頁') {
-        listPage = listPage - 1;
-        changePage(listPage);
-        // goPrePage();
-    } else if (page == '下一頁') {
-        listPage = listPage + 1;
-        changePage(listPage);
-        // goNextPage();
-    } else {
-        listPage = parseInt(page);
-        changePage(listPage);
-    }
-    //根據頁碼獲取當前頁列表數據
-    pageSet(pages);
-});
-
-$("#search").click(function () {//搜尋按鈕被按下
-    changePage(listPage);
-})
-
-var listPage = 1;
-
-function changePage(page) {
-    var offset = limit * (page - 1);
-    console.log("offset"+offset);
-    console.log("page"+page);
-
-    var place = $("#place").val();
-    var category = $("#category").val();
-    var search = $("#search").val().trim();
-    var searchUrl = "";
-
-    console.log(place)
-    console.log(category)
-    console.log(search)
-
-    if (place!="全部") {
-        searchUrl += "&place=" + place;
-    }
-    if (category!="全部") {
-        searchUrl += "&category=" + category;
-    }
-
-    if (search!="") {
-        searchUrl += "&search=" + search;
-    }
-    var url = "/animal_foods?offset=" + limit * (page - 1) + searchUrl;
-    console.log(url);
-    $.ajax({
+    $.ajax({//載入頁面先執行一次
         type: "GET",
-        url: url,
+        url: "/animal_foods",
         success: function (data) {
             getAnimalFoodList(data);
         }
+    });
+
+    $.ajax({//載入下拉選單
+        type: "GET",
+        url: "/getAnimalFoodsComboBox",
+        success: function (data) {
+            console.log(data);
+            console.log(data[0]);
+            console.log(data[1]);
+
+            $("#place").append("<option value='全部'>全部</option>");
+            $("#category").append("<option value='全部'>全部</option>");
+
+            $.each(data[0], function (index, item) {
+                $("#place").append("<option value='" + item + "'>" + item + "</option>");
+            })
+            $.each(data[1], function (index, item) {
+                $("#category").append("<option value='" + item + "'>" + item + "</option>");
+            })
+        }
+    });
+
+    function getAnimalFoodList(data) {//秀出搜尋結果
+        $("#test1Result").empty();//清空元素
+
+        var title = "<tr class=''>" +
+            "<th class='table-primary'>產品名稱</th>" +
+            "<th class='table-secondary' style='width: 8%;'>產地</th>" +
+            "<th class='table-info' style='width: 10%;'>種類</th>" +
+            "<th class='table-success' style='width: 10%;'>重量</th>" +
+            "<th class='table-danger' style='width: 10%;'>適用</th>" +
+            "<th class='table-light' style='width: 22%;'>主要原料</th>" +
+            "<th class='table-warning' style='width: 22%;'>營養成份</th>" +
+            "</tr>";
+
+        $("#test1Result").append(title);//加入標題
+
+        $.each(data["results"], function (index, item) {
+            var html = "" +
+                "<tr>" +
+                "<td>" + item.name + "</td>" +
+                "<td>" + item.productionPlace + "</td>" +
+                "<td>" + item.category + "</td>" +
+                "<td>" + item.weight + "</td>" +
+                "<td>" + item.suitable + "</td>" +
+                "<td>" + item.material + "</td>" +
+                "<td>" + item.nutrient + "</td>" +
+                "</tr>";
+
+            $("#test1Result").append(html);//加入內容
+        })
+
+        pages = Math.ceil(data.total / data.limit);
+        console.log(data.offset / data.limit)
+        limit = data.limit;
+
+        if (data.total == 0) {
+            $("#pageInfo").text("查無資料");
+        } else {
+            $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+        }
+
+        pageSet(pages);
+
+        console.log("單頁筆數limit:" + data["limit"]);
+        console.log("跳過幾筆資料offset:" + data["offset"]);
+        console.log("總筆數:" + data["total"]);
+
+        $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
+        $.getScript('js/main.js');
+    }
+
+    //輸出頁碼
+    function pageSet(pages) {
+        var pageHtml = '';
+        var start, end;
+        if (listPage < 6) {
+            start = 1;
+        } else {
+            start = listPage - 5;
+        }
+        if (listPage > pages - 5) {
+            end = pages;
+        } else {
+            end = listPage + 5;
+        }
+
+        if (listPage > 1) {
+            pageHtml += '<span>上一頁</span>';
+        }
+        for (var i = start, page_cur = ''; i <= end; i++) {
+            if (listPage == i) {
+                page_cur = 'page_cur';
+            } else {
+                page_cur = '';
+            }
+            pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+        }
+        if (listPage < pages) {
+            pageHtml += '<span>下一頁</span>';
+        }
+        $('.page_show').empty().append(pageHtml);
+    }
+
+    //點擊分頁執行
+    $('body').on('click', '.page_show span', function () {
+        var $this = $(this);
+        if ($this.hasClass('page_cur')) {
+            return;
+        }
+        var page = $this.html();
+        if (page == '上一頁') {
+            listPage = listPage - 1;
+            changePage(listPage);
+            // goPrePage();
+        } else if (page == '下一頁') {
+            listPage = listPage + 1;
+            changePage(listPage);
+            // goNextPage();
+        } else {
+            listPage = parseInt(page);
+            changePage(listPage);
+        }
+        //根據頁碼獲取當前頁列表數據
+        pageSet(pages);
+    });
+
+    $("#search").click(function () {//搜尋按鈕被按下
+        changePage(listPage);
     })
-}
 
+    var listPage = 1;
 
-$(".headerPage").load("header");//讀取導覽列
+    function changePage(page) {
+        var offset = limit * (page - 1);
+        console.log("offset" + offset);
+        console.log("page" + page);
+
+        var place = $("#place").val();
+        var category = $("#category").val();
+        var search = $("#search").val().trim();
+        var searchUrl = "";
+
+        console.log(place)
+        console.log(category)
+        console.log(search)
+
+        if (place != "全部") {
+            searchUrl += "&place=" + place;
+        }
+        if (category != "全部") {
+            searchUrl += "&category=" + category;
+        }
+
+        if (search != "") {
+            searchUrl += "&search=" + search;
+        }
+        var url = "/animal_foods?offset=" + limit * (page - 1) + searchUrl;
+        console.log(url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                getAnimalFoodList(data);
+            }
+        })
+    }
+
+        <!-- 讀取導覽列 -->
+        $(".header-page").load("header");
 </script>
 
 </body>

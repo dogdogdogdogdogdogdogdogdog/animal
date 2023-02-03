@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>註冊登入 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,6 +21,16 @@
     <script src="js/judgeLoginEmail.js"></script>
     <!--  自訂樣式  -->
     <style>
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        .nav-img {
+            background-image: url('/images/_nav1.jpg');
+            height: 300px !important;
+        }
+
         .btn.btn-primary {
             font-size: 1rem;
             letter-spacing: 10px;
@@ -36,23 +45,25 @@
         }
     </style>
 </head>
+
 <body>
-<div class="headerPage"></div>
+<div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2"
-         style="background-image: url('/images/_nav1.jpg'); background-position: center center; height: 300px;">
-    <!--    <div class="overlay"></div>-->
+<section class="hero-wrap hero-wrap-2 img nav-img">
     <div class="container">
         <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span>登入註冊 <i class="ion-ios-arrow-forward"></i></span></p>
+                <p class="breadcrumbs mb-2">
+                    <span>首頁 &gt;</span>
+                    <span class="ion-ios-arrow-forward"></span>
+                </p>
                 <h1 class="mb-0 bread">登入註冊</h1>
             </div>
         </div>
     </div>
 </section>
 
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
+<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img main-bg"
          style="background-color: blanchedalmond;">
     <div class="overlay"></div>
     <div class="container d-flex flex-wrap" style="max-width: 1200px;">
@@ -159,7 +170,10 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<!-- 讀取導覽列 -->
+<script>
+    $(".header-page").load("header");
+</script>
 
-<script>$(".headerPage").load("header");//讀取導覽列</script>
 </body>
 </html>
