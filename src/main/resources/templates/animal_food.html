@@ -81,10 +81,12 @@
             border: #282828 solid 1px;
             background-color: #424242;
         }
+
+        /*#scroll {position:fixed; top:300px; right:100px;}*/
+        /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
     </style>
 </head>
 <body>
-
 <div class="wrap">
     <div class="container">
         <div class="row">
@@ -164,7 +166,7 @@
             4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
             5. 本頁網址 http://localhost:8080/animal_food
 -->
-            <div class="col-md-auto p-3 m-auto ftco-animate">
+            <div class="col-md-auto p-3 m-auto ftco-animate" id="top">
                 <span>產地 :</span>
                 <select name="place" id="place">
 <!--                    <option value="產地">產地</option>-->
@@ -182,7 +184,7 @@
 <!--                    <option th:each="category:${hashset_category}" th:text="${category}"></option>-->
                 </select>
                 <span>搜尋產品 :</span>
-                <input type="text" id="search">
+                <input type="text" id="search" placeholder="輸入關鍵字，按下Enter">
 <!--                <button onclick="search()">搜尋</button>-->
             </div>
 
@@ -342,13 +344,19 @@ function getAnimalFoodList(data) {//秀出搜尋結果
     console.log(data.offset / data.limit)
     limit = data.limit;
 
-    $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+    if (data.total==0) {
+        $("#pageInfo").text("查無資料");
+    }else {
+        $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+    }
+
     pageSet(pages);
 
     console.log("單頁筆數limit:" + data["limit"]);
     console.log("跳過幾筆資料offset:" + data["offset"]);
     console.log("總筆數:" + data["total"]);
 
+    $( "html,body").animate({ "scrollTop" : $("#top").offset().top }, 500);//捲動視窗至篩選欄
     $.getScript('js/main.js');
 }
 
@@ -413,7 +421,7 @@ $("#place").change(function () {//place下拉選單被選擇
 $("#category").change(function () {//category下拉選單被選擇
     changePage(listPage);
 })
-$("#search").on("input", function () {//search輸入內容
+$("#search").change(function () {//search輸入內容
     changePage(listPage);
 })
 var listPage = 1;
@@ -452,6 +460,14 @@ function changePage(page) {
         }
     })
 }
+
+// $( function () {
+//     var speed = 1000;//滾動速度
+//     //捲動視窗至篩選欄
+//     $( "#toTop").click( function () {
+//         $( "html,body").animate({ "scrollTop" : $("#top").offset().top }, speed);
+//     });
+// });
 
 </script>
 
