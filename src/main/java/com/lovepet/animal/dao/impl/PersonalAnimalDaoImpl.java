@@ -39,9 +39,10 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams) {
-        String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
-                "image_url, description, created_date, last_modified_date " +
-                "FROM personal_animal WHERE 1=1";
+//        String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
+//                "image_url, description, created_date, last_modified_date " +
+//                "FROM personal_animal WHERE 1=1";
+        String sql = "SELECT * FROM personal_animal WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
 
@@ -63,34 +64,41 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public PersonalAnimal getPersonalAnimalById(Integer personalAnimalId) {
-        String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
-                "image_url, description, created_date, last_modified_date " +
-                "FROM personal_animal WHERE animal_id = :personalAnimalId";
+//        String sql = "SELECT animal_id, animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, " +
+//                "image_url, description, created_date, last_modified_date " +
+//                "FROM personal_animal WHERE animal_id = :personalAnimalId";
+        String sql = "SELECT * FROM personal_animal WHERE animal_id = :personalAnimalId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
 
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
-        if (personalAnimalList.size()>0) {
+        if (personalAnimalList.size() > 0) {
             return personalAnimalList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
 
     @Override
     public Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest) {
-        String sql = "INSERT INTO personal_animal(animal_kind, animal_variety, animal_sex, animal_sterilization, animal_bacterin, image_url, description, created_date, last_modified_date) " +
-                "VALUES (:animalKind, :animalVariety, :animalSex, :animalSterilization, :animalBacterin, :imageUrl, :description, :createdDate, :lastModifiedDate)";
+        String sql = "INSERT INTO personal_animal(user_id, animal_name, animal_kind, animal_variety, animal_sex, animal_age, animal_bodysize, animal_color, animal_sterilization, animal_bacterin, image_url, area, description, created_date, last_modified_date) " +
+                "VALUES (:userId, :animalName, :animalKind, :animalVariety, :animalSex, :animalAge, :animalBodysize, :animalColor, :animalSterilization, :animalBacterin, :imageUrl, :area, :description, :createdDate, :lastModifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
+        map.put("userId", personalAnimalRequest.getUserId());
+        map.put("animalName", personalAnimalRequest.getAnimalName());
         map.put("animalKind", personalAnimalRequest.getAnimalKind());
         map.put("animalVariety", personalAnimalRequest.getAnimalVariety());
         map.put("animalSex", personalAnimalRequest.getAnimalSex());
+        map.put("animalAge", personalAnimalRequest.getAnimalAge());
+        map.put("animalBodysize", personalAnimalRequest.getAnimalBodysize());
+        map.put("animalColor", personalAnimalRequest.getAnimalColor());
         map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
         map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
         map.put("imageUrl", personalAnimalRequest.getImageUrl());
+        map.put("area", personalAnimalRequest.getArea());
         map.put("description", personalAnimalRequest.getDescription());
 
         Date now = new Date();
@@ -108,18 +116,25 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest) {
-        String sql = "UPDATE personal_animal SET animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
-                "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, description = :description, " +
+        String sql = "UPDATE personal_animal SET user_id = :userId, animal_name = :animalName, animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
+                "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor" +
+                "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("animalId", personalAnimalId);
+        map.put("userId", personalAnimalRequest.getUserId());
+        map.put("animalName", personalAnimalRequest.getAnimalName());
         map.put("animalKind", personalAnimalRequest.getAnimalKind());
         map.put("animalVariety", personalAnimalRequest.getAnimalVariety());
         map.put("animalSex", personalAnimalRequest.getAnimalSex());
+        map.put("animalAge", personalAnimalRequest.getAnimalAge());
+        map.put("animalBodysize", personalAnimalRequest.getAnimalBodysize());
+        map.put("animalColor", personalAnimalRequest.getAnimalColor());
         map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
         map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
         map.put("imageUrl", personalAnimalRequest.getImageUrl());
+        map.put("area", personalAnimalRequest.getArea());
         map.put("description", personalAnimalRequest.getDescription());
 
         map.put("lastModifiedDate", new Date());
@@ -138,12 +153,12 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     }
 
     private String addFilteringSql(String sql, Map<String, Object> map, PersonalAnimalQueryParams personalAnimalQueryParams) {
-        if (personalAnimalQueryParams.getKind() !=null) {
+        if (personalAnimalQueryParams.getKind() != null) {
             sql = sql + " AND animal_kind = :animalKind";
             map.put("animalKind", personalAnimalQueryParams.getKind());
         }
 
-        if (personalAnimalQueryParams.getSex() !=null) {
+        if (personalAnimalQueryParams.getSex() != null) {
             sql = sql + " AND animal_sex = :animalSex";
             map.put("animalSex", personalAnimalQueryParams.getSex());
         }

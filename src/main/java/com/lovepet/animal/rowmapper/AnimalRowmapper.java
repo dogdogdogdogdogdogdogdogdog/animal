@@ -9,15 +9,15 @@ import java.sql.SQLException;
 public class AnimalRowmapper implements RowMapper {
     @Override
     public AnimalData mapRow(ResultSet resultSet, int i) throws SQLException {
-        AnimalData animalData=new AnimalData();
-    animalData.setAnimalId(resultSet.getInt("animal_id"));
-    animalData.setAnimalKind(resultSet.getString("animal_kind"));
-    animalData.setAnimalVariety(resultSet.getString("animal_Variety"));
-    animalData.setSex(resultSet.getString("animal_sex"));
-    animalData.setAnimalBodyType(resultSet.getString("animal_bodytype"));
-    animalData.setAnimalColour(resultSet.getString("animal_colour"));
-    animalData.setAnimalAge(resultSet.getString("animal_age"));
-    animalData.setAnimalSterilization(resultSet.getString("animal_sterilization"));
+        AnimalData animalData = new AnimalData();
+        animalData.setAnimalId(resultSet.getInt("animal_id"));
+        animalData.setAnimalKind(resultSet.getString("animal_kind"));
+        animalData.setAnimalVariety(resultSet.getString("animal_Variety"));
+        animalData.setSex(resultSet.getString("animal_sex"));
+        animalData.setAnimalBodyType(resultSet.getString("animal_bodytype"));
+        animalData.setAnimalColour(resultSet.getString("animal_colour"));
+        animalData.setAnimalAge(resultSet.getString("animal_age"));
+        animalData.setAnimalSterilization(resultSet.getString("animal_sterilization"));
         animalData.setAnimalBacterin(resultSet.getString("animal_bacterin"));
         animalData.setAnimalFoundplace(resultSet.getString("animal_foundplace"));
         animalData.setAnimalRemark(resultSet.getString("animal_remark"));

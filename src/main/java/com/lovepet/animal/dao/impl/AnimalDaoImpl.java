@@ -39,7 +39,7 @@ public class AnimalDaoImpl implements AnimalDao {
 
             pageContent.setPages(getPages(animalQueryParams, map, shelterAndKindQuery));
 
-        }else {
+        } else {
             pageContent.setPages(getPages(animalQueryParams, map, ""));
         }
 

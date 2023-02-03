@@ -5,12 +5,18 @@ import java.util.Date;
 public class PersonalAnimal {
 
     private Integer animalId;
+    private Integer userId;
+    private String animalName;
     private String animalKind;
     private String animalVariety;
     private String animalSex;
+    private String animalAge;
+    private String animalBodysize;
+    private String animalColor;
     private String animalSterilization;
     private String animalBacterin;
     private String imageUrl;
+    private String area;
     private String description;
     private Date createdDate;
     private Date lastModifiedDate;
@@ -21,6 +27,22 @@ public class PersonalAnimal {
 
     public void setAnimalId(Integer animalId) {
         this.animalId = animalId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getAnimalName() {
+        return animalName;
+    }
+
+    public void setAnimalName(String animalName) {
+        this.animalName = animalName;
     }
 
     public String getAnimalKind() {
@@ -47,6 +69,30 @@ public class PersonalAnimal {
         this.animalSex = animalSex;
     }
 
+    public String getAnimalAge() {
+        return animalAge;
+    }
+
+    public void setAnimalAge(String animalAge) {
+        this.animalAge = animalAge;
+    }
+
+    public String getAnimalBodysize() {
+        return animalBodysize;
+    }
+
+    public void setAnimalBodysize(String animalBodysize) {
+        this.animalBodysize = animalBodysize;
+    }
+
+    public String getAnimalColor() {
+        return animalColor;
+    }
+
+    public void setAnimalColor(String animalColor) {
+        this.animalColor = animalColor;
+    }
+
     public String getAnimalSterilization() {
         return animalSterilization;
     }
@@ -69,6 +115,14 @@ public class PersonalAnimal {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getDescription() {
