@@ -35,8 +35,16 @@ public class HtmlController {
 
     @GetMapping("/login_register")
     public String goLoginRegister() {
-        return "login_register";
-    }
+        return "login_register";}
+
+    @GetMapping("index")
+    public String goIndex() { return  "index";}
+
+    @GetMapping("animal_hospital")
+    public String goAnimalHospital() { return  "animal_hospital";}
+
+    @GetMapping("funeral")
+    public String goFuneral() { return  "funeral";}
 
     @GetMapping("/missing")
     public String goMissing() {

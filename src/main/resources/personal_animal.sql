@@ -22,6 +22,7 @@
 DROP TABLE IF EXISTS `personal_animal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `personal_animal` (
   `animal_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -40,7 +41,7 @@ CREATE TABLE `personal_animal` (
   `created_date` timestamp NOT NULL,
   `last_modified_date` timestamp NOT NULL,
   PRIMARY KEY (`animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
