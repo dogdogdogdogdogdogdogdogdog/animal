@@ -7,6 +7,7 @@ import com.lovepet.animal.service.AnimalFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,28 +29,23 @@ public class AnimalFoodServiceImpl implements AnimalFoodService {
     }
 
     @Override
-    public Set<String> getProductionPlaceSet(AnimalFoodQueryParams animalFoodQueryParams) {
-        List<AnimalFood> animalFoodList = this.getAnimalFoods(animalFoodQueryParams);
+    public List<String> getAnimalFoodsComboBox() {
+        List<AnimalFood> animalFoodlist = animalFoodDao.getAnimalFoodsComboBox();
+        List list = new ArrayList();
+        Set<String> placeSet = new HashSet<>();
+        Set<String> categorySet = new HashSet<>();
 
-        HashSet hashSet = new HashSet<>();
-
-        for (int i = 0; i < animalFoodList.size(); i++) {
-            hashSet.add(animalFoodList.get(i).getProductionPlace());
+        for (int i = 0; i < animalFoodlist.size(); i++) {
+            placeSet.add(animalFoodlist.get(i).getCategory());
+            categorySet.add(animalFoodlist.get(i).getProductionPlace());
         }
+        placeSet.remove("");
+        System.out.println(placeSet);
+        System.out.println(categorySet);
 
-        return hashSet;
-    }
+        list.add(categorySet);
+        list.add(placeSet);
 
-    @Override
-    public Set<String> getCategorySet(AnimalFoodQueryParams animalFoodQueryParams) {
-        List<AnimalFood> animalFoodList = this.getAnimalFoods(animalFoodQueryParams);
-
-        HashSet hashSet = new HashSet<>();
-
-        for (int i = 0; i < animalFoodList.size(); i++) {
-            hashSet.add(animalFoodList.get(i).getCategory());
-        }
-
-        return hashSet;
+        return list;
     }
 }

@@ -13,6 +13,11 @@ public class HtmlController {
     @Autowired
     private AnimalService animalService;
 
+    @GetMapping("/animal_food")
+    public String goAnimalFood() {
+        return "animal_food";
+    }
+
     @GetMapping("/user_publish_history")
     public String goUserPublishHistory() {
         return "user_publish_history";
