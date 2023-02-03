@@ -25,7 +25,8 @@ public class HtmlController {
 
     @GetMapping("/login_register")
     public String goLoginRegister() {
-        return "login_register";
+        return "login_register";}
+
     @GetMapping("index")
     public String goIndex() { return  "index";}
 
@@ -34,11 +35,6 @@ public class HtmlController {
 
     @GetMapping("funeral")
     public String goFuneral() { return  "funeral";}
-
-    @GetMapping("/login_register")
-    public String goLoginRegister(){
-        return "login_register";
-    }
 
     @GetMapping("/missing")
     public String goMissing() {
@@ -54,7 +50,6 @@ public class HtmlController {
     public String goPublish() {
         return "publish";
     }
-
 
     @GetMapping("/public_shelter")
     public String goPublicShelter(

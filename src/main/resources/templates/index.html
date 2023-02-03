@@ -88,7 +88,10 @@
         <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
         <li class="nav-item"><a href="http://localhost:8080/animal_hospital" class="nav-link">動物醫院</a></li>
         <li class="nav-item"><a href="http://localhost:8080/funeral" class="nav-link">寵物送別</a></li>
-        <li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
+        <li id="userPublishHistory" class="nav-item"></li>
+        <li id="userManagement" class="nav-item"></li>
+        <li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register"
+                                                    class="nav-link">登入註冊</a></li>
       </ul>
     </div>
   </div>
@@ -105,7 +108,6 @@
     <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
     <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
 
-    <!-- bug 自動換頁時按鈕無法更新(手動的正常) -->
     <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
     <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
     <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
