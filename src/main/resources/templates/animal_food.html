@@ -87,44 +87,7 @@
     </style>
 </head>
 <body>
-<div class="wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 d-flex align-items-center">
-            </div>
-            <div class="col-md-6 d-flex justify-content-md-end">
-                <div class="social-media">
-                    <p class="mb-0 d-flex">
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand"><span class="flaticon-pawprint-1 mr-2"></span>寵物資訊平台</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-
-                <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
-
-                <li class="nav-item"><a href="http://localhost:8080/login_register" class="nav-link">登入註冊</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="headerPage"></div>
 <!-- END nav -->
 <section class="hero-wrap hero-wrap-2" style="ackground-image: url('images/bg_2.jpg');"
          data-stellar-background-ratio="0.5">
@@ -166,52 +129,25 @@
             4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
             5. 本頁網址 http://localhost:8080/animal_food
 -->
+<!--            篩選區-->
             <div class="col-md-auto p-3 m-auto ftco-animate" id="top">
                 <span>產地 :</span>
                 <select name="place" id="place">
-<!--                    <option value="產地">產地</option>-->
-<!--                    <option value="台灣">台灣</option>-->
-<!--                    <option value="日本">日本</option>-->
-<!--           棄用             -->
-<!--                    <option th:each="place:${hashset_place}" th:text="${place}"></option>-->
                 </select>
                 <span>產品種類 :</span>
                 <select name="category" id="category">
-<!--                    <option value="產品種類">產品種類</option>-->
-<!--                    <option value="貓">貓</option>-->
-<!--                    <option value="犬">犬</option>-->
-<!--           棄用             -->
-<!--                    <option th:each="category:${hashset_category}" th:text="${category}"></option>-->
                 </select>
                 <span>搜尋產品 :</span>
-                <input type="text" id="search" placeholder="輸入關鍵字，按下Enter">
-<!--                <button onclick="search()">搜尋</button>-->
+                <input type="text" id="inputBox" placeholder="輸入關鍵字">
+                <button id="search">搜尋</button>
             </div>
 
+<!--            顯示資料內容-->
             <div class="col-md-auto p-3 m-auto ftco-animate div-shadow" style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
                 <table class="table-hover text-center" id="test1Result">
-<!--                    <tr>-->
-<!--                        <td>CIAO多樂米2000億乳酸菌貓罐.雞肉+鰹魚+小魚80g</td>-->
-<!--                        <td>日本</td>-->
-<!--                        <td>罐頭</td>-->
-<!--                        <td>0.08公斤</td>-->
-<!--                        <td>犬</td>-->
-<!--                        <td>雞肉、金槍魚、銀魚、鰹魚提取物、醣類（低聚醣等）、滅菌乳酸菌、植物油、增稠穩定劑（加工澱粉、增稠多醣）、礦物質（na、p、cl）、調味料（多種氨基酸）、維生素e、紅趜色素、綠茶提取物、類胡蘿蔔素色素。</td>-->
-<!--                        <td>蛋白質：65%以上、/脂質：02%以上、/粗纖維：01%以下、/灰分：17%以下、/水分：915%以下、/熱量約30kcal／罐</td>-->
-<!--                    </tr>-->
-<!--                    <tr th:each="animal_food:${animal_food_list}">-->
-<!--                        <td th:text="${animal_food.name}"></td>-->
-<!--                        <td th:text="${animal_food.productionPlace}"></td>-->
-<!--                        <td th:text="${animal_food.category}"></td>-->
-<!--                        <td th:text="${animal_food.weight}"></td>-->
-<!--                        <td th:text="${animal_food.suitable}"></td>-->
-<!--                        <td th:text="${animal_food.material}"></td>-->
-<!--                        <td th:text="${animal_food.nutrient}"></td>-->
-<!--                    </tr>-->
                 </table>
             </div>
-
-<!--            沒有完成的分頁功能 可以刪掉    -->
+<!--            顯示查詢資訊-->
             <div class="col-md-12 p-3 m-auto ftco-animate text-center">
                 <div class="block-27">
                     <p id="pageInfo"></p><br>
@@ -415,15 +351,10 @@ $('body').on('click', '.page_show span', function () {
     pageSet(pages);
 });
 
-$("#place").change(function () {//place下拉選單被選擇
+$("#search").click(function () {//搜尋按鈕被按下
     changePage(listPage);
 })
-$("#category").change(function () {//category下拉選單被選擇
-    changePage(listPage);
-})
-$("#search").change(function () {//search輸入內容
-    changePage(listPage);
-})
+
 var listPage = 1;
 
 function changePage(page) {
@@ -461,14 +392,8 @@ function changePage(page) {
     })
 }
 
-// $( function () {
-//     var speed = 1000;//滾動速度
-//     //捲動視窗至篩選欄
-//     $( "#toTop").click( function () {
-//         $( "html,body").animate({ "scrollTop" : $("#top").offset().top }, speed);
-//     });
-// });
 
+$(".headerPage").load("header");//讀取導覽列
 </script>
 
 </body>
