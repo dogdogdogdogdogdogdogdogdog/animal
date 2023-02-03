@@ -7,6 +7,7 @@ import com.lovepet.animal.service.AnimalFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,27 +29,23 @@ public class AnimalFoodServiceImpl implements AnimalFoodService {
     }
 
     @Override
-    public Set<String> getProductionPlaceSet() {
-        List<AnimalFood> list = animalFoodDao.getAnimalFoodsComboBox();
-        HashSet hashSet = new HashSet<>();
+    public List<String> getAnimalFoodsComboBox() {
+        List<AnimalFood> animalFoodlist = animalFoodDao.getAnimalFoodsComboBox();
+        List list = new ArrayList();
+        Set<String> placeSet = new HashSet<>();
+        Set<String> categorySet = new HashSet<>();
 
-        for (int i = 0; i < list.size(); i++) {
-            hashSet.add(list.get(i).getCategory());
+        for (int i = 0; i < animalFoodlist.size(); i++) {
+            placeSet.add(animalFoodlist.get(i).getCategory());
+            categorySet.add(animalFoodlist.get(i).getProductionPlace());
         }
-        hashSet.remove("");
-        System.out.println(hashSet);
-        return hashSet;
-    }
+        placeSet.remove("");
+        System.out.println(placeSet);
+        System.out.println(categorySet);
 
-    @Override
-    public Set<String> getCategorySet() {
-        List<AnimalFood> list = animalFoodDao.getAnimalFoodsComboBox();
-        HashSet hashSet = new HashSet<>();
+        list.add(categorySet);
+        list.add(placeSet);
 
-        for (int i = 0; i < list.size(); i++) {
-            hashSet.add(list.get(i).getProductionPlace());
-        }
-        System.out.println(hashSet);
-        return hashSet;
+        return list;
     }
 }

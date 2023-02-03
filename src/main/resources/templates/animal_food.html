@@ -181,7 +181,9 @@
 <!--           棄用             -->
 <!--                    <option th:each="category:${hashset_category}" th:text="${category}"></option>-->
                 </select>
-                <button onclick="search()">搜尋</button>
+                <span>搜尋產品 :</span>
+                <input type="text" id="search">
+<!--                <button onclick="search()">搜尋</button>-->
             </div>
 
             <div class="col-md-auto p-3 m-auto ftco-animate div-shadow" style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
@@ -306,7 +308,7 @@ $.ajax({//載入下拉選單
     }
 });
 
-function getAnimalFoodList(data) {
+function getAnimalFoodList(data) {//秀出搜尋結果
     $("#test1Result").empty();//清空元素
 
     var title = "<tr class=''>" +
@@ -382,7 +384,7 @@ function pageSet(pages) {
     $('.page_show').empty().append(pageHtml);
 }
 
-//選擇分頁
+//點擊分頁執行
 $('body').on('click', '.page_show span', function () {
     var $this = $(this);
     if ($this.hasClass('page_cur')) {
@@ -404,23 +406,44 @@ $('body').on('click', '.page_show span', function () {
     //根據頁碼獲取當前頁列表數據
     pageSet(pages);
 });
+
+$("#place").change(function () {//place下拉選單被選擇
+    changePage(listPage);
+})
+$("#category").change(function () {//category下拉選單被選擇
+    changePage(listPage);
+})
+$("#search").on("input", function () {//search輸入內容
+    changePage(listPage);
+})
 var listPage = 1;
 
 function changePage(page) {
-    var place = $("#place").val();
-    var category = $("#category").val();
     var offset = limit * (page - 1);
-    var url;
     console.log("offset"+offset);
     console.log("page"+page);
-    console.log(place);
-    console.log(category);
 
-    // url = "/animal_foods?offset=" + limit * (page - 1) + "&productionPlace=" + place + "&category=" + category;
+    var place = $("#place").val();
+    var category = $("#category").val();
+    var search = $("#search").val().trim();
+    var searchUrl = "";
 
-    url = "/animal_foods?offset=" + limit * (page - 1);
+    console.log(place)
+    console.log(category)
+    console.log(search)
 
+    if (place!="全部") {
+        searchUrl += "&place=" + place;
+    }
+    if (category!="全部") {
+        searchUrl += "&category=" + category;
+    }
 
+    if (search!="") {
+        searchUrl += "&search=" + search;
+    }
+    var url = "/animal_foods?offset=" + limit * (page - 1) + searchUrl;
+    console.log(url);
     $.ajax({
         type: "GET",
         url: url,
@@ -429,7 +452,6 @@ function changePage(page) {
         }
     })
 }
-
 
 </script>
 

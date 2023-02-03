@@ -53,38 +53,12 @@ public class AnimalFoodController {
         page.setTotal(total);
         page.setResults(animalFoodList);
 
-        // 搜尋條件-送資料至下拉選單
-
-//        HashSet<String> hashSetPlace = new HashSet<>();
-//        HashSet<String> hashSetCategory = new HashSet<>();
-//
-//        for (int i = 0; i < animalFoodList.size(); i++) {
-//            String placeStr = animalFoodList.get(i).getProductionPlace();
-//            String categoryStr = animalFoodList.get(i).getCategory();
-//            hashSetPlace.add(placeStr);
-//            hashSetCategory.add(categoryStr);
-//
-//        }
-//        System.out.println(hashSetPlace);
-//        System.out.println(hashSetCategory);
-
-//        model.addAttribute("hashset_place", hashSetPlace);
-//        model.addAttribute("hashset_category", hashSetCategory);
-//        model.addAttribute("animal_food_list", animalFoodList);
-//        model.addAttribute("", );
-//        model.addAttribute("placeSet", animalFoodService.getProductionPlaceSet(animalFoodQueryParams));
-//        model.addAttribute("categorySet", animalFoodService.getCategorySet(animalFoodQueryParams));
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
-    @GetMapping("/getAnimalFoodsComboBox")
+    @GetMapping("/getAnimalFoodsComboBox")// 搜尋條件-送資料至下拉選單
     public ResponseEntity getAnimalFoodsComboBox(Model model) {
-        List list = new ArrayList();
-        Set<String> categorySet = animalFoodService.getCategorySet();
-        Set<String> placeSet = animalFoodService.getProductionPlaceSet();
-
-        list.add(categorySet);
-        list.add(placeSet);
+        List list = animalFoodService.getAnimalFoodsComboBox();
 
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
