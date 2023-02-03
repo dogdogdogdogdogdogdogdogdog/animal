@@ -50,52 +50,7 @@
 </style>
 
 <body>
-
-<div class="wrap">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 d-flex align-items-center">
-      </div>
-      <div class="col-md-6 d-flex justify-content-md-end">
-        <div class="social-media">
-          <p class="mb-0 d-flex">
-            <a href="#" class="d-flex align-items-center justify-content-center"></a>
-            <a href="#" class="d-flex align-items-center justify-content-center"></a>
-            <a href="#" class="d-flex align-items-center justify-content-center"></a>
-            <a href="#" class="d-flex align-items-center justify-content-center"></a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="http://localhost:8080/index"><span
-            class="flaticon-pawprint-1 mr-2"></span>寵物資訊平台</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="fa fa-bars"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="ftco-nav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active"><a href="http://localhost:8080/index" class="nav-link">首頁</a></li>
-        <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
-        <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-        <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
-        <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
-        <li class="nav-item"><a href="http://localhost:8080/animal_hospital" class="nav-link">動物醫院</a></li>
-        <li class="nav-item"><a href="http://localhost:8080/funeral" class="nav-link">寵物送別</a></li>
-        <li id="userPublishHistory" class="nav-item"></li>
-        <li id="userManagement" class="nav-item"></li>
-        <li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register"
-                                                    class="nav-link">登入註冊</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<div class="headerPage"></div>
 <!-- END nav -->
 <div class="w3-content w3-display-container" style="max-width:2000px">
   <img class="mySlides" src="images/TEST.png" style="width:100%" height="350px">
@@ -277,7 +232,11 @@
 <script src="js/main.js"></script>
 
 <script src="js/index.js"></script>
+<script>
 
+
+  $(".headerPage").load("header");//讀取導覽列
+</script>
 </body>
 
 </html>
