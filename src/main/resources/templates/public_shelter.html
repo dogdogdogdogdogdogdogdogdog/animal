@@ -31,50 +31,7 @@
 </head>
 
 <body>
-
-<div class="wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 d-flex align-items-center">
-            </div>
-            <div class="col-md-6 d-flex justify-content-md-end">
-                <div class="social-media">
-                    <p class="mb-0 d-flex">
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand">🐾寵物資訊平台</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-
-                <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登寵物</a></li>
-                <li id="userPublishHistory" class="nav-item"></li>
-
-                <li id="userManagement" class="nav-item"></li>
-
-                <li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register"
-                                                            class="nav-link">登入註冊</a></li>
-
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="headerPage"></div>
 <!-- END nav -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
          data-stellar-background-ratio="0.5">
@@ -82,8 +39,8 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2">
-                    <span>公立領養 <i class="ion-ios-arrow-forward"></i></span>
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="/index">首頁 <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>> 公立領養 <i class="ion-ios-arrow-forward"></i></span>
                 </p>
                 <h1 class="mb-0 bread">公立領養</h1>
             </div>
@@ -195,7 +152,10 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script>
 
+    $(".headerPage").load("header");//讀取導覽列
+</script>
 
 </body>
 
