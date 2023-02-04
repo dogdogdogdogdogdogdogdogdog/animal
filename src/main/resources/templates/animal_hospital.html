@@ -22,9 +22,15 @@
             background-repeat: repeat;
         }
 
-        .nav-img {
-            background-image: url('/images/_nav3.jpg');
+        .banner-img {
+            background-image: url('/images/_banner3.jpg');
             height: 300px !important;
+        }
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
         }
     </style>
 </head>
@@ -32,15 +38,15 @@
 <body>
 <div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2 img nav-img">
+<section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
         <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2">
-                    <span>首頁 &gt;</span>
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
                     <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread">動物醫院</h1>
+                <h1 class="mb-0 bread text-shadow">動物醫院</h1>
             </div>
         </div>
     </div>

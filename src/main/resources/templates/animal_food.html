@@ -18,53 +18,65 @@
     <script src="js/button.click.js"></script>
     <!--  自訂樣式  -->
     <style>
+        /*網站背景紋理*/
         .main-img {
             background-image: url('/images/_main.png');
             background-repeat: repeat;
         }
 
-        .nav-img {
-            background-image: url('/images/_nav1.jpg');
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
             height: 300px !important;
         }
 
+        /*表格儲存格分離*/
         table {
             border-collapse: separate;
         }
 
+        /*儲存格內間距*/
         th, td {
             padding: 15px;
             text-align: center;
         }
 
+        /*指定奇數列背景色*/
         tr:nth-child(odd) {
             background-color: #ffffce;
         }
 
+        /*指定偶數列背景色*/
         tr:nth-child(even) {
             background-color: #ffffce;
         }
 
+        /*邊角圓弧-左上*/
         th:first-child {
             border-radius: 10px 0px 0px 0px;
         }
 
+        /*邊角圓弧-右上*/
         th:last-child {
             border-radius: 0px 10px 0px 0px;
         }
 
+        /*邊角圓弧-左下*/
         tr:last-child td:first-child {
             border-radius: 0px 0px 0px 10px;
         }
 
+        /*邊角圓弧-右下*/
         tr:last-child td:last-child {
             border-radius: 0px 0px 10px 0px;
         }
 
+        /*區塊陰影效果*/
         .div-shadow {
             box-shadow: 3px 3px 9px grey;
         }
 
+        /*原生換頁UI*/
         .block-27 ul li a, .block-27 ul li span {
             color: black;
             border: 2px solid #e6e6e6;
@@ -98,21 +110,27 @@
 
         /*#scroll {position:fixed; top:300px; right:100px;}*/
         /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
     </style>
 </head>
 
 <body>
 <div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2 img nav-img">
+<section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
         <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2">
-                    <span>首頁 &gt;</span>
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
                     <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread">寵物食品</h1>
+                <h1 class="mb-0 bread text-shadow">寵物食品</h1>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>註冊登入 -寵物資訊平台</title>
+    <title>會員登入 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
@@ -21,27 +21,71 @@
     <script src="js/judgeLoginEmail.js"></script>
     <!--  自訂樣式  -->
     <style>
+        /*網站背景紋理*/
         .main-img {
             background-image: url('/images/_main.png');
             background-repeat: repeat;
         }
 
-        .nav-img {
-            background-image: url('/images/_nav1.jpg');
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
             height: 300px !important;
         }
 
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
         .btn.btn-primary {
             font-size: 1rem;
             letter-spacing: 10px;
+            opacity: 0.8;
         }
+
+        /*按鈕樣式-滑鼠掠過*/
         .btn.btn-primary:hover {
-            color: #fff;
-            background: #fcd601;
-            opacity: 0.5;
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
         }
+
+        /*註冊登入區標題顏色*/
+        h2 {
+            color: black !important;
+        }
+
+        /*註冊區的overlay遮罩魔改成垂直分隔線*/
+        .overlay {
+            background: transparent !important;
+            border-left: 1px solid grey;
+            height: 300px;
+            margin-block: auto;
+        }
+
+        /*輸入框及按鈕字體加大、邊角圓弧加大*/
         input, button {
             font-size: 20px !important;
+            border-radius: 0.5rem !important;
+        }
+
+        /*ICON旁的輸入區鄰近邊角取消圓弧效果*/
+        span ~ input {
+            border-radius: 0 0.5rem 0.5rem 0 !important;
+        }
+
+        /*ICON自訂樣式*/
+        .fa-icon {
+            color: black;
+            background: lightgrey;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            min-width: 13%;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5em !important;
         }
     </style>
 </head>
@@ -49,38 +93,39 @@
 <body>
 <div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2 img nav-img">
+<section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
         <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2">
-                    <span>首頁 &gt;</span>
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
                     <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread">登入註冊</h1>
+                <h1 class="mb-0 bread text-shadow">會員登入</h1>
             </div>
         </div>
     </div>
 </section>
 
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img main-bg"
-         style="background-color: blanchedalmond;">
+<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
     <div class="overlay"></div>
     <div class="container d-flex flex-wrap" style="max-width: 1200px;">
         <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
-            <h2 class="m-3" style="color: #fc7000 !important;">登入</h2>
+            <h2 class="m-3">登入</h2>
             <form class="appointment">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group d-flex">
+                                <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
                                 <input id="loginEmail" type="email" class="form-control" placeholder="電子郵件"
                                        onchange="judgeLoginEmail(this.id)">
                                 <b id="loginPromptEmail"></b>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group d-flex">
+                                <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
                                 <input id="loginPassword" type="password" class="form-control" placeholder="密碼">
                             </div>
                         </div>
@@ -99,24 +144,28 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group d-flex">
+                                <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
                                 <input id="emailAjax" type="email" class="form-control" placeholder="電子郵件"
                                        onchange="judgeRegistEmail(this.id)" required/>
                                 <b id="promptEmail"></b>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group d-flex">
+                                <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
                                 <input id="passwordAjax" type="password" class="form-control" placeholder="密碼">
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group d-flex">
+                                <span class="fa-icon"><i class="fa fa-user-o fa-2x"></i></span>
                                 <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group d-flex">
+                                <span class="fa-icon"><i class="fa fa-phone fa-2x"></i></span>
                                 <input id="telAjax" type="tel" class="form-control" placeholder="聯絡電話">
                             </div>
                         </div>

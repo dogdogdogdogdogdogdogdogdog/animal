@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <script src="js/checkLogin.js"></script>
     <script>
@@ -85,34 +84,51 @@
         })
 
         xhr.open("get", "http://localhost:8080/publish_animals/all")
-
         xhr.send()
-
 
     </script>
     <title>一般領養 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <!--  自訂樣式  -->
     <style>
+        /*網站背景紋理*/
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner3.jpg');
+            height: 300px !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 0px;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff;
+            background: #ffa500;
+            opacity: 0.5;
+        }
+
         .page_show {
             padding: 40px 0;
             text-align: center;
@@ -137,25 +153,30 @@
             border: #282828 solid 1px;
             background-color: #424242;
         }
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
     </style>
 </head>
 
 <body>
 <div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
-		 data-stellar-background-ratio="0.5">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row no-gutters slider-text align-items-end">
-			<div class="col-md-9 ftco-animate pb-5">
-				<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/index">首頁 <i
-						class="ion-ios-arrow-forward"></i></a></span> <span>> 一般領養 <i
-						class="ion-ios-arrow-forward"></i></span></p>
-				<h1 class="mb-0 bread">一般領養</h1>
-			</div>
-		</div>
-	</div>
+<section class="hero-wrap hero-wrap-2 img banner-img">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
+                    <span class="ion-ios-arrow-forward"></span>
+                </p>
+                <h1 class="mb-0 bread text-shadow">一般領養</h1>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Modal -->
@@ -459,7 +480,7 @@
         })
     }
 
-<!-- 讀取導覽列 -->
+    <!-- 讀取導覽列 -->
     $(".header-page").load("header");
 </script>
 </body>
