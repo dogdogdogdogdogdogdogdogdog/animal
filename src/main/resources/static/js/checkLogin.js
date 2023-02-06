@@ -13,6 +13,7 @@ function checkLogin() {
             // 登入後顯示 {會員Email} 登出
             document.getElementById("login_stat").style.visibility = "visible";
             document.getElementById("login_stat").innerHTML = `${user.email} 登出`;
+            document.getElementById("login_stat").href = "javascript: goLoginAndRegist()";
             // 登入後導覽列下拉選單隱藏「登入」連結
             document.getElementById("login").style.display = "none";
             // 登入後導覽列下拉選單顯示「登出」連結
