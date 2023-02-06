@@ -14,18 +14,19 @@ function checkLogin() {
             document.getElementById("login_stat").style.visibility = "visible";
             document.getElementById("login_stat").innerHTML = `${user.email} 登出`;
             document.getElementById("login_stat").href = "javascript: goLoginAndRegist()";
-            // 登入後導覽列下拉選單隱藏「登入」連結
+            // 登入後導覽列下拉選單隱藏「登入」連結 | 滑鼠掠過時圓弧效果移除
+            document.getElementById("login").removeAttribute("style");
             document.getElementById("login").style.display = "none";
             // 登入後導覽列下拉選單顯示「登出」連結
-            document.getElementById("sign_out").style.display = "contents";
+            document.getElementById("sign_out").removeAttribute("style");
             // 登出連結導向goLoginAndRegist()
             document.getElementById("sign_out").href = "javascript: goLoginAndRegist()";
             // 登入後導覽列下拉選單隱藏「會員資料修改」連結
-            document.getElementById("userManagement").style.display = "contents";
+            document.getElementById("userManagement").removeAttribute("style");
             // 登入後導覽列下拉選單隱藏「會員刊登送養」連結
-            document.getElementById("publish").style.display = "contents";
+            document.getElementById("publish").removeAttribute("style");
             // 登入後導覽列下拉選單隱藏「送養資訊管理」連結
-            document.getElementById("userPublishHistory").style.display = "contents";
+            document.getElementById("userPublishHistory").removeAttribute("style");
 
             switch (url) {
                 case 'user_management':

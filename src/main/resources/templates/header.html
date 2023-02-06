@@ -41,7 +41,7 @@
             transform: scaleX(1);
         }
 
-        /*導覽列底條-滑鼠掠過前效果**/
+        /*導覽列底條-滑鼠掠過前效果*/
         .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:before {
             content: "";
             position: absolute;
@@ -67,7 +67,7 @@
 
         /*導覽列下拉選單-框體*/
         .dropdown-menu {
-            min-width: 100% !important;
+            min-width: 8rem !important;
             padding: 0 !important;
             margin: 0 !important;
             text-align: center;
@@ -84,18 +84,11 @@
             margin-top: 0;
         }
 
-        /*導覽列下拉選單-滑鼠掠過效果*/
-        .dropdown-item:hover, .dropdown-item:focus {
-            color: white !important;
-            background-color: #81a5ff !important;
-            text-shadow: 2px 2px 6px black !important;
-        }
-
         /*導覽列下拉選單-物件*/
         .dropdown-item {
             display: block;
-            width: 100%;
-            padding: 0.25rem 1.5rem;
+            width: 8rem !important;
+            padding: 0;
             clear: both;
             font-size: 18px !important;
             font-weight: 600 !important;
@@ -106,14 +99,21 @@
             border: 0;
         }
 
-        /*導覽列下拉選單-首物件取消邊角圓弧*/
-        .dropdown-item:first-child {
-            border-bottom-right-radius: 0 !important;
-            border-bottom-left-radius: 0 !important;
+        /*導覽列下拉選單-末物件設定邊角圓弧*/
+        .dropdown-item:nth-last-child(1) {
+            border-bottom-right-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5rem !important;
         }
 
-        /*導覽列下拉選單-末物件設定邊角圓弧*/
-        .dropdown-item:last-child {
+        /*導覽列下拉選單-滑鼠掠過效果*/
+        .dropdown-item:hover {
+            color: white !important;
+            background-color: #81a5ff !important;
+            text-shadow: 2px 2px 6px black !important;
+        }
+
+        /*導覽列下拉選單-末項物件滑鼠掠過效果*/
+        .dropdown-item:last-child:hover, .dropdown-item:only-child:hover {
             border-bottom-right-radius: 0.5rem !important;
             border-bottom-left-radius: 0.5rem !important;
         }
@@ -169,10 +169,10 @@
                 <li class="nav-item"><a href="/funeral" class="nav-link">寵物送別</a></li>
 
                 <!-- 下拉選單 -->
-                <li id="loginAndRegist" class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <span class="nav-link dropdown-toggle" data-toggle="dropdown">會員登入</span>
                     <div class="dropdown-menu">
-                        <a id="login" class="dropdown-item" href="/login_register" style="display: contents;">登入</a>
+                        <a id="login" class="dropdown-item" href="/login_register" style="border-radius: 0 0 0.5rem 0.5rem">登入</a>
                         <a id="sign_out" class="dropdown-item" href="/sign_out" style="display: none;">登出</a>
                         <a id="userManagement" class="dropdown-item" href="/user_management" style="display: none;">會員資料修改</a>
                         <a id="publish" class="dropdown-item" href="/publish" style="display: none;">會員刊登送養</a>
