@@ -1,124 +1,112 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <script src="js/checkLogin.js"></script>
-
-
     <title>會員中心 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
+    <!--  自訂樣式  -->
+    <style>
+        /*網站背景紋理*/
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
+            height: 300px !important;
+        }
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            font-size: 1rem;
+            letter-spacing: 10px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*註冊登入區標題顏色*/
+        h2 {
+            color: black !important;
+        }
+
+        /*輸入框及按鈕字體加大、邊角圓弧加大*/
+        input, button {
+            font-size: 20px !important;
+            border-radius: 0.5rem !important;
+        }
+    </style>
 </head>
 
 <body>
-
-<div class="wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 d-flex align-items-center">
-
-            </div>
-            <div class="col-md-6 d-flex justify-content-md-end">
-                <div class="social-media">
-                    <p class="mb-0 d-flex">
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"></a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand">🐾寵物資訊平台</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="http://localhost:8080/index" class="nav-link">首頁</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/public_shelter" class="nav-link">公立領養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/personal_shelter" class="nav-link">一般領養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/publish" class="nav-link">刊登送養</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/missing" class="nav-link">走失協尋</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/animal_hospital" class="nav-link">動物醫院</a></li>
-                <li class="nav-item"><a href="http://localhost:8080/funeral" class="nav-link">寵物送別</a></li>
-                <li id="userPublishHistory" class="nav-item"></li>
-                <li id="userManagement" class="nav-item"></li>
-                <li id="loginAndRegist" class="nav-item"><a href="http://localhost:8080/login_register"
-                                                            class="nav-link">登入註冊</a></li>
-
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
-         data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+<section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span>會員中心<i class="ion-ios-arrow-forward"></i></span>
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
+                    <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread">會員中心</h1>
+                <h1 class="mb-0 bread text-shadow">會員資料修改</h1>
             </div>
         </div>
     </div>
 </section>
 
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
-         style="background-color: blanchedalmond; display: flex !important;">
+<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
     <div class="container">
-        <div class="row d-md-flex justify-content-center">
-            <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
-                <h2 class="mb-4" style="color: #fc7000 !important;">會員基本資料</h2>
-                <form action="" class="">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
+                <h2 class="mb-3">會員基本資料</h2>
+                <form action="" class="appointment">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <p id="userEmail" type="text" class="form-control"
-                                >
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <p id="userName" type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <p id="userTel" type="text" class="form-control" placeholder="聯絡電話">
+                                <input id="userEmail" type="email" class="form-control" placeholder="電子郵件">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <!--                                <button onclick="send()" class="btn btn-primary py-3 px-4">送出</button>-->
+                                <input id="userName" type="text" class="form-control" placeholder="姓名">
                             </div>
-
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="userTel" type="tel" class="form-control" placeholder="聯絡電話">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button onclick="send()" class="btn btn-primary py-3 px-4">修改基本資料</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -126,7 +114,6 @@
         </div>
     </div>
 </section>
-<button class="btn btn-primary py-3 px-4">修改基本資料</button>
 
 <footer class="footer">
     <div class="row mt-5">
@@ -171,8 +158,10 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
-
+<!-- 讀取導覽列 -->
+<script>
+    $(".header-page").load("header");
+</script>
 
 </body>
-
 </html>

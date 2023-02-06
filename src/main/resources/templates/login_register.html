@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
@@ -149,7 +149,7 @@
                             <div class="form-group d-flex">
                                 <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
                                 <input id="emailAjax" type="email" class="form-control" placeholder="電子郵件"
-                                       onchange="judgeRegistEmail(this.id)" required/>
+                                       onchange="judgeRegisterEmail(this.id)" required/>
                                 <b id="promptEmail"></b>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button id="registBtn" onclick="regist()" class="btn btn-primary py-3 px-4">註冊
+                                <button id="registBtn" onclick="register()" class="btn btn-primary py-3 px-4">註冊
                                 </button>
                             </div>
                         </div>
@@ -204,6 +204,112 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
+
+<script type="text/javascript">
+    function judgeRegisterEmail(email){
+
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load',function(){
+            if(xhr.status==200){
+                document.getElementById("promptEmail").innerHTML="<div style='color: red'>Registed</div>"
+            }
+            if(xhr.status==404){
+                document.getElementById("promptEmail").innerHTML="<div style='color: green'>Can use</div>"
+            }
+        })
+        xhr.open('get',"http://localhost:8080/user/registed?email="+document.getElementById(email).value);
+        xhr.send();
+    }
+
+    function judgeLoginEmail(email){
+
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load',function(){
+            if(xhr.status==200){
+                document.getElementById("loginPromptEmail").innerHTML=""
+            }
+            if(xhr.status==404){
+                document.getElementById("loginPromptEmail").innerHTML="<div style='color: red'>尚未註冊請至註冊欄位註冊</div>"
+            }
+        })
+        xhr.open('get',"http://localhost:8080/user/registed?email="+document.getElementById(email).value);
+        xhr.send();
+    }
+
+    function login(){
+        var emailAjax= document.getElementById("loginEmail").value
+        var passwordAjax = document.getElementById("loginPassword").value
+        if(emailAjax=="" || passwordAjax=="" ){
+            alert("登入所有資料必須填寫")
+            return
+        }
+        var account = {
+            email: emailAjax,
+            password: passwordAjax,
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load',function(){
+
+            if (xhr.status==200){
+                alert("登入成功")
+                console.log(xhr.response)
+                window.location.replace("http://localhost:8080/user_management");
+
+                // document.getElementById("registStatus").innerHTML="<div style='color: green'>註冊成功請登入";
+            }else if(xhr.status==400){
+                alert("登入失敗 帳號或密碼輸入錯誤 ")
+                // document.getElementById("registStatus").innerHTML="<div style='color: red'>註冊失敗";
+            }
+
+        })
+        xhr.open('post', 'http://localhost:8080/user/login', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        var data = JSON.stringify(account);
+        xhr.send(data);
+    }
+
+    function register(){
+        var emailAjax= document.getElementById("emailAjax").value
+        var passwordAjax = document.getElementById("passwordAjax").value
+        var nameAjax= document.getElementById("nameAjax").value
+        var telAjax=document.getElementById("telAjax").value
+        if(emailAjax=="" || passwordAjax=="" || nameAjax=="" || telAjax==""){
+            alert("註冊所有資料必須填寫")
+            return
+        }
+
+        var account = {
+            email: emailAjax,
+            password: passwordAjax,
+            name: nameAjax,
+            tel: telAjax
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load',function(){
+
+            if (xhr.status==201){
+                document.getElementById("emailAjax").value=""
+                document.getElementById("passwordAjax").value=""
+                document.getElementById("nameAjax").value=""
+                document.getElementById("telAjax").value=""
+                document.getElementById("promptEmail").innerText=""
+                alert("註冊成功請登入")
+
+                // document.getElementById("registStatus").innerHTML="<div style='color: green'>註冊成功請登入";
+            }else {
+                alert("註冊失敗")
+                // document.getElementById("registStatus").innerHTML="<div style='color: red'>註冊失敗";
+            }
+
+        })
+        xhr.open('post', 'http://localhost:8080/user/register', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        var data = JSON.stringify(account);
+        xhr.send(data);
+    }
+
+</script>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>

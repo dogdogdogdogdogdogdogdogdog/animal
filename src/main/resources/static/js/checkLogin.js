@@ -1,36 +1,48 @@
- var user;
-function checkLogin(){
-  var  xhr1 = new XMLHttpRequest();
-  var url=location.pathname.replaceAll("/","")
-    xhr1.addEventListener('load',function(){
+var user;
+
+function checkLogin() {
+    var xhr1 = new XMLHttpRequest();
+    var url = location.pathname.replaceAll("/", "")
+    xhr1.addEventListener('load', function () {
         console.log(xhr1.status)
-        if(xhr1.status==200){
+        if (xhr1.status == 200) {
 
 
-            user= JSON.parse(xhr1.responseText)
+            user = JSON.parse(xhr1.responseText)
 
-            document.getElementById("loginAndRegist").innerHTML=`<a href="javascript: goLoginAndRegist()"  class="nav-link">${user.email}<br>登出</a>`
-            document.getElementById("userManagement").innerHTML='<a href="http://localhost:8080/user_management"  class="nav-link">會員中心</a>'
-            document.getElementById("userPublishHistory").innerHTML='<a href="http://localhost:8080/user_publish_history"  class="nav-link">會員刊登資訊</a>'
+            // 登入後顯示 {會員Email} 登出
+            document.getElementById("login_stat").style.visibility = "visible";
+            document.getElementById("login_stat").innerHTML = `${user.email} 登出`;
+            // 登入後導覽列下拉選單隱藏「登入」連結
+            document.getElementById("login").style.display = "none";
+            // 登入後導覽列下拉選單顯示「登出」連結
+            document.getElementById("sign_out").style.display = "contents";
+            // 登出連結導向goLoginAndRegist()
+            document.getElementById("sign_out").href = "javascript: goLoginAndRegist()";
+            // 登入後導覽列下拉選單隱藏「會員資料修改」連結
+            document.getElementById("userManagement").style.display = "contents";
+            // 登入後導覽列下拉選單隱藏「會員刊登送養」連結
+            document.getElementById("publish").style.display = "contents";
+            // 登入後導覽列下拉選單隱藏「送養資訊管理」連結
+            document.getElementById("userPublishHistory").style.display = "contents";
 
-
-            switch(url) {
+            switch (url) {
                 case 'user_management':
-                    document.getElementById("userEmail").innerText=user.email
-                    document.getElementById("userName").innerText=user.name
-                    document.getElementById("userTel").innerText=user.tel
+                    document.getElementById("userEmail").innerText = user.email
+                    document.getElementById("userName").innerText = user.name
+                    document.getElementById("userTel").innerText = user.tel
                     return
                 case 'user_publish_history':
-                 var   xhr = new XMLHttpRequest();
+                    var xhr = new XMLHttpRequest();
 
                     xhr.addEventListener("load", function () {
 
 
-                        var  publishData= JSON.parse(xhr.responseText)
-                       var publishContent= document.getElementById("publishContent")
+                        var publishData = JSON.parse(xhr.responseText)
+                        var publishContent = document.getElementById("publishContent")
 
 
-                        for(let i=0;i<publishData.length;i++){
+                        for (let i = 0; i < publishData.length; i++) {
                             var tr = document.createElement('tr');
                             // tr.setAttribute('id',`item${publishData[i].item}`)
                             var td = document.createElement('td');
@@ -75,21 +87,21 @@ function checkLogin(){
                             tr.appendChild(td)
                             var td = document.createElement('td');
 
-                            var btn=document.createElement('button')
+                            var btn = document.createElement('button')
                             const update = document.createTextNode('更新');
                             btn.appendChild(update)
-                            btn.onclick=function (){
-                                infoModal=document.querySelector("#infoModal");
+                            btn.onclick = function () {
+                                infoModal = document.querySelector("#infoModal");
                                 infoModal.showModal();
-                                infoModal.setAttribute('class',publishData[i].item)
+                                infoModal.setAttribute('class', publishData[i].item)
                             }
                             td.appendChild(btn)
-                            var btn=document.createElement('button')
+                            var btn = document.createElement('button')
                             const del = document.createTextNode('刪除');
-                            btn.onclick=function (){
+                            btn.onclick = function () {
                                 delinfoModal = document.querySelector("#delinfoModal")
                                 delinfoModal.showModal()
-                                delinfoModal.setAttribute('class',publishData[i].item)
+                                delinfoModal.setAttribute('class', publishData[i].item)
                             }
                             btn.appendChild(del)
                             td.appendChild(btn)
@@ -109,20 +121,22 @@ function checkLogin(){
         }
 
     })
-    xhr1.open('get',"http://localhost:8080/session-userId");
+    xhr1.open('get', "http://localhost:8080/session-userId");
     xhr1.send();
 }
-function goLoginAndRegist(){
+
+function goLoginAndRegist() {
     xhr = new XMLHttpRequest();
 
-    xhr.addEventListener('load',function(){
+    xhr.addEventListener('load', function () {
 
-        if(xhr.status=200){
+        if (xhr.status = 200) {
             window.location.replace("http://localhost:8080/login_register");
         }
-})
-xhr.open('get',"http://localhost:8080/sign_out")
-xhr.send();
+    })
+    xhr.open('get', "http://localhost:8080/sign_out")
+    xhr.send();
 }
+
 checkLogin()
 
