@@ -1,70 +1,100 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script src="js/checkLogin.js"></script>
 
-
+    <script src="js/split.page.js"></script>
     <title>公立領養 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/split.page.js"></script>
+    <!--  自訂樣式  -->
+    <style>
+        /*網站背景紋理*/
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
+            height: 300px !important;
+        }
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
-<div class="headerPage"></div>
+<div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
-         data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+<section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="/index">首頁 <i
-                        class="ion-ios-arrow-forward"></i></a></span> <span>> 公立領養 <i class="ion-ios-arrow-forward"></i></span>
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
+                    <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread">公立領養</h1>
+                <h1 class="mb-0 bread text-shadow">公立領養</h1>
             </div>
         </div>
     </div>
 </section>
-<hr>
-<div style="margin: auto; width: 600px;">
-    物種 :
-    <select name="animalKind" id="kind">
-        <option>不分種類</option>
-        <option>狗</option>
-        <option>貓</option>
-        <option>其他</option>
-    </select>
-    收容所 :
-    <select name="shelterName" id="shelter">
-        <option>所有收容所</option>
-        <option th:each="s:${shelters}" th:text="${s.getName()}"></option>
-    </select>
-    <button onclick="search()">搜尋</button>
-</div>
-<section class="ftco-section" id="animalContext">
+
+<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img" id="animalContext">
     <div class="container">
+        <div class="col-auto p-3 m-auto ftco-animate text-center d-flex flex-wrap justify-content-center">
+            <div class="p-1">
+                <select class="col-auto custom-select" name="animalKind" id="kind">
+                    <option>不分種類</option>
+                    <option>狗</option>
+                    <option>貓</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="p-1">
+                <select class="col-auto custom-select" name="shelterName" id="shelter">
+                    <option>所有收容所</option>
+                    <option th:each="s:${shelters}" th:text="${s.getName()}"></option>
+                </select>
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4 ftco-animate" th:each="animal:${animals}">
                 <div class="work mb-4 img d-flex align-items-end"
@@ -94,20 +124,21 @@
             </div>
         </div>
     </div>
-
+    <div class="col-auto p-3 m-auto ftco-animate text-center d-flex flex-wrap justify-content-center">
+        <div class="px-1">
+            <button class="btn btn-primary" onclick="goPrePage()">上一頁</button>
+        </div>
+        <div class="px-1">
+            <select class="col-auto custom-select" id="page" onchange="sendPageToServer()">
+                <option th:each="i:${pages}" th:text="${i}"></option>
+            </select>
+        </div>
+        <div class="px-1">
+            <button class="btn btn-primary" onclick="goNextPage()">下一頁</button>
+        </div>
+    </div>
 </section>
 
-
-<div style="margin: auto; width: 220px;">
-    <button onclick="goPrePage()">上一頁</button>
-    <select id="page" onchange="sendPageToServer()">
-
-        <option th:each="i:${pages}" th:text="${i}"></option>
-
-
-    </select>
-    <button onclick="goNextPage()">下一頁</button>
-</div>
 <footer class="footer">
     <div class="row mt-5">
         <div class="col-md-12 text-center">
@@ -124,7 +155,6 @@
     </div>
 </footer>
 
-
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
@@ -133,7 +163,6 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
-
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -152,11 +181,10 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<!-- 讀取導覽列 -->
 <script>
-
-    $(".headerPage").load("header");//讀取導覽列
+    $(".header-page").load("/header");
 </script>
 
 </body>
-
 </html>

@@ -1,66 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>註冊登入 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/button.click.js"></script>
-
+    <!--  自訂樣式  -->
     <style>
+        /*網站背景紋理*/
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
+            height: 300px !important;
+        }
+
+        /*表格儲存格分離*/
         table {
             border-collapse: separate;
         }
 
+        /*儲存格內間距*/
         th, td {
             padding: 15px;
             text-align: center;
         }
 
+        /*指定奇數列背景色*/
         tr:nth-child(odd) {
             background-color: #ffffce;
         }
 
+        /*指定偶數列背景色*/
         tr:nth-child(even) {
             background-color: #ffffce;
         }
 
+        /*邊角圓弧-左上*/
         th:first-child {
             border-radius: 10px 0px 0px 0px;
         }
 
+        /*邊角圓弧-右上*/
         th:last-child {
             border-radius: 0px 10px 0px 0px;
         }
 
+        /*邊角圓弧-左下*/
         tr:last-child td:first-child {
             border-radius: 0px 0px 0px 10px;
         }
 
+        /*邊角圓弧-右下*/
         tr:last-child td:last-child {
             border-radius: 0px 0px 10px 0px;
         }
 
+        /*區塊陰影效果*/
         .div-shadow {
             box-shadow: 3px 3px 9px grey;
         }
 
+        /*原生換頁UI*/
         .block-27 ul li a, .block-27 ul li span {
             color: black;
             border: 2px solid #e6e6e6;
@@ -94,26 +110,35 @@
 
         /*#scroll {position:fixed; top:300px; right:100px;}*/
         /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
     </style>
 </head>
+
 <body>
-<div class="headerPage"></div>
+<div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="ackground-image: url('images/bg_2.jpg');"
-         data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+<section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span>登入註冊 <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-0 bread">登入註冊</h1>
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
+                    <span class="ion-ios-arrow-forward"></span>
+                </p>
+                <h1 class="mb-0 bread text-shadow">寵物食品</h1>
             </div>
         </div>
     </div>
 </section>
+
 <!-- 表格SQL查詢測試用 -->
 <!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
-<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img"
          style="background-color: blanchedalmond; display: flex !important; position: static !important;">
     <div class="container" style="display: flex !important;">
         <div class="row d-md-flex">
@@ -170,19 +195,6 @@
     </div>
 </section>
 
-<!-- 佔位調整版面用 -->
-<!-- class效果:  display: flex 區塊排列平衡 position: static 使此區塊不覆蓋前區塊的陰影效果-->
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
-         style="background-color: blanchedalmond; display: flex !important; position: static !important;">
-    <div class="container">
-        <div class="row d-md-flex justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section"></h2>
-            </div>
-        </div>
-    </div>
-</section>
-
 <footer class="footer">
     <div class="row mt-5">
         <div class="col-md-12 text-center">
@@ -225,6 +237,9 @@
 <script src="js/main.js"></script>
 
 <script type="text/javascript">
+    <!--
+    全部都是未完成的功能測試
+    可以刪掉 -->
     var limit;
     var pages;
 
@@ -362,7 +377,6 @@
     });
 
     $("#search").click(function () {//搜尋按鈕被按下
-        listPage = 1;
         changePage(listPage);
     })
 
@@ -402,9 +416,10 @@
             }
         })
     }
-
-
-    $(".headerPage").load("header");//讀取導覽列
+</script>
+<script>
+    <!-- 讀取導覽列 -->
+    $(".header-page").load("header");
 </script>
 
 </body>
