@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <script src="js/checkLogin.js"></script>
-    <script>
 
+    <script>
 
 
 
@@ -12,26 +10,54 @@
     <title>一般領養 -寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
-
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <!--  自訂樣式  -->
     <style>
+        /*網站背景紋理*/
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
+            height: 300px !important;
+        }
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
         .page_show {
             padding: 40px 0;
             text-align: center;
@@ -60,30 +86,29 @@
 </head>
 
 <body>
-<div class="headerPage"></div>
+<div class="header-page"></div>
 <!-- END nav -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');"
-		 data-stellar-background-ratio="0.5">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row no-gutters slider-text align-items-end">
-			<div class="col-md-9 ftco-animate pb-5">
-				<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/index">首頁 <i
-						class="ion-ios-arrow-forward"></i></a></span> <span>> 一般領養 <i
-						class="ion-ios-arrow-forward"></i></span></p>
-				<h1 class="mb-0 bread">一般領養</h1>
-			</div>
-		</div>
-	</div>
+<section class="hero-wrap hero-wrap-2 img banner-img">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
+                    <span class="ion-ios-arrow-forward"></span>
+                </p>
+                <h1 class="mb-0 bread text-shadow">一般領養</h1>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Modal -->
-<div class="modal-body">
-    <div class="container-fluid">
-        <div class="row">
-        </div>
-    </div>
-</div>
+<!--<div class="modal-body">-->
+<!--    <div class="container-fluid">-->
+<!--        <div class="row">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!--<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"-->
 <!--     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
 <!--    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">-->
@@ -142,37 +167,42 @@
 <!--    </div>-->
 <!--</div>-->
 
-
-<hr>
-<div style="margin: auto; width: 800px;">
-    物種 :
-    <select name="animalKind" id="kind">
-        <option>不分種類</option>
-        <option>狗</option>
-        <option>貓</option>
-        <option>其他</option>
-    </select>
-    性別 :
-    <select name="animalSex" id="sex">
-        <option>不分種類</option>
-        <option>公</option>
-        <option>母</option>
-    </select>
-</div>
-
-<section class="ftco-section bg-light">
+<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img" id="animalContext">
     <div class="container">
-        <div class="row" id="test1Result">
+        <div class="col-auto p-3 m-auto ftco-animate text-center d-flex flex-wrap justify-content-center">
+            <div class="p-1">
+                <span>物種 :</span>
+                <select class="col-auto custom-select" name="animalKind" id="kind">
+                    <option>不分種類</option>
+                    <option>狗</option>
+                    <option>貓</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="p-1">
+                <span>性別 :</span>
+                <select class="col-auto custom-select" name="animalSex" id="sex">
+                    <option>不分種類</option>
+                    <option>公</option>
+                    <option>母</option>
+                </select>
+            </div>
+
+            <div class="container">
+                <div class="row" id="test1Result">
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="col-auto p-3 m-auto ftco-animate text-center d-flex flex-wrap justify-content-center">
+                    <p id="pageInfo"></p><br>
+                    <div class="page_show"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
-
-
-<div style="margin: auto; width: 800px;">
-    <p id="pageInfo"></p><br>
-    <div class="page_show"></div>
-</div>
-
 
 <footer class="footer">
     <div class="row mt-5">
@@ -190,7 +220,6 @@
     </div>
 </footer>
 
-
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
@@ -199,7 +228,6 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
-
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -378,8 +406,8 @@
         })
     }
 
-
-    $(".headerPage").load("header");//讀取導覽列
+    <!-- 讀取導覽列 -->
+    $(".header-page").load("header");
 </script>
 </body>
 
