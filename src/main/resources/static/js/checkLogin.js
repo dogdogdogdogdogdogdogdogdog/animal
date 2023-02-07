@@ -153,15 +153,14 @@ function checkLogin() {
 function goLoginAndRegist() {
     xhr = new XMLHttpRequest();
 
-    xhr.addEventListener('load', function () {
+    xhr.addEventListener('load',function(){
 
-        if (xhr.status = 200) {
+        if(xhr.status=200){
             window.location.replace("http://localhost:8080/login_register");
         }
-    })
-    xhr.open('get', "http://localhost:8080/sign_out")
-    xhr.send();
+})
+xhr.open('get',"http://localhost:8080/sign_out")
+xhr.send();
 }
-
 checkLogin()
 
