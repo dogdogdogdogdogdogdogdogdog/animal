@@ -27,31 +27,34 @@ public class MissingDaoImpl implements MissingDao {
 
     @Override
     public void createMissing(MissingAnimalRequest missingAnimalRequest) {
-        String sql = " insert into missing_animal(user_id,kind,variety,sex,body_shape,color,age,missing_date,missing_place,remark,photo_url,publish_date) value(:user_id,:kind,:variety,:sex,:body_shape,:color,:age,:missing_date,:missing_place,:remark,:photo_url,:publish_date) ";
-        Map<String, Object> map = new HashMap<>();
-        map.put("user_id", missingAnimalRequest.getUserId());
-        map.put("kind", missingAnimalRequest.getMissingKind());
-        map.put("variety", missingAnimalRequest.getMissingVariety());
-        map.put("sex", missingAnimalRequest.getMissingSex());
-        map.put("body_shape", missingAnimalRequest.getMissingBodyShape());
-        map.put("color", missingAnimalRequest.getMissingColor());
-        map.put("age", missingAnimalRequest.getMissingAge());
-        map.put("missing_date", missingAnimalRequest.getMissingDate());
-        map.put("missing_place", missingAnimalRequest.getMissingPlace());
-        map.put("remark", missingAnimalRequest.getMissingRemark());
-        map.put("photo_url", missingAnimalRequest.getPhotoUrl());
-        Date now = new Date();
-        map.put("publish_date", now);
+        for(int i=0;i<10;i++) {
+            String sql = " insert into missing_animal(user_id,kind,variety,sex,body_shape,color,age,missing_date,missing_place,remark,photo_url,publish_date) value(:user_id,:kind,:variety,:sex,:body_shape,:color,:age,:missing_date,:missing_place,:remark,:photo_url,:publish_date) ";
+            Map<String, Object> map = new HashMap<>();
+            map.put("user_id", missingAnimalRequest.getUserId());
+            map.put("kind", missingAnimalRequest.getMissingKind());
+            map.put("variety", missingAnimalRequest.getMissingVariety());
+            map.put("sex", missingAnimalRequest.getMissingSex());
+            map.put("body_shape", missingAnimalRequest.getMissingBodyShape());
+            map.put("color", missingAnimalRequest.getMissingColor());
+            map.put("age", missingAnimalRequest.getMissingAge());
+            map.put("missing_date", missingAnimalRequest.getMissingDate());
+            map.put("missing_place", missingAnimalRequest.getMissingPlace());
+            map.put("remark", missingAnimalRequest.getMissingRemark());
+            map.put("photo_url", missingAnimalRequest.getPhotoUrl());
+            Date now = new Date();
+            map.put("publish_date", now);
 
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+            KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+            namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
-        int missingAnimalId = keyHolder.getKey().intValue();
+            int missingAnimalId = keyHolder.getKey().intValue();
+        }
 
 
-        writePhoto(missingAnimalRequest,missingAnimalId);
+
+//        writePhoto(missingAnimalRequest,missingAnimalId);
     }
 
     @Override

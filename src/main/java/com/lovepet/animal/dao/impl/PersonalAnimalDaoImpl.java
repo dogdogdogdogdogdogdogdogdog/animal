@@ -85,33 +85,37 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest) {
-        String sql = "INSERT INTO personal_animal(user_id, animal_name, animal_kind, animal_variety, animal_sex, animal_age, animal_bodysize, animal_color, animal_sterilization, animal_bacterin, image_url, area, description, created_date, last_modified_date) " +
-                "VALUES (:userId, :animalName, :animalKind, :animalVariety, :animalSex, :animalAge, :animalBodysize, :animalColor, :animalSterilization, :animalBacterin, :imageUrl, :area, :description, :createdDate, :lastModifiedDate)";
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("userId", personalAnimalRequest.getUserId());
-        map.put("animalName", personalAnimalRequest.getAnimalName());
-        map.put("animalKind", personalAnimalRequest.getAnimalKind());
-        map.put("animalVariety", personalAnimalRequest.getAnimalVariety());
-        map.put("animalSex", personalAnimalRequest.getAnimalSex());
-        map.put("animalAge", personalAnimalRequest.getAnimalAge());
-        map.put("animalBodysize", personalAnimalRequest.getAnimalBodysize());
-        map.put("animalColor", personalAnimalRequest.getAnimalColor());
-        map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
-        map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
-        map.put("imageUrl", personalAnimalRequest.getImageUrl());
-        map.put("area", personalAnimalRequest.getArea());
-        map.put("description", personalAnimalRequest.getDescription());
 
-        Date now = new Date();
-        map.put("createdDate", now);
-        map.put("lastModifiedDate", now);
+            String sql = "INSERT INTO personal_animal(user_id, animal_name, animal_kind, animal_variety, animal_sex, animal_age, animal_bodysize, animal_color, animal_sterilization, animal_bacterin, image_url, area, description, created_date, last_modified_date) " +
+                    "VALUES (:userId, :animalName, :animalKind, :animalVariety, :animalSex, :animalAge, :animalBodysize, :animalColor, :animalSterilization, :animalBacterin, :imageUrl, :area, :description, :createdDate, :lastModifiedDate)";
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+            Map<String, Object> map = new HashMap<>();
+            map.put("userId", personalAnimalRequest.getUserId());
+            map.put("animalName", personalAnimalRequest.getAnimalName());
+            map.put("animalKind", personalAnimalRequest.getAnimalKind());
+            map.put("animalVariety", personalAnimalRequest.getAnimalVariety());
+            map.put("animalSex", personalAnimalRequest.getAnimalSex());
+            map.put("animalAge", personalAnimalRequest.getAnimalAge());
+            map.put("animalBodysize", personalAnimalRequest.getAnimalBodysize());
+            map.put("animalColor", personalAnimalRequest.getAnimalColor());
+            map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
+            map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
+            map.put("imageUrl", personalAnimalRequest.getImageUrl());
+            map.put("area", personalAnimalRequest.getArea());
+            map.put("description", personalAnimalRequest.getDescription());
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+            Date now = new Date();
+            map.put("createdDate", now);
+            map.put("lastModifiedDate", now);
+            KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        int personalAnimalId = keyHolder.getKey().intValue();
+
+            namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+            int personalAnimalId = keyHolder.getKey().intValue();
+
+
+
 
             writePhoto(personalAnimalRequest,personalAnimalId);
 

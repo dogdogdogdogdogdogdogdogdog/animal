@@ -101,7 +101,7 @@ function checkLogin(){
                                     document.getElementById("description").value=publishData[i].description
                                     document.getElementById("animalBacterin").value=publishData[i].animalBacterin
                                     document.getElementById("animalName").value=publishData[i].animalName
-                                    document.getElementById("curImg").innerHTML=`<img src="http://localhost:8080/static/images/publish/${publishData[i].userId}-${publishData[i].animalId}.jpg"  width="300" height="400">`
+                                    document.getElementById("curImg").innerHTML=`<img src="images/publish/${publishData[i].userId}-${publishData[i].animalId}.jpg"  width="300" height="400">`
 
 
 
