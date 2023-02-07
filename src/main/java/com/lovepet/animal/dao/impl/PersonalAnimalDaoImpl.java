@@ -3,7 +3,9 @@ package com.lovepet.animal.dao.impl;
 import com.lovepet.animal.dao.PersonalAnimalDao;
 import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
+import com.lovepet.animal.model.AnimalFood;
 import com.lovepet.animal.model.PersonalAnimal;
+import com.lovepet.animal.rowmapper.AnimalFoodRowmapper;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -24,6 +26,14 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Override
+    public List<PersonalAnimal> getPersonalAnimalComboBox() {
+        String sql = "SELECT * FROM personal_animal WHERE 1=1";
+
+        List<PersonalAnimal> list = namedParameterJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
+        return list;
+    }
 
     @Override
     public Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams) {
@@ -122,7 +132,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     public void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest) {
         String sql = "UPDATE personal_animal SET user_id = :userId, animal_name = :animalName, animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
                 "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor , " +
-                " animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
+                "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
         writePhoto(personalAnimalRequest,personalAnimalId);
         Map<String, Object> map = new HashMap<>();
@@ -165,6 +175,12 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
             sql = sql + " AND animal_sex = :animalSex";
             map.put("animalSex", personalAnimalQueryParams.getSex());
         }
+
+        if (personalAnimalQueryParams.getArea() != null) {
+            sql = sql + " AND area = :area";
+            map.put("area", personalAnimalQueryParams.getArea());
+        }
+
         if(personalAnimalQueryParams.getId()!=null){
             sql= sql + " AND user_id=:userId ";
             map.put("userId",personalAnimalQueryParams.getId());
