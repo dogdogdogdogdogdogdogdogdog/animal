@@ -9,9 +9,9 @@ import com.lovepet.animal.util.PageContent;
 import java.util.List;
 
 public interface AnimalDao {
-    public PageContent getAnimals(AnimalQueryParams animalQueryParams);
+  PageContent getAnimals(AnimalQueryParams animalQueryParams);
 
-    public List<Shelter> getShelter();
+   List<Shelter> getShelter();
 
 
 }

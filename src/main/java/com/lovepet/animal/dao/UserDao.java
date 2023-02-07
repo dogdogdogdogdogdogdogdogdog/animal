@@ -5,13 +5,13 @@ import com.lovepet.animal.model.User;
 import org.springframework.http.ResponseEntity;
 
 public interface UserDao {
-    public Integer createUser(UserRegisterRequest userRegisterRequest);
+    Integer createUser(UserRegisterRequest userRegisterRequest);
 
-    public User getUserById(Integer id);
+    User getUserById(Integer id);
 
-    public User getUserByEmail(String email);
+     User getUserByEmail(String email);
 
-    public Integer getUserIdByEmail(String email);
+    Integer getUserIdByEmail(String email);
 }
 
 

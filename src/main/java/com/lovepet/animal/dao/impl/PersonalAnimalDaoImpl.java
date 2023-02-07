@@ -12,6 +12,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -111,16 +113,18 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         int personalAnimalId = keyHolder.getKey().intValue();
 
+            writePhoto(personalAnimalRequest,personalAnimalId);
+
         return personalAnimalId;
     }
 
     @Override
     public void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest) {
         String sql = "UPDATE personal_animal SET user_id = :userId, animal_name = :animalName, animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
-                "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor" +
-                "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
+                "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor , " +
+                " animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
-
+        writePhoto(personalAnimalRequest,personalAnimalId);
         Map<String, Object> map = new HashMap<>();
         map.put("animalId", personalAnimalId);
         map.put("userId", personalAnimalRequest.getUserId());
@@ -136,19 +140,18 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("imageUrl", personalAnimalRequest.getImageUrl());
         map.put("area", personalAnimalRequest.getArea());
         map.put("description", personalAnimalRequest.getDescription());
-
         map.put("lastModifiedDate", new Date());
 
         namedParameterJdbcTemplate.update(sql, map);
     }
 
     @Override
-    public void deletePersonalAnimalById(Integer personalAnimalId) {
-        String sql = "DELETE FROM personal_animal WHERE animal_id = :personalAnimalId";
+    public void deletePersonalAnimalById(Integer personalAnimalUserId,Integer personalAnimalId) {
+        String sql = "DELETE FROM personal_animal WHERE user_id=:personalAnimalUserId  AND animal_id = :personalAnimalId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
-
+        map.put("personalAnimalUserId",personalAnimalUserId);
         namedParameterJdbcTemplate.update(sql, map);
     }
 
@@ -162,8 +165,29 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
             sql = sql + " AND animal_sex = :animalSex";
             map.put("animalSex", personalAnimalQueryParams.getSex());
         }
-
+        if(personalAnimalQueryParams.getId()!=null){
+            sql= sql + " AND user_id=:userId ";
+            map.put("userId",personalAnimalQueryParams.getId());
+        }
         return sql;
     }
+    private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
+        try {
+            InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
+            String path = String.format("D:/animal/src/main/resources/static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
+            FileOutputStream fos = new FileOutputStream(path);
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fis.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
+            }
+            fos.flush();
+            fis.close();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

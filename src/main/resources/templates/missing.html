@@ -26,6 +26,32 @@
 
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page_show {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .page_show span {
+            display: inline-block;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 11px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 1px;
+            border: #b7b7b7 solid 1px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        span.page_cur {
+            color: #fff;;
+            border: #282828 solid 1px;
+            background-color: #424242;
+        }
+    </style>
 </head>
 
 <body>
@@ -89,12 +115,61 @@
     </div>
 </section>
 
-<section class="ftco-section">
+<hr>
+<div style="margin: auto; width: 800px;">
+    物種 :
+    <select name="animalKind" id="kind">
+        <option>不分種類</option>
+        <option>狗</option>
+        <option>貓</option>
+        <option>其他</option>
+    </select>
+    性別 :
+    <select name="animalSex" id="sex">
+        <option>不分種類</option>
+        <option>公</option>
+        <option>母</option>
+    </select>
+</div>
+
+<section class="ftco-section bg-light">
     <div class="container">
-        animals
+        <div class="row" id="test1Result">
+
+            <div class='col-md-6 col-lg-3 ftco-animate'>
+                           <div class='staff'>
+                                    <div class='img-wrap d-flex align-items-stretch'>
+                                           <div class='work mb-4 img d-flex align-items-end' style='background-image: url("imgUrl");'>
+                                             </div>
+                                    </div>
+                                    <div class='text pt-3 px-3 pb-4 text-center' style='cursor: pointer;'>
+                                          <h3 > animalName </h3>
+                                           <div class='faded'>
+                                                      <p>物種: animalKind </p>
+                                                        <p>品種:  animalVariety </p>
+                                                        <p>性別:  animalSex </p>
+                                                        <p>日期:  lastModifiedDate </p>
+                                           </div>
+
+                                    </div>
+                           </div>
+            </div>
+
+
+        </div>
     </div>
 </section>
-pages
+
+
+<div style="margin: auto; width: 800px;">
+    <p id="pageInfo"  class="1"> </p><br>
+
+    <div id="ps" class="page_show">
+<!--        <span >上一頁</span>-->
+<!--        <span class="page_cur">1</span>-->
+<!--        <span>下一頁</span>-->
+    </div>
+</div>
 <footer class="footer">
     <div class="row mt-5">
         <div class="col-md-12 text-center">
@@ -138,6 +213,9 @@ pages
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script src="js/MissingPageContent.js"></script>
+
+
 
 
 </body>
