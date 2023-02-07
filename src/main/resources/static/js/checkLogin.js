@@ -32,10 +32,6 @@ function checkLogin() {
             // 登入後導覽列下拉選單隱藏「送養資訊管理」連結
             document.getElementById("userPublishHistory").removeAttribute("style");
 
-            // document.getElementById("").innerHTML=`<a href="javascript: goLoginAndRegist()"  class="nav-link">${user.email}<br>登出</a>`
-            // document.getElementById("userManagement").innerHTML='<a href="http://localhost:8080/user_management"  class="nav-link">會員中心</a>'
-            // document.getElementById("userPublishHistory").innerHTML='<a href="http://localhost:8080/user_publish_history"  class="nav-link">會員刊登資訊</a>'
-
             switch (url) {
                 case 'user_management':
                     document.getElementById("userEmail").value = user.email;

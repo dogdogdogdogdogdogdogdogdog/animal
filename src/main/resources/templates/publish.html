@@ -63,6 +63,12 @@
             height: 300px;
             margin-block: auto;
         }
+
+        /*輸入框及按鈕字體加大、邊角圓弧加大*/
+        input, button {
+            font-size: 20px !important;
+            border-radius: 0.5rem !important;
+        }
     </style>
 </head>
 
@@ -92,169 +98,137 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-12">
-
-
+                            <div class="form-group">
+                                <input id="createkind" type="text" class="form-control" placeholder="種類">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createVariety" type="text" class="form-control" placeholder="品種">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createSex" type="text" class="form-control" placeholder="性別">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createBodyShape" type="text" class="form-control" placeholder="體型">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createColor" type="text" class="form-control" placeholder="顏色">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createAge" type="text" class="form-control" placeholder="年齡">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createLigation" type="text" class="form-control" placeholder="是否結扎">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createAddress" type="text" class="form-control" placeholder="地址">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createName" type="text" class="form-control" placeholder="名字">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createBacterin" type="text" class="form-control" placeholder="疫苗">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="createRemark" type="text" class="form-control" placeholder="備註">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="file" id="fileForm"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary py-3 px-4">送出</button>
+                            </div>
                         </div>
                     </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createkind" type="text" class="form-control" placeholder="種類">
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createVariety" type="text" class="form-control" placeholder="品種">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createSex" type="text" class="form-control" placeholder="性別">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createBodyShape" type="text" class="form-control" placeholder="體型">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createColor" type="text" class="form-control" placeholder="顏色">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createAge" type="text" class="form-control" placeholder="年齡">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createLigation" type="text" class="form-control" placeholder="是否結扎">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createAddress" type="text" class="form-control" placeholder="地址">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createName" type="text" class="form-control" placeholder="名字">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createBacterin" type="text" class="form-control" placeholder="疫苗">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="createRemark" type="text" class="form-control" placeholder="備註">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="file" id="fileForm"/>
-
-                </div>
-            </div>
-
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <!--									<button onclick="login()"   class="btn btn-primary py-3 px-4">送出</button>-->
-                </div>
-            </div>
+            </form>
         </div>
-        </form>
-    </div>
-    </div>
-    </div>
-
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row d-md-flex justify-content-end">
-            <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
-                <h2 id="registStatus" class="mb-4">協尋資料</h2>
-                <form class="appointment">
-                    <div class="row">
-                        <div id="missingInput" class="col-md-12">
+        <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
+            <h2 class="m-3">協尋資料</h2>
+            <form class="appointment">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <div class="form-field">
-                                    <div class="select-wrap">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingKind" type="text" class="form-control" placeholder="種類"/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingVariety" type="text" class="form-control" placeholder="品種">
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingSex" type="text" class="form-control" placeholder="性別">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingBody" type="text" class="form-control" placeholder="體型">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingColor" type="text" class="form-control" placeholder="顏色">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingAge" type="text" class="form-control" placeholder="年紀">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingDate" type="date" class="form-control" placeholder="走失日期">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingPlace" type="text" class="form-control" placeholder="走失地點">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input id="missingRemark" type="text" class="form-control" placeholder="備註">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="file" id="missingAnimalPhoto"/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <!--									<button onclick="regist()"   class="btn btn-primary py-3 px-4">送出</button>-->
-                                </div>
+                                <input id="missingKind" type="text" class="form-control" placeholder="種類"/>
                             </div>
                         </div>
-                </form>
-            </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingVariety" type="text" class="form-control" placeholder="品種">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingSex" type="text" class="form-control" placeholder="性別">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingBody" type="text" class="form-control" placeholder="體型">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingColor" type="text" class="form-control" placeholder="顏色">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingAge" type="text" class="form-control" placeholder="年紀">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingDate" type="date" class="form-control" placeholder="走失日期">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingPlace" type="text" class="form-control" placeholder="走失地點">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="missingRemark" type="text" class="form-control" placeholder="備註">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="file" id="missingAnimalPhoto"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary py-3 px-4">送出</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>
