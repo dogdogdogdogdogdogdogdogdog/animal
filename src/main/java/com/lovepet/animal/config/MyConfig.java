@@ -16,6 +16,6 @@ public class MyConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(myInterceptor).addPathPatterns("/session-userId").addPathPatterns("/user_publish_history").addPathPatterns("/user_management").addPathPatterns("/publish");
+        registry.addInterceptor(myInterceptor).addPathPatterns("/session-userId");
     }
 }

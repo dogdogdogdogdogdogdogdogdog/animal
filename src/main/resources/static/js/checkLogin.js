@@ -4,6 +4,10 @@ function checkLogin(){
   var url=location.pathname.replaceAll("/","")
     xhr1.addEventListener('load',function(){
         console.log(xhr1.status)
+        if(xhr1.status==302&&( url=="user_publish_history"||url=="user_management"||url=="publish" )){
+            window.location.href = '/login_register';
+        }
+
         if(xhr1.status==200){
 
 
@@ -28,49 +32,53 @@ function checkLogin(){
 
                         var  publishData= JSON.parse(xhr.responseText)
                        var publishContent= document.getElementById("publishContent")
-
+                        publishData=publishData.results
 
                         for(let i=0;i<publishData.length;i++){
                             var tr = document.createElement('tr');
                             // tr.setAttribute('id',`item${publishData[i].item}`)
                             var td = document.createElement('td');
-                            const item = document.createTextNode(publishData[i].item);
-                            td.appendChild(item)
+                            const name = document.createTextNode(publishData[i].animalName);
+                            td.appendChild(name)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const kind = document.createTextNode(publishData[i].kind);
+                            const animalBacterin = document.createTextNode(publishData[i].animalBacterin);
+                            td.appendChild(animalBacterin)
+                            tr.appendChild(td)
+                            var td = document.createElement('td');
+                            const kind = document.createTextNode(publishData[i].animalKind);
                             td.appendChild(kind)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const variety = document.createTextNode(publishData[i].variety);
+                            const variety = document.createTextNode(publishData[i].animalVariety);
                             td.appendChild(variety)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const sex = document.createTextNode(publishData[i].sex);
+                            const sex = document.createTextNode(publishData[i].animalSex);
                             td.appendChild(sex)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const bodyShape = document.createTextNode(publishData[i].bodyShape);
+                            const bodyShape = document.createTextNode(publishData[i].animalBodysize);
                             td.appendChild(bodyShape)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const color = document.createTextNode(publishData[i].color);
+                            const color = document.createTextNode(publishData[i].animalColor);
                             td.appendChild(color)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const age = document.createTextNode(publishData[i].age);
+                            const age = document.createTextNode(publishData[i].animalAge);
                             td.appendChild(age)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const ligation = document.createTextNode(publishData[i].ligation);
+                            const ligation = document.createTextNode(publishData[i].animalSterilization);
                             td.appendChild(ligation)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const address = document.createTextNode(publishData[i].address);
+                            const address = document.createTextNode(publishData[i].area);
                             td.appendChild(address)
                             tr.appendChild(td)
                             var td = document.createElement('td');
-                            const remark = document.createTextNode(publishData[i].remark);
+                            const remark = document.createTextNode(publishData[i].description);
                             td.appendChild(remark)
                             tr.appendChild(td)
                             var td = document.createElement('td');
@@ -81,7 +89,22 @@ function checkLogin(){
                             btn.onclick=function (){
                                 infoModal=document.querySelector("#infoModal");
                                 infoModal.showModal();
-                                infoModal.setAttribute('class',publishData[i].item)
+                                infoModal.setAttribute('class',publishData[i].animalId)
+                                    document.getElementById("animalVariety").value=publishData[i].animalVariety
+                                    document.getElementById("animalKind").value=publishData[i].animalKind
+                                    document.getElementById("animalSex").value=publishData[i].animalSex
+                                    document.getElementById("animalBodysize").value=publishData[i].animalBodysize
+                                    document.getElementById("animalColor").value=publishData[i].animalColor
+                                    document.getElementById("animalAge").value=publishData[i].animalAge
+                                    document.getElementById("animalSterilization").value=publishData[i].animalSterilization
+                                    document.getElementById("area").value=publishData[i].area
+                                    document.getElementById("description").value=publishData[i].description
+                                    document.getElementById("animalBacterin").value=publishData[i].animalBacterin
+                                    document.getElementById("animalName").value=publishData[i].animalName
+                                    document.getElementById("curImg").innerHTML=`<img src="http://localhost:8080/static/images/publish/${publishData[i].userId}-${publishData[i].animalId}.jpg"  width="300" height="400">`
+
+
+
                             }
                             td.appendChild(btn)
                             var btn=document.createElement('button')
@@ -89,7 +112,7 @@ function checkLogin(){
                             btn.onclick=function (){
                                 delinfoModal = document.querySelector("#delinfoModal")
                                 delinfoModal.showModal()
-                                delinfoModal.setAttribute('class',publishData[i].item)
+                                delinfoModal.setAttribute('class',publishData[i].animalId)
                             }
                             btn.appendChild(del)
                             td.appendChild(btn)
@@ -102,7 +125,7 @@ function checkLogin(){
 
                         return
                     })
-                    xhr.open('get', "http://localhost:8080/publish_animals/" + user.id);
+                    xhr.open('get', "http://localhost:8080/personalAnimals?id="+user.id);
                     xhr.send();
 
             }

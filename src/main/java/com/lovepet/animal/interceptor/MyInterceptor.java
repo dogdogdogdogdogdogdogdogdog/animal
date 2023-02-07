@@ -13,7 +13,7 @@ public class MyInterceptor implements HandlerInterceptor {
 
         if (request.getSession().getAttribute("userId") == null) {
             System.out.println("interceptor");
-            response.sendRedirect("/login_register");
+            response.setStatus(302);
 
 
             return false;

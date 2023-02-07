@@ -121,51 +121,75 @@
 <dialog id="infoModal">
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateKind" type="text" class="form-control" placeholder="種類">
+            <p>名字</p>
+            <input id="animalName" type="text" class="form-control" placeholder="名字">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateVariety" type="text" class="form-control" placeholder="品種">
+            <p>疫苗</p>
+            <input id="animalBacterin" type="text" class="form-control" placeholder="名字">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateSex" type="text" class="form-control" placeholder="性別">
+            <p>種類</p>
+            <input id="animalKind" type="text" class="form-control" placeholder="種類">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateBodyShape" type="text" class="form-control" placeholder="體型">
+            <p>品種</p>
+            <input id="animalVariety" type="text" class="form-control" placeholder="品種">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateColor" type="text" class="form-control" placeholder="顏色">
+            <p>性別</p>
+            <input id="animalSex" type="text" class="form-control" placeholder="性別">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateAge" type="text" class="form-control" placeholder="年齡">
+            <p>體型</p>
+            <input id="animalBodysize" type="text" class="form-control" placeholder="體型">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateLigation" type="text" class="form-control" placeholder="是否結扎">
+            <p>顏色</p>
+            <input id="animalColor" type="text" class="form-control" placeholder="顏色">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateAddress" type="text" class="form-control" placeholder="地址">
+            <p>年紀</p>
+            <input id="animalAge" type="text" class="form-control" placeholder="年齡">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <input id="updateRemark" type="text" class="form-control" placeholder="備註">
+            <p>是否結扎</p>
+            <input id="animalSterilization" type="text" class="form-control" placeholder="是否結扎">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
+            <p>地址</p>
+            <input id="area" type="text" class="form-control" placeholder="地址">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>備註</p>
+            <input id="description" type="text" class="form-control" placeholder="備註">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>目前圖片</p>
+            <div id="curImg"></div>
+            <p>修改圖片</p>
             <input type="file" id="animalPhoto"/>
         </div>
     </div>
@@ -174,7 +198,8 @@
 </dialog>
 <table id="publishContent">
     <tr>
-        <th>項目</th>
+        <th>名字</th>
+        <th>疫苗</th>
         <th>種類</th>
         <th>品種</th>
         <th>性別</th>

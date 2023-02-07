@@ -16,9 +16,9 @@ function updatePublish(){
     }
     if (c==0){alert('請輸入修改值')
             return}
-fd.append("userId",user.id)
-   fd.append("item",document.getElementById("infoModal").className)
-
+    fd.append("userId",user.id)
+    fd.append("item",document.getElementById("infoModal").className)
+    fd.append("imageUrl",'/static/images/publish/')
 
 
     var xhr=new XMLHttpRequest()
@@ -34,7 +34,7 @@ fd.append("userId",user.id)
         }
 
     })
-    xhr.open('put', 'http://localhost:8080/publish_animals', true);
+    xhr.open('put', 'http://localhost:8080/personalAnimals', true);
     xhr.send(fd);
 
 

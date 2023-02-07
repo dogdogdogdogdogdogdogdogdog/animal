@@ -42,7 +42,7 @@ public class PersonalAnimalImpl implements PersonalAnimalService {
     }
 
     @Override
-    public void deletePersonalAnimalById(Integer personalAnimalId) {
-        personalAnimalDao.deletePersonalAnimalById(personalAnimalId);
+    public void deletePersonalAnimalById(Integer personalAnimalUserId,Integer personalAnimalId) {
+        personalAnimalDao.deletePersonalAnimalById(personalAnimalUserId,personalAnimalId);
     }
 }
