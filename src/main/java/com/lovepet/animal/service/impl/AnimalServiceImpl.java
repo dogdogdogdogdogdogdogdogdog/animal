@@ -15,13 +15,13 @@ import java.util.List;
 public class AnimalServiceImpl implements AnimalService {
 
     @Autowired
-   private   AnimalDao animalDao;
+    private AnimalDao animalDao;
+
     @Override
     public PageContent getAnimals(AnimalQueryParams animalQueryParams) {
-         animalQueryParams.setOffset(12*(animalQueryParams.getPage()-1));
+        animalQueryParams.setOffset(12 * (animalQueryParams.getPage() - 1));
         return animalDao.getAnimals(animalQueryParams);
     }
-
 
 
     @Override

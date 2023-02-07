@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface PersonalAnimalService {
 
+    List<String> getPersonalAnimalsComboBox();
+
     Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams);
 
     List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams);
@@ -18,5 +20,5 @@ public interface PersonalAnimalService {
 
     void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest);
 
-    void deletePersonalAnimalById(Integer personalAnimalId);
+    void deletePersonalAnimalById(Integer personalAnimalUserId,Integer personalAnimalId);
 }

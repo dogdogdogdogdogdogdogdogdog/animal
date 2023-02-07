@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>會員中心 -寵物資訊平台</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--  自訂樣式  -->
+    <style>
+        /*網站背景紋理*/
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
+            height: 300px !important;
+        }
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            font-size: 1rem;
+            letter-spacing: 10px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*註冊登入區標題顏色*/
+        h2 {
+            color: black !important;
+        }
+
+        /*註冊區的overlay遮罩魔改成垂直分隔線*/
+        .overlay {
+            background: transparent !important;
+            border-left: 1px solid grey;
+            height: 300px;
+            margin-block: auto;
+        }
+
+        /*輸入框及按鈕字體加大、邊角圓弧加大*/
+        input, button {
+            font-size: 20px !important;
+            border-radius: 0.5rem !important;
+        }
+
+        /*ICON旁的輸入區鄰近邊角取消圓弧效果*/
+        span ~ input {
+            border-radius: 0 0.5rem 0.5rem 0 !important;
+        }
+
+        /*ICON自訂樣式*/
+        .fa-icon {
+            color: black;
+            background: lightgrey;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            min-width: 13%;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5em !important;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        dialog {
+            border: none;
+            box-shadow: 0 2px 6px #ccc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header-page"></div>
+<!-- END nav -->
+<section class="hero-wrap hero-wrap-2 img banner-img">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
+                    <span class="ion-ios-arrow-forward"></span>
+                </p>
+                <h1 class="mb-0 bread text-shadow">送養資訊管理</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<dialog id="delinfoModal">
+    <p>確定刪除?</p>
+    <button id="delConfirm" onclick="delPublish()">確定</button>
+    <button id="delclose">close</button>
+</dialog>
+
+
+<dialog id="infoModal">
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>名字</p>
+            <input id="animalName" type="text" class="form-control" placeholder="名字">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>疫苗</p>
+            <input id="animalBacterin" type="text" class="form-control" placeholder="名字">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>種類</p>
+            <input id="animalKind" type="text" class="form-control" placeholder="種類">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>品種</p>
+            <input id="animalVariety" type="text" class="form-control" placeholder="品種">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>性別</p>
+            <input id="animalSex" type="text" class="form-control" placeholder="性別">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>體型</p>
+            <input id="animalBodysize" type="text" class="form-control" placeholder="體型">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>顏色</p>
+            <input id="animalColor" type="text" class="form-control" placeholder="顏色">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>年紀</p>
+            <input id="animalAge" type="text" class="form-control" placeholder="年齡">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>是否結扎</p>
+            <input id="animalSterilization" type="text" class="form-control" placeholder="是否結扎">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>地址</p>
+            <input id="area" type="text" class="form-control" placeholder="地址">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>備註</p>
+            <input id="description" type="text" class="form-control" placeholder="備註">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>目前圖片</p>
+            <div id="curImg"></div>
+            <p>修改圖片</p>
+            <input type="file" id="animalPhoto"/>
+        </div>
+    </div>
+    <button onclick="updatePublish()">修改</button>
+    <button id="close">close</button>
+</dialog>
+<table id="publishContent">
+    <tr>
+        <th>名字</th>
+        <th>疫苗</th>
+        <th>種類</th>
+        <th>品種</th>
+        <th>性別</th>
+        <th>體型</th>
+        <th>顏色</th>
+        <th>年紀</th>
+        <th>是否結扎</th>
+        <th>地址</th>
+        <th>備註</th>
+    </tr>
+
+
+</table>
+
+
+<footer class="footer">
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script>
+                All rights reserved | This template is made with <i
+                        class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                                                          target="_blank">Colorlib.com</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/google-map.js"></script>
+<script src="js/main.js"></script>
+<script src="js/updatePublish.js"></script>
+<script src="js/delPublish.js"></script>
+
+
+<script>
+    let close = document.querySelector("#close");
+    close.addEventListener("click", function () {
+        infoModal.close();
+    })
+    let delclose = document.querySelector("#delclose");
+    delclose.addEventListener("click", function () {
+        delinfoModal.close();
+    })</script>
+<!-- 讀取導覽列 -->
+<script>
+    $(".header-page").load("/header");
+</script>
+
+</body>
+</html>

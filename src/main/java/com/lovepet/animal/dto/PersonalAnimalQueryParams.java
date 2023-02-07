@@ -5,6 +5,7 @@ public class PersonalAnimalQueryParams {
     private String kind;
     private String variety;
     private String sex;
+    private String area;
     private String orderBy;
     private String sort;
     private Integer limit;
@@ -40,6 +41,14 @@ public class PersonalAnimalQueryParams {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getOrderBy() {
