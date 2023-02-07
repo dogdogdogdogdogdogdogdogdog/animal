@@ -8,6 +8,7 @@ import com.lovepet.animal.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class PersonalAnimalController {
             //查詢條件
             @RequestParam(required = false) String kind,
             @RequestParam(required = false) String sex,
+            @RequestParam(required = false) String area,
 
             //排序
             @RequestParam(defaultValue = "last_modified_date") String orderBy,
@@ -40,6 +42,7 @@ public class PersonalAnimalController {
         PersonalAnimalQueryParams personalAnimalQueryParams = new PersonalAnimalQueryParams();
         personalAnimalQueryParams.setKind(kind);
         personalAnimalQueryParams.setSex(sex);
+        personalAnimalQueryParams.setArea(area);
         personalAnimalQueryParams.setOrderBy(orderBy);
         personalAnimalQueryParams.setSort(sort);
         personalAnimalQueryParams.setLimit(limit);
@@ -107,5 +110,10 @@ public class PersonalAnimalController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/getPersonalAnimalsComboBox")// 搜尋條件-送資料至下拉選單
+    public ResponseEntity getPersonalAnimalsComboBox(Model model) {
+        List list = personalAnimalService.getPersonalAnimalsComboBox();
 
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
 }

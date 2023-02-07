@@ -30,14 +30,14 @@ public class AnimalFoodServiceImpl implements AnimalFoodService {
 
     @Override
     public List<String> getAnimalFoodsComboBox() {
-        List<AnimalFood> animalFoodlist = animalFoodDao.getAnimalFoodsComboBox();
+        List<AnimalFood> animalFoodList = animalFoodDao.getAnimalFoodsComboBox();
         List list = new ArrayList();
         Set<String> placeSet = new HashSet<>();
         Set<String> categorySet = new HashSet<>();
 
-        for (int i = 0; i < animalFoodlist.size(); i++) {
-            placeSet.add(animalFoodlist.get(i).getCategory());
-            categorySet.add(animalFoodlist.get(i).getProductionPlace());
+        for (int i = 0; i < animalFoodList.size(); i++) {
+            placeSet.add(animalFoodList.get(i).getCategory());
+            categorySet.add(animalFoodList.get(i).getProductionPlace());
         }
         placeSet.remove("");
         System.out.println(placeSet);
