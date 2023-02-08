@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <script>
-
-
-    </script>
-    <title>一般領養 -寵物資訊平台</title>
+    <title>刊登認養 - 寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
@@ -58,7 +53,7 @@
         }
 
         .page_show {
-            padding: 40px 0;
+            /*padding: 40px 0;*/
             text-align: center;
         }
 
@@ -95,99 +90,44 @@
                     <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
                     <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread text-shadow">一般領養</h1>
+                <h1 class="mb-0 bread text-shadow">刊登認養區</h1>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Modal-->
-<div class="modal-body">
-    <div class="container-fluid">
-        <div class="row">
-        </div>
-    </div>
-</div>
-<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+    <div class="container">
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <!-- 篩選區 -->
+            <div class="p-1">
+                <select class="custom-select" name="area" id="area">
+                </select>
+            </div>
+            <div class="p-1">
+                <select class="custom-select" name="kind" id="kind">
+                </select>
+            </div>
+            <div class="p-1">
+                <select class="custom-select" name="sex" id="sex">
+                </select>
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="col">
-                        <img id="imageUrl_static">
-                        <label class="col-sm-2 control-label">會員編號 :</label>
-                        <label class="form-control-static" id="userId_static"></label><br>
-                        <label class="col-sm-2 control-label">動物編號 :</label>
-                        <label class="form-control-static" id="animalId_static"></label><br>
-                        <label class="col-sm-2 control-label">名字 :</label>
-                        <label class="form-control-static" id="animalName_static"></label><br>
-                        <label class="col-sm-2 control-label">物種 :</label>
-                        <label class="form-control-static" id="animalKind_static"></label><br>
-                        <label class="col-sm-2 control-label">品種 :</label>
-                        <label class="form-control-static" id="animalVariety_static"></label><br>
-                        <label class="col-sm-2 control-label">性別 :</label>
-                        <label class="form-control-static" id="animalSex_static"></label><br>
-                        <label class="col-sm-2 control-label">年齡 :</label>
-                        <label class="form-control-static" id="animalAge_static"></label><br>
-                        <label class="col-sm-2 control-label">體型 :</label>
-                        <label class="form-control-static" id="animalBodysize_static"></label><br>
-                        <label class="col-sm-2 control-label">毛色 :</label>
-                        <label class="form-control-static" id="animalColor_static"></label><br>
-                        <label class="col-sm-2 control-label">絕育 :</label>
-                        <label class="form-control-static" id="animalSterilization_static"></label><br>
-                        <label class="col-sm-2 control-label">疫苗 :</label>
-                        <label class="form-control-static" id="animalBacterin_static"></label><br>
-                        <label class="col-sm-2 control-label">地區 :</label>
-                        <label class="form-control-static" id="area_static"></label><br>
-                        <label class="col-sm-2 control-label">備註:</label>
-                        <label class="form-control-static" id="description_static"></label><br>
-                        <label class="col-sm-2 control-label">刊登日期:</label>
-                        <label class="form-control-static" id="createdDate_static"></label><br>
-                        <label class="col-sm-2 control-label">更新日期:</label>
-                        <label class="form-control-static" id="lastModifiedDate_static"></label><br>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
         </div>
-    </div>
-</div>
-
-<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img"
-         style="background-color: blanchedalmond; display: flex !important; position: static !important;">
-    <div class="container" style="display: flex !important;">
-        <div class="row d-md-flex">
-            <!--            篩選區-->
-            <div class="col-md-auto p-3 m-auto ftco-animate" id="top">
-                <span>地區 :</span>
-                <select name="area" id="area">
-                </select>
-                <span>物種 :</span>
-                <select name="kind" id="kind">
-                </select>
-                <span>性別 :</span>
-                <select name="sex" id="sex">
-                </select>
-                <button id="search">搜尋</button>
-            </div>
-
-            <!--            顯示資料內容-->
-            <div class="container">
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3">
                 <div class="row" id="test1Result">
                 </div>
             </div>
-
-            <!--            顯示查詢資訊-->
-            <div class="col-md-12 p-3 m-auto ftco-animate text-center">
+        </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
                 <div class="block-27">
                     <p id="pageInfo"></p><br>
                     <div class="page_show"></div>
@@ -195,8 +135,69 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <!-- Modal-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col">
+                                <img id="imageUrl_static">
+                                <label class="col-sm-2 control-label">會員編號 :</label>
+                                <label class="form-control-static" id="userId_static"></label><br>
+                                <label class="col-sm-2 control-label">動物編號 :</label>
+                                <label class="form-control-static" id="animalId_static"></label><br>
+                                <label class="col-sm-2 control-label">名字 :</label>
+                                <label class="form-control-static" id="animalName_static"></label><br>
+                                <label class="col-sm-2 control-label">物種 :</label>
+                                <label class="form-control-static" id="animalKind_static"></label><br>
+                                <label class="col-sm-2 control-label">品種 :</label>
+                                <label class="form-control-static" id="animalVariety_static"></label><br>
+                                <label class="col-sm-2 control-label">性別 :</label>
+                                <label class="form-control-static" id="animalSex_static"></label><br>
+                                <label class="col-sm-2 control-label">年齡 :</label>
+                                <label class="form-control-static" id="animalAge_static"></label><br>
+                                <label class="col-sm-2 control-label">體型 :</label>
+                                <label class="form-control-static" id="animalBodysize_static"></label><br>
+                                <label class="col-sm-2 control-label">毛色 :</label>
+                                <label class="form-control-static" id="animalColor_static"></label><br>
+                                <label class="col-sm-2 control-label">絕育 :</label>
+                                <label class="form-control-static" id="animalSterilization_static"></label><br>
+                                <label class="col-sm-2 control-label">疫苗 :</label>
+                                <label class="form-control-static" id="animalBacterin_static"></label><br>
+                                <label class="col-sm-2 control-label">地區 :</label>
+                                <label class="form-control-static" id="area_static"></label><br>
+                                <label class="col-sm-2 control-label">備註:</label>
+                                <label class="form-control-static" id="description_static"></label><br>
+                                <label class="col-sm-2 control-label">刊登日期:</label>
+                                <label class="form-control-static" id="createdDate_static"></label><br>
+                                <label class="col-sm-2 control-label">更新日期:</label>
+                                <label class="form-control-static" id="lastModifiedDate_static"></label><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-
 
 <footer class="footer">
     <div class="row mt-5">
@@ -260,9 +261,9 @@
             console.log(data[0]);
             console.log(data[1]);
 
-            $("#area").append("<option value='全部'>全部</option>");
-            $("#kind").append("<option value='全部'>全部</option>");
-            $("#sex").append("<option value='全部'>全部</option>");
+            $("#area").append("<option value='不限地區'>不限地區</option>");
+            $("#kind").append("<option value='不限種類'>不限種類</option>");
+            $("#sex").append("<option value='不限性別'>不限性別</option>");
 
             $.each(data[0], function (index, item) {
                 $("#area").append("<option value='" + item + "'>" + item + "</option>");
@@ -446,14 +447,14 @@
         console.log(kind);
         console.log(sex);
 
-        if (area != "全部") {
+        if (area != "不限地區") {
             searchUrl += "&area=" + area;
         }
-        if (kind != "全部") {
+        if (kind != "不限種類") {
             searchUrl += "&kind=" + kind;
         }
 
-        if (sex != "全部") {
+        if (sex != "不限性別") {
             searchUrl += "&sex=" + sex;
         }
         var url = "/personalAnimals?offset=" + limit * (page - 1) + searchUrl;

@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ClassUtils;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -190,7 +191,10 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
-            String path = String.format("D:/animal/src/main/resources/static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
+            String path = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
+            System.out.println(ClassUtils.getDefaultClassLoader());
+            System.out.println(ClassUtils.getDefaultClassLoader().getResource(""));
+            System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
             FileOutputStream fos = new FileOutputStream(path);
             byte[] buffer = new byte[1024];
             int len;
