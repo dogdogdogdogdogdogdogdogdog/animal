@@ -20,7 +20,7 @@ import java.util.Map;
 @Component
 public class UserDaoImpl implements UserDao {
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
 
     @Override
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         Integer id = keyHolder.getKey().intValue();
         return id;
@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", id);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
+        List<User> userList = animalJdbcTemplate.query(sql, map, new UserRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0);
@@ -67,7 +67,7 @@ public class UserDaoImpl implements UserDao {
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
+        List<User> userList = animalJdbcTemplate.query(sql, map, new UserRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0);
@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDao {
         String sql = "select user_id from user where email=:email ";
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserGetIdRowmapper());
+        List<User> userList = animalJdbcTemplate.query(sql, map, new UserGetIdRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0).getId();

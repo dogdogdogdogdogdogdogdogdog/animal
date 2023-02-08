@@ -16,7 +16,7 @@ import java.util.Map;
 @Component
 public class UserDaoImpl implements UserDao {
     @Autowired
-   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+   private NamedParameterJdbcTemplate animalJdbcTemplate;
 
 
     @Override
@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 
         KeyHolder keyHolder=new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder);
+        animalJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder);
 
        Integer id= keyHolder.getKey().intValue();
         return id;

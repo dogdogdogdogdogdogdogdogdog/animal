@@ -3,11 +3,10 @@ package com.lovepet.animal.dao.impl;
 import com.lovepet.animal.dao.PersonalAnimalDao;
 import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
-import com.lovepet.animal.model.AnimalFood;
 import com.lovepet.animal.model.PersonalAnimal;
-import com.lovepet.animal.rowmapper.AnimalFoodRowmapper;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -25,13 +24,15 @@ import java.util.Map;
 public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Qualifier("animalJdbcTemplate")
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
     @Override
     public List<PersonalAnimal> getPersonalAnimalComboBox() {
         String sql = "SELECT * FROM personal_animal WHERE 1=1";
 
-        List<PersonalAnimal> list = namedParameterJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> list = animalJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
+
         return list;
     }
 
@@ -44,7 +45,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         //查詢條件
         sql = addFilteringSql(sql, map, personalAnimalQueryParams);
 
-        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+        Integer total = animalJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
     }
@@ -69,7 +70,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("limit", personalAnimalQueryParams.getLimit());
         map.put("offset", personalAnimalQueryParams.getOffset());
 
-        List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> personalAnimalList = animalJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
         return personalAnimalList;
     }
@@ -84,7 +85,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
 
-        List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> personalAnimalList = animalJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
         if (personalAnimalList.size() > 0) {
             return personalAnimalList.get(0);
@@ -119,7 +120,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         int personalAnimalId = keyHolder.getKey().intValue();
 
@@ -152,7 +153,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("description", personalAnimalRequest.getDescription());
         map.put("lastModifiedDate", new Date());
 
-        namedParameterJdbcTemplate.update(sql, map);
+        animalJdbcTemplate.update(sql, map);
     }
 
     @Override
@@ -162,7 +163,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
         map.put("personalAnimalUserId",personalAnimalUserId);
-        namedParameterJdbcTemplate.update(sql, map);
+        animalJdbcTemplate.update(sql, map);
     }
 
     private String addFilteringSql(String sql, Map<String, Object> map, PersonalAnimalQueryParams personalAnimalQueryParams) {
@@ -190,7 +191,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
-            String path = String.format("D:/animal/src/main/resources/static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
+            String path = String.format("images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
             FileOutputStream fos = new FileOutputStream(path);
             byte[] buffer = new byte[1024];
             int len;
