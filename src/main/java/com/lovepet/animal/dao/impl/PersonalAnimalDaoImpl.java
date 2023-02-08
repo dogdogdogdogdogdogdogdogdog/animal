@@ -3,7 +3,9 @@ package com.lovepet.animal.dao.impl;
 import com.lovepet.animal.dao.PersonalAnimalDao;
 import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
+import com.lovepet.animal.model.AnimalFood;
 import com.lovepet.animal.model.PersonalAnimal;
+import com.lovepet.animal.rowmapper.AnimalFoodRowmapper;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -11,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ClassUtils;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -24,6 +27,14 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Override
+    public List<PersonalAnimal> getPersonalAnimalComboBox() {
+        String sql = "SELECT * FROM personal_animal WHERE 1=1";
+
+        List<PersonalAnimal> list = namedParameterJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
+        return list;
+    }
 
     @Override
     public Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams) {
@@ -126,7 +137,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     public void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest) {
         String sql = "UPDATE personal_animal SET user_id = :userId, animal_name = :animalName, animal_kind = :animalKind, animal_variety = :animalVariety, animal_sex = :animalSex, " +
                 "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor , " +
-                " animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
+                "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
         writePhoto(personalAnimalRequest,personalAnimalId);
         Map<String, Object> map = new HashMap<>();
@@ -169,6 +180,12 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
             sql = sql + " AND animal_sex = :animalSex";
             map.put("animalSex", personalAnimalQueryParams.getSex());
         }
+
+        if (personalAnimalQueryParams.getArea() != null) {
+            sql = sql + " AND area = :area";
+            map.put("area", personalAnimalQueryParams.getArea());
+        }
+
         if(personalAnimalQueryParams.getId()!=null){
             sql= sql + " AND user_id=:userId ";
             map.put("userId",personalAnimalQueryParams.getId());
@@ -178,7 +195,10 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
-            String path = String.format("D:/animal/src/main/resources/static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
+            String path = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
+            System.out.println(ClassUtils.getDefaultClassLoader());
+            System.out.println(ClassUtils.getDefaultClassLoader().getResource(""));
+            System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
             FileOutputStream fos = new FileOutputStream(path);
             byte[] buffer = new byte[1024];
             int len;
