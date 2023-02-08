@@ -192,9 +192,6 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
             String path = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
-            System.out.println(ClassUtils.getDefaultClassLoader());
-            System.out.println(ClassUtils.getDefaultClassLoader().getResource(""));
-            System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
             FileOutputStream fos = new FileOutputStream(path);
             byte[] buffer = new byte[1024];
             int len;
