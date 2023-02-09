@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>會員中心 -寵物資訊平台</title>
+    <title>會員資料變更 - 寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
@@ -75,7 +75,7 @@
                     <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
                     <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread text-shadow">會員資料修改</h1>
+                <h1 class="mb-0 bread text-shadow">會員資料變更</h1>
             </div>
         </div>
     </div>
@@ -85,31 +85,34 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
-                <h2 class="mb-3">會員基本資料</h2>
-                <form action="" class="appointment">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input id="userEmail" type="email" class="form-control" placeholder="電子郵件">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input id="userName" type="text" class="form-control" placeholder="姓名">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input id="userTel" type="tel" class="form-control" placeholder="聯絡電話">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <button onclick="send()" class="btn btn-primary py-3 px-4">修改基本資料</button>
-                            </div>
+                <h2 class="mb-3">基本會員資料</h2>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group d-flex">
+                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">帳號</h5>
+                            <input id="userEmail" type="email" class="form-control" placeholder="電子郵件"
+                                   style="background-color: lightgrey !important; cursor: default;" readonly>
                         </div>
                     </div>
-                </form>
+                    <div class="col-12">
+                        <div class="form-group d-flex">
+                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">姓名</h5>
+                            <input id="userName" type="text" class="form-control" placeholder="姓名">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group d-flex">
+                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">電話</h5>
+                            <input id="userTel" type="tel" class="form-control" placeholder="聯絡電話">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button onclick="send()" class="form-control btn btn-primary py-1 px-4">變更
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -25,6 +25,7 @@ public class UserController {
 
     @PostMapping("/user/register")
     public ResponseEntity<User> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
+        System.out.println(userRegisterRequest.getGender());
         Integer id = userService.registerUser(userRegisterRequest);
 
         User user = userService.getUserById(id);

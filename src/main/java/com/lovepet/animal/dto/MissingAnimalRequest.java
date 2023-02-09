@@ -4,8 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 public class MissingAnimalRequest {
-
-    private Integer missingId;
+    private  String photoUrl;
+    private Integer userId;
     private String missingKind;
     private String missingVariety;
     private String missingSex;
@@ -17,12 +17,20 @@ public class MissingAnimalRequest {
     private String missingRemark;
     private MultipartFile missingAnimalPhoto;
 
-    public Integer getMissingId() {
-        return missingId;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setMissingId(Integer missingId) {
-        this.missingId = missingId;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getMissingKind() {

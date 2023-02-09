@@ -20,5 +20,5 @@ public interface PersonalAnimalService {
 
     void updatePersonalAnimal(Integer personalAnimalId, PersonalAnimalRequest personalAnimalRequest);
 
-    void deletePersonalAnimalById(Integer personalAnimalId);
+    void deletePersonalAnimalById(Integer personalAnimalUserId,Integer personalAnimalId);
 }

@@ -1,5 +1,7 @@
 package com.lovepet.animal.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.NotNull;
 
 public class PersonalAnimalRequest {
@@ -32,11 +34,21 @@ public class PersonalAnimalRequest {
     @NotNull
     private String animalBacterin;
 
+    private MultipartFile animalPhoto;
+
     private String imageUrl;
 
     private String area;
 
     private String description;
+
+    public MultipartFile getAnimalPhoto() {
+        return animalPhoto;
+    }
+
+    public void setAnimalPhoto(MultipartFile animalPhoto) {
+        this.animalPhoto = animalPhoto;
+    }
 
     public Integer getUserId() {
         return userId;

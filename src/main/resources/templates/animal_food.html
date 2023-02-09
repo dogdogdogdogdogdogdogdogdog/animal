@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>註冊登入 -寵物資訊平台</title>
+    <title>寵物食品 - 寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
@@ -120,7 +120,7 @@
 </head>
 
 <body>
-<div class="header-page"></div>
+<div class="headerPage"></div>
 <!-- END nav -->
 <section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
@@ -237,9 +237,6 @@
 <script src="js/main.js"></script>
 
 <script type="text/javascript">
-    <!--
-    全部都是未完成的功能測試
-    可以刪掉 -->
     var limit;
     var pages;
 
@@ -377,6 +374,7 @@
     });
 
     $("#search").click(function () {//搜尋按鈕被按下
+        listPage = 1;
         changePage(listPage);
     })
 
@@ -416,10 +414,9 @@
             }
         })
     }
-</script>
-<script>
-    <!-- 讀取導覽列 -->
-    $(".header-page").load("header");
+
+
+    $(".headerPage").load("header");//讀取導覽列
 </script>
 
 </body>
