@@ -30,6 +30,29 @@
             height: 300px !important;
         }
 
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
         /*表格儲存格分離*/
         table {
             border-collapse: separate;
@@ -84,7 +107,7 @@
         }
 
         .page_show {
-            padding: 40px 0;
+            /*padding: 40px 0;*/
             text-align: center;
         }
 
@@ -136,62 +159,73 @@
     </div>
 </section>
 
+
+<!--
+API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
+可以做的搜尋條件：
+
+下拉選單
+    產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
+    產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
+    適用寵物： {犬} | {貓} | {其他(一大堆)}
+    主要原料： {魚} | {雞} | {牛}
+搜尋框(產品名稱)
+
+建議：
+1. 類別說明
+產品種類 ( ※資料整齊)
+產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
+適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
+
+2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
+3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
+4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
+5. 本頁網址 http://localhost:8080/animal_food
+-->
+
 <!-- 表格SQL查詢測試用 -->
 <!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
-<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img"
-         style="background-color: blanchedalmond; display: flex !important; position: static !important;">
-    <div class="container" style="display: flex !important;">
-        <div class="row d-md-flex">
-            <!--
-                        API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
-                        可以做的搜尋條件：
-
-                        下拉選單
-                            產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
-                            產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
-                            適用寵物： {犬} | {貓} | {其他(一大堆)}
-                            主要原料： {魚} | {雞} | {牛}
-                        搜尋框(產品名稱)
-
-                        建議：
-                        1. 類別說明
-                        產品種類 ( ※資料整齊)
-                        產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
-                        適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
-
-                        2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
-                        3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
-                        4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
-                        5. 本頁網址 http://localhost:8080/animal_food
-            -->
-            <!--            篩選區-->
-            <div class="col-md-auto p-3 m-auto ftco-animate" id="top">
-                <span>產地 :</span>
-                <select name="place" id="place">
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+    <div class="container py-5">
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <div class="p-1">
+                <select class="custom-select" name="place" id="place">
                 </select>
-                <span>產品種類 :</span>
-                <select name="category" id="category">
-                </select>
-                <span>搜尋產品 :</span>
-                <input type="text" id="inputBox" placeholder="輸入關鍵字">
-                <button id="search">搜尋</button>
             </div>
-
-            <!--            顯示資料內容-->
-            <div class="col-md-auto p-3 m-auto ftco-animate div-shadow"
+            <div class="p-1">
+                <select class="custom-select" name="category" id="category">
+                </select>
+            </div>
+            <div class="p-1">
+                <input type="text" class="custom-select" id="inputBox" placeholder="產品名稱搜尋" style="background-image: none;">
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+        </div>
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 div-shadow"
                  style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
                 <table class="table-hover text-center" id="test1Result">
                 </table>
             </div>
-            <!--            顯示查詢資訊-->
-            <div class="col-md-12 p-3 m-auto ftco-animate text-center">
+        </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
                 <div class="block-27">
-                    <p id="pageInfo"></p><br>
+                    <p id="pageInfo"></p>
                     <div class="page_show"></div>
                 </div>
             </div>
-
         </div>
+    </div>
+
+    <iframe width="100%" height="300" frameborder="0" src="https://www.google.com/maps?q=高雄市燕巢區燕巢區師大路98號&hl=zh-tw&output=embed"></iframe>
+
     </div>
 </section>
 
@@ -256,8 +290,8 @@
             console.log(data[0]);
             console.log(data[1]);
 
-            $("#place").append("<option value='全部'>全部</option>");
-            $("#category").append("<option value='全部'>全部</option>");
+            $("#place").append("<option value='不限產地'>不限產地</option>");
+            $("#category").append("<option value='不限種類'>不限種類</option>");
 
             $.each(data[0], function (index, item) {
                 $("#place").append("<option value='" + item + "'>" + item + "</option>");
@@ -394,10 +428,10 @@
         console.log(category)
         console.log(search)
 
-        if (place != "全部") {
+        if (place != "不限產地") {
             searchUrl += "&place=" + place;
         }
-        if (category != "全部") {
+        if (category != "不限種類") {
             searchUrl += "&category=" + category;
         }
 
