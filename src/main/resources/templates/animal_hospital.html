@@ -17,11 +17,13 @@
     <link rel="stylesheet" href="css/style.css">
     <!--  自訂樣式  -->
     <style>
+        /*網站背景紋理*/
         .main-img {
             background-image: url('/images/_main.png');
             background-repeat: repeat;
         }
 
+        /*橫幅圖片*/
         .banner-img {
             background-image: url('/images/_banner3.jpg');
             height: 300px !important;
@@ -32,6 +34,110 @@
             color: #fff !important;
             text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
         }
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*表格格內間距*/
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
+        }
+
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child {
+            border-radius: 0px 20px 20px 0px !important;
+        }
+
+        /*經JS拼接的元素無法套用部分主表格樣式*/
+        /*表格奇數列背景色淺灰*/
+        tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /*表格偶數列背景色*/
+        /*tr:nth-child(even) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
+            color: white;
+            background-color: #81a5ff !important;
+            transition: background-color 0.35s ease-in-out !important;
+        }
+
+        /*表格滑鼠掠過效果*/
+        tr:hover {
+            color: white;
+            background-color: #ffa500 !important;
+            transition: background-color 0.35s ease-in-out;
+        }
+
+        /*表格內超連結樣式清空*/
+        table a {
+            /*color: rgba(0, 0, 0, 0.5) !important;*/
+            color: unset !important;
+        }
+
+        /*區塊陰影效果*/
+        .div-shadow {
+            box-shadow: 3px 3px 9px grey;
+        }
+
+        /*原生換頁UI*/
+        /*.block-27 ul li a, .block-27 ul li span {*/
+        /*    color: black;*/
+        /*    border: 2px solid #e6e6e6;*/
+        /*    background: #ffffce;*/
+        /*}*/
+
+
+        .page_show {
+            /*padding: 40px 0;*/
+            text-align: center;
+        }
+
+        .page_show span {
+            display: inline-block;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 11px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 1px;
+            border: #b7b7b7 solid 1px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        span.page_cur {
+            color: #fff;;
+            border: #282828 solid 1px;
+            background-color: #424242;
+        }
+
+        /*#scroll {position:fixed; top:300px; right:100px;}*/
+        /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
     </style>
 </head>
 
@@ -52,14 +158,38 @@
     </div>
 </section>
 
-<section class="ftco-section main-img">
-    <div class="container">
-        <div class="row justify-content-center pb-5 mb-3">
-            <div class="col-md-7 heading-section text-center ftco-animate">
-                <h2>Affordable Packages</h2>
-                <div class="collapse show" id="collapseOne" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="card-body py-3 px-0">
-                    </div>
+<!-- 表格SQL查詢測試用 -->
+<!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+    <div class="container py-5">
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <div class="p-1">
+                <select class="custom-select" name="area" id="area">
+                </select>
+            </div>
+            <div class="p-1">
+                <input type="text" class="custom-select" id="inputBox" placeholder="醫院搜尋"
+                       style="background-image: none;">
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+        </div>
+
+
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            </table>
+        </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
+                <div class="block-27">
+                    <p id="pageInfo"></p>
+                    <div class="page_show"></div>
                 </div>
             </div>
         </div>
@@ -108,8 +238,169 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script type="text/javascript">
+    var limit;
+    var pages;
+    $.ajax({//載入頁面先執行一次
+        type: "GET",
+        url: "/animal_hospitals",
+        success: function (data) {
+            getAnimalHospitalList(data);
+        }
+    });
+
+    $.ajax({//載入下拉選單
+        type: "GET",
+        url: "/getAnimalHospitalsComboBox",
+        success: function (data) {
+            console.log(data);
+            console.log(data[0]);
+
+            $("#area").append("<option value='不限地區'>不限地區</option>");
+
+            $.each(data[0], function (index, item) {
+                $("#area").append("<option value='" + item + "'>" + item + "</option>");
+            })
+        }
+    });
+
+    function getAnimalHospitalList(data) {//秀出搜尋結果
+        $("#test1Result").empty();//清空元素
+
+        var title = "<tr class='h5'>" +
+            "<th>地區</th>" +
+            "<th style='width: 30%;'>醫院名稱</th>" +
+            "<th style='width: 20%;'>電話</th>" +
+            "<th style='width: 30%;'>地址</th>" +
+            "</tr>";
+
+        $("#test1Result").append(title);//加入標題
+
+        $.each(data["results"], function (index, item) {
+            var html = "" +
+                "<tr>" +
+                "<td>" + item.area + "</td>" +
+                "<td>" + item.hospital+ "</td>" +
+                "<td>" + item.tel + "</td>" +
+                "<td>" + item.address + "</td>" +
+                "</tr>";
+
+            $("#test1Result").append(html);//加入內容
+        })
+
+        pages = Math.ceil(data.total / data.limit);
+        console.log(data.offset / data.limit)
+        limit = data.limit;
+
+        if (data.total == 0) {
+            $("#pageInfo").text("查無資料");
+        } else {
+            $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+        }
+
+        pageSet(pages);
+
+        console.log("單頁筆數limit:" + data["limit"]);
+        console.log("跳過幾筆資料offset:" + data["offset"]);
+        console.log("總筆數:" + data["total"]);
+
+        $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
+        $.getScript('js/main.js');
+    }
+
+    //輸出頁碼
+    function pageSet(pages) {
+        var pageHtml = '';
+        var start, end;
+        if (listPage < 6) {
+            start = 1;
+        } else {
+            start = listPage - 5;
+        }
+        if (listPage > pages - 5) {
+            end = pages;
+        } else {
+            end = listPage + 5;
+        }
+
+        if (listPage > 1) {
+            pageHtml += '<span>上一頁</span>';
+        }
+        for (var i = start, page_cur = ''; i <= end; i++) {
+            if (listPage == i) {
+                page_cur = 'page_cur';
+            } else {
+                page_cur = '';
+            }
+            pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+        }
+        if (listPage < pages) {
+            pageHtml += '<span>下一頁</span>';
+        }
+        $('.page_show').empty().append(pageHtml);
+    }
+
+    //點擊分頁執行
+    $('body').on('click', '.page_show span', function () {
+        var $this = $(this);
+        if ($this.hasClass('page_cur')) {
+            return;
+        }
+        var page = $this.html();
+        if (page == '上一頁') {
+            listPage = listPage - 1;
+            changePage(listPage);
+            // goPrePage();
+        } else if (page == '下一頁') {
+            listPage = listPage + 1;
+            changePage(listPage);
+            // goNextPage();
+        } else {
+            listPage = parseInt(page);
+            changePage(listPage);
+        }
+        //根據頁碼獲取當前頁列表數據
+        pageSet(pages);
+    });
+
+    $("#search").click(function () {//搜尋按鈕被按下
+        listPage = 1;
+        changePage(listPage);
+    })
+
+    var listPage = 1;
+
+    function changePage(page) {
+        var offset = limit * (page - 1);
+        console.log("offset" + offset);
+        console.log("page" + page);
+
+        var area = $("#area").val();
+        var search = $("#inputBox").val().trim();
+        var searchUrl = "";
+
+        console.log(area)
+        console.log(search)
+
+        if (area != "不限地區") {
+            searchUrl += "&area=" + area;
+        }
+
+        if (search != "") {
+            searchUrl += "&search=" + search;
+        }
+        var url = "/animal_hospitals?offset=" + limit * (page - 1) + searchUrl;
+        console.log(url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                getAnimalHospitalList(data);
+            }
+        })
+    }
+
 <!-- 讀取導覽列 -->
-<script>
     $(".header-page").load("header");
 </script>
 
