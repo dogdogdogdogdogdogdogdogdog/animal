@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>註冊登入 -寵物資訊平台</title>
+    <title>寵物食品 - 寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
@@ -30,45 +30,74 @@
             height: 300px !important;
         }
 
-        /*表格儲存格分離*/
-        table {
-            border-collapse: separate;
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
         }
 
-        /*儲存格內間距*/
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*表格格內間距*/
         th, td {
             padding: 15px;
             text-align: center;
         }
 
-        /*指定奇數列背景色*/
-        tr:nth-child(odd) {
-            background-color: #ffffce;
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
         }
 
-        /*指定偶數列背景色*/
-        tr:nth-child(even) {
-            background-color: #ffffce;
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child {
+            border-radius: 0px 20px 20px 0px !important;
         }
 
-        /*邊角圓弧-左上*/
-        th:first-child {
-            border-radius: 10px 0px 0px 0px;
+        /*經JS拼接的元素無法套用部分主表格樣式*/
+        /*表格奇數列背景色淺灰*/
+        tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
-        /*邊角圓弧-右上*/
-        th:last-child {
-            border-radius: 0px 10px 0px 0px;
+        /*表格偶數列背景色*/
+        /*tr:nth-child(even) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
+            color: white;
+            background-color: #81a5ff !important;
+            transition: background-color 0.35s ease-in-out !important;
         }
 
-        /*邊角圓弧-左下*/
-        tr:last-child td:first-child {
-            border-radius: 0px 0px 0px 10px;
+        /*表格滑鼠掠過效果*/
+        tr:hover {
+            color: white;
+            background-color: #ffa500 !important;
+            transition: background-color 0.35s ease-in-out;
         }
 
-        /*邊角圓弧-右下*/
-        tr:last-child td:last-child {
-            border-radius: 0px 0px 10px 0px;
+        /*表格內超連結樣式清空*/
+        table a {
+            /*color: rgba(0, 0, 0, 0.5) !important;*/
+            color: unset !important;
         }
 
         /*區塊陰影效果*/
@@ -77,14 +106,14 @@
         }
 
         /*原生換頁UI*/
-        .block-27 ul li a, .block-27 ul li span {
-            color: black;
-            border: 2px solid #e6e6e6;
-            background: #ffffce;
-        }
+        /*.block-27 ul li a, .block-27 ul li span {*/
+        /*    color: black;*/
+        /*    border: 2px solid #e6e6e6;*/
+        /*    background: #ffffce;*/
+        /*}*/
 
         .page_show {
-            padding: 40px 0;
+            /*padding: 40px 0;*/
             text-align: center;
         }
 
@@ -110,12 +139,6 @@
 
         /*#scroll {position:fixed; top:300px; right:100px;}*/
         /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
-
-        /*橫幅文字陰影*/
-        .text-shadow {
-            color: #fff !important;
-            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
-        }
     </style>
 </head>
 
@@ -135,36 +158,189 @@
         </div>
     </div>
 </section>
+<!--
+API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
+可以做的搜尋條件：
+
+下拉選單
+    產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
+    產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
+    適用寵物： {犬} | {貓} | {其他(一大堆)}
+    主要原料： {魚} | {雞} | {牛}
+搜尋框(產品名稱)
+
+建議：
+1. 類別說明
+產品種類 ( ※資料整齊)
+產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
+適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
+
+2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
+3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
+4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
+5. 本頁網址 http://localhost:8080/animal_food
+-->
 
 <!-- 表格SQL查詢測試用 -->
 <!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
-<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img"
-         style="background-color: blanchedalmond; display: flex !important; position: static !important;">
-    <div class="container" style="display: flex !important;">
-        <div class="row d-md-flex">
-            <div class="col-md-auto p-3 m-auto ftco-animate" id="top">
-                <span>產地 :</span>
-                <select name="place" id="place">
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+    <div class="container py-5">
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <div class="p-1">
+                <select class="custom-select" name="place" id="place">
                 </select>
-                <span>產品種類 :</span>
-                <select name="category" id="category">
+            </div>
+            <div class="p-1">
+                <select class="custom-select" name="category" id="category">
                 </select>
-                <span>搜尋產品 :</span>
-                <input type="text" id="inputBox" placeholder="輸入關鍵字">
-                <button id="search">搜尋</button>
             </div>
-
-            <!--            顯示資料內容-->
-            <div class="col-md-auto p-3 m-auto ftco-animate div-shadow"
-                 style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
-                <table class="table-hover text-center" id="test1Result">
-                </table>
+            <div class="p-1">
+                <input type="text" class="custom-select" id="inputBox" placeholder="查詢標題或內文"
+                       style="background-image: none;">
             </div>
-            <!--            顯示查詢資訊-->
-            <div class="col-md-12 p-3 m-auto ftco-animate text-center">
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+        </div>
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            </table>
+        </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
                 <div class="block-27">
-                    <p id="pageInfo"></p><br>
+                    <p id="pageInfo"></p>
                     <div class="page_show"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Modal-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content main-img">
+                    <div class="modal-header">
+                        <!-- 名字放在標題 -->
+                        <div class="col-4 px-0">
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-center">
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold" id="title_static"></h3>
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        </div>
+                        <div class="col-4 px-0">
+                            <div class="row m-0 pr-4 font-weight-bold justify-content-end" style="color: ">
+                                <span id="postDate_static"></span>
+                                <span>&nbsp;刊登</span>
+                            </div>
+                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                                <span id="modifiedDate_static"></span>
+                                <span>&nbsp;更新</span>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto col-12 justify-content-center">
+<!--                            <div class="col-xl-6 col-12">-->
+<!--                                <div id="imageUrl_static" class="work mb-4 img d-flex align-items-end"-->
+<!--                                     style="height: 600px !important; background-position: center center !important;">-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                                <span id="content_static"></span>
+<!--                                <div class="col-4 mt-0">-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>會員編號 :</span>-->
+<!--                                        <span id="userId_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>動物編號 :</span>-->
+<!--                                        <span id="animalId_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>物種 :</span>-->
+<!--                                        <span id="animalKind_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>品種 :</span>-->
+<!--                                        <span id="animalVariety_static"></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-4 mt-0">-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>性別 :</span>-->
+<!--                                        <span id="animalSex_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>年齡 :</span>-->
+<!--                                        <span id="animalAge_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>體型 :</span>-->
+<!--                                        <span id="animalBodysize_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>毛色 :</span>-->
+<!--                                        <span id="animalColor_static"></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-4 mt-0">-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>絕育 :</span>-->
+<!--                                        <span id="animalSterilization_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>疫苗 :</span>-->
+<!--                                        <span id="animalBacterin_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>地區 :</span>-->
+<!--                                        <span id="area_static"></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-block">-->
+<!--                                        <span>空</span>-->
+<!--                                        <span id=""></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash; 備註(動物描述) &ndash;&gt;-->
+<!--                                <div class="col-12 pt-3">-->
+<!--                                    <div class="d-block font-weight-bold" style="color: black;">-->
+<!--                                        <span id="description_static"></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-12 d-block text-right">-->
+<!--                                    &lt;!&ndash;                                    <div class="px-1">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <span>刊登日期 :</span>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <span id="createdDate_static"></span>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    <div class="px-1">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <span>更新日期 :</span>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <span id="lastModifiedDate_static"></span>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -232,8 +408,8 @@
     //         console.log(data[0]);
     //         console.log(data[1]);
     //
-    //         $("#place").append("<option value='全部'>全部</option>");
-    //         $("#category").append("<option value='全部'>全部</option>");
+    //         $("#place").append("<option value='不限產地'>不限產地</option>");
+    //         $("#category").append("<option value='不限種類'>不限種類</option>");
     //
     //         $.each(data[0], function (index, item) {
     //             $("#place").append("<option value='" + item + "'>" + item + "</option>");
@@ -247,29 +423,38 @@
     function getAnimalFoodList(data) {//秀出搜尋結果
         $("#test1Result").empty();//清空元素
 
-        var title = "<tr class=''>" +
-            "<th class='table-primary'>標題</th>" +
-            "<th class='table-secondary'>文章</th>" +
-            "<th class='table-info' style='width: 10%;'>分類</th>" +
-            "<th class='table-success' style='width: 10%;'>喜歡</th>" +
-            "<th class='table-danger' style='width: 10%;'>留言數</th>" +
-            "<th class='table-light' style='width: 22%;'>瀏覽人數</th>" +
-            "<th class='table-warning' style='width: 22%;'>修該日期</th>" +
-            "</tr>";
+        var title = `
+            <tr class='h5'>
+                <th style='width: 10%;'><div>分類</div></th>
+                <th style='width: 10%;'><div>標題</div></th>
+                <th style='width: 20%;'><div>內文</div></th>
+                <th style='width: 5%;'><div>留言人數</div></th>
+                <th style='width: 5%;'><div>瀏覽人數</div></th>
+                <th style='width: 5%;'><div>喜歡</div></th>
+                <th style='width: 10%;'><div>更新日期</div></th>
+            </tr>`;
 
         $("#test1Result").append(title);//加入標題
 
         $.each(data["results"], function (index, item) {
-            var html = "" +
-                "<tr>" +
-                "<td>" + item.title + "</td>" +
-                "<td>" + item.content + "</td>" +
-                "<td>" + item.type + "</td>" +
-                "<td>" + item.likes + "</td>" +
-                "<td>" + 0 + "</td>" +
-                "<td>" + item.views + "</td>" +
-                "<td>" + item.modifiedDate + "</td>" +
-                "</tr>";
+            var html = `
+                <tr>
+                <td><div>${item.type}</div></td>
+                <td>
+                    <div id="${item.articleId}" onclick='getAnimalInfo(this)' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
+                        ${item.title}
+                    </div>
+                </td>
+                <td>
+                    <div id="${item.articleId}" onclick='getAnimalInfo(this)' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
+                        ${item.content.length>10?item.content.slice(0, 10)+"......":item.content}
+                    </div>
+                        </td>
+                <td><div></div>留言人數</td>
+                <td><div>${item.views}</div></td>
+                <td><div>${item.likes}</div></td>
+                <td><div>${item.modifiedDate}</div></td>
+                </tr>`;
 
             $("#test1Result").append(html);//加入內容
         })
@@ -292,6 +477,24 @@
 
         $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
         $.getScript('js/main.js');
+    }
+
+    function getAnimalInfo(gid) {//點擊詳細資料按紐
+
+        var id = $(gid).attr("id");
+        console.log(gid);
+        console.log(id);
+        $.ajax({
+            type: "GET",
+            url: "/forumArticles/" + id,
+            success: function (data) {
+                $("#userId_static").text(data.userId);
+                $("#title_static").text(data.title);
+                $("#content_static").text(data.content);
+                $("#postDate_static").text(data.postDate);
+                $("#modifiedDate_static").text(data.modifiedDate);
+            }
+        });
     }
 
     //輸出頁碼
@@ -370,10 +573,10 @@
         console.log(category)
         console.log(search)
 
-        // if (place != "全部") {
+        // if (place != "不限產地") {
         //     searchUrl += "&place=" + place;
         // }
-        // if (category != "全部") {
+        // if (category != "不限種類") {
         //     searchUrl += "&category=" + category;
         // }
 
