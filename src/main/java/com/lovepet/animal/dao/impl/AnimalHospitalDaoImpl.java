@@ -67,7 +67,7 @@ public class AnimalHospitalDaoImpl implements AnimalHospitalDao {
             map.put("area", animalHospitalQueryParams.getArea());
         }
         if (animalHospitalQueryParams.getSearch() !=null) {
-            sql = sql + " AND name LIKE :search";
+            sql = sql + " AND hospital LIKE :search";
             map.put("search", "%" + animalHospitalQueryParams.getSearch() + "%");
         }
         return  sql;

@@ -169,7 +169,7 @@
                 </select>
             </div>
             <div class="p-1">
-                <input type="text" class="custom-select" id="inputBox" placeholder="地區搜尋"
+                <input type="text" class="custom-select" id="inputBox" placeholder="醫院搜尋"
                        style="background-image: none;">
             </div>
             <div class="p-1">
@@ -376,7 +376,7 @@
         console.log("page" + page);
 
         var area = $("#area").val();
-        var search = $("#search").val().trim();
+        var search = $("#inputBox").val().trim();
         var searchUrl = "";
 
         console.log(area)
