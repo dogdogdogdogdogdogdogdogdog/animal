@@ -52,56 +52,41 @@
             opacity: 1;
         }
 
-        /*儲存格內間距*/
+        /*表格格內間距*/
         th, td {
             padding: 15px;
             text-align: center;
         }
 
-        /*!*指定奇數列背景色*!*/
-        /*tr:nth-child(odd) {*/
-        /*    background-color: #fff;*/
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
+        }
+
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child  {
+            border-radius: 0px 20px 20px 0px !important;
+        }
+
+        /*表格奇數列背景色淺灰*/
+        /*tr:nth-of-type(odd) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
         /*}*/
 
-        /*!*指定偶數列背景色*!*/
+        /*表格偶數列背景色*/
         /*tr:nth-child(even) {*/
         /*    background-color: rgba(0, 0, 0, 0.05);*/
         /*}*/
 
-        /*邊角圓弧-左上*/
-        th:first-child {
-            border-radius: 20px 0px 0px 20px !important;
-        }
-
-        /*邊角圓弧-右上*/
-        th:last-child {
-            border-radius: 0px 20px 20px 0px !important;
-        }
-
-        /*邊角圓弧-左下*/
-        td:first-child {
-            border-radius: 20px 0px 0px 20px !important;
-        }
-
-        /*邊角圓弧-右下*/
-        td:last-child {
-            border-radius: 0px 20px 20px 0px !important;
-        }
-
-        /*表格欄位列樣式固定*/
-        table tr:first-child, table tr:first-child:hover {
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
             color: white;
             background-color: #81a5ff !important;
             transition: background-color 0.35s ease-in-out !important;
         }
 
-        /*表格奇數列背景色淺灰*/
-        table tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
         /*表格滑鼠掠過效果*/
-        table tr:hover {
+        tr:hover {
             color: white;
             background-color: #ffa500 !important;
             transition: background-color 0.35s ease-in-out;
