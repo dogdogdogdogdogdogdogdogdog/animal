@@ -1,6 +1,7 @@
 package com.lovepet.animal.dao;
 
 import com.lovepet.animal.dto.ForumArticleQueryParams;
+import com.lovepet.animal.dto.ForumArticleRequest;
 import com.lovepet.animal.model.ForumArticle;
 
 import java.util.List;
@@ -12,4 +13,10 @@ public interface ForumArticleDao {
     List<ForumArticle> getForumArticles(ForumArticleQueryParams forumArticleQueryParams);
 
     ForumArticle getForumArticleById(Integer forumArticleId);
+
+    Integer createForumArticle(ForumArticleRequest forumArticleRequest);
+
+    void updateForumArticle(Integer forumArticleId, ForumArticleRequest forumArticleRequest);
+
+    void deleteForumArticleById(Integer forumArticleUserId, Integer forumArticleId);
 }

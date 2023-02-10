@@ -2,14 +2,19 @@ package com.lovepet.animal.dao.impl;
 
 import com.lovepet.animal.dao.ForumArticleDao;
 import com.lovepet.animal.dto.ForumArticleQueryParams;
+import com.lovepet.animal.dto.ForumArticleRequest;
 import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.model.ForumArticle;
 import com.lovepet.animal.rowmapper.ForumArticleRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,10 +98,62 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         }
 
         if(forumArticleQueryParams.getSearch()!=null){
-            sql= sql + " AND title LIKE %:search1% AND content LIKE %:search2%";
-            map.put("search1",forumArticleQueryParams.getSearch());
-            map.put("search2",forumArticleQueryParams.getSearch());
+            sql= sql + " AND title LIKE :search1 OR content LIKE :search2";
+            map.put("search1", "%"+forumArticleQueryParams.getSearch()+"%");
+            map.put("search2", "%"+forumArticleQueryParams.getSearch()+"%");
         }
         return sql;
+    }
+
+    @Override
+    public Integer createForumArticle(ForumArticleRequest forumArticleRequest) {
+        String sql = "INSERT INTO article(user_id, type, title, content, views, likes, post_date, modified_date) " +
+                "VALUES (:userId, :type, :title, :content, 0, 0, :postDate, :modifiedDate)";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", forumArticleRequest.getUserId());
+        map.put("type", forumArticleRequest.getType());
+        map.put("title", forumArticleRequest.getTitle());
+        map.put("content", forumArticleRequest.getContent());
+
+        Date now = new Date();
+        map.put("postDate", now);
+        map.put("modifiedDate", now);
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        forumJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
+
+        int forumArticleId = keyHolder.getKey().intValue();
+
+        return forumArticleId;
+    }
+
+    @Override
+    public void updateForumArticle(Integer forumArticleId, ForumArticleRequest forumArticleRequest) {
+        String sql = "UPDATE article SET user_id = :userId, type = :type, title = :title, content = :content, modified_date = :modifiedDate " +
+                "WHERE article_id = :articleId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", forumArticleRequest.getUserId());
+        map.put("type", forumArticleRequest.getType());
+        map.put("title", forumArticleRequest.getTitle());
+        map.put("content", forumArticleRequest.getContent());
+        map.put("modifiedDate", new Date());
+
+        map.put("articleId", forumArticleId);
+
+        forumJdbcTemplate.update(sql, map);
+    }
+
+    @Override
+    public void deleteForumArticleById(Integer forumArticleUserId, Integer forumArticleId) {
+        String sql = "DELETE FROM article WHERE user_id = :userId AND article_id = :articleId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", forumArticleUserId);
+        map.put("articleId", forumArticleId);
+        forumJdbcTemplate.update(sql, map);
+
     }
 }

@@ -18,6 +18,11 @@ public class HtmlController {
         return "animal_food";
     }
 
+    @GetMapping("/forum")
+    public String goForum() {
+        return "forum";
+    }
+
     @GetMapping("/header")//取得導覽列
     public String goHeader() {
         return "header";
