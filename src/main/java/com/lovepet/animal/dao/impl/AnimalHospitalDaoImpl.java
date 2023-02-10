@@ -16,13 +16,13 @@ import java.util.Map;
 public class AnimalHospitalDaoImpl implements AnimalHospitalDao {
 
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
     @Override
     public List<AnimalHospital> getAnimalHospitalsComboBox(){
         String sql = "SELECT * FROM animal_hospital WHERE 1=1";
 
-        List<AnimalHospital> list = namedParameterJdbcTemplate.query(sql , new AnimalHospitalRowmapper());
+        List<AnimalHospital> list = animalJdbcTemplate.query(sql , new AnimalHospitalRowmapper());
         return list;
     }
 
@@ -36,7 +36,7 @@ public class AnimalHospitalDaoImpl implements AnimalHospitalDao {
         sql = addFilteringSql(sql, map, animalHospitalQueryParams);
 
         //將 count 值轉換為 Integer 類型的返回值
-        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+        Integer total = animalJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
     }
@@ -56,7 +56,7 @@ public class AnimalHospitalDaoImpl implements AnimalHospitalDao {
         map.put("limit", animalHospitalQueryParams.getLimit());
         map.put("offset", animalHospitalQueryParams.getOffset());
 
-        List<AnimalHospital> animalHospitalList = namedParameterJdbcTemplate.query(sql, map, new AnimalHospitalRowmapper());
+        List<AnimalHospital> animalHospitalList = animalJdbcTemplate.query(sql, map, new AnimalHospitalRowmapper());
 
         return animalHospitalList;
     }

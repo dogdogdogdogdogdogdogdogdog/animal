@@ -158,28 +158,6 @@
         </div>
     </div>
 </section>
-<!--
-API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
-可以做的搜尋條件：
-
-下拉選單
-    產品種類： {乾飼糧} | {半濕性飼糧} | {零食} | {罐頭} | {生鮮、冷凍} | {補助食品} | {潔牙骨} ※
-    產地： {中華民國} | {日本} | {韓國} | {美國} | {其他(有29個國家)}
-    適用寵物： {犬} | {貓} | {其他(一大堆)}
-    主要原料： {魚} | {雞} | {牛}
-搜尋框(產品名稱)
-
-建議：
-1. 類別說明
-產品種類 ( ※資料整齊)
-產地 ( ※資料整齊但國家太多，建議代表性做幾個就好 )
-適用寵物、主要原料 ( ※資料庫的字串很亂，建議寫死後面用 %LIKE% 查 )
-
-2. 後面全部統一用 %LIKE% 邏輯去查寫起來是否比較方便?
-3. 只是來串API的資料，如果很花時間，是不是斟酌做一部分就好
-4. 資料來源 https://data.coa.gov.tw/open_detail.aspx?id=6GNl6qsdx4nx
-5. 本頁網址 http://localhost:8080/animal_food
--->
 
 <!-- 表格SQL查詢測試用 -->
 <!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
@@ -203,6 +181,10 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
                 <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
                 </button>
             </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="post" data-toggle='modal' data-target='#exampleModalCenter1'>貼文
+                </button>
+            </div>
         </div>
         <!-- 顯示資料內容 -->
         <div class="row ftco-animate">
@@ -220,7 +202,7 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
         </div>
     </div>
     <div class="container">
-        <!-- Modal-->
+        <!-- Modal 文章資訊-->
         <div class="modal-body">
             <div class="container-fluid">
                 <div class="row">
@@ -340,6 +322,51 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal 文章資訊-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content main-img">
+                    <div class="modal-header">
+                        <!-- 名字放在標題 -->
+                        <div class="col-4 px-0">
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-center">
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold" id="標題"></h3>
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        </div>
+                    </div>
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        分類
+                        <select id="postType">
+                            <option value='問題'>問題</option>
+                            <option value='心得'>心得</option>
+                        </select>
+                        標題
+                        <input type="text" id="postTitle">
+                        內文
+                        <textarea id="postContent"></textarea>
+                        <button id="postButton" type="button" class="btn btn-primary" data-dismiss="modal">貼文</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+
                     </div>
                 </div>
             </div>
@@ -490,7 +517,7 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
             success: function (data) {
                 $("#userId_static").text(data.userId);
                 $("#title_static").text(data.title);
-                $("#content_static").text(data.content);
+                $("#content_static").html(data.content.replace("\%n", "<br>"));
                 $("#postDate_static").text(data.postDate);
                 $("#modifiedDate_static").text(data.modifiedDate);
             }
@@ -566,6 +593,7 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
 
         var place = $("#place").val();
         var category = $("#category").val();
+        console.log($("#inputArea").val());
         var search = $("#inputBox").val().trim();
         var searchUrl = "";
 
@@ -593,6 +621,28 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
             }
         })
     }
+
+    $("#postButton").on("click", function (){
+        var type = $("#postType").val();
+        var title = $("#postTitle").val();
+        var content = $("#postContent").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/forumArticles",
+            contentType: "application/json; charset=UTF-8";
+            data: {
+                "userId": 1,
+                "type": type,
+                "title": title,
+                "content": content
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        })
+
+    })
 
 
     $(".headerPage").load("header");//讀取導覽列
