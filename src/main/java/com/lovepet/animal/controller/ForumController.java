@@ -85,7 +85,7 @@ public class ForumController {
         return ResponseEntity.status(HttpStatus.CREATED).body(forumArticle);
     }
 
-    @PutMapping("/forumArticles/{forumArticleId}")//修改個人收容所資料
+    @PutMapping("/forumArticles/{forumArticleId}")//編輯文章
     public ResponseEntity<ForumArticle> updateForumArticle(@PathVariable Integer forumArticleId,
                                                            @RequestBody @Valid ForumArticleRequest forumArticleRequest) {
         //檢查forumArticleId 是否存在

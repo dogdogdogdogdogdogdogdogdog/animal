@@ -11,6 +11,7 @@ public class ForumArticle {
     private String content;
     private String views;
     private String likes;
+    private String unlikes;
     private Date postDate;
     private Date modifiedDate;
 
@@ -68,6 +69,14 @@ public class ForumArticle {
 
     public void setLikes(String likes) {
         this.likes = likes;
+    }
+
+    public String getUnlikes() {
+        return unlikes;
+    }
+
+    public void setUnlikes(String unlikes) {
+        this.unlikes = unlikes;
     }
 
     public Date getPostDate() {

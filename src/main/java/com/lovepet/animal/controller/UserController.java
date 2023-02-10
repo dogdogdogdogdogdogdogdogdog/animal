@@ -1,9 +1,11 @@
 package com.lovepet.animal.controller;
 
 
+import com.lovepet.animal.dto.ForumArticleRequest;
 import com.lovepet.animal.dto.UserLoginRequest;
 import com.lovepet.animal.dto.UserRegisterRequest;
 
+import com.lovepet.animal.model.ForumArticle;
 import com.lovepet.animal.model.User;
 import com.lovepet.animal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-    @PostMapping("/user/register")
+    @PostMapping("/user/register")//註冊
     public ResponseEntity<User> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
         System.out.println(userRegisterRequest.getGender());
         Integer id = userService.registerUser(userRegisterRequest);
@@ -33,7 +34,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/user/login")//登入
     public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest, HttpSession session) {
         User user = userService.login(userLoginRequest);
 
@@ -46,7 +47,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @GetMapping("/session-userId")
+    @GetMapping("/session-userId")//取得登入session
     public ResponseEntity<User> getsessionusername(HttpSession session) { //@Path用來取得url路徑的值
         User user = new User();
         user.setId((Integer) session.getAttribute("userId"));
@@ -56,7 +57,32 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @GetMapping("/sign_out")
+    @GetMapping("/user/{userId}")//查詢使用者資訊
+    public ResponseEntity<User> getUserInfo(@PathVariable Integer userId) {
+        User user = userService.getUserById(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    @PutMapping("/user/{userId}")//修改user資料
+    public ResponseEntity<User> updateUser(@PathVariable Integer userId,
+                                           @RequestBody @Valid UserRegisterRequest userRegisterRequest) {
+        //檢查userId 是否存在
+        User user = userService.getUserById(userId);
+
+        if (user == null) {//找不到回傳404 NOT_FOUND
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        //修改文章內容
+        userService.updateUser(userId, userRegisterRequest);
+
+        User updatedUser = userService.getUserById(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
+    }
+
+    @GetMapping("/sign_out")//登出
     public ResponseEntity signout(HttpSession session) {
         session.removeAttribute("userId");
         session.removeAttribute("email");

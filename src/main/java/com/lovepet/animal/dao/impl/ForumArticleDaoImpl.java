@@ -107,8 +107,8 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
 
     @Override
     public Integer createForumArticle(ForumArticleRequest forumArticleRequest) {
-        String sql = "INSERT INTO article(user_id, type, title, content, views, likes, post_date, modified_date) " +
-                "VALUES (:userId, :type, :title, :content, 0, 0, :postDate, :modifiedDate)";
+        String sql = "INSERT INTO article(user_id, type, title, content, views, likes, unlikes, post_date, modified_date) " +
+                "VALUES (:userId, :type, :title, :content, 0, 0, 0, :postDate, :modifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
         map.put("userId", forumArticleRequest.getUserId());
@@ -131,11 +131,10 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
 
     @Override
     public void updateForumArticle(Integer forumArticleId, ForumArticleRequest forumArticleRequest) {
-        String sql = "UPDATE article SET user_id = :userId, type = :type, title = :title, content = :content, modified_date = :modifiedDate " +
+        String sql = "UPDATE article SET type = :type, title = :title, content = :content, modified_date = :modifiedDate " +
                 "WHERE article_id = :articleId";
 
         Map<String, Object> map = new HashMap<>();
-        map.put("userId", forumArticleRequest.getUserId());
         map.put("type", forumArticleRequest.getType());
         map.put("title", forumArticleRequest.getTitle());
         map.put("content", forumArticleRequest.getContent());

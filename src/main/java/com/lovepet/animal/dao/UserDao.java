@@ -9,9 +9,11 @@ public interface UserDao {
 
     User getUserById(Integer id);
 
-     User getUserByEmail(String email);
+    User getUserByEmail(String email);
 
     Integer getUserIdByEmail(String email);
+    void updateUser(Integer userId, UserRegisterRequest userRegisterRequest);
+
 }
 
 

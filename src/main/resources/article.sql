@@ -30,6 +30,7 @@ CREATE TABLE `article` (
   `content` varchar(1024) NOT NULL,
   `views` varchar(16) NOT NULL,
   `likes` varchar(16) NOT NULL,
+  `unlikes` varchar(16) NOT NULL,
   `post_date` timestamp NOT NULL,
   `modified_date` timestamp NOT NULL,
   PRIMARY KEY (`article_id`)
@@ -42,7 +43,6 @@ CREATE TABLE `article` (
 
 LOCK TABLES `article` WRITE;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
-INSERT INTO `article` VALUES (2,1,'類型2','標題2','內文2','0','0','2023-02-10 03:17:32','2023-02-10 03:55:24'),(3,1,'類型3','標題3','內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n內文3\n','0','0','2023-02-10 03:41:07','2023-02-10 03:56:00'),(4,1,'類型2','標題3','內文2','0','0','2023-02-10 05:11:39','2023-02-10 05:11:39'),(5,1,'類型1','標題1','內文3','0','0','2023-02-10 05:12:36','2023-02-10 05:12:36');
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(Integer id) {
-        String sql = "select user_id,email,password,name,tel from user where user_id=:userId ";
+        String sql = "SELECT * FROM user WHERE user_id=:userId ";
         Map<String, Object> map = new HashMap<>();
         map.put("userId", id);
 
@@ -62,8 +62,26 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void updateUser(Integer userId, UserRegisterRequest userRegisterRequest) {
+        String sql = "UPDATE user SET email = :email, password = :password, name = :name, tel = :tel, gender = :gender, last_modified_date = lastModifiedDate " +
+                "WHERE user_id = :userId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", userRegisterRequest.getEmail());
+        map.put("password", userRegisterRequest.getPassword());
+        map.put("name", userRegisterRequest.getName());
+        map.put("tel", userRegisterRequest.getTel());
+        map.put("gender", userRegisterRequest.getGender());
+        map.put("lastModifiedDate", new Date());
+
+        map.put("userId", userId);
+
+        animalJdbcTemplate.update(sql, map);
+    }
+
+    @Override
     public User getUserByEmail(String email) {
-        String sql = "select user_id,email,password,name,tel from user where email=:email ";
+        String sql = "select * from user where email=:email ";
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
 
