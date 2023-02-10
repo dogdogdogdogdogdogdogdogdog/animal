@@ -20,7 +20,7 @@ public class AnimalHospitalController {
     @Autowired
     private AnimalHospitalService animalHospitalService;
 
-    @GetMapping("/animal_Hospitals")
+    @GetMapping("/animal_hospitals")
     public ResponseEntity getAnimalHospital(
             Model model,
             //查詢條件

@@ -243,7 +243,7 @@
     var pages;
     $.ajax({//載入頁面先執行一次
         type: "GET",
-        url: "/animal_Hospitals",
+        url: "/animal_hospitals",
         success: function (data) {
             getAnimalHospitalList(data);
         }
@@ -270,8 +270,8 @@
         var title = "<tr class='h5'>" +
             "<th>地區</th>" +
             "<th style='width: 30%;'>醫院名稱</th>" +
-            "<th style='width: 20%;'>醫院電話</th>" +
-            "<th style='width: 30%;'>醫院地址</th>" +
+            "<th style='width: 20%;'>電話</th>" +
+            "<th style='width: 30%;'>地址</th>" +
             "</tr>";
 
         $("#test1Result").append(title);//加入標題
