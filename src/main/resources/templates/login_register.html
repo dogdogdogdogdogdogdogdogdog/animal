@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>會員登入 -寵物資訊平台</title>
+    <title>會員登入 - 寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
@@ -121,9 +121,12 @@
                             <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
                             <input id="loginEmail" type="email" class="form-control" placeholder="電子郵件"
                                    onchange="judgeLoginEmail(this.id)">
-                            <b id="loginPromptEmail"></b>
                         </div>
                     </div>
+                    <!-- Email 驗證訊息 -->
+                    <!-- 登入欄位Email可用性驗證或非必要，暫時隱藏此功能 -->
+                    <span id="loginPromptEmail" class="col-md-12 form-group"
+                          style="display: none; position: relative !important; top: -0.5rem !important;"></span>
                     <div class="col-md-12">
                         <div class="form-group d-flex">
                             <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
@@ -132,7 +135,9 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <button id="loginBtn" onclick="login()" class="form-control btn btn-primary py-1 px-4">登入</button>
+                            <button id="loginBtn" onclick="login()" class="form-control btn btn-primary py-1 px-4">
+                                登入
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -147,9 +152,11 @@
                             <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
                             <input id="emailAjax" type="email" class="form-control" placeholder="電子郵件"
                                    onchange="judgeRegisterEmail(this.id)" required/>
-                            <b id="promptEmail"></b>
                         </div>
                     </div>
+                    <!-- Email 驗證訊息 -->
+                    <span id="promptEmail" class="col-md-12 form-group"
+                          style="display: none; position: relative !important; top: -0.5rem !important;"></span>
                     <div class="col-md-12">
                         <div class="form-group d-flex">
                             <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
@@ -162,8 +169,9 @@
                             <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-transgender fa-2x"></i></span>
                             <input id="genderAjax" type="text" class="form-control" placeholder="性別">
 
                         </div>
@@ -176,7 +184,8 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <button id="registBtn" onclick="register()" class="form-control btn btn-primary py-1 px-4">註冊
+                            <button id="registBtn" onclick="register()" class="form-control btn btn-primary py-1 px-4">
+                                註冊
                             </button>
                         </div>
                     </div>
@@ -213,29 +222,43 @@
         var xhr = new XMLHttpRequest();
         xhr.addEventListener('load', function () {
             if (xhr.status == 200) {
-                document.getElementById("promptEmail").innerHTML = "<div style='color: red'>Registed</div>"
-            }
-            if (xhr.status == 404) {
-                document.getElementById("promptEmail").innerHTML = "<div style='color: green'>Can use</div>"
+                // 移除 display: none
+                document.getElementById("promptEmail").style.removeProperty("display");
+                document.getElementById("promptEmail").innerHTML = "該Email已被註冊";
+                document.getElementById("promptEmail").style.color = "red";
+                // 相對位置調整
+                document.getElementById("promptEmail").style.position = "relative";
+                document.getElementById("promptEmail").style.top = "-0.5rem";
+            } else {
+                document.getElementById("promptEmail").style.display = "none";
             }
         })
         xhr.open('get', "http://localhost:8080/user/registed?email=" + document.getElementById(email).value);
         xhr.send();
     }
 
+    // 登入欄位Email可用性驗證或非必要，暫時隱藏此功能
     function judgeLoginEmail(email) {
+        /*
 
         var xhr = new XMLHttpRequest();
         xhr.addEventListener('load', function () {
-            if (xhr.status == 200) {
-                document.getElementById("loginPromptEmail").innerHTML = ""
-            }
-            if (xhr.status == 404) {
-                document.getElementById("loginPromptEmail").innerHTML = "<div style='color: red'>尚未註冊請至註冊欄位註冊</div>"
+            if (xhr.status == 404 && document.getElementById(email).value != "") {
+                // 移除 display: none
+                document.getElementById("loginPromptEmail").style.removeProperty("display");
+                document.getElementById("loginPromptEmail").style.color = "red";
+                document.getElementById("loginPromptEmail").innerHTML = "該Email查無註冊資料";
+                // 相對位置調整
+                document.getElementById("loginPromptEmail").style.position = "relative";
+                document.getElementById("loginPromptEmail").style.top = "-0.5rem";
+            } else {
+                document.getElementById("loginPromptEmail").style.display = "none"
             }
         })
         xhr.open('get', "http://localhost:8080/user/registed?email=" + document.getElementById(email).value);
         xhr.send();
+
+        */
     }
 
     function login() {

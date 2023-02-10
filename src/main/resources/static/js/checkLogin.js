@@ -25,7 +25,7 @@ function checkLogin() {
             document.getElementById("sign_out").removeAttribute("style");
             // 登出連結導向goLoginAndRegist()
             document.getElementById("sign_out").href = "javascript: goLoginAndRegist()";
-            // 登入後導覽列下拉選單隱藏「會員資料修改」連結
+            // 登入後導覽列下拉選單隱藏「會員資料變更」連結
             document.getElementById("userManagement").removeAttribute("style");
             // 登入後導覽列下拉選單隱藏「會員刊登送養」連結
             document.getElementById("publish").removeAttribute("style");
@@ -115,7 +115,7 @@ function checkLogin() {
                                 document.getElementById("description").value = publishData[i].description
                                 document.getElementById("animalBacterin").value = publishData[i].animalBacterin
                                 document.getElementById("animalName").value = publishData[i].animalName
-                                document.getElementById("curImg").innerHTML = `<img src="http://localhost:8080/static/images/publish/${publishData[i].userId}-${publishData[i].animalId}.jpg"  width="300" height="400">`
+                                document.getElementById("curImg").innerHTML = `<img src="images/publish/${publishData[i].userId}-${publishData[i].animalId}.jpg"  width="300" height="400">`
 
 
                             }

@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ClassUtils;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -188,19 +189,36 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         }
         return sql;
     }
+
     private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
-            String path = String.format("images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
-            FileOutputStream fos = new FileOutputStream(path);
+
+            // 專案路徑
+            String pathSrc = String.format(System.getProperty("user.dir") +
+                    "\\src\\main\\resources\\static\\images\\publish\\%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+
+            // 編譯路徑
+            String pathTarget = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath() +
+                    "static/images/publish/%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+
+            FileOutputStream fosSrc = new FileOutputStream(pathSrc);
+            FileOutputStream fosTarget = new FileOutputStream(pathTarget);
+
             byte[] buffer = new byte[1024];
             int len;
+
             while ((len = fis.read(buffer)) != -1) {
-                fos.write(buffer, 0, len);
+                fosSrc.write(buffer, 0, len);
+                fosTarget.write(buffer, 0, len);
             }
-            fos.flush();
+
+            fosSrc.flush();
+            fosSrc.close();
+            fosTarget.flush();
+            fosTarget.close();
+
             fis.close();
-            fos.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
