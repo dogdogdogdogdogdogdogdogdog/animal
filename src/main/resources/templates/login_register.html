@@ -172,8 +172,11 @@
                     <div class="col-md-12">
                         <div class="form-group d-flex">
                             <span class="fa-icon"><i class="fa fa-transgender fa-2x"></i></span>
-                            <input id="genderAjax" type="text" class="form-control" placeholder="性別">
-
+                            <select id="genderAjax" class="form-control">
+                                <option>性別</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -298,7 +301,8 @@
         var passwordAjax = document.getElementById("passwordAjax").value
         var nameAjax = document.getElementById("nameAjax").value
         var telAjax = document.getElementById("telAjax").value
-        if (emailAjax == "" || passwordAjax == "" || nameAjax == "" || telAjax == "") {
+        var genderAjax = document.getElementById("genderAjax").value
+        if (emailAjax == "" || passwordAjax == "" || nameAjax == "" || telAjax == "" || genderAjax == "") {
             alert("註冊所有資料必須填寫")
             return
         }
@@ -307,7 +311,8 @@
             email: emailAjax,
             password: passwordAjax,
             name: nameAjax,
-            tel: telAjax
+            tel: telAjax,
+            gender: genderAjax
         }
 
         var xhr = new XMLHttpRequest();
