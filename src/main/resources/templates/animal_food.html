@@ -53,45 +53,51 @@
             opacity: 1;
         }
 
-        /*表格儲存格分離*/
-        table {
-            border-collapse: separate;
-        }
-
-        /*儲存格內間距*/
+        /*表格格內間距*/
         th, td {
             padding: 15px;
             text-align: center;
         }
 
-        /*指定奇數列背景色*/
-        tr:nth-child(odd) {
-            background-color: #ffffce;
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
         }
 
-        /*指定偶數列背景色*/
-        tr:nth-child(even) {
-            background-color: #ffffce;
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child {
+            border-radius: 0px 20px 20px 0px !important;
         }
 
-        /*邊角圓弧-左上*/
-        th:first-child {
-            border-radius: 10px 0px 0px 0px;
+        /*經JS拼接的元素無法套用部分主表格樣式*/
+        /*表格奇數列背景色淺灰*/
+        tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
-        /*邊角圓弧-右上*/
-        th:last-child {
-            border-radius: 0px 10px 0px 0px;
+        /*表格偶數列背景色*/
+        /*tr:nth-child(even) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
+            color: white;
+            background-color: #81a5ff !important;
+            transition: background-color 0.35s ease-in-out !important;
         }
 
-        /*邊角圓弧-左下*/
-        tr:last-child td:first-child {
-            border-radius: 0px 0px 0px 10px;
+        /*表格滑鼠掠過效果*/
+        tr:hover {
+            color: white;
+            background-color: #ffa500 !important;
+            transition: background-color 0.35s ease-in-out;
         }
 
-        /*邊角圓弧-右下*/
-        tr:last-child td:last-child {
-            border-radius: 0px 0px 10px 0px;
+        /*表格內超連結樣式清空*/
+        table a {
+            /*color: rgba(0, 0, 0, 0.5) !important;*/
+            color: unset !important;
         }
 
         /*區塊陰影效果*/
@@ -100,11 +106,11 @@
         }
 
         /*原生換頁UI*/
-        .block-27 ul li a, .block-27 ul li span {
-            color: black;
-            border: 2px solid #e6e6e6;
-            background: #ffffce;
-        }
+        /*.block-27 ul li a, .block-27 ul li span {*/
+        /*    color: black;*/
+        /*    border: 2px solid #e6e6e6;*/
+        /*    background: #ffffce;*/
+        /*}*/
 
         .page_show {
             /*padding: 40px 0;*/
@@ -133,12 +139,6 @@
 
         /*#scroll {position:fixed; top:300px; right:100px;}*/
         /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
-
-        /*橫幅文字陰影*/
-        .text-shadow {
-            color: #fff !important;
-            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
-        }
     </style>
 </head>
 
@@ -158,8 +158,6 @@
         </div>
     </div>
 </section>
-
-
 <!--
 API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來的內容當作select選項，預想是改以寫死方式回傳查詢條件
 可以做的搜尋條件：
@@ -198,7 +196,8 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
                 </select>
             </div>
             <div class="p-1">
-                <input type="text" class="custom-select" id="inputBox" placeholder="產品名稱搜尋" style="background-image: none;">
+                <input type="text" class="custom-select" id="inputBox" placeholder="產品名稱搜尋"
+                       style="background-image: none;">
             </div>
             <div class="p-1">
                 <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
@@ -207,11 +206,8 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
         </div>
         <!-- 顯示資料內容 -->
         <div class="row ftco-animate">
-            <div class="col-12 p-3 div-shadow"
-                 style="background-color: #fff; border-radius: 10px 10px 10px 10px;">
-                <table class="table-hover text-center" id="test1Result">
-                </table>
-            </div>
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            </table>
         </div>
         <!-- 顯示查詢資訊 -->
         <div class="row ftco-animate">
@@ -222,10 +218,6 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
                 </div>
             </div>
         </div>
-    </div>
-
-    <iframe width="100%" height="300" frameborder="0" src="https://www.google.com/maps?q=高雄市燕巢區燕巢區師大路98號&hl=zh-tw&output=embed"></iframe>
-
     </div>
 </section>
 
@@ -305,14 +297,14 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
     function getAnimalFoodList(data) {//秀出搜尋結果
         $("#test1Result").empty();//清空元素
 
-        var title = "<tr class=''>" +
-            "<th class='table-primary'>產品名稱</th>" +
-            "<th class='table-secondary' style='width: 8%;'>產地</th>" +
-            "<th class='table-info' style='width: 10%;'>種類</th>" +
-            "<th class='table-success' style='width: 10%;'>重量</th>" +
-            "<th class='table-danger' style='width: 10%;'>適用</th>" +
-            "<th class='table-light' style='width: 22%;'>主要原料</th>" +
-            "<th class='table-warning' style='width: 22%;'>營養成份</th>" +
+        var title = "<tr class='h5'>" +
+            "<th>產品名稱</th>" +
+            "<th style='width: 8%;'>產地</th>" +
+            "<th style='width: 10%;'>種類</th>" +
+            "<th style='width: 10%;'>重量</th>" +
+            "<th style='width: 10%;'>適用</th>" +
+            "<th style='width: 22%;'>主要原料</th>" +
+            "<th style='width: 22%;'>營養成份</th>" +
             "</tr>";
 
         $("#test1Result").append(title);//加入標題
