@@ -1,4 +1,5 @@
 let user;
+let status;
 
 const url = location.pathname.replaceAll("/", "");
 
@@ -8,6 +9,7 @@ function init() {
         url: "/session-userId",
         success: function (data, text, xhr) {
             console.log("status:" + text + xhr.status);
+            status = xhr.status;
             user = data;
             console.log(user);
 

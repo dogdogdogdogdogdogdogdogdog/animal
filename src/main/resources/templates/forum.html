@@ -313,8 +313,7 @@
 <script src="js/main.js"></script>
 
 <script type="text/javascript">
-    var userSession;
-    var status;
+
     var limit;
     var pages;
 
@@ -327,18 +326,6 @@
             }
         });
 
-        $.ajax({//取得登入session
-            type: "GET",
-            url: "/session-userId",
-            success: function (data) {
-                console.log(data);
-                userSession = data;
-            },
-            complete: function(xhr) {
-                console.log("狀態碼:"+xhr.status);
-                status = xhr.status;
-            }
-        });
 
     }
 
