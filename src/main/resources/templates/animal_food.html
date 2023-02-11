@@ -299,15 +299,15 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
     function getAnimalFoodList(data) {//秀出搜尋結果
         $("#test1Result").empty();//清空元素
 
-        var title = "<tr class='h5'>" +
-            "<th>產品名稱</th>" +
-            "<th style='width: 8%;'>產地</th>" +
-            "<th style='width: 10%;'>種類</th>" +
-            "<th style='width: 10%;'>重量</th>" +
-            "<th style='width: 10%;'>適用</th>" +
-            "<th style='width: 22%;'>主要原料</th>" +
-            "<th style='width: 22%;'>營養成份</th>" +
-            "</tr>";
+        var title = `<tr class='h5'>
+            <th>產品名稱</th>
+            <th style='width: 8%;'>產地</th>
+            <th style='width: 10%;'>種類</th>
+            <th style='width: 10%;'>重量</th>
+            <th style='width: 10%;'>適用</th>
+            <th style='width: 22%;'>主要原料</th>
+            <th style='width: 22%;'>營養成份</th>
+            </tr>`;
 
         $("#test1Result").append(title);//加入標題
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Date;
 
 @RestController
 public class UserController {
@@ -44,16 +45,25 @@ public class UserController {
         session.setAttribute("email", user.getEmail());
         session.setAttribute("name", user.getName());
         session.setAttribute("tel", user.getTel());
+        session.setAttribute("gender", user.getGender());
+        session.setAttribute("createdDate", user.getCreatedDate());
+        session.setAttribute("lastModifiedDate", user.getLastModifiedDate());
+        session.setAttribute("avatar", user.getAvatar());
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @GetMapping("/session-userId")//取得登入session
-    public ResponseEntity<User> getsessionusername(HttpSession session) { //@Path用來取得url路徑的值
+    public ResponseEntity<User> getUserSession(HttpSession session) { //@Path用來取得url路徑的值
         User user = new User();
         user.setId((Integer) session.getAttribute("userId"));
         user.setEmail((String) session.getAttribute("email"));
         user.setName((String) session.getAttribute("name"));
         user.setTel((String) session.getAttribute("tel"));
+        user.setGender((String) session.getAttribute("gender"));
+        user.setCreatedDate((Date) session.getAttribute("createdDate"));
+        user.setLastModifiedDate((Date) session.getAttribute("lastModifiedDate"));
+        user.setAvatar((String) session.getAttribute("avatar"));
+
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
