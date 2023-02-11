@@ -1,5 +1,5 @@
-let user;
-let status;
+var user;
+var status;
 
 const url = location.pathname.replaceAll("/", "");
 
@@ -11,7 +11,6 @@ function init() {
             console.log("status:" + text + xhr.status);
             status = xhr.status;
             user = data;
-            console.log(user);
 
             // 登入後顯示 {會員Email} 登出
             document.getElementById("login_stat").style.visibility = "visible";
