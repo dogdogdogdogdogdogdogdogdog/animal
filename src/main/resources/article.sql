@@ -34,7 +34,7 @@ CREATE TABLE `article` (
   `post_date` timestamp NOT NULL,
   `modified_date` timestamp NOT NULL,
   PRIMARY KEY (`article_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `article` (
 
 LOCK TABLES `article` WRITE;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
+INSERT INTO `article` VALUES (6,1,'問題','貓飼料與貓砂選擇','新手貓奴<br>想問一下飼料該怎麼選擇<br>我看品牌百百種<br>功效也各有不同<br>有什麼推薦的嗎<br><br>另外想問關於貓砂<br>查了一下 也是一大堆<br>什麼礦砂、水晶砂、松木砂<br>求各位建議','0','0','0','2023-02-10 14:18:30','2023-02-11 09:57:22'),(10,1,'新聞','87','87','0','0','0','2023-02-11 10:33:20','2023-02-11 10:33:20'),(11,2,'閒聊','測試用的','測試用的','0','0','0','2023-02-11 10:36:41','2023-02-11 10:36:41');
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-10 20:53:23
+-- Dump completed on 2023-02-11 19:16:54
