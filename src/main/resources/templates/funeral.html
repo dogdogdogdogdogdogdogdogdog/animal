@@ -181,7 +181,7 @@
                 </tr>
             </table>
         </div>
-        <!-- 顯示查詢資訊 -->
+        <!-- 顯示資料筆數及頁碼 -->
         <div class="row ftco-animate">
             <div class="col-12 p-3 text-center">
                 <div class="block-27">
@@ -466,6 +466,7 @@
         var offset = limit * (page - 1);
         queryParams += "&offset=" + offset;
 
+        // 取得篩選區的參數
         var area = $("#areaAjax").val();
         if (area != "default") {
             queryParams += "&area=" + area;
