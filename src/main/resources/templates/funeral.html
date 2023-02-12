@@ -438,7 +438,7 @@
     })
 
     // 頁碼按下後執行換頁
-    $("body").on("click", "span", function () {
+    $("body").on("click", ".page_show span", function () {
         if ($(this).hasClass("page_cur")) {
             return;
         }
@@ -456,6 +456,7 @@
             default:
                 listPage = parseInt(page);
                 changePage(listPage);
+                break;
         }
     });
 
