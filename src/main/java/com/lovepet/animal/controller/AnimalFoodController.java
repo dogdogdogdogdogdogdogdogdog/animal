@@ -3,11 +3,10 @@ package com.lovepet.animal.controller;
 import com.lovepet.animal.dto.AnimalFoodQueryParams;
 import com.lovepet.animal.model.AnimalFood;
 import com.lovepet.animal.service.AnimalFoodService;
-import com.lovepet.animal.util.PageAnimalFood;
+import com.lovepet.animal.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +46,7 @@ public class AnimalFoodController {
         Integer total = animalFoodService.countAnimalFood(animalFoodQueryParams);
 
         // 分頁
-        PageAnimalFood<AnimalFood> page = new PageAnimalFood<>();
+        Page<AnimalFood> page = new Page<>();
         page.setLimit(limit);
         page.setOffset(offset);
         page.setTotal(total);

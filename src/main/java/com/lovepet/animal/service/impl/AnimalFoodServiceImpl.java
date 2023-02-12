@@ -36,15 +36,15 @@ public class AnimalFoodServiceImpl implements AnimalFoodService {
         Set<String> categorySet = new HashSet<>();
 
         for (int i = 0; i < animalFoodList.size(); i++) {
-            placeSet.add(animalFoodList.get(i).getCategory());
-            categorySet.add(animalFoodList.get(i).getProductionPlace());
+            placeSet.add(animalFoodList.get(i).getProductionPlace());
+            categorySet.add(animalFoodList.get(i).getCategory());
         }
         placeSet.remove("");
         System.out.println(placeSet);
         System.out.println(categorySet);
 
-        list.add(categorySet);
         list.add(placeSet);
+        list.add(categorySet);
 
         return list;
     }

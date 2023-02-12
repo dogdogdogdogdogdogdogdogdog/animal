@@ -64,7 +64,7 @@
         }
 
         /*顯示物件-滑鼠掠過顏色*/
-        .staff:hover .text, .staff:focus .text {
+        .published:hover .text, .published:focus .text {
             background: #81a5ff !important;
             color: rgba(255, 255, 255, 0.8);
         }
@@ -163,17 +163,20 @@
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content main-img">
+                    <!-- 寵物名字放在標題 -->
                     <div class="modal-header">
-                        <!-- 名字放在標題 -->
+                        <!-- 標題定位用左區塊 -->
                         <div class="col-4 px-0">
                         </div>
+                        <!-- 標題定位用主區塊 -->
                         <div class="col-4 px-0 d-flex justify-content-center">
                             <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
-                            <h3 class="modal-title font-weight-bold" id="animalName_static"></h3>
+                            <h3 class="modal-title font-weight-bold" id="animalName_static">這裡是寵物名字</h3>
                             <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
                         </div>
+                        <!-- 標題定位用右區塊 -->
                         <div class="col-4 px-0">
-                            <div class="row m-0 pr-4 font-weight-bold justify-content-end" style="color: ">
+                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
                                 <span id="createdDate_static"></span>
                                 <span>&nbsp;刊登</span>
                             </div>
@@ -181,6 +184,7 @@
                                 <span id="lastModifiedDate_static"></span>
                                 <span>&nbsp;更新</span>
                             </div>
+                            <!-- 強制定位關閉功能於最右上角 -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
                                 <span aria-hidden="true">&times;</span>
@@ -191,6 +195,7 @@
                          style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
                         <div class="row m-auto col-12 justify-content-center">
                             <div class="col-xl-6 col-12">
+                                <!-- 彈出框圖片高度於小畫面顯示異常 強制設定600px高 -->
                                 <div id="imageUrl_static" class="work mb-4 img d-flex align-items-end"
                                      style="height: 600px !important; background-position: center center !important;">
                                 </div>
@@ -245,26 +250,17 @@
                                         <span>地區 :</span>
                                         <span id="area_static"></span>
                                     </div>
-                                    <div class="d-block">
-                                        <span>空</span>
-                                        <span id=""></span>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-block" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
                                     </div>
                                 </div>
-                                <!-- 備註(動物描述) -->
+                                <!-- 備註(寵物描述) -->
                                 <div class="col-12 pt-3">
                                     <div class="d-block font-weight-bold" style="color: black;">
                                         <span id="description_static"></span>
                                     </div>
-                                </div>
-                                <div class="col-12 d-block text-right">
-                                    <!--                                    <div class="px-1">-->
-                                    <!--                                        <span>刊登日期 :</span>-->
-                                    <!--                                        <span id="createdDate_static"></span>-->
-                                    <!--                                    </div>-->
-                                    <!--                                    <div class="px-1">-->
-                                    <!--                                        <span>更新日期 :</span>-->
-                                    <!--                                        <span id="lastModifiedDate_static"></span>-->
-                                    <!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -361,7 +357,7 @@
         $.each(data["results"], function (index, item) {
             var html = `
 <div class='col-md-6 col-lg-3 ftco-animate'>
-    <div class='staff'>
+    <div class='published'>
         <div class='img-wrap d-flex align-items-stretch'>
             <div class='work mb-4 img d-flex align-items-end' style='background-image: url(${item.imageUrl});'></div>
         </div>
@@ -417,7 +413,7 @@
                 $("#animalId_static").text(data.animalId);
                 $("#animalName_static").text(data.animalName);
                 $("#animalKind_static").text(data.animalKind);
-                $("#animalVariety_static").text(data.animalVariety);
+                $("#animalVariet    y_static").text(data.animalVariety);
                 $("#animalSex_static").text(data.animalSex);
                 $("#animalAge_static").text(data.animalAge);
                 $("#animalBodysize_static").text(data.animalBodysize);
@@ -425,12 +421,10 @@
                 $("#animalSterilization_static").text(data.animalSterilization);
                 $("#animalBacterin_static").text(data.animalBacterin);
                 $("#area_static").text(data.area);
-                $("#description_static").text(data.description);
+                $("#description_static").html(data.description);
                 $("#createdDate_static").text(data.createdDate);
                 $("#lastModifiedDate_static").text(data.lastModifiedDate);
-                // $("#imageUrl_static").attr("src", data.imageUrl);
                 $("#imageUrl_static").css("background-image", `url('${data.imageUrl}')`);
-                // $("animalId_static").text(data.userId);
                 // console.log("會員:" + data.userId +
                 //     "\n編號:" + data.animalId +
                 //     "\n名字:" + data.animalName +
