@@ -118,19 +118,19 @@
         <!-- 顯示搜尋條件 -->
         <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
             <div class="p-1">
-                <select class="custom-select" name="area" id="area">
+                <select class="custom-select" id="area">
                     <option value="default">不限地區</option>
                 </select>
             </div>
             <div class="p-1">
-                <select class="custom-select" name="kind" id="kind">
+                <select class="custom-select" id="kind">
                     <option value="default">不限種類</option>
                     <option value="狗">狗</option>
                     <option value="貓">貓</option>
                 </select>
             </div>
             <div class="p-1">
-                <select class="custom-select" name="sex" id="sex">
+                <select class="custom-select" id="sex">
                     <option value="default">不限性別</option>
                     <option value="公">公</option>
                     <option value="母">母</option>
@@ -517,35 +517,28 @@
     var listPage = 1;
 
     function changePage(page) {
+        var queryParams = "";
         var offset = limit * (page - 1);
-        console.log("offset" + offset);
-        console.log("page" + page);
-
         var area = $("#area").val();
         var kind = $("#kind").val();
         var sex = $("#sex").val();
-        var searchUrl = "";
 
-        console.log(area);
-        console.log(kind);
-        console.log(sex);
+        queryParams += "&offset=" + offset;
 
-        if (area != "不限地區") {
-            searchUrl += "&area=" + area;
+        // 取得篩選區的參數
+        if (area != "default") {
+            queryParams += "&area=" + area;
         }
-        if (kind != "不限種類") {
-            searchUrl += "&kind=" + kind;
+        if (kind != "default") {
+            queryParams += "&kind=" + kind;
         }
-
-        if (sex != "不限性別") {
-            searchUrl += "&sex=" + sex;
+        if (sex != "default") {
+            queryParams += "&sex=" + sex;
         }
-        var url = "/personalAnimals?offset=" + limit * (page - 1) + searchUrl;
-
 
         $.ajax({
             type: "GET",
-            url: url,
+            url: "/personalAnimals?" + queryParams,
             success: function (data) {
                 getAnimalList(data);
             }
