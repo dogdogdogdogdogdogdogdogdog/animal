@@ -11,9 +11,9 @@ public class UserFeedbackRowmapper implements RowMapper<UserFeedback> {
     @Override
     public UserFeedback mapRow(ResultSet resultSet, int i) throws SQLException {
         UserFeedback userFeedback=new UserFeedback();
-        userFeedback.setMessage(resultSet.getString("message"));
-        userFeedback.setCreateDate(resultSet.getTimestamp("create_date"));
-        userFeedback.setEmail(resultSet.getString("email"));
-        return userFeedback;
+      userFeedback.setContent(resultSet.getString("content"));
+      userFeedback.setPostDate(resultSet.getTimestamp("post_date"));
+
+      return userFeedback;
     }
 }

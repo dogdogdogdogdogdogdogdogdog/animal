@@ -19,10 +19,6 @@ public class HtmlController {
         return "animal_food";
     }
 
-    @GetMapping("/forum")
-    public String goForum() {
-        return "forum";
-    }
 
     @GetMapping("/header")//取得導覽列
     public String goHeader() {
@@ -57,11 +53,6 @@ public class HtmlController {
     @GetMapping("/funeral")
     public String goFuneral() {
         return "funeral";
-    }
-
-    @GetMapping("/animal_discuss")
-    public String goAnimalDiscuss() {
-        return "animal_discuss";
     }
 
     @GetMapping("/missing")

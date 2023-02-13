@@ -3,31 +3,33 @@ package com.lovepet.animal.model;
 import java.util.Date;
 
 public class UserFeedback {
-    private String message;
-    private Date createDate;
-    private String email;
+   private String content;
+   private Date postDate;
+    private String userName;
 
-    public String getEmail() {
-        return email;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getMessage() {
-        return message;
+    public Date getPostDate() {
+        return postDate;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public String getContent() {
+        return content;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setContent(String content) {
+        this.content = content;
     }
+
+
 }

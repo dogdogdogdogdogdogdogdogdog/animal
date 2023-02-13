@@ -437,84 +437,88 @@
                         var html = `
                             <div class="modal-header">
                                     <!-- 名字放在標題 -->
-                                    <div class="col-4 px-0">
-                                    </div>
-                                    <div class="col-4 px-0 d-flex justify-content-center">
-                                        <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
-                                        <h3 class="modal-title font-weight-bold">[</h3>
-                                        <h3 id="type" class="modal-title font-weight-bold">${articleData.type}</h3>
-                                        <h3 id="editType" class="modal-title font-weight-bold" style="display: none;">
-                                            <select id="editSelect">
-                                                <option value='綜合'>綜合</option>
-                                                <option value='問題'>問題</option>
-                                                <option value='心得'>心得</option>
-                                                <option value='開箱'>開箱</option>
-                                                <option value='新聞'>新聞</option>
-                                                <option value='知識'>知識</option>
-                                                <option value='閒聊'>閒聊</option>
-                                                <option value='創作'>創作</option>
-                                            </select>
-                                        </h3>
-                                        <h3 class="modal-title font-weight-bold">]</h3>
-                                        <h3 id="title" class="modal-title font-weight-bold">${articleData.title}</h3>
-                                        <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
-                                    </div>
-                                    <div class="col-4 px-0">
-                                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                            <span>${userData.name}</span>
-                                            <span>&nbsp;作者</span>
-                                        </div>
-                                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                            <span>${articleData.postDate}</span>
-                                            <span>&nbsp;發文日期</span>
+                        <div class="col-4 px-0">
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-center">
+                        <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        <h3 class="modal-title font-weight-bold">[</h3>
+                        <h3 id="type" class="modal-title font-weight-bold">${articleData.type}</h3>
+                        <h3 id="editType" class="modal-title font-weight-bold" style="display: none;">
+                        <select id="editSelect">
+                        <option value='綜合'>綜合</option>
+                        <option value='問題'>問題</option>
+                        <option value='心得'>心得</option>
+                        <option value='開箱'>開箱</option>
+                        <option value='新聞'>新聞</option>
+                        <option value='知識'>知識</option>
+                        <option value='閒聊'>閒聊</option>
+                        <option value='創作'>創作</option>
+                        </select>
+                        </h3>
+                        <h3 class="modal-title font-weight-bold">]</h3>
+                        <h3 id="title" class="modal-title font-weight-bold">${articleData.title}</h3>
+                        <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        </div>
+                        <div class="col-4 px-0">
+                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                        <span>${userData.name}</span>
+                        <span>&nbsp;作者</span>
+                        </div>
+                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                        <span>${articleData.postDate}</span>
+                        <span>&nbsp;發文日期</span>
 
-                                        </div>
-                                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                            <span>${articleData.modifiedDate}</span>
-                                            <span>&nbsp;編輯日期</span>
-                                        </div>
-                                        <div id="loginButton" class="row m-0 pr-4 font-weight-bold justify-content-end">
+                        </div>
+                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                        <span>${articleData.modifiedDate}</span>
+                        <span>&nbsp;編輯日期</span>
+                        </div>
+                        <div id="loginButton" class="row m-0 pr-4 font-weight-bold justify-content-end">
 
-                                        </div>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                            style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="modal-body"
-                                     style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
-                                    <div class="row m-auto col-12 justify-content-center">
-                                        <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
-                                            <span id="conTent">${articleData.content}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer justify-content-center">
-                                    <div class="p-1">
-                                        <button id="likes" type="button" class="btn btn-primary">讚！</button>
-                                    </div>
-                                    <div class="p-1">
-                                        <button id="unlikes" type="button" class="btn btn-primary">倒讚</button>
-                                    </div>
-                                    <!--編輯、刪除發文者才能使用-->
-                                </div>
-                                <div class="modal-footer justify-content-center">
-                            </div>`;
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        </div>
+                        <div class="modal-body"
+                        style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto col-12 justify-content-center">
+                        <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                        <span id="conTent">${articleData.content}</span>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                        <div class="p-1">
+                        <button id="likes" type="button" class="btn btn-primary">讚！</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="unlikes" type="button" class="btn btn-primary">倒讚</button>
+                        </div>
+                            <!--編輯、刪除發文者才能使用-->
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                        <!--留言-->
+                        </div>
+                            <div id="chatBlock">
+                            </div>
+                            <input id="message" type="text"  ><button onclick="message()">留言</button>`;
 
                         var button = `
-                            <div class="p-1">
-                                <button id="editButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">編輯</button>
-                            </div>
-                            <div class="p-1">
-                                <button id="saveButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary" style="display: none;">保存</button>
-                            </div>
-                            <div class="p-1">
-                                <button id="cancelButton" type="button" class="btn btn-primary" style="display: none;">取消</button>
-                            </div>
-                            <div class="p-1">
-                                <button id="deleteButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">刪除</button>
-                            </div>
+                        <div class="p-1">
+                        <button id="editButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">編輯</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="saveButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary" style="display: none;">保存</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="cancelButton" type="button" class="btn btn-primary" style="display: none;">取消</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="deleteButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">刪除</button>
+                        </div>
                         `;
 
                         $("#articleInfo").append(html);
@@ -530,207 +534,207 @@
         });
     }
 
-    //輸出頁碼
-    function pageSet(pages) {
-        var pageHtml = '';
-        var start, end;
-        if (listPage < 6) {
-            start = 1;
-        } else {
-            start = listPage - 5;
-        }
-        if (listPage > pages - 5) {
-            end = pages;
-        } else {
-            end = listPage + 5;
-        }
-
-        if (listPage > 1) {
-            pageHtml += '<span>上一頁</span>';
-        }
-        for (var i = start, page_cur = ''; i <= end; i++) {
-            if (listPage == i) {
-                page_cur = 'page_cur';
+        //輸出頁碼
+        function pageSet(pages) {
+            var pageHtml = '';
+            var start, end;
+            if (listPage < 6) {
+                start = 1;
             } else {
-                page_cur = '';
+                start = listPage - 5;
             }
-            pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+            if (listPage > pages - 5) {
+                end = pages;
+            } else {
+                end = listPage + 5;
+            }
+
+            if (listPage > 1) {
+                pageHtml += '<span>上一頁</span>';
+            }
+            for (var i = start, page_cur = ''; i <= end; i++) {
+                if (listPage == i) {
+                    page_cur = 'page_cur';
+                } else {
+                    page_cur = '';
+                }
+                pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+            }
+            if (listPage < pages) {
+                pageHtml += '<span>下一頁</span>';
+            }
+            $('.page_show').empty().append(pageHtml);
         }
-        if (listPage < pages) {
-            pageHtml += '<span>下一頁</span>';
-        }
-        $('.page_show').empty().append(pageHtml);
-    }
 
 
-    $('body').on('click', '.page_show span', function () {//點擊頁數執行
-        var $this = $(this);
-        if ($this.hasClass('page_cur')) {
-            return;
-        }
-        var page = $this.html();
-        if (page == '上一頁') {
-            listPage = listPage - 1;
+        $('body').on('click', '.page_show span', function () {//點擊頁數執行
+            var $this = $(this);
+            if ($this.hasClass('page_cur')) {
+                return;
+            }
+            var page = $this.html();
+            if (page == '上一頁') {
+                listPage = listPage - 1;
+                changePage(listPage);
+                // goPrePage();
+            } else if (page == '下一頁') {
+                listPage = listPage + 1;
+                changePage(listPage);
+                // goNextPage();
+            } else {
+                listPage = parseInt(page);
+                changePage(listPage);
+            }
+            //根據頁碼獲取當前頁列表數據
+            pageSet(pages);
+        });
+
+        $("#search").click(function () {//搜尋按鈕被按下
+            listPage = 1;
             changePage(listPage);
-            // goPrePage();
-        } else if (page == '下一頁') {
-            listPage = listPage + 1;
-            changePage(listPage);
-            // goNextPage();
-        } else {
-            listPage = parseInt(page);
-            changePage(listPage);
-        }
-        //根據頁碼獲取當前頁列表數據
-        pageSet(pages);
-    });
-
-    $("#search").click(function () {//搜尋按鈕被按下
-        listPage = 1;
-        changePage(listPage);
-    })
-
-    var listPage = 1;
-
-    function changePage(page) {//傳入頁數可查詢指定頁面
-        var offset = limit * (page - 1);
-        console.log("offset" + offset);
-        console.log("page" + page);
-
-        var place = $("#place").val();
-        var category = $("#category").val();
-        console.log($("#inputArea").val());
-        var search = $("#inputBox").val().trim();
-        var searchUrl = "";
-
-        console.log(place)
-        console.log(category)
-        console.log(search)
-
-        // if (place != "不限產地") {
-        //     searchUrl += "&place=" + place;
-        // }
-        // if (category != "不限種類") {
-        //     searchUrl += "&category=" + category;
-        // }
-
-        if (search != "") {
-            searchUrl += "&search=" + search;
-        }
-        var url = "/forumArticles?offset=" + limit * (page - 1) + searchUrl;
-        console.log(url);
-        $.ajax({
-            type: "GET",
-            url: url,
-            success: function (data) {
-                getAnimalFoodList(data);
-            }
         })
-    }
 
-    $("#postButton").on("click", function () {//發文按鈕按下
-        var type = $("#postType").val();
-        var title = $("#postTitle").val();
-        var content = $("#postContent").val().replaceAll("\n", "<br>");
+        var listPage = 1;
 
-        $.ajax({
-            type: "POST",
-            url: "/forumArticles",
-            contentType: "application/json; charset=UTF-8",
-            data:
-                JSON.stringify({
-                    "userId": user.id,
-                    "type": type,
-                    "title": title,
-                    "content": content
-                }),
-            success: function (data) {
-                alert("發文成功!");
-                changePage(1);
+        function changePage(page) {//傳入頁數可查詢指定頁面
+            var offset = limit * (page - 1);
+            console.log("offset" + offset);
+            console.log("page" + page);
+
+            var place = $("#place").val();
+            var category = $("#category").val();
+            console.log($("#inputArea").val());
+            var search = $("#inputBox").val().trim();
+            var searchUrl = "";
+
+            console.log(place)
+            console.log(category)
+            console.log(search)
+
+            // if (place != "不限產地") {
+            //     searchUrl += "&place=" + place;
+            // }
+            // if (category != "不限種類") {
+            //     searchUrl += "&category=" + category;
+            // }
+
+            if (search != "") {
+                searchUrl += "&search=" + search;
             }
-        })
-    })
-
-    $("body").on("click", "#editButton", function () {
-        var type = $("#type").text();
-        // console.log(type);
-
-        $("#editSelect").val(type);
-
-        $("#editType").attr("style", "display: inline;");
-        $("#type").attr("style", "display: none;");
-        $("#title").attr("contenteditable", true);
-        $("#conTent").attr("contenteditable", true);
-        $("#editButton").attr("style", "display: none;")
-        $("#saveButton").attr("style", "display: inline;")
-        $("#cancelButton").attr("style", "display: inline;")
-    })
-
-    $("body").on("click", "#saveButton", function () {
-
-        var type = $("#editSelect").val();
-        var title = $("#title").text();
-        var content = $("#conTent").html();
-        var articleId = $("#saveButton").attr("articleId");
-        console.log(articleId);
-        console.log(type);
-        console.log(title);
-        console.log(content);
-
-        $.ajax({
-            type: "PUT",
-            url: "/forumArticles/" + articleId,
-            contentType: "application/json; charset=UTF-8",
-            data:
-                JSON.stringify({
-                    "userId": user.id,
-                    "type": type,
-                    "title": title,
-                    "content": content
-                }),
-            success: function (data) {
-                alert("編輯成功!");
-                changePage(1);
-            }
-        })
-        $("#type").text(type);
-
-        $("#editType").attr("style", "display: none;");
-        $("#type").attr("style", "display: inline;");
-        $("#title").attr("contenteditable", false);
-        $("#conTent").attr("contenteditable", false);
-        $("#editButton").attr("style", "display: inline;")
-        $("#saveButton").attr("style", "display: none;")
-        $("#cancelButton").attr("style", "display: none;")
-    });
-
-    $("body").on("click", "#deleteButton", function () {
-        var articleId = $("#deleteButton").attr("articleId");
-
-        if (confirm("確定要刪除嗎?")==true) {
+            var url = "/forumArticles?offset=" + limit * (page - 1) + searchUrl;
+            console.log(url);
             $.ajax({
-                type: "DELETE",
-                url: "/forumArticles/" + user.id + "/" + articleId,
-                success: function () {
-                    alert("刪除成功!");
-                    changePage(1);
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    getAnimalFoodList(data);
                 }
             })
         }
-    });
+
+        $("#postButton").on("click", function () {//發文按鈕按下
+            var type = $("#postType").val();
+            var title = $("#postTitle").val();
+            var content = $("#postContent").val().replaceAll("\n", "<br>");
+
+            $.ajax({
+                type: "POST",
+                url: "/forumArticles",
+                contentType: "application/json; charset=UTF-8",
+                data:
+                    JSON.stringify({
+                        "userId": user.id,
+                        "type": type,
+                        "title": title,
+                        "content": content
+                    }),
+                success: function (data) {
+                    alert("發文成功!");
+                    changePage(1);
+                }
+            })
+        })
+
+        $("body").on("click", "#editButton", function () {
+            var type = $("#type").text();
+            // console.log(type);
+
+            $("#editSelect").val(type);
+
+            $("#editType").attr("style", "display: inline;");
+            $("#type").attr("style", "display: none;");
+            $("#title").attr("contenteditable", true);
+            $("#conTent").attr("contenteditable", true);
+            $("#editButton").attr("style", "display: none;")
+            $("#saveButton").attr("style", "display: inline;")
+            $("#cancelButton").attr("style", "display: inline;")
+        })
+
+        $("body").on("click", "#saveButton", function () {
+
+            var type = $("#editSelect").val();
+            var title = $("#title").text();
+            var content = $("#conTent").html();
+            var articleId = $("#saveButton").attr("articleId");
+            console.log(articleId);
+            console.log(type);
+            console.log(title);
+            console.log(content);
+
+            $.ajax({
+                type: "PUT",
+                url: "/forumArticles/" + articleId,
+                contentType: "application/json; charset=UTF-8",
+                data:
+                    JSON.stringify({
+                        "userId": user.id,
+                        "type": type,
+                        "title": title,
+                        "content": content
+                    }),
+                success: function (data) {
+                    alert("編輯成功!");
+                    changePage(1);
+                }
+            })
+            $("#type").text(type);
+
+            $("#editType").attr("style", "display: none;");
+            $("#type").attr("style", "display: inline;");
+            $("#title").attr("contenteditable", false);
+            $("#conTent").attr("contenteditable", false);
+            $("#editButton").attr("style", "display: inline;")
+            $("#saveButton").attr("style", "display: none;")
+            $("#cancelButton").attr("style", "display: none;")
+        });
+
+        $("body").on("click", "#deleteButton", function () {
+            var articleId = $("#deleteButton").attr("articleId");
+
+            if (confirm("確定要刪除嗎?") == true) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/forumArticles/" + user.id + "/" + articleId,
+                    success: function () {
+                        alert("刪除成功!");
+                        changePage(1);
+                    }
+                })
+            }
+        });
 
 
-    $("body").on("click", "#cancelButton", function () {
+        $("body").on("click", "#cancelButton", function () {
 
 
-        $("#editType").attr("style", "display: none;");
-        $("#type").attr("style", "display: inline;");
-        $("#title").attr("contenteditable", false);
-        $("#conTent").attr("contenteditable", false);
-        $("#editButton").attr("style", "display: inline;")
-        $("#saveButton").attr("style", "display: none;")
-        $("#cancelButton").attr("style", "display: none;")
-    });
+            $("#editType").attr("style", "display: none;");
+            $("#type").attr("style", "display: inline;");
+            $("#title").attr("contenteditable", false);
+            $("#conTent").attr("contenteditable", false);
+            $("#editButton").attr("style", "display: inline;")
+            $("#saveButton").attr("style", "display: none;")
+            $("#cancelButton").attr("style", "display: none;")
+        });
 
 
 </script>

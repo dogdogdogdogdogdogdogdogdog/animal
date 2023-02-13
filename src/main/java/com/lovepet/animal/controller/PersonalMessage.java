@@ -26,8 +26,8 @@ public class PersonalMessage {
 
             return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @GetMapping("/message")
-    public ResponseEntity<List<UserFeedback>> getMessage(@RequestParam Integer tId){
+    @GetMapping("/message/{tId}")
+    public ResponseEntity<List<UserFeedback>> getMessage(@PathVariable Integer tId){
         MessageQueryParams messageQueryParams=new MessageQueryParams();
         messageQueryParams.settId(tId);
 
