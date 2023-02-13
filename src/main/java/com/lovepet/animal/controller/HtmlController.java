@@ -19,6 +19,11 @@ public class HtmlController {
         return "animal_food";
     }
 
+    @GetMapping("/forum")
+    public String goForum() {
+        return "forum";
+    }
+
     @GetMapping("/header")//取得導覽列
     public String goHeader() {
         return "header";
@@ -36,16 +41,28 @@ public class HtmlController {
 
     @GetMapping("/login_register")
     public String goLoginRegister() {
-        return "login_register";}
+        return "login_register";
+    }
 
-    @GetMapping("index")
-    public String goIndex() { return  "index";}
+    @GetMapping("/index")
+    public String goIndex() {
+        return "index";
+    }
 
-    @GetMapping("animal_hospital")
-    public String goAnimalHospital() { return  "animal_hospital";}
+    @GetMapping("/animal_hospital")
+    public String goAnimalHospital() {
+        return "animal_hospital";
+    }
 
-    @GetMapping("funeral")
-    public String goFuneral() { return  "funeral";}
+    @GetMapping("/funeral")
+    public String goFuneral() {
+        return "funeral";
+    }
+
+    @GetMapping("/animal_discuss")
+    public String goAnimalDiscuss() {
+        return "animal_discuss";
+    }
 
     @GetMapping("/missing")
     public String goMissing() {
@@ -76,14 +93,7 @@ public class HtmlController {
     }
 
     @GetMapping("/public_shelter")
-    public String goPublicShelter(
-            Model model,
-            @RequestParam(defaultValue = "12") Integer limit,
-            @RequestParam(defaultValue = "0") Integer offset,
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "所有收容所") String shelterName,
-            @RequestParam(defaultValue = "不分種類") String animalKind
-    ) {
+    public String goPublicShelter(Model model, @RequestParam(defaultValue = "12") Integer limit, @RequestParam(defaultValue = "0") Integer offset, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "所有收容所") String shelterName, @RequestParam(defaultValue = "不分種類") String animalKind) {
 
         AnimalQueryParams animalQueryParams = new AnimalQueryParams();
         animalQueryParams.setLimit(limit);

@@ -17,45 +17,92 @@
     <link rel="stylesheet" href="css/style.css">
     <!--  自訂樣式  -->
     <style>
+        /*網站背景紋理*/
         .main-img {
             background-image: url('/images/_main.png');
             background-repeat: repeat;
         }
 
+        /*橫幅圖片*/
         .banner-img {
-            background-image: url('/images/_banner2.jpg');
+            background-image: url('/images/_banner1.jpg');
             height: 300px !important;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        table,
-        th {
-            text-align: center;
-            border: 2px solid orange;
-            height: 50px;
-        }
-
-        td {
-            text-align: left;
-            border: 2px solid orange;
-            height: 50px;
-        }
-
-        .opname {
-            text-align: center;
-        }
-
-        a {
-            color: black;;
         }
 
         /*橫幅文字陰影*/
         .text-shadow {
             color: #fff !important;
             text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*表格格內間距*/
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
+        }
+
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child  {
+            border-radius: 0px 20px 20px 0px !important;
+        }
+
+        /*表格奇數列背景色淺灰*/
+        /*tr:nth-of-type(odd) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格偶數列背景色*/
+        /*tr:nth-child(even) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
+            color: white;
+            background-color: #81a5ff !important;
+            /*轉場-淡入淡出效果*/
+            transition: background-color 0.35s ease-in-out !important;
+        }
+
+        /*表格滑鼠掠過效果*/
+        tr:hover {
+            color: white;
+            background-color: #ffa500 !important;
+            /*轉場-淡入淡出效果*/
+            transition: background-color 0.35s ease-in-out;
+        }
+
+        /*表格內超連結樣式清空*/
+        table a {
+            /*color: rgba(0, 0, 0, 0.5) !important;*/
+            color: unset !important;
+        }
+
+        /*區塊陰影效果*/
+        .div-shadow {
+            box-shadow: 3px 3px 9px grey;
         }
     </style>
 </head>
@@ -77,26 +124,45 @@
     </div>
 </section>
 
-<section class="ftco-section main-img">
-    <div class="container">
-        <div class="row justify-content-center pb-5 mb-3">
-
-            <table width="100%">
-                <tr>
-                    <th width="25%">名稱</th>
-                    <th width="15%">電話</th>
-                    <th width="30%">地址</th>
-                    <th width="40%">服務項目</th>
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+    <div class="container py-5">
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <div class="p-1">
+                <select class="custom-select" name="place" id="place">
+                </select>
+            </div>
+            <div class="p-1">
+                <select class="custom-select" name="category" id="category">
+                </select>
+            </div>
+            <div class="p-1">
+                <input type="text" class="custom-select" id="inputBox" placeholder="產品名稱搜尋"
+                       style="background-image: none;">
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+        </div>
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+                <tr class="h5">
+                    <th style="width: 25%;">機構</th>
+                    <th style="width: 20%;">電話</th>
+                    <th style="width: 30%;">地址</th>
+                    <th style="width: 25%;">服務項目</th>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://www.tcapo.gov.taipei/cp.aspx?n=1F425FA2E64328D4"
-                                          target="_blank">臺北市動物保護處</a></td>
+                    <td><a href="https://www.tcapo.gov.taipei/cp.aspx?n=1F425FA2E64328D4"
+                           target="_blank">臺北市動物保護處</a></td>
                     <td>(02)87913254</td>
                     <td>台北市內湖區潭美街852號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a
+                    <td><a
                             href="https://www.ahiqo.ntpc.gov.tw/cht/index.php?code=list&flag=detail&ids=15&article_id=346"
                             target="_blank">新北市政府動物保護防疫處</a></td>
                     <td> (02)29596353</td>
@@ -104,62 +170,67 @@
                     <td> 政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://animal.e-land.gov.tw/" target="_blank">宜蘭縣動植物防疫所</a>
+                    <td><a href="https://animal.e-land.gov.tw/"
+                           target="_blank">宜蘭縣動植物防疫所</a>
                     </td>
                     <td>(03)9602350</td>
                     <td>宜蘭縣五結鄉成興村利寶路60號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://www.animal.taichung.gov.tw/"
-                                          target="_blank">臺中市動物保護防疫處</a></td>
+                    <td><a href="https://www.animal.taichung.gov.tw/"
+                           target="_blank">臺中市動物保護防疫處</a></td>
                     <td>(04)23869420</td>
                     <td>台中市南屯區萬和路一段28-18號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://ccap.chiayi.gov.tw/cp.aspx?n=8553"
-                                          target="_blank">嘉義市動物保護教育園區</a></td>
+                    <td><a href="https://ccap.chiayi.gov.tw/cp.aspx?n=8553"
+                           target="_blank">嘉義市動物保護教育園區</a></td>
                     <td>(05)2168661</td>
                     <td>嘉義市東區芳草里彌陀路31號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://ahipo.tainan.gov.tw/" target="_blank">臺南市動物防疫保護處</a>
+                    <td><a href="https://ahipo.tainan.gov.tw/"
+                           target="_blank">臺南市動物防疫保護處</a>
                     </td>
                     <td>(06)6323039</td>
                     <td>台南市新營區長榮路一段501號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://livestock.kcg.gov.tw/"
-                                          target="_blank">高雄市壽山動物保護教育園區</a></td>
+                    <td><a href="https://livestock.kcg.gov.tw/"
+                           target="_blank">高雄市壽山動物保護教育園區</a></td>
                     <td>(07)5519059</td>
                     <td>高雄市鼓山區萬壽路350號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://livestock.kcg.gov.tw/"
-                                          target="_blank">高雄市燕巢動物保護關愛園區</a></td>
+                    <td><a href="https://livestock.kcg.gov.tw/"
+                           target="_blank">高雄市燕巢動物保護關愛園區</a></td>
                     <td>(07)6051002</td>
                     <td>高雄市燕巢區燕巢區師大路98號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://animal.e-land.gov.tw/" target="_blank">宜蘭縣動植物防疫所</a>
+                    <td><a href="https://animal.e-land.gov.tw/"
+                           target="_blank">宜蘭縣動植物防疫所</a>
                     </td>
                     <td>(03)9602350</td>
                     <td>宜蘭縣五結鄉成興村利寶路60號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://acdc.hl.gov.tw/" target="_blank">花蓮市動植物防疫所</a></td>
+                    <td><a href="https://acdc.hl.gov.tw/" target="_blank">花蓮市動植物防疫所</a>
+                    </td>
                     <td>(03)8227431</td>
                     <td>花蓮縣花蓮市瑞美路5號</td>
                     <td>政府機關提供寵物焚化服務</td>
                 </tr>
                 <tr>
-                    <td class="opname"><a href="https://www.phldcc.gov.tw/" target="_blank">澎湖縣家畜疾病防治所</a>
+                    <td><a href="https://www.phldcc.gov.tw/"
+                           target="_blank">澎湖縣家畜疾病防治所</a>
                     </td>
                     <td>(06)9212839</td>
                     <td>澎湖縣馬公市西文里118之1號</td>
@@ -167,7 +238,20 @@
                 </tr>
             </table>
         </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
+                <div class="block-27">
+                    <p id="pageInfo"></p>
+                    <div class="page_show"></div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <iframe width="100%" height="300" style="border: none;"
+            src="https://www.google.com/maps?q=高雄市燕巢區燕巢區師大路98號&hl=zh-tw&output=embed"></iframe>
+
 </section>
 
 <footer class="footer">

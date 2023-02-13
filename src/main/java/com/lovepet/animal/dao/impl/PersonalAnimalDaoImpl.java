@@ -3,11 +3,10 @@ package com.lovepet.animal.dao.impl;
 import com.lovepet.animal.dao.PersonalAnimalDao;
 import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
-import com.lovepet.animal.model.AnimalFood;
 import com.lovepet.animal.model.PersonalAnimal;
-import com.lovepet.animal.rowmapper.AnimalFoodRowmapper;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -26,13 +25,15 @@ import java.util.Map;
 public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Qualifier("animalJdbcTemplate")
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
     @Override
     public List<PersonalAnimal> getPersonalAnimalComboBox() {
         String sql = "SELECT * FROM personal_animal WHERE 1=1";
 
-        List<PersonalAnimal> list = namedParameterJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> list = animalJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
+
         return list;
     }
 
@@ -45,7 +46,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         //查詢條件
         sql = addFilteringSql(sql, map, personalAnimalQueryParams);
 
-        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+        Integer total = animalJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
     }
@@ -70,7 +71,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("limit", personalAnimalQueryParams.getLimit());
         map.put("offset", personalAnimalQueryParams.getOffset());
 
-        List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> personalAnimalList = animalJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
         return personalAnimalList;
     }
@@ -85,7 +86,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
 
-        List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> personalAnimalList = animalJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
         if (personalAnimalList.size() > 0) {
             return personalAnimalList.get(0);
@@ -96,38 +97,33 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Override
     public Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest) {
+        String sql = "INSERT INTO personal_animal(user_id, animal_name, animal_kind, animal_variety, animal_sex, animal_age, animal_bodysize, animal_color, animal_sterilization, animal_bacterin, image_url, area, description, created_date, last_modified_date) " +
+                "VALUES (:userId, :animalName, :animalKind, :animalVariety, :animalSex, :animalAge, :animalBodysize, :animalColor, :animalSterilization, :animalBacterin, :imageUrl, :area, :description, :createdDate, :lastModifiedDate)";
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", personalAnimalRequest.getUserId());
+        map.put("animalName", personalAnimalRequest.getAnimalName());
+        map.put("animalKind", personalAnimalRequest.getAnimalKind());
+        map.put("animalVariety", personalAnimalRequest.getAnimalVariety());
+        map.put("animalSex", personalAnimalRequest.getAnimalSex());
+        map.put("animalAge", personalAnimalRequest.getAnimalAge());
+        map.put("animalBodysize", personalAnimalRequest.getAnimalBodysize());
+        map.put("animalColor", personalAnimalRequest.getAnimalColor());
+        map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
+        map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
+        map.put("imageUrl", personalAnimalRequest.getImageUrl());
+        map.put("area", personalAnimalRequest.getArea());
+        map.put("description", personalAnimalRequest.getDescription());
 
+        Date now = new Date();
+        map.put("createdDate", now);
+        map.put("lastModifiedDate", now);
 
-            String sql = "INSERT INTO personal_animal(user_id, animal_name, animal_kind, animal_variety, animal_sex, animal_age, animal_bodysize, animal_color, animal_sterilization, animal_bacterin, image_url, area, description, created_date, last_modified_date) " +
-                    "VALUES (:userId, :animalName, :animalKind, :animalVariety, :animalSex, :animalAge, :animalBodysize, :animalColor, :animalSterilization, :animalBacterin, :imageUrl, :area, :description, :createdDate, :lastModifiedDate)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("userId", personalAnimalRequest.getUserId());
-            map.put("animalName", personalAnimalRequest.getAnimalName());
-            map.put("animalKind", personalAnimalRequest.getAnimalKind());
-            map.put("animalVariety", personalAnimalRequest.getAnimalVariety());
-            map.put("animalSex", personalAnimalRequest.getAnimalSex());
-            map.put("animalAge", personalAnimalRequest.getAnimalAge());
-            map.put("animalBodysize", personalAnimalRequest.getAnimalBodysize());
-            map.put("animalColor", personalAnimalRequest.getAnimalColor());
-            map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
-            map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
-            map.put("imageUrl", personalAnimalRequest.getImageUrl());
-            map.put("area", personalAnimalRequest.getArea());
-            map.put("description", personalAnimalRequest.getDescription());
+        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
-            Date now = new Date();
-            map.put("createdDate", now);
-            map.put("lastModifiedDate", now);
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-
-
-            namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
-            int personalAnimalId = keyHolder.getKey().intValue();
-
-
-
+        int personalAnimalId = keyHolder.getKey().intValue();
 
             writePhoto(personalAnimalRequest,personalAnimalId);
 
@@ -158,7 +154,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("description", personalAnimalRequest.getDescription());
         map.put("lastModifiedDate", new Date());
 
-        namedParameterJdbcTemplate.update(sql, map);
+        animalJdbcTemplate.update(sql, map);
     }
 
     @Override
@@ -168,7 +164,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
         map.put("personalAnimalUserId",personalAnimalUserId);
-        namedParameterJdbcTemplate.update(sql, map);
+        animalJdbcTemplate.update(sql, map);
     }
 
     private String addFilteringSql(String sql, Map<String, Object> map, PersonalAnimalQueryParams personalAnimalQueryParams) {
@@ -193,19 +189,36 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         }
         return sql;
     }
+
     private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
-            String path = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
-            FileOutputStream fos = new FileOutputStream(path);
+
+            // 專案路徑
+            String pathSrc = String.format(System.getProperty("user.dir") +
+                    "\\src\\main\\resources\\static\\images\\publish\\%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+
+            // 編譯路徑
+            String pathTarget = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath() +
+                    "static/images/publish/%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+
+            FileOutputStream fosSrc = new FileOutputStream(pathSrc);
+            FileOutputStream fosTarget = new FileOutputStream(pathTarget);
+
             byte[] buffer = new byte[1024];
             int len;
+
             while ((len = fis.read(buffer)) != -1) {
-                fos.write(buffer, 0, len);
+                fosSrc.write(buffer, 0, len);
+                fosTarget.write(buffer, 0, len);
             }
-            fos.flush();
+
+            fosSrc.flush();
+            fosSrc.close();
+            fosTarget.flush();
+            fosTarget.close();
+
             fis.close();
-            fos.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
