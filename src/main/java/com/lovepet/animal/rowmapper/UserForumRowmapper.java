@@ -16,4 +16,5 @@ public class UserForumRowmapper implements RowMapper<UserForum> {
         userForum.settId(resultSet.getInt("t_id"));
         return userForum;
     }
+
 }
