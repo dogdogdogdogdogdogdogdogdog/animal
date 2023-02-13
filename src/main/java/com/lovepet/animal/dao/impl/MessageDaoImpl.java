@@ -36,7 +36,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public Integer countMessage(MessageQueryParams messageQueryParams) {
-        String sql = "SELECT count(*) FROM feedback WHERE article_id=:articleId";
+        String sql = "SELECT count(*) FROM feedback WHERE article_id = :articleId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", messageQueryParams.getArticleId());

@@ -85,7 +85,8 @@ function init() {
         },
         error: function (xhr, text) {
             console.log("status:" + text + xhr.status);
-
+            user = null;
+            console.log(user);
 
 
             if (xhr.status == 302 && (url == "user_publish_history" || url == "user_management" || url == "publish")) {

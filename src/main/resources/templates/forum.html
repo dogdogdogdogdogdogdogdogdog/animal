@@ -367,29 +367,11 @@
 
         $("#test1Result").append(title);//加入標題
 
-
-
-
-
-
         $.each(data["results"], function (index, item) {
-            // $.ajax({//使用userId，查詢留言資訊
-            //     type: "GET",
-            //     url: "/message/" + item.articleId,
-            //     success: function (messageInfo) {
-            //
-            //     }
-            // })
 
+            var userInfo = getUserInfo(item.userId);
 
-
-
-
-            $.ajax({//使用userId，查詢user資訊
-                type: "GET",
-                url: "/user/" + item.userId,
-                success: function (userData) {
-                    var html = `
+            var html = `
                         <tr>
                             <td><div>${item.type}</div></td>
                             <td>
@@ -402,17 +384,16 @@
                                     ${item.content.length > 10 ? item.content.slice(0, 10) + "......" : item.content}
                                 </div>
                                     </td>
-                            <td><div>${userData.name}</div></td>
+                            <td><div>${userInfo.name}</div></td>
                             <td><div>留言數</div></td>
                             <td><div>${item.likes}/${item.views}</div></td>
                             <td><div>${item.modifiedDate}</div></td>
                         </tr>`;
 
 
-                    $("#test1Result").append(html);//加入內容
-                }
-            });
-        })
+            $("#test1Result").append(html);//加入內容
+        });
+
 
         pages = Math.ceil(data.total / data.limit);
         console.log(data.offset / data.limit)
@@ -444,12 +425,10 @@
             success: function (articleData) {
 
                 $("#articleInfo").empty();
-                $.ajax({//使用userId，查詢user資訊
-                    type: "GET",
-                    url: "/user/" + articleData.userId,
-                    success: function (userData) {
 
-                        var html = `
+                var userArticleData = getUserInfo(articleData.userId);
+
+                var html = `
                             <div class="modal-header">
                                     <!-- 名字放在標題 -->
                         <div class="col-4 px-0">
@@ -476,7 +455,7 @@
                         </div>
                         <div class="col-4 px-0">
                         <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                        <span>${userData.name}</span>
+                        <span>${userArticleData.name}</span>
                         <span>&nbsp;作者</span>
                         </div>
                         <div class="row m-0 pr-4 font-weight-bold justify-content-end">
@@ -521,7 +500,7 @@
                         </div>
                         <input id="message" articleId="${articleData.articleId}" type="text"  ><button onclick="message()">留言</button>`;
 
-                        var button = `
+                var button = `
                         <div class="p-1">
                         <button id="editButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">編輯</button>
                         </div>
@@ -536,37 +515,42 @@
                         </div>
                         `;
 
-                        $("#articleInfo").append(html);
-                        console.log("articleId:" + articleData.userId);
-                        console.log("sessionId:" + user.id);
-                        console.log("status:" + status);
-                        if (articleData.userId == user.id && status == 200) {//判斷是不是發文者
+                $("#articleInfo").append(html);
+                console.log("articleId:" + articleData.userId);
+
+                if (status == 302) {//判斷未登入
+                    console.log("status:" + status);
+                    console.log("未登入");
+                }else {
+                    if (status == 200) {//判斷登入
+                        if (articleData.userId == user.id) {//判斷是不是發文者
+                            console.log("sessionName:" + user.name);
+                            console.log("已登入");
                             $("#loginButton").append(button);//加入編輯、刪除按鈕
                         }
                     }
-                });
+                }
+
+
                 var messageHtml = "";
+
                 $.ajax({//使用文章id，查詢留言資訊
                     type: "GET",
                     url: "/message/" + articleData.articleId,
                     success: function (messageData) {
                         // console.log(messageData)
                         $.each(messageData, function (index, item) {
-                            // console.log(item.userId)
-                            $.ajax({//使用文章id，查詢留言使用者
-                                type: "GET",
-                                url: "/user/" + item.userId,
-                                success: function (userDate) {
-                                    // console.log(userDate)
-                                    messageHtml = `
-                                    <div>${userDate.name} : ${messageData[index].content}</div>
-                                    `;
-                                    console.log(messageHtml);
-                                    $("#chatBlock").append(messageHtml);
-                                }
-                            });
-                        })
 
+                            var userMessageData = getUserInfo(item.userId);
+
+                            console.log(userMessageData);
+                            messageHtml = `
+                                    <div>${userMessageData.name} : ${messageData[index].content}</div>
+                                    `;
+                            console.log(messageHtml);
+                            $("#chatBlock").append(messageHtml);
+
+                        })
 
                         console.log(messageHtml);
                         $("#chatBlock").append(messageHtml);
@@ -577,233 +561,248 @@
         });
     }
 
-        //輸出頁碼
-        function pageSet(pages) {
-            var pageHtml = '';
-            var start, end;
-            if (listPage < 6) {
-                start = 1;
-            } else {
-                start = listPage - 5;
-            }
-            if (listPage > pages - 5) {
-                end = pages;
-            } else {
-                end = listPage + 5;
-            }
+    function getUserInfo(id) {//傳入id，回傳userData
+        var userData;
+        $.ajax({//使用userId，查詢user資訊
+            type: "GET",
+            url: "/user/" + id,
+            async: false,
+            success: function (data) {
+                userData = data;
 
-            if (listPage > 1) {
-                pageHtml += '<span>上一頁</span>';
             }
-            for (var i = start, page_cur = ''; i <= end; i++) {
-                if (listPage == i) {
-                    page_cur = 'page_cur';
-                } else {
-                    page_cur = '';
-                }
-                pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
-            }
-            if (listPage < pages) {
-                pageHtml += '<span>下一頁</span>';
-            }
-            $('.page_show').empty().append(pageHtml);
+        });
+        return userData;
+    }
+
+
+    //輸出頁碼
+    function pageSet(pages) {
+        var pageHtml = '';
+        var start, end;
+        if (listPage < 6) {
+            start = 1;
+        } else {
+            start = listPage - 5;
+        }
+        if (listPage > pages - 5) {
+            end = pages;
+        } else {
+            end = listPage + 5;
         }
 
-
-        $('body').on('click', '.page_show span', function () {//點擊頁數執行
-            var $this = $(this);
-            if ($this.hasClass('page_cur')) {
-                return;
-            }
-            var page = $this.html();
-            if (page == '上一頁') {
-                listPage = listPage - 1;
-                changePage(listPage);
-                // goPrePage();
-            } else if (page == '下一頁') {
-                listPage = listPage + 1;
-                changePage(listPage);
-                // goNextPage();
+        if (listPage > 1) {
+            pageHtml += '<span>上一頁</span>';
+        }
+        for (var i = start, page_cur = ''; i <= end; i++) {
+            if (listPage == i) {
+                page_cur = 'page_cur';
             } else {
-                listPage = parseInt(page);
-                changePage(listPage);
+                page_cur = '';
             }
-            //根據頁碼獲取當前頁列表數據
-            pageSet(pages);
-        });
+            pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+        }
+        if (listPage < pages) {
+            pageHtml += '<span>下一頁</span>';
+        }
+        $('.page_show').empty().append(pageHtml);
+    }
 
-        $("#search").click(function () {//搜尋按鈕被按下
-            listPage = 1;
+
+    $('body').on('click', '.page_show span', function () {//點擊頁數執行
+        var $this = $(this);
+        if ($this.hasClass('page_cur')) {
+            return;
+        }
+        var page = $this.html();
+        if (page == '上一頁') {
+            listPage = listPage - 1;
             changePage(listPage);
-        })
+            // goPrePage();
+        } else if (page == '下一頁') {
+            listPage = listPage + 1;
+            changePage(listPage);
+            // goNextPage();
+        } else {
+            listPage = parseInt(page);
+            changePage(listPage);
+        }
+        //根據頁碼獲取當前頁列表數據
+        pageSet(pages);
+    });
 
-        var listPage = 1;
+    $("#search").click(function () {//搜尋按鈕被按下
+        listPage = 1;
+        changePage(listPage);
+    })
 
-        function changePage(page) {//傳入頁數可查詢指定頁面
-            var offset = limit * (page - 1);
-            console.log("offset" + offset);
-            console.log("page" + page);
+    var listPage = 1;
 
-            var place = $("#place").val();
-            var category = $("#category").val();
-            console.log($("#inputArea").val());
-            var search = $("#inputBox").val().trim();
-            var searchUrl = "";
+    function changePage(page) {//傳入頁數可查詢指定頁面
+        var offset = limit * (page - 1);
+        console.log("offset" + offset);
+        console.log("page" + page);
 
-            console.log(place)
-            console.log(category)
-            console.log(search)
+        var place = $("#place").val();
+        var category = $("#category").val();
+        console.log($("#inputArea").val());
+        var search = $("#inputBox").val().trim();
+        var searchUrl = "";
 
-            // if (place != "不限產地") {
-            //     searchUrl += "&place=" + place;
-            // }
-            // if (category != "不限種類") {
-            //     searchUrl += "&category=" + category;
-            // }
+        console.log(place)
+        console.log(category)
+        console.log(search)
 
-            if (search != "") {
-                searchUrl += "&search=" + search;
+        // if (place != "不限產地") {
+        //     searchUrl += "&place=" + place;
+        // }
+        // if (category != "不限種類") {
+        //     searchUrl += "&category=" + category;
+        // }
+
+        if (search != "") {
+            searchUrl += "&search=" + search;
+        }
+        var url = "/forumArticles?offset=" + limit * (page - 1) + searchUrl;
+        console.log(url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                getAnimalFoodList(data);
             }
-            var url = "/forumArticles?offset=" + limit * (page - 1) + searchUrl;
-            console.log(url);
+        })
+    }
+
+    $("#postButton").on("click", function () {//發文按鈕按下
+        var type = $("#postType").val();
+        var title = $("#postTitle").val();
+        var content = $("#postContent").val().replaceAll("\n", "<br>");
+
+        $.ajax({
+            type: "POST",
+            url: "/forumArticles",
+            contentType: "application/json; charset=UTF-8",
+            data:
+                JSON.stringify({
+                    "userId": user.id,
+                    "type": type,
+                    "title": title,
+                    "content": content
+                }),
+            success: function (data) {
+                alert("發文成功!");
+                changePage(1);
+            }
+        })
+    })
+
+    $("body").on("click", "#editButton", function () {
+        var type = $("#type").text();
+        // console.log(type);
+
+        $("#editSelect").val(type);
+
+        $("#editType").attr("style", "display: inline;");
+        $("#type").attr("style", "display: none;");
+        $("#title").attr("contenteditable", true);
+        $("#conTent").attr("contenteditable", true);
+        $("#editButton").attr("style", "display: none;")
+        $("#saveButton").attr("style", "display: inline;")
+        $("#cancelButton").attr("style", "display: inline;")
+    })
+
+    $("body").on("click", "#saveButton", function () {
+
+        var type = $("#editSelect").val();
+        var title = $("#title").text();
+        var content = $("#conTent").html();
+        var articleId = $("#saveButton").attr("articleId");
+        console.log(articleId);
+        console.log(type);
+        console.log(title);
+        console.log(content);
+
+        $.ajax({
+            type: "PUT",
+            url: "/forumArticles/" + articleId,
+            contentType: "application/json; charset=UTF-8",
+            data:
+                JSON.stringify({
+                    "userId": user.id,
+                    "type": type,
+                    "title": title,
+                    "content": content
+                }),
+            success: function (data) {
+                alert("編輯成功!");
+                changePage(1);
+            }
+        })
+        $("#type").text(type);
+
+        $("#editType").attr("style", "display: none;");
+        $("#type").attr("style", "display: inline;");
+        $("#title").attr("contenteditable", false);
+        $("#conTent").attr("contenteditable", false);
+        $("#editButton").attr("style", "display: inline;")
+        $("#saveButton").attr("style", "display: none;")
+        $("#cancelButton").attr("style", "display: none;")
+    });
+
+    $("body").on("click", "#deleteButton", function () {
+        var articleId = $("#deleteButton").attr("articleId");
+
+        if (confirm("確定要刪除嗎?") == true) {
             $.ajax({
-                type: "GET",
-                url: url,
-                success: function (data) {
-                    getAnimalFoodList(data);
+                type: "DELETE",
+                url: "/forumArticles/" + user.id + "/" + articleId,
+                success: function () {
+                    alert("刪除成功!");
+                    changePage(1);
                 }
             })
         }
-
-        $("#postButton").on("click", function () {//發文按鈕按下
-            var type = $("#postType").val();
-            var title = $("#postTitle").val();
-            var content = $("#postContent").val().replaceAll("\n", "<br>");
-
-            $.ajax({
-                type: "POST",
-                url: "/forumArticles",
-                contentType: "application/json; charset=UTF-8",
-                data:
-                    JSON.stringify({
-                        "userId": user.id,
-                        "type": type,
-                        "title": title,
-                        "content": content
-                    }),
-                success: function (data) {
-                    alert("發文成功!");
-                    changePage(1);
-                }
-            })
-        })
-
-        $("body").on("click", "#editButton", function () {
-            var type = $("#type").text();
-            // console.log(type);
-
-            $("#editSelect").val(type);
-
-            $("#editType").attr("style", "display: inline;");
-            $("#type").attr("style", "display: none;");
-            $("#title").attr("contenteditable", true);
-            $("#conTent").attr("contenteditable", true);
-            $("#editButton").attr("style", "display: none;")
-            $("#saveButton").attr("style", "display: inline;")
-            $("#cancelButton").attr("style", "display: inline;")
-        })
-
-        $("body").on("click", "#saveButton", function () {
-
-            var type = $("#editSelect").val();
-            var title = $("#title").text();
-            var content = $("#conTent").html();
-            var articleId = $("#saveButton").attr("articleId");
-            console.log(articleId);
-            console.log(type);
-            console.log(title);
-            console.log(content);
-
-            $.ajax({
-                type: "PUT",
-                url: "/forumArticles/" + articleId,
-                contentType: "application/json; charset=UTF-8",
-                data:
-                    JSON.stringify({
-                        "userId": user.id,
-                        "type": type,
-                        "title": title,
-                        "content": content
-                    }),
-                success: function (data) {
-                    alert("編輯成功!");
-                    changePage(1);
-                }
-            })
-            $("#type").text(type);
-
-            $("#editType").attr("style", "display: none;");
-            $("#type").attr("style", "display: inline;");
-            $("#title").attr("contenteditable", false);
-            $("#conTent").attr("contenteditable", false);
-            $("#editButton").attr("style", "display: inline;")
-            $("#saveButton").attr("style", "display: none;")
-            $("#cancelButton").attr("style", "display: none;")
-        });
-
-        $("body").on("click", "#deleteButton", function () {
-            var articleId = $("#deleteButton").attr("articleId");
-
-            if (confirm("確定要刪除嗎?") == true) {
-                $.ajax({
-                    type: "DELETE",
-                    url: "/forumArticles/" + user.id + "/" + articleId,
-                    success: function () {
-                        alert("刪除成功!");
-                        changePage(1);
-                    }
-                })
-            }
-        });
+    });
 
 
-        $("body").on("click", "#cancelButton", function () {
+    $("body").on("click", "#cancelButton", function () {
 
 
-            $("#editType").attr("style", "display: none;");
-            $("#type").attr("style", "display: inline;");
-            $("#title").attr("contenteditable", false);
-            $("#conTent").attr("contenteditable", false);
-            $("#editButton").attr("style", "display: inline;")
-            $("#saveButton").attr("style", "display: none;")
-            $("#cancelButton").attr("style", "display: none;")
-        });
+        $("#editType").attr("style", "display: none;");
+        $("#type").attr("style", "display: inline;");
+        $("#title").attr("contenteditable", false);
+        $("#conTent").attr("contenteditable", false);
+        $("#editButton").attr("style", "display: inline;")
+        $("#saveButton").attr("style", "display: none;")
+        $("#cancelButton").attr("style", "display: none;")
+    });
 
-        function message(){
-            if(user==null){
-                window.location.assign("/login_register")
-                return
-            }
-            let message= document.getElementById('message').value
-            tId = $("#message").attr("articleId");
-            console.log(tId);
-            let messageData={
-                content:message,
-                userId:user.id,
-                articleId:tId
-            }
-            let xhr=new XMLHttpRequest();
-            xhr.addEventListener('load',function(){
-                if(xhr.status==201){
-                    alert('留言成功')
-                    changePage(1);
-                }
-            })
-            xhr.open('post','/message')
-            xhr.setRequestHeader('Content-type', 'application/json')
-            xhr.send(JSON.stringify(messageData))
-
+    function message() {
+        if (user == null) {
+            window.location.assign("/login_register")
+            return
         }
+        let message = document.getElementById('message').value
+        tId = $("#message").attr("articleId");
+        console.log(tId);
+        let messageData = {
+            content: message,
+            userId: user.id,
+            articleId: tId
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', function () {
+            if (xhr.status == 201) {
+                alert('留言成功')
+                changePage(1);
+            }
+        })
+        xhr.open('post', '/message')
+        xhr.setRequestHeader('Content-type', 'application/json')
+        xhr.send(JSON.stringify(messageData))
+
+    }
 </script>
 
 </body>
