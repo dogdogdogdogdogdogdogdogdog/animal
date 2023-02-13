@@ -28,6 +28,8 @@ function init() {
             document.getElementById("userManagement").removeAttribute("style");
             // 登入後導覽列下拉選單顯示「會員刊登送養」連結
             document.getElementById("publish").removeAttribute("style");
+            // 登入後導覽列下拉選單顯示「會員刊登文章」連結
+            document.getElementById("forum").removeAttribute("style");
             // 登入後導覽列下拉選單顯示「送養資訊管理」連結
             document.getElementById("userPublishHistory").removeAttribute("style");
 

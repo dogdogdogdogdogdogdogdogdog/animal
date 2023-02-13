@@ -23,11 +23,7 @@ import java.util.Map;
 public class ForumArticleDaoImpl implements ForumArticleDao {
 
     @Autowired
-    @Qualifier("animalJdbcTemplate")
-    private NamedParameterJdbcTemplate animalJdbcTemplate;
-    @Autowired
-    @Qualifier("forumJdbcTemplate")
-    private NamedParameterJdbcTemplate forumJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public Integer countForumArticle(ForumArticleQueryParams forumArticleQueryParams) {
@@ -38,7 +34,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         //查詢條件
         sql = addFilteringSql(sql, map, forumArticleQueryParams);
 
-        Integer total = forumJdbcTemplate.queryForObject(sql, map, Integer.class);
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
     }
@@ -60,7 +56,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         map.put("limit", forumArticleQueryParams.getLimit());
         map.put("offset", forumArticleQueryParams.getOffset());
 
-        List<ForumArticle> forumArticleList = forumJdbcTemplate.query(sql, map, new ForumArticleRowmapper());
+        List<ForumArticle> forumArticleList = namedParameterJdbcTemplate.query(sql, map, new ForumArticleRowmapper());
 
         return forumArticleList;
     }
@@ -72,7 +68,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", forumArticleId);
 
-        List<ForumArticle> forumArticleList = forumJdbcTemplate.query(sql, map, new ForumArticleRowmapper());
+        List<ForumArticle> forumArticleList = namedParameterJdbcTemplate.query(sql, map, new ForumArticleRowmapper());
 
         if (forumArticleList.size() > 0) {
             return forumArticleList.get(0);
@@ -122,7 +118,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        forumJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
 
         int forumArticleId = keyHolder.getKey().intValue();
 
@@ -142,7 +138,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
 
         map.put("articleId", forumArticleId);
 
-        forumJdbcTemplate.update(sql, map);
+        namedParameterJdbcTemplate.update(sql, map);
     }
 
     @Override
@@ -152,7 +148,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", forumArticleUserId);
         map.put("articleId", forumArticleId);
-        forumJdbcTemplate.update(sql, map);
+        namedParameterJdbcTemplate.update(sql, map);
 
     }
 }

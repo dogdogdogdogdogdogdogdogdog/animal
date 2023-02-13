@@ -19,8 +19,7 @@ import java.util.Map;
 public class MessageDaoImpl implements MessageDao {
 
     @Autowired
-    @Qualifier("forumJdbcTemplate")
-    private NamedParameterJdbcTemplate forumJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public void createMessage(MessageQueryParams messageQueryParams) {
@@ -31,7 +30,7 @@ public class MessageDaoImpl implements MessageDao {
         map.put("content",messageQueryParams.getContent());
         map.put("postDate",new Date());
 
-        forumJdbcTemplate.update(sql,map);
+        namedParameterJdbcTemplate.update(sql,map);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class MessageDaoImpl implements MessageDao {
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", messageQueryParams.getArticleId());
 
-        Integer total = forumJdbcTemplate.queryForObject(sql, map, Integer.class);
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
     }
@@ -54,7 +53,7 @@ public class MessageDaoImpl implements MessageDao {
         System.out.println(messageQueryParams.getArticleId());
         map.put("articleId",messageQueryParams.getArticleId());
 
-     List<UserFeedback> userFeedbacks =   forumJdbcTemplate.query(sql,map,new UserFeedbackRowmapper());
+     List<UserFeedback> userFeedbacks =   namedParameterJdbcTemplate.query(sql,map,new UserFeedbackRowmapper());
 
       if(userFeedbacks.size()>0){
           return userFeedbacks;
