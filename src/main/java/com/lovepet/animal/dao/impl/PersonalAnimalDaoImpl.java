@@ -6,6 +6,7 @@ import com.lovepet.animal.dto.PersonalAnimalRequest;
 import com.lovepet.animal.model.PersonalAnimal;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -24,7 +25,8 @@ import java.util.Map;
 public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Qualifier("animalJdbcTemplate")
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
     @Override
     public Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams) {
@@ -35,7 +37,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         //查詢條件
         sql = addFilteringSql(sql, map, personalAnimalQueryParams);
 
-        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+        Integer total = animalJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
     }
@@ -60,7 +62,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("limit", personalAnimalQueryParams.getLimit());
         map.put("offset", personalAnimalQueryParams.getOffset());
 
-        List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> personalAnimalList = animalJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
         return personalAnimalList;
     }
@@ -75,7 +77,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
 
-        List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+        List<PersonalAnimal> personalAnimalList = animalJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
         if (personalAnimalList.size() > 0) {
             return personalAnimalList.get(0);
@@ -110,7 +112,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         int personalAnimalId = keyHolder.getKey().intValue();
 
@@ -143,7 +145,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("description", personalAnimalRequest.getDescription());
         map.put("lastModifiedDate", new Date());
 
-        namedParameterJdbcTemplate.update(sql, map);
+        animalJdbcTemplate.update(sql, map);
     }
 
     @Override
@@ -153,7 +155,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
         map.put("personalAnimalUserId",personalAnimalUserId);
-        namedParameterJdbcTemplate.update(sql, map);
+        animalJdbcTemplate.update(sql, map);
     }
 
     private String addFilteringSql(String sql, Map<String, Object> map, PersonalAnimalQueryParams personalAnimalQueryParams) {

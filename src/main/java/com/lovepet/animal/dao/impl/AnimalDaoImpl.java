@@ -16,7 +16,7 @@ import java.util.*;
 @Component
 public class AnimalDaoImpl implements AnimalDao {
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
     @Override
     public PageContent getAnimals(AnimalQueryParams animalQueryParams) {
@@ -50,7 +50,7 @@ public class AnimalDaoImpl implements AnimalDao {
         map.put("offset", animalQueryParams.getOffset());
 
 
-        pageContent.setAnimals(namedParameterJdbcTemplate.query(sql, map, new AnimalRowmapper()));
+        pageContent.setAnimals(animalJdbcTemplate.query(sql, map, new AnimalRowmapper()));
 
 
         return pageContent;
@@ -62,7 +62,7 @@ public class AnimalDaoImpl implements AnimalDao {
         String sql = "SELECT COUNT(*) FROM public_animal WHERE 1=1";
 
 
-        Integer pages = namedParameterJdbcTemplate.queryForObject(sql + shelterAndKindQuery, map, Integer.class);
+        Integer pages = animalJdbcTemplate.queryForObject(sql + shelterAndKindQuery, map, Integer.class);
         if (pages % animalQueryParams.getLimit() != 0) {
             return getPageList((pages / animalQueryParams.getLimit()) + 1);
         }
@@ -74,7 +74,7 @@ public class AnimalDaoImpl implements AnimalDao {
     public List<Shelter> getShelter() {
         String sql = "select shelter_name from public_animal";
         Map<String, Object> map = new HashMap<>();
-        List<Shelter> dataList = namedParameterJdbcTemplate.query(sql, map, new ShelterRowmapper());
+        List<Shelter> dataList = animalJdbcTemplate.query(sql, map, new ShelterRowmapper());
 
         HashSet<String> set = new HashSet<>();
         List<Shelter> result = new ArrayList<>();
@@ -99,7 +99,6 @@ public class AnimalDaoImpl implements AnimalDao {
         for (int j = 1; j <= i; j++) {
             list.add(j);
         }
-
         return list;
     }
 

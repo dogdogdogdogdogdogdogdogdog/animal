@@ -23,7 +23,7 @@ import java.util.Map;
 @Component
 public class MissingDaoImpl implements MissingDao {
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
     @Override
     public void createMissing(MissingAnimalRequest missingAnimalRequest) {
@@ -46,7 +46,7 @@ public class MissingDaoImpl implements MissingDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         int missingAnimalId = keyHolder.getKey().intValue();
 
@@ -65,7 +65,7 @@ public class MissingDaoImpl implements MissingDao {
         sql+=" order by "+missingAnimalsQueryParams.getOrderBy()+" "+missingAnimalsQueryParams.getSort();
         sql+=" limit "+missingAnimalsQueryParams.getLimit()+" "+" offset "+missingAnimalsQueryParams.getOffset();
 
-        List<MissingData> missingDataList = namedParameterJdbcTemplate.query(sql, map, new MissingDataRowmapper());
+        List<MissingData> missingDataList = animalJdbcTemplate.query(sql, map, new MissingDataRowmapper());
 
         if (missingDataList.size() > 0) {
             return missingDataList;
@@ -80,7 +80,7 @@ public class MissingDaoImpl implements MissingDao {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", id);
 
-        List<MissingData> missingDataList = namedParameterJdbcTemplate.query(sql, map, new MissingDataRowmapper());
+        List<MissingData> missingDataList = animalJdbcTemplate.query(sql, map, new MissingDataRowmapper());
 
         if (missingDataList.size() > 0) {
             return missingDataList;
@@ -97,7 +97,7 @@ public class MissingDaoImpl implements MissingDao {
         addFilterSql(sql,map,missingAnimalsQueryParams);
 
 
-        Integer count = namedParameterJdbcTemplate.queryForObject(sql,map,Integer.class);
+        Integer count = animalJdbcTemplate.queryForObject(sql,map,Integer.class);
 
 
         return count;

@@ -11,9 +11,11 @@ public interface UserService {
 
     User getUserById(Integer id);
 
-     User login(UserLoginRequest userLoginRequest);
+    User login(UserLoginRequest userLoginRequest);
 
-     User getUserByEmail(String email);
+    User getUserByEmail(String email);
 
-     Integer getUserIdByEmail(String email);
+    Integer getUserIdByEmail(String email);
+
+    void updateUser(Integer userId, UserRegisterRequest userRegisterRequest);
 }

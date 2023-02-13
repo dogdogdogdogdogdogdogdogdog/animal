@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>寵物食品 - 寵物資訊平台</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/button.click.js"></script>
+    <!--  自訂樣式  -->
+    <style>
+        /*網站背景紋理*/
+        .main-img {
+            background-image: url('/images/_main.png');
+            background-repeat: repeat;
+        }
+
+        /*橫幅圖片*/
+        .banner-img {
+            background-image: url('/images/_banner1.jpg');
+            height: 300px !important;
+        }
+
+        /*橫幅文字陰影*/
+        .text-shadow {
+            color: #fff !important;
+            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
+        }
+
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*表格格內間距*/
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
+        }
+
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child {
+            border-radius: 0px 20px 20px 0px !important;
+        }
+
+        /*經JS拼接的元素無法套用部分主表格樣式*/
+        /*表格奇數列背景色淺灰*/
+        tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /*表格偶數列背景色*/
+        /*tr:nth-child(even) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
+            color: white;
+            background-color: #81a5ff !important;
+            transition: background-color 0.35s ease-in-out !important;
+        }
+
+        /*表格滑鼠掠過效果*/
+        tr:hover {
+            color: white;
+            background-color: #ffa500 !important;
+            transition: background-color 0.35s ease-in-out;
+        }
+
+        /*表格內超連結樣式清空*/
+        table a {
+            /*color: rgba(0, 0, 0, 0.5) !important;*/
+            color: unset !important;
+        }
+
+        /*區塊陰影效果*/
+        .div-shadow {
+            box-shadow: 3px 3px 9px grey;
+        }
+
+        /*原生換頁UI*/
+        /*.block-27 ul li a, .block-27 ul li span {*/
+        /*    color: black;*/
+        /*    border: 2px solid #e6e6e6;*/
+        /*    background: #ffffce;*/
+        /*}*/
+
+        .page_show {
+            /*padding: 40px 0;*/
+            text-align: center;
+        }
+
+        .page_show span {
+            display: inline-block;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 11px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 1px;
+            border: #b7b7b7 solid 1px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        span.page_cur {
+            color: #fff;;
+            border: #282828 solid 1px;
+            background-color: #424242;
+        }
+
+        /*#scroll {position:fixed; top:300px; right:100px;}*/
+        /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
+    </style>
+</head>
+
+<body>
+<div class="headerPage"></div>
+<!-- END nav -->
+<section class="hero-wrap hero-wrap-2 img banner-img">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2 text-shadow">
+                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
+                    <span class="ion-ios-arrow-forward"></span>
+                </p>
+                <h1 class="mb-0 bread text-shadow">交流天地</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 表格SQL查詢測試用 -->
+<!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+    <div class="container py-5">
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <div class="p-1">
+                <select class="custom-select" name="place" id="place">
+                </select>
+            </div>
+            <div class="p-1">
+                <select class="custom-select" name="category" id="category">
+                </select>
+            </div>
+            <div class="p-1">
+                <input type="text" class="custom-select" id="inputBox" placeholder="查詢標題或內文"
+                       style="background-image: none;">
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+            <!--            要設定成登入後才能看到-->
+            <div class="p-1">
+                <button class="btn btn-primary" id="post" data-toggle='modal' data-target='#postModalCenter'>發文
+                </button>
+            </div>
+        </div>
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            </table>
+        </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
+                <div class="block-27">
+                    <p id="pageInfo"></p>
+                    <div class="page_show"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div id="articleInfo" class="modal-content main-img">
+                    <!-- Modal 文章資訊-->
+                </div>
+            </div>
+        </div>
+        <!-- Modal 發表文章-->
+        <div class="modal fade" id="postModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content main-img">
+                    <div class="modal-header">
+                        <!-- 名字放在標題 -->
+                        <div class="col-4 px-0">
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-center">
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold" id="發文">發文</h3>
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        </div>
+                        <div class="col-4 px-0">
+                        </div>
+                    </div>
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto col-12 justify-content-center">
+                            <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                                <div class="col-12 mt-0">
+                                    <div class="d-block">
+                                        <span>文章類型 :</span>
+                                        <select id="postType">
+                                            <option value='綜合'>綜合</option>
+                                            <option value='問題'>問題</option>
+                                            <option value='心得'>心得</option>
+                                            <option value='開箱'>開箱</option>
+                                            <option value='新聞'>新聞</option>
+                                            <option value='知識'>知識</option>
+                                            <option value='閒聊'>閒聊</option>
+                                            <option value='創作'>創作</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>文章標題 :</span>
+                                        <input type="text" id="postTitle">
+                                    </div>
+                                    <div class="d-block">
+                                        <span>文章內容 :</span><br>
+                                        <textarea id="postContent"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button id="postButton" type="button" class="btn btn-primary" data-dismiss="modal">發文</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <p class="copyright">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/google-map.js"></script>
+<script src="js/main.js"></script>
+
+<script type="text/javascript">
+    $(".headerPage").load("header");//讀取導覽列
+    var limit;
+    var pages;
+    var article;
+
+    function init() {//初始化
+        $.ajax({//取得所有文章
+            type: "GET",
+            url: "/forumArticles",
+            success: function (data) {
+                getAnimalFoodList(data);
+            }
+        });
+    }
+
+    init();//載入頁面先執行一次
+
+    // $.ajax({//載入下拉選單
+    //     type: "GET",
+    //     url: "/getAnimalFoodsComboBox",
+    //     success: function (data) {
+    //         console.log(data);
+    //         console.log(data[0]);
+    //         console.log(data[1]);
+    //
+    //         $("#place").append("<option value='不限產地'>不限產地</option>");
+    //         $("#category").append("<option value='不限種類'>不限種類</option>");
+    //
+    //         $.each(data[0], function (index, item) {
+    //             $("#place").append("<option value='" + item + "'>" + item + "</option>");
+    //         })
+    //         $.each(data[1], function (index, item) {
+    //             $("#category").append("<option value='" + item + "'>" + item + "</option>");
+    //         })
+    //     }
+    // });
+
+
+    function getAnimalFoodList(data) {//秀出搜尋結果
+        $("#test1Result").empty();//清空元素
+
+        var title = `
+            <tr class='h5'>
+                <th style='width: 10%;'><div>分類</div></th>
+                <th style='width: 10%;'><div>標題</div></th>
+                <th style='width: 20%;'><div></div></th>
+                <th style='width: 10%;'><div>作者</div></th>
+                <th style='width: 5%;'><div>留言</div></th>
+                <th style='width: 10%;'><div>讚/瀏覽</div></th>
+                <th style='width: 10%;'><div>更新日期</div></th>
+            </tr>`;
+
+        $("#test1Result").append(title);//加入標題
+
+
+
+
+
+
+        $.each(data["results"], function (index, item) {
+            // $.ajax({//使用userId，查詢留言資訊
+            //     type: "GET",
+            //     url: "/message/" + item.articleId,
+            //     success: function (messageInfo) {
+            //
+            //     }
+            // })
+
+
+
+
+
+            $.ajax({//使用userId，查詢user資訊
+                type: "GET",
+                url: "/user/" + item.userId,
+                success: function (userData) {
+                    var html = `
+                        <tr>
+                            <td><div>${item.type}</div></td>
+                            <td>
+                                <div id="${item.articleId}" onclick='getArticleInfo(this)' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
+                                    ${item.title}
+                                </div>
+                            </td>
+                            <td>
+                                <div id="${item.articleId}" onclick='getArticleInfo(this)' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
+                                    ${item.content.length > 10 ? item.content.slice(0, 10) + "......" : item.content}
+                                </div>
+                                    </td>
+                            <td><div>${userData.name}</div></td>
+                            <td><div>留言數</div></td>
+                            <td><div>${item.likes}/${item.views}</div></td>
+                            <td><div>${item.modifiedDate}</div></td>
+                        </tr>`;
+
+
+                    $("#test1Result").append(html);//加入內容
+                }
+            });
+        })
+
+        pages = Math.ceil(data.total / data.limit);
+        console.log(data.offset / data.limit)
+        limit = data.limit;
+
+        if (data.total == 0) {
+            $("#pageInfo").text("查無資料");
+        } else {
+            $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+        }
+
+        pageSet(pages);
+
+        console.log("單頁筆數limit:" + data["limit"]);
+        console.log("跳過幾筆資料offset:" + data["offset"]);
+        console.log("總筆數:" + data["total"]);
+
+        $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
+        $.getScript('js/main.js');
+    }
+
+    function getArticleInfo(gid) {//點擊文章
+
+        var id = $(gid).attr("id");//取得文章id
+        console.log("文章ID: " + id);
+        $.ajax({//使用文章id，查詢文章資訊
+            type: "GET",
+            url: "/forumArticles/" + id,
+            success: function (articleData) {
+
+                $("#articleInfo").empty();
+                $.ajax({//使用userId，查詢user資訊
+                    type: "GET",
+                    url: "/user/" + articleData.userId,
+                    success: function (userData) {
+
+                        var html = `
+                            <div class="modal-header">
+                                    <!-- 名字放在標題 -->
+                        <div class="col-4 px-0">
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-center">
+                        <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        <h3 class="modal-title font-weight-bold">[</h3>
+                        <h3 id="type" class="modal-title font-weight-bold">${articleData.type}</h3>
+                        <h3 id="editType" class="modal-title font-weight-bold" style="display: none;">
+                        <select id="editSelect">
+                        <option value='綜合'>綜合</option>
+                        <option value='問題'>問題</option>
+                        <option value='心得'>心得</option>
+                        <option value='開箱'>開箱</option>
+                        <option value='新聞'>新聞</option>
+                        <option value='知識'>知識</option>
+                        <option value='閒聊'>閒聊</option>
+                        <option value='創作'>創作</option>
+                        </select>
+                        </h3>
+                        <h3 class="modal-title font-weight-bold">]</h3>
+                        <h3 id="title" class="modal-title font-weight-bold">${articleData.title}</h3>
+                        <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        </div>
+                        <div class="col-4 px-0">
+                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                        <span>${userData.name}</span>
+                        <span>&nbsp;作者</span>
+                        </div>
+                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                        <span>${articleData.postDate}</span>
+                        <span>&nbsp;發文日期</span>
+
+                        </div>
+                        <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                        <span>${articleData.modifiedDate}</span>
+                        <span>&nbsp;編輯日期</span>
+                        </div>
+                        <div id="loginButton" class="row m-0 pr-4 font-weight-bold justify-content-end">
+
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        </div>
+                        <div class="modal-body"
+                        style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto col-12 justify-content-center">
+                        <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                        <span id="conTent">${articleData.content}</span>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                        <div class="p-1">
+                        <button id="likes" type="button" class="btn btn-primary">讚！</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="unlikes" type="button" class="btn btn-primary">倒讚</button>
+                        </div>
+                            <!--編輯、刪除發文者才能使用-->
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <!--留言-->
+                        </div>
+                        <div id="chatBlock">
+                        </div>
+                        <input id="message" articleId="${articleData.articleId}" type="text"  ><button onclick="message()">留言</button>`;
+
+                        var button = `
+                        <div class="p-1">
+                        <button id="editButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">編輯</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="saveButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary" style="display: none;">保存</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="cancelButton" type="button" class="btn btn-primary" style="display: none;">取消</button>
+                        </div>
+                        <div class="p-1">
+                        <button id="deleteButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">刪除</button>
+                        </div>
+                        `;
+
+                        $("#articleInfo").append(html);
+                        console.log("articleId:" + articleData.userId);
+                        console.log("sessionId:" + user.id);
+                        console.log("status:" + status);
+                        if (articleData.userId == user.id && status == 200) {//判斷是不是發文者
+                            $("#loginButton").append(button);//加入編輯、刪除按鈕
+                        }
+                    }
+                });
+                var messageHtml = "";
+                $.ajax({//使用文章id，查詢留言資訊
+                    type: "GET",
+                    url: "/message/" + articleData.articleId,
+                    success: function (messageData) {
+                        // console.log(messageData)
+                        $.each(messageData, function (index, item) {
+                            // console.log(item.userId)
+                            $.ajax({//使用文章id，查詢留言使用者
+                                type: "GET",
+                                url: "/user/" + item.userId,
+                                success: function (userDate) {
+                                    // console.log(userDate)
+                                    messageHtml = `
+                                    <div>${userDate.name} : ${messageData[index].content}</div>
+                                    `;
+                                    console.log(messageHtml);
+                                    $("#chatBlock").append(messageHtml);
+                                }
+                            });
+                        })
+
+
+                        console.log(messageHtml);
+                        $("#chatBlock").append(messageHtml);
+                    }
+                });
+
+            }
+        });
+    }
+
+        //輸出頁碼
+        function pageSet(pages) {
+            var pageHtml = '';
+            var start, end;
+            if (listPage < 6) {
+                start = 1;
+            } else {
+                start = listPage - 5;
+            }
+            if (listPage > pages - 5) {
+                end = pages;
+            } else {
+                end = listPage + 5;
+            }
+
+            if (listPage > 1) {
+                pageHtml += '<span>上一頁</span>';
+            }
+            for (var i = start, page_cur = ''; i <= end; i++) {
+                if (listPage == i) {
+                    page_cur = 'page_cur';
+                } else {
+                    page_cur = '';
+                }
+                pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+            }
+            if (listPage < pages) {
+                pageHtml += '<span>下一頁</span>';
+            }
+            $('.page_show').empty().append(pageHtml);
+        }
+
+
+        $('body').on('click', '.page_show span', function () {//點擊頁數執行
+            var $this = $(this);
+            if ($this.hasClass('page_cur')) {
+                return;
+            }
+            var page = $this.html();
+            if (page == '上一頁') {
+                listPage = listPage - 1;
+                changePage(listPage);
+                // goPrePage();
+            } else if (page == '下一頁') {
+                listPage = listPage + 1;
+                changePage(listPage);
+                // goNextPage();
+            } else {
+                listPage = parseInt(page);
+                changePage(listPage);
+            }
+            //根據頁碼獲取當前頁列表數據
+            pageSet(pages);
+        });
+
+        $("#search").click(function () {//搜尋按鈕被按下
+            listPage = 1;
+            changePage(listPage);
+        })
+
+        var listPage = 1;
+
+        function changePage(page) {//傳入頁數可查詢指定頁面
+            var offset = limit * (page - 1);
+            console.log("offset" + offset);
+            console.log("page" + page);
+
+            var place = $("#place").val();
+            var category = $("#category").val();
+            console.log($("#inputArea").val());
+            var search = $("#inputBox").val().trim();
+            var searchUrl = "";
+
+            console.log(place)
+            console.log(category)
+            console.log(search)
+
+            // if (place != "不限產地") {
+            //     searchUrl += "&place=" + place;
+            // }
+            // if (category != "不限種類") {
+            //     searchUrl += "&category=" + category;
+            // }
+
+            if (search != "") {
+                searchUrl += "&search=" + search;
+            }
+            var url = "/forumArticles?offset=" + limit * (page - 1) + searchUrl;
+            console.log(url);
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    getAnimalFoodList(data);
+                }
+            })
+        }
+
+        $("#postButton").on("click", function () {//發文按鈕按下
+            var type = $("#postType").val();
+            var title = $("#postTitle").val();
+            var content = $("#postContent").val().replaceAll("\n", "<br>");
+
+            $.ajax({
+                type: "POST",
+                url: "/forumArticles",
+                contentType: "application/json; charset=UTF-8",
+                data:
+                    JSON.stringify({
+                        "userId": user.id,
+                        "type": type,
+                        "title": title,
+                        "content": content
+                    }),
+                success: function (data) {
+                    alert("發文成功!");
+                    changePage(1);
+                }
+            })
+        })
+
+        $("body").on("click", "#editButton", function () {
+            var type = $("#type").text();
+            // console.log(type);
+
+            $("#editSelect").val(type);
+
+            $("#editType").attr("style", "display: inline;");
+            $("#type").attr("style", "display: none;");
+            $("#title").attr("contenteditable", true);
+            $("#conTent").attr("contenteditable", true);
+            $("#editButton").attr("style", "display: none;")
+            $("#saveButton").attr("style", "display: inline;")
+            $("#cancelButton").attr("style", "display: inline;")
+        })
+
+        $("body").on("click", "#saveButton", function () {
+
+            var type = $("#editSelect").val();
+            var title = $("#title").text();
+            var content = $("#conTent").html();
+            var articleId = $("#saveButton").attr("articleId");
+            console.log(articleId);
+            console.log(type);
+            console.log(title);
+            console.log(content);
+
+            $.ajax({
+                type: "PUT",
+                url: "/forumArticles/" + articleId,
+                contentType: "application/json; charset=UTF-8",
+                data:
+                    JSON.stringify({
+                        "userId": user.id,
+                        "type": type,
+                        "title": title,
+                        "content": content
+                    }),
+                success: function (data) {
+                    alert("編輯成功!");
+                    changePage(1);
+                }
+            })
+            $("#type").text(type);
+
+            $("#editType").attr("style", "display: none;");
+            $("#type").attr("style", "display: inline;");
+            $("#title").attr("contenteditable", false);
+            $("#conTent").attr("contenteditable", false);
+            $("#editButton").attr("style", "display: inline;")
+            $("#saveButton").attr("style", "display: none;")
+            $("#cancelButton").attr("style", "display: none;")
+        });
+
+        $("body").on("click", "#deleteButton", function () {
+            var articleId = $("#deleteButton").attr("articleId");
+
+            if (confirm("確定要刪除嗎?") == true) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/forumArticles/" + user.id + "/" + articleId,
+                    success: function () {
+                        alert("刪除成功!");
+                        changePage(1);
+                    }
+                })
+            }
+        });
+
+
+        $("body").on("click", "#cancelButton", function () {
+
+
+            $("#editType").attr("style", "display: none;");
+            $("#type").attr("style", "display: inline;");
+            $("#title").attr("contenteditable", false);
+            $("#conTent").attr("contenteditable", false);
+            $("#editButton").attr("style", "display: inline;")
+            $("#saveButton").attr("style", "display: none;")
+            $("#cancelButton").attr("style", "display: none;")
+        });
+
+        function message(){
+            if(user==null){
+                window.location.assign("/login_register")
+                return
+            }
+            let message= document.getElementById('message').value
+            tId = $("#message").attr("articleId");
+            console.log(tId);
+            let messageData={
+                content:message,
+                userId:user.id,
+                articleId:tId
+            }
+            let xhr=new XMLHttpRequest();
+            xhr.addEventListener('load',function(){
+                if(xhr.status==201){
+                    alert('留言成功')
+                    changePage(1);
+                }
+            })
+            xhr.open('post','/message')
+            xhr.setRequestHeader('Content-type', 'application/json')
+            xhr.send(JSON.stringify(messageData))
+
+        }
+</script>
+
+</body>
+</html>

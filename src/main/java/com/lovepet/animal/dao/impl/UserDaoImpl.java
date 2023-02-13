@@ -20,7 +20,7 @@ import java.util.Map;
 @Component
 public class UserDaoImpl implements UserDao {
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
 
     @Override
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         Integer id = keyHolder.getKey().intValue();
         return id;
@@ -49,11 +49,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(Integer id) {
-        String sql = "select user_id,email,password,name,tel from user where user_id=:userId ";
+        String sql = "SELECT * FROM user WHERE user_id=:userId ";
         Map<String, Object> map = new HashMap<>();
         map.put("userId", id);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
+        List<User> userList = animalJdbcTemplate.query(sql, map, new UserRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0);
@@ -62,12 +62,30 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void updateUser(Integer userId, UserRegisterRequest userRegisterRequest) {
+        String sql = "UPDATE user SET email = :email, password = :password, name = :name, tel = :tel, gender = :gender, last_modified_date = lastModifiedDate " +
+                "WHERE user_id = :userId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", userRegisterRequest.getEmail());
+        map.put("password", userRegisterRequest.getPassword());
+        map.put("name", userRegisterRequest.getName());
+        map.put("tel", userRegisterRequest.getTel());
+        map.put("gender", userRegisterRequest.getGender());
+        map.put("lastModifiedDate", new Date());
+
+        map.put("userId", userId);
+
+        animalJdbcTemplate.update(sql, map);
+    }
+
+    @Override
     public User getUserByEmail(String email) {
-        String sql = "select user_id,email,password,name,tel from user where email=:email ";
+        String sql = "select * from user where email=:email ";
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
+        List<User> userList = animalJdbcTemplate.query(sql, map, new UserRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0);
@@ -81,7 +99,7 @@ public class UserDaoImpl implements UserDao {
         String sql = "select user_id from user where email=:email ";
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserGetIdRowmapper());
+        List<User> userList = animalJdbcTemplate.query(sql, map, new UserGetIdRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0).getId();
