@@ -1,6 +1,7 @@
 package com.lovepet.animal.dao.impl;
 
 import com.lovepet.animal.dao.MessageDao;
+import com.lovepet.animal.dto.ForumArticleQueryParams;
 import com.lovepet.animal.dto.MessageQueryParams;
 import com.lovepet.animal.model.UserFeedback;
 import com.lovepet.animal.rowmapper.UserFeedbackRowmapper;
@@ -31,18 +32,27 @@ public class MessageDaoImpl implements MessageDao {
         map.put("postDate",new Date());
 
         forumJdbcTemplate.update(sql,map);
+    }
 
+    @Override
+    public Integer countMessage(MessageQueryParams messageQueryParams) {
+        String sql = "SELECT count(*) FROM feedback WHERE article_id=:articleId";
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("articleId", messageQueryParams.getArticleId());
 
+        Integer total = forumJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
     }
 
     @Override
     public List<UserFeedback> getMessage(MessageQueryParams messageQueryParams) {
-        String sql=" select * from feedback where article_id=:tId order by floor ASC ";
+        String sql=" select * from feedback where article_id=:articleId order by floor ASC ";
 //        String sql="select email,message,create_date from user LEFT JOIN user_feedback uf on user.user_id = uf.user_id where t_id=:tId";
         Map<String,Object> map=new HashMap<>();
         System.out.println(messageQueryParams.getArticleId());
-        map.put("tId",messageQueryParams.getArticleId());
+        map.put("articleId",messageQueryParams.getArticleId());
 
      List<UserFeedback> userFeedbacks =   forumJdbcTemplate.query(sql,map,new UserFeedbackRowmapper());
 

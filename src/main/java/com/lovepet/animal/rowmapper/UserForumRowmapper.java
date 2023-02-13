@@ -1,6 +1,5 @@
 package com.lovepet.animal.rowmapper;
 
-import com.lovepet.animal.model.UserForum;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

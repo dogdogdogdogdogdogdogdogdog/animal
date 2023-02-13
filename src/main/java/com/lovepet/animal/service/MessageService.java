@@ -9,6 +9,8 @@ import java.util.List;
 public interface MessageService {
 
     void createMessage(MessageQueryParams messageQueryParams);
+    Integer countMessage(MessageQueryParams messageQueryParams);
     List<UserFeedback> getMessage(MessageQueryParams messageQueryParams);
+
 
 }

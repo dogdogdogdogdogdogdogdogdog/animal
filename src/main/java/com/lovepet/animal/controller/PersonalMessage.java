@@ -20,23 +20,27 @@ public class PersonalMessage {
     @Autowired
     MessageService messageService;
 
-    @PostMapping ("/message")
-    public ResponseEntity createMessage(@RequestBody @Valid MessageQueryParams messageQueryParams){
+    @PostMapping("/message")
+    public ResponseEntity createMessage(@RequestBody @Valid MessageQueryParams messageQueryParams) {
 
-            messageService.createMessage(messageQueryParams);
+        messageService.createMessage(messageQueryParams);
 
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @GetMapping("/message/{tId}")
-    public ResponseEntity<List<UserFeedback>> getMessage(@PathVariable Integer tId){
-        MessageQueryParams messageQueryParams=new MessageQueryParams();
+    public ResponseEntity<List<UserFeedback>> getMessage(@PathVariable Integer tId) {
+        MessageQueryParams messageQueryParams = new MessageQueryParams();
         messageQueryParams.setArticleId(tId);
 
-        List<UserFeedback> userFeedbacks =   messageService.getMessage(messageQueryParams);
-           if (userFeedbacks!=null){
-               return ResponseEntity.status(HttpStatus.OK).body(userFeedbacks);
-           }
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        Integer total = messageService.countMessage(messageQueryParams);
+
+
+        List<UserFeedback> userFeedbacks = messageService.getMessage(messageQueryParams);
+        if (userFeedbacks != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(userFeedbacks);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 }

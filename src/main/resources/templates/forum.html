@@ -367,13 +367,28 @@
 
         $("#test1Result").append(title);//加入標題
 
+
+
+
+
+
         $.each(data["results"], function (index, item) {
+            // $.ajax({//使用userId，查詢留言資訊
+            //     type: "GET",
+            //     url: "/message/" + item.articleId,
+            //     success: function (messageInfo) {
+            //
+            //     }
+            // })
+
+
+
+
+
             $.ajax({//使用userId，查詢user資訊
                 type: "GET",
                 url: "/user/" + item.userId,
                 success: function (userData) {
-
-
                     var html = `
                         <tr>
                             <td><div>${item.type}</div></td>

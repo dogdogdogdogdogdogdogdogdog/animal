@@ -9,5 +9,6 @@ public interface MessageDao {
 
     void createMessage(MessageQueryParams messageQueryParams);
     List<UserFeedback> getMessage(MessageQueryParams messageQueryParams);
+    Integer countMessage(MessageQueryParams messageQueryParams);
 
 }

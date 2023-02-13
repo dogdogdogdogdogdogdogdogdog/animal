@@ -21,6 +21,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public Integer countMessage(MessageQueryParams messageQueryParams) {
+        return messageDao.countMessage(messageQueryParams);
+    }
+
+    @Override
     public List<UserFeedback> getMessage(MessageQueryParams messageQueryParams) {
         return messageDao.getMessage(messageQueryParams);
     }
