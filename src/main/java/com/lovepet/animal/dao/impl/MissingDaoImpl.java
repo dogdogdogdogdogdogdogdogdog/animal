@@ -23,38 +23,35 @@ import java.util.Map;
 @Component
 public class MissingDaoImpl implements MissingDao {
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate animalJdbcTemplate;
 
     @Override
     public void createMissing(MissingAnimalRequest missingAnimalRequest) {
-        for(int i=0;i<10;i++) {
-            String sql = " insert into missing_animal(user_id,kind,variety,sex,body_shape,color,age,missing_date,missing_place,remark,photo_url,publish_date) value(:user_id,:kind,:variety,:sex,:body_shape,:color,:age,:missing_date,:missing_place,:remark,:photo_url,:publish_date) ";
-            Map<String, Object> map = new HashMap<>();
-            map.put("user_id", missingAnimalRequest.getUserId());
-            map.put("kind", missingAnimalRequest.getMissingKind());
-            map.put("variety", missingAnimalRequest.getMissingVariety());
-            map.put("sex", missingAnimalRequest.getMissingSex());
-            map.put("body_shape", missingAnimalRequest.getMissingBodyShape());
-            map.put("color", missingAnimalRequest.getMissingColor());
-            map.put("age", missingAnimalRequest.getMissingAge());
-            map.put("missing_date", missingAnimalRequest.getMissingDate());
-            map.put("missing_place", missingAnimalRequest.getMissingPlace());
-            map.put("remark", missingAnimalRequest.getMissingRemark());
-            map.put("photo_url", missingAnimalRequest.getPhotoUrl());
-            Date now = new Date();
-            map.put("publish_date", now);
+        String sql = " insert into missing_animal(user_id,kind,variety,sex,body_shape,color,age,missing_date,missing_place,remark,photo_url,publish_date) value(:user_id,:kind,:variety,:sex,:body_shape,:color,:age,:missing_date,:missing_place,:remark,:photo_url,:publish_date) ";
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", missingAnimalRequest.getUserId());
+        map.put("kind", missingAnimalRequest.getMissingKind());
+        map.put("variety", missingAnimalRequest.getMissingVariety());
+        map.put("sex", missingAnimalRequest.getMissingSex());
+        map.put("body_shape", missingAnimalRequest.getMissingBodyShape());
+        map.put("color", missingAnimalRequest.getMissingColor());
+        map.put("age", missingAnimalRequest.getMissingAge());
+        map.put("missing_date", missingAnimalRequest.getMissingDate());
+        map.put("missing_place", missingAnimalRequest.getMissingPlace());
+        map.put("remark", missingAnimalRequest.getMissingRemark());
+        map.put("photo_url", missingAnimalRequest.getPhotoUrl());
+        Date now = new Date();
+        map.put("publish_date", now);
 
 
-            KeyHolder keyHolder = new GeneratedKeyHolder();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-            namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
-            int missingAnimalId = keyHolder.getKey().intValue();
-        }
-
+        int missingAnimalId = keyHolder.getKey().intValue();
 
 
-//        writePhoto(missingAnimalRequest,missingAnimalId);
+        writePhoto(missingAnimalRequest,missingAnimalId);
     }
 
     @Override
@@ -68,7 +65,7 @@ public class MissingDaoImpl implements MissingDao {
         sql+=" order by "+missingAnimalsQueryParams.getOrderBy()+" "+missingAnimalsQueryParams.getSort();
         sql+=" limit "+missingAnimalsQueryParams.getLimit()+" "+" offset "+missingAnimalsQueryParams.getOffset();
 
-        List<MissingData> missingDataList = namedParameterJdbcTemplate.query(sql, map, new MissingDataRowmapper());
+        List<MissingData> missingDataList = animalJdbcTemplate.query(sql, map, new MissingDataRowmapper());
 
         if (missingDataList.size() > 0) {
             return missingDataList;
@@ -83,7 +80,7 @@ public class MissingDaoImpl implements MissingDao {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", id);
 
-        List<MissingData> missingDataList = namedParameterJdbcTemplate.query(sql, map, new MissingDataRowmapper());
+        List<MissingData> missingDataList = animalJdbcTemplate.query(sql, map, new MissingDataRowmapper());
 
         if (missingDataList.size() > 0) {
             return missingDataList;
@@ -100,7 +97,7 @@ public class MissingDaoImpl implements MissingDao {
         addFilterSql(sql,map,missingAnimalsQueryParams);
 
 
-        Integer count = namedParameterJdbcTemplate.queryForObject(sql,map,Integer.class);
+        Integer count = animalJdbcTemplate.queryForObject(sql,map,Integer.class);
 
 
         return count;

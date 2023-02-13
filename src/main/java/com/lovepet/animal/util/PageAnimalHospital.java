@@ -2,7 +2,7 @@ package com.lovepet.animal.util;
 
 import java.util.List;
 
-public class Page<T> {
+public class PageAnimalHospital<T> {
 
     private Integer limit;
     private Integer offset;

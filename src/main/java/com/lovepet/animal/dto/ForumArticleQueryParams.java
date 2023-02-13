@@ -1,45 +1,46 @@
 package com.lovepet.animal.dto;
 
-public class PersonalAnimalQueryParams {
-    private Integer id;
-    private String kind;
-    private String variety;
-    private String sex;
+public class ForumArticleQueryParams {
+
+    private Integer articleId;
+    private Integer userId;
+    private String type;
+    private String search;
     private String orderBy;
     private String sort;
     private Integer limit;
     private Integer offset;
 
-    public Integer getId() {
-        return id;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
-    public String getKind() {
-        return kind;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getVariety() {
-        return variety;
+    public String getType() {
+        return type;
     }
 
-    public void setVariety(String variety) {
-        this.variety = variety;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getSex() {
-        return sex;
+    public String getSearch() {
+        return search;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setSearch(String search) {
+        this.search = search;
     }
 
     public String getOrderBy() {
