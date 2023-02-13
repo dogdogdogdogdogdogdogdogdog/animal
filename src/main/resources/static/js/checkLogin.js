@@ -5,7 +5,7 @@ function checkLogin() {
     var url = location.pathname.replaceAll("/", "")
     xhr1.addEventListener('load', function () {
         console.log(xhr1.status)
-        if (xhr1.status == 302 && (url == "user_publish_history" || url == "user_management" || url == "publish")) {
+        if (xhr1.status == 302 && (url == "user_publish_history" || url == "user_management" || url == "publish" || url=="forum")) {
             window.location.href = '/login_register';
         }
 
@@ -29,6 +29,8 @@ function checkLogin() {
             document.getElementById("userManagement").removeAttribute("style");
             // 登入後導覽列下拉選單隱藏「會員刊登送養」連結
             document.getElementById("publish").removeAttribute("style");
+            // 登入後導覽列下拉選單隱藏「會員刊登文章」連結
+            document.getElementById("forum").removeAttribute("style");
             // 登入後導覽列下拉選單隱藏「送養資訊管理」連結
             document.getElementById("userPublishHistory").removeAttribute("style");
 

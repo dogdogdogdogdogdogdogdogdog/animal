@@ -98,6 +98,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     public Integer createPersonalAnimal(PersonalAnimalRequest personalAnimalRequest) {
 
 
+
             String sql = "INSERT INTO personal_animal(user_id, animal_name, animal_kind, animal_variety, animal_sex, animal_age, animal_bodysize, animal_color, animal_sterilization, animal_bacterin, image_url, area, description, created_date, last_modified_date) " +
                     "VALUES (:userId, :animalName, :animalKind, :animalVariety, :animalSex, :animalAge, :animalBodysize, :animalColor, :animalSterilization, :animalBacterin, :imageUrl, :area, :description, :createdDate, :lastModifiedDate)";
 
@@ -196,9 +197,6 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
             String path = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
-            System.out.println(ClassUtils.getDefaultClassLoader());
-            System.out.println(ClassUtils.getDefaultClassLoader().getResource(""));
-            System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
             FileOutputStream fos = new FileOutputStream(path);
             byte[] buffer = new byte[1024];
             int len;

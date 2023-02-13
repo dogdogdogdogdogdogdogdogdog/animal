@@ -107,30 +107,6 @@
             box-shadow: 0 2px 6px #ccc;
             border-radius: 10px;
         }
-        .page_show {
-            /*padding: 40px 0;*/
-            text-align: center;
-        }
-
-        .page_show span {
-            display: inline-block;
-            height: 28px;
-            line-height: 28px;
-            padding: 0 11px;
-            margin: 0 5px;
-            text-align: center;
-            font-size: 14px;
-            border-radius: 1px;
-            border: #b7b7b7 solid 1px;
-            background-color: #f8f8f8;
-            cursor: pointer;
-        }
-
-        span.page_cur {
-            color: #fff;;
-            border: #282828 solid 1px;
-            background-color: #424242;
-        }
     </style>
 </head>
 
@@ -145,36 +121,35 @@
                     <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
                     <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread text-shadow">寵物論壇</h1>
+                <h1 class="mb-0 bread text-shadow">刊登文章</h1>
             </div>
         </div>
     </div>
 </section>
 
-<dialog id="infoModal" >
-    <h1 id="articleTitle"></h1>
-    <p id="articleContent"></p>
-
-
-    <div id="chatBlock">
-
-
+<div class="col-md-12 col-lg-6 half p-5 ftco-animate">
+    <h2 class="m-3">刊登文章</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input id="articleTopic" type="text" class="form-control" placeholder="文章標題"/>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input id="articleContent" type="text" class="form-control" placeholder="文章內容">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button id="missingBtn" onclick="publishArticle()" class="form-control btn btn-primary py-1 px-4">刊登文章</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <input id="message" type="text"  ><button onclick="message()">留言</button>
-    <button id="close">close</button>
-</dialog>
+</div>
 
-
-<table id="discuss">
-    <tr>
-        <th>標題</th>
-    </tr>
-
-
-</table>
-
-<p id="pageInfo"></p><br>
-<div id="pageShow" class="page_show"></div>
 
 <footer class="footer">
     <div class="row mt-5">
@@ -229,157 +204,49 @@
 </script>
 
 
-
 <script>
-    document.getElementById('pageInfo').className=1
-    let xhr=new XMLHttpRequest()
-    sendPageTOServer(1)
+    function publishArticle(){
+        var topic = document.getElementById("articleTopic").value
+        var content = document.getElementById("articleContent").value
 
-    function generateBtn(pageArray,element,curPage,total){
-        for(let i=0;i<pageArray.length;i++){
-            let pageBtn=document.createElement('button')
-            const number=document.createTextNode(pageArray[i])
-            pageBtn.appendChild(number)
-            pageBtn.setAttribute('onclick',`javascript:document.getElementById('pageInfo').className=${pageArray[i]}
-                                                        sendPageTOServer(${pageArray[i]}) `)
-            if(curPage==pageArray[i]){
-                pageBtn.setAttribute('style',"color:red;")
-                pageBtn.setAttribute('id','curPage')
-
-            }
-
-
-            element.appendChild(pageBtn)
-        }
-        // let curPageNum= document.getElementById('curPage').innerText
-
-        if(total>1){
-            if(curPage>1){
-                if(curPage<total){
-                    document.getElementById('pageShow').innerHTML=`<button onclick='goPre()'>上一頁</button>${element.innerHTML}<button onclick="goNext()">下一頁</button>`
-                }else{
-                    document.getElementById('pageShow').innerHTML=`<button onclick="goPre()">上一頁</button>${element.innerHTML}`
-                }
-            }else{
-                document.getElementById('pageShow').innerHTML=`${element.innerHTML}<button onclick="goNext()">下一頁</button>`
-            }
-        }
-    }
-
-    function goPre(){
-        curPage=document.getElementById('pageInfo').className
-        curPage--
-        document.getElementById('pageInfo').className=curPage
-        sendPageTOServer(curPage)
-    }
-    function goNext(){
-        curPage=document.getElementById('pageInfo').className
-        curPage++
-        document.getElementById('pageInfo').className=curPage
-        sendPageTOServer(curPage)
-    }
-
-function sendPageTOServer(curPage) {
-    xhr.addEventListener('load', function () {
-        let forumsData = JSON.parse(xhr.responseText)
-        let forums = forumsData.personalForums
-        let pages = forumsData.page
-        let total = forumsData.total
-        let discuss = document.getElementById('discuss')
-        let pageShow = document.getElementById('pageShow')
-
-        discuss.innerHTML=''
-        for (let i = 0; i < forums.length; i++) {
-
-            let tdTitle = document.createElement('td')
-            const title = document.createTextNode(forums[i].title)
-
-            let a=document.createElement('a')
-            a.setAttribute('href','javascript:void(0)')
-            a.onclick=function(){
-                let infoModal=document.querySelector("#infoModal");
-                document.getElementById('infoModal').className=forums[i].tId
-                document.getElementById('articleTitle').innerText=forums[i].title
-                document.getElementById('articleContent').innerText=forums[i].description
-                console.log('test')
-                getMessage(forums[i].tId)
-
-
-                infoModal.showModal();
-            }
-
-            a.appendChild(title)
-            tdTitle.appendChild(a)
-
-
-
-
-            let tr = document.createElement('tr')
-            tr.appendChild(tdTitle)
-
-
-            discuss.appendChild(tr)
-        }
-
-        document.getElementById('pageShow').innerHTML=''
-
-        generateBtn(pages, pageShow, curPage, total)
-
-
-    })
-    xhr.open('get', '/personalForums?page=' + curPage)
-    xhr.send()
-}
-
-    function   getMessage(tId){
-        console.log(tId)
-        let xhr=new XMLHttpRequest()
-        xhr.addEventListener('load',function(){
-           messages =  JSON.parse(xhr.responseText)
-            let messageHtml=''
-            for(let i=0;i<messages.length;i++){
-                messageHtml+=`<p>${messages[i].createDate}</p><p>${messages[i].email}:${messages[i].message}</p><br> `
-            }
-            document.getElementById('chatBlock').innerHTML=messageHtml
-        })
-        xhr.open('get',`/message?tId=${tId}`)
-        xhr.send()
-    }
-
-
-    function message(){
-        if(user==null){
-            window.location.assign("/login_register")
+        if (topic == "" || content == "") {
+            alert("所有資料皆須填寫")
             return
         }
-        let message= document.getElementById('message').value
-        let tId=document.getElementById('infoModal').className
-        let messageData={
-             message:message,
-            userId:user.id,
-            tId:tId
+
+        var article = {
+            title: topic,
+            content: content,
+            userId:user.id
+
         }
-        let xhr=new XMLHttpRequest();
-        xhr.addEventListener('load',function(){
-            if(xhr.status==201){
-                alert('留言成功')
+
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', function () {
+
+            if (xhr.status == 201) {
+                document.getElementById("articleTopic").value = ""
+                document.getElementById("articleContent").value = ""
+                ""
+                alert("刊登成功")
+
+                // document.getElementById("registStatus").innerHTML="<div style='color: green'>註冊成功請登入";
+            } else {
+                alert("刊登失敗")
+                // document.getElementById("registStatus").innerHTML="<div style='color: red'>註冊失敗";
             }
+
         })
-        xhr.open('post','/message')
-        xhr.setRequestHeader('Content-type', 'application/json')
-        xhr.send(JSON.stringify(messageData))
+        xhr.open('post', 'http://localhost:8080/personalForum', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        var data = JSON.stringify(article);
+        xhr.send(data);
+
 
     }
 
 
-
-    let close=document.querySelector("#close");
-    close.addEventListener("click", function(){
-        document.getElementById('chatBlock').innerHTML=''
-        infoModal.close();
-    })
 </script>
-
 
 </body>
 </html>
