@@ -167,10 +167,4 @@ public class PersonalAnimalController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/getPersonalAnimalsComboBox")// 搜尋條件-送資料至下拉選單
-    public ResponseEntity getPersonalAnimalsComboBox(Model model) {
-        List list = personalAnimalService.getPersonalAnimalsComboBox();
-
-        return ResponseEntity.status(HttpStatus.OK).body(list);
-    }
 }

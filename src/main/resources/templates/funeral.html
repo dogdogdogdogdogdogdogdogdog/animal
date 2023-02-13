@@ -300,29 +300,19 @@
         success: function (data) {
             // 使用 Set 排除重複迭代結果
             var areaSet = new Set();
-            var comboBoxContent;
             $.each(data["results"], function (index, item) {
                 areaSet.add(item.area);
             })
 
-            // 下面方法二選一使用 //
-
-            // Set 不能使用 jQuery 的 each 方法
+            // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
+            // ※ Set 若轉換為 Array 後便能使用 jQuery 的 each 方法
+            // ※ var areaArray = Array.from(areaSet);
             areaSet.forEach(function (area) {
-                comboBoxContent = `
+                let comboBoxContent = `
                     <option value="${area}">${area}</option>
                 `;
                 $("#areaAjax").append(comboBoxContent);
             })
-
-            // Set 轉換為 Array 後可以使用 jQuery 的 each 方法
-            // var areaArray = Array.from(areaSet);
-            // $.each(areaArray, function (index, item) {
-            //     comboBoxContent = `
-            //         <option value="${item}">${item}</option>
-            //     `;
-            //     $("#areaAjax").append(comboBoxContent);
-            // })
         }
     })
 
@@ -462,12 +452,12 @@
     // 換頁功能
     function changePage(page) {
         var queryParams = "";
-
         var offset = limit * (page - 1);
+        var area = $("#areaAjax").val();
+
         queryParams += "&offset=" + offset;
 
         // 取得篩選區的參數
-        var area = $("#areaAjax").val();
         if (area != "default") {
             queryParams += "&area=" + area;
         }

@@ -25,7 +25,7 @@
 
         /*橫幅圖片*/
         .banner-img {
-            background-image: url('/images/_banner3.jpg');
+            background-image: url('/images/_banner1.jpg');
             height: 300px !important;
         }
 
@@ -34,6 +34,7 @@
             color: #fff !important;
             text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
         }
+
         /*按鈕樣式*/
         .btn.btn-primary {
             padding: 6px 20px;
@@ -67,11 +68,10 @@
             border-radius: 0px 20px 20px 0px !important;
         }
 
-        /*經JS拼接的元素無法套用部分主表格樣式*/
         /*表格奇數列背景色淺灰*/
-        tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
+        /*tr:nth-of-type(odd) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
 
         /*表格偶數列背景色*/
         /*tr:nth-child(even) {*/
@@ -82,6 +82,7 @@
         tr:first-child, table tr:first-child:hover {
             color: white;
             background-color: #81a5ff !important;
+            /*轉場-淡入淡出效果*/
             transition: background-color 0.35s ease-in-out !important;
         }
 
@@ -89,6 +90,7 @@
         tr:hover {
             color: white;
             background-color: #ffa500 !important;
+            /*轉場-淡入淡出效果*/
             transition: background-color 0.35s ease-in-out;
         }
 
@@ -98,18 +100,17 @@
             color: unset !important;
         }
 
-        /*區塊陰影效果*/
-        .div-shadow {
-            box-shadow: 3px 3px 9px grey;
+        /*ICON自訂樣式*/
+        .fa-icon {
+            color: red;
+            /*background: lightgrey;*/
+            /*text-align: center;*/
+            padding: 0 10px;
+            filter: drop-shadow(2px 2px 1px black);
+            /*min-width: 13%;*/
+            /*border-top-left-radius: 0.5rem !important;*/
+            /*border-bottom-left-radius: 0.5em !important;*/
         }
-
-        /*原生換頁UI*/
-        /*.block-27 ul li a, .block-27 ul li span {*/
-        /*    color: black;*/
-        /*    border: 2px solid #e6e6e6;*/
-        /*    background: #ffffce;*/
-        /*}*/
-
 
         .page_show {
             /*padding: 40px 0;*/
@@ -135,9 +136,6 @@
             border: #282828 solid 1px;
             background-color: #424242;
         }
-
-        /*#scroll {position:fixed; top:300px; right:100px;}*/
-        /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
     </style>
 </head>
 
@@ -165,11 +163,12 @@
         <!-- 顯示搜尋條件 -->
         <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
             <div class="p-1">
-                <select class="custom-select" name="area" id="area">
+                <select class="custom-select" id="areaAjax">
+                    <option value="default">不限地區</option>
                 </select>
             </div>
             <div class="p-1">
-                <input type="text" class="custom-select" id="inputBox" placeholder="醫院搜尋"
+                <input type="text" class="custom-select" id="searchBar" placeholder="搜尋醫院名稱"
                        style="background-image: none;">
             </div>
             <div class="p-1">
@@ -181,7 +180,12 @@
 
         <!-- 顯示資料內容 -->
         <div class="row ftco-animate">
-            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="tableAjax">
+                <tr class="h5">
+                    <th style="width: 35%;">醫院名稱</th>
+                    <th style="width: 15%;">電話</th>
+                    <th style="">地址</th>
+                </tr>
             </table>
         </div>
         <!-- 顯示查詢資訊 -->
@@ -193,6 +197,46 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- 彈出式互動視窗 -->
+    <div class="container">
+        <!-- Modal start-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content main-img">
+                    <!-- 醫院名稱放在標題 -->
+                    <div class="modal-header">
+                        <div class="col-12 px-0 d-flex justify-content-center">
+                            <span class="fa-icon"><i class="fa fa-map-marker fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold" id="hospitalName">這裡是醫院名稱</h3>
+                            <!-- 強制定位關閉功能於最右上角 -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <!-- 地圖強制設定600px高 -->
+                        <div class="row m-auto col-12 justify-content-center">
+                            <iframe id="mapInfo" width="100%" height="600px" style="border: none;"></iframe>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal end-->
     </div>
 </section>
 
@@ -241,7 +285,9 @@
 <script type="text/javascript">
     var limit;
     var pages;
-    $.ajax({//載入頁面先執行一次
+
+    // 初次載入時取得全部查詢結果
+    $.ajax({
         type: "GET",
         url: "/animal_hospitals",
         success: function (data) {
@@ -249,63 +295,82 @@
         }
     });
 
-    $.ajax({//載入下拉選單
+    // 載入篩選區下拉選單
+    $.ajax({
         type: "GET",
-        url: "/getAnimalHospitalsComboBox",
+        url: "/animal_hospitals?limit=1000",
         success: function (data) {
-            console.log(data);
-            console.log(data[0]);
+            // 使用 Set 排除重複迭代結果
+            var areaSet = new Set();
+            $.each(data["results"], function (index, item) {
+                areaSet.add(item.area);
+            })
 
-            $("#area").append("<option value='不限地區'>不限地區</option>");
-
-            $.each(data[0], function (index, item) {
-                $("#area").append("<option value='" + item + "'>" + item + "</option>");
+            // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
+            // ※ Set 若轉換為 Array 後便能使用 jQuery 的 each 方法
+            // ※ var areaArray = Array.from(areaSet);
+            areaSet.forEach(function (area) {
+                let comboBoxContent = `
+                    <option value="${area}">${area}</option>
+                `;
+                $("#areaAjax").append(comboBoxContent);
             })
         }
     });
 
     function getAnimalHospitalList(data) {//秀出搜尋結果
-        $("#test1Result").empty();//清空元素
+        // 清空表格 tr 元素
+        $("#tableAjax").children("tr").empty();
 
-        var title = "<tr class='h5'>" +
-            "<th>地區</th>" +
-            "<th style='width: 30%;'>醫院名稱</th>" +
-            "<th style='width: 20%;'>電話</th>" +
-            "<th style='width: 30%;'>地址</th>" +
-            "</tr>";
-
-        $("#test1Result").append(title);//加入標題
-
+        // 加入表格內容
         $.each(data["results"], function (index, item) {
-            var html = "" +
-                "<tr>" +
-                "<td>" + item.area + "</td>" +
-                "<td>" + item.hospital+ "</td>" +
-                "<td>" + item.tel + "</td>" +
-                "<td>" + item.address + "</td>" +
-                "</tr>";
-
-            $("#test1Result").append(html);//加入內容
+            var tableContent = `
+                <tr id="${item.id}">
+                    <td>${item.hospital}</td>
+                    <td>${item.tel}</td>
+                    <td class="text-left">
+                        <span data-toggle="modal" data-target="#exampleModalCenter" onclick="getMapInfo(this)" style="cursor: pointer; padding-left: 20%;">
+                        <i class="fa fa-map-marker fa-2x fa-icon"></i>
+                        ${item.address}</span></td>
+                </tr>
+            `;
+            $("#tableAjax").append(tableContent);
         })
 
+        // 當次查詢總頁數
         pages = Math.ceil(data.total / data.limit);
-        console.log(data.offset / data.limit)
+        // 當次查詢每頁資料筆數
         limit = data.limit;
 
+        // 資料筆數區塊資訊
         if (data.total == 0) {
             $("#pageInfo").text("查無資料");
         } else {
             $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
         }
 
+        // 設定當次查詢資料的總頁數至頁碼區塊
         pageSet(pages);
 
-        console.log("單頁筆數limit:" + data["limit"]);
-        console.log("跳過幾筆資料offset:" + data["offset"]);
-        console.log("總筆數:" + data["total"]);
+        // 查詢結束後捲動視窗至篩選欄
+        $("html,body").animate({"scrollTop": $("#top").offset().top}, 100);
 
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
+        // 重新載入 Bootstrap 模板 js
         $.getScript('js/main.js');
+    }
+
+    // 彈出式互動視窗-地址加入地圖功能
+    function getMapInfo(mapInfoTrigger) {
+        var hospitalId = $(mapInfoTrigger).parents("tr").attr("id");
+
+        $.ajax({
+            type: "GET",
+            url: "/animal_hospital/" + hospitalId,
+            success: function (data) {
+                $("#hospitalName").text(data.hospital);
+                $("#mapInfo").attr("src", `https://www.google.com/maps?q=${data.address}&z=14&hl=zh-tw&output=embed`);
+            }
+        });
     }
 
     //輸出頁碼
@@ -371,36 +436,31 @@
     var listPage = 1;
 
     function changePage(page) {
+        var queryParams = "";
         var offset = limit * (page - 1);
-        console.log("offset" + offset);
-        console.log("page" + page);
+        var area = $("#areaAjax").val();
+        var search = $("#searchBar").val().trim();
 
-        var area = $("#area").val();
-        var search = $("#inputBox").val().trim();
-        var searchUrl = "";
+        queryParams += "&offset=" + offset;
 
-        console.log(area)
-        console.log(search)
-
-        if (area != "不限地區") {
-            searchUrl += "&area=" + area;
+        // 取得篩選區的參數
+        if (area != "default") {
+            queryParams += "&area=" + area;
         }
-
         if (search != "") {
-            searchUrl += "&search=" + search;
+            queryParams += "&search=" + search;
         }
-        var url = "/animal_hospitals?offset=" + limit * (page - 1) + searchUrl;
-        console.log(url);
+
         $.ajax({
             type: "GET",
-            url: url,
+            url: "/animal_hospitals?" + queryParams,
             success: function (data) {
                 getAnimalHospitalList(data);
             }
         })
     }
 
-<!-- 讀取導覽列 -->
+    <!-- 讀取導覽列 -->
     $(".header-page").load("header");
 </script>
 

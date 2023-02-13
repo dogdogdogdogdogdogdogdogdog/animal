@@ -469,37 +469,27 @@
     })
 
     // 載入篩選區下拉選單
-    // $.ajax({
-    //     type: "GET",
-    //     url: "/personalAnimals?limit=1000",
-    //     success: function (data) {
-    //         // 使用 Set 排除重複迭代結果
-    //         var areaSet = new Set();
-    //         var comboBoxContent;
-    //         $.each(data["results"], function (index, item) {
-    //             areaSet.add(item.area);
-    //         })
-    //
-    //         // 下面方法二選一使用 //
-    //
-    //         // Set 不能使用 jQuery 的 each 方法
-    //         areaSet.forEach(function (area) {
-    //             comboBoxContent = `
-    //                 <option value="${area}">${area}</option>
-    //             `;
-    //             $("#areaAjax").append(comboBoxContent);
-    //         })
-    //
-    //         // Set 轉換為 Array 後可以使用 jQuery 的 each 方法
-    //         // var areaArray = Array.from(areaSet);
-    //         // $.each(areaArray, function (index, item) {
-    //         //     comboBoxContent = `
-    //         //         <option value="${item}">${item}</option>
-    //         //     `;
-    //         //     $("#areaAjax").append(comboBoxContent);
-    //         // })
-    //     }
-    // })
+    $.ajax({
+        type: "GET",
+        url: "/funerals?limit=1000",
+        success: function (data) {
+            // 使用 Set 排除重複迭代結果
+            var areaSet = new Set();
+            $.each(data["results"], function (index, item) {
+                areaSet.add(item.area);
+            })
+
+            // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
+            // ※ Set 若轉換為 Array 後便能使用 jQuery 的 each 方法
+            // ※ var areaArray = Array.from(areaSet);
+            areaSet.forEach(function (area) {
+                let comboBoxContent = `
+                    <option value="${area}">${area}</option>
+                `;
+                $("#areaAjax").append(comboBoxContent);
+            })
+        }
+    })
 
     // 表格查詢結果
     function getAnimalList(data) {
@@ -663,14 +653,14 @@
     // 讀取導覽列
     $(".header-page").load("header");
 
-    // let close = document.querySelector("#close");
-    // close.addEventListener("click", function () {
-    //     infoModal.close();
-    // })
-    // let delclose = document.querySelector("#delclose");
-    // delclose.addEventListener("click", function () {
-    //     delinfoModal.close();
-    // })
+    let close = document.querySelector("#close");
+    close.addEventListener("click", function () {
+        infoModal.close();
+    })
+    let delclose = document.querySelector("#delclose");
+    delclose.addEventListener("click", function () {
+        delinfoModal.close();
+    })
 </script>
 
 </body>

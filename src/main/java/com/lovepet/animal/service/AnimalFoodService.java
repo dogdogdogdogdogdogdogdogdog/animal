@@ -12,5 +12,4 @@ public interface AnimalFoodService {
 
     List<AnimalFood> getAnimalFoods(AnimalFoodQueryParams animalFoodQueryParams);
 
-    List<String> getAnimalFoodsComboBox();
 }

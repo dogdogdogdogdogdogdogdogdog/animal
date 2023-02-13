@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface AnimalFoodDao {
 
-    List<AnimalFood> getAnimalFoodsComboBox();
-
     Integer countAnimalFood(AnimalFoodQueryParams animalFoodQueryParams);
 
     List<AnimalFood> getAnimalFoods(AnimalFoodQueryParams animalFoodQueryParams);

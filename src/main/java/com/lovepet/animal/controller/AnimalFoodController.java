@@ -55,10 +55,4 @@ public class AnimalFoodController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
-    @GetMapping("/getAnimalFoodsComboBox")// 搜尋條件-送資料至下拉選單
-    public ResponseEntity getAnimalFoodsComboBox(Model model) {
-        List list = animalFoodService.getAnimalFoodsComboBox();
-
-        return ResponseEntity.status(HttpStatus.OK).body(list);
-    }
 }

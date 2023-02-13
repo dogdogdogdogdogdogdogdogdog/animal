@@ -3,9 +3,7 @@ package com.lovepet.animal.dao.impl;
 import com.lovepet.animal.dao.PersonalAnimalDao;
 import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
-import com.lovepet.animal.model.AnimalFood;
 import com.lovepet.animal.model.PersonalAnimal;
-import com.lovepet.animal.rowmapper.AnimalFoodRowmapper;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -27,14 +25,6 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Override
-    public List<PersonalAnimal> getPersonalAnimalComboBox() {
-        String sql = "SELECT * FROM personal_animal WHERE 1=1";
-
-        List<PersonalAnimal> list = namedParameterJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
-        return list;
-    }
 
     @Override
     public Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams) {

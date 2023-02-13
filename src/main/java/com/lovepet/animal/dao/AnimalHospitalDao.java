@@ -11,5 +11,5 @@ public interface AnimalHospitalDao{
 
     List<AnimalHospital> getAnimalHospitals(AnimalHospitalQueryParams animalHospitalQueryParams);
 
-    List<AnimalHospital> getAnimalHospitalsComboBox();
+    AnimalHospital getAnimalHospitalById(Integer hospitalId);
 }

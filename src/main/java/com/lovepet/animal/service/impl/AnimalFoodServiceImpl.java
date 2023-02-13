@@ -28,24 +28,4 @@ public class AnimalFoodServiceImpl implements AnimalFoodService {
         return animalFoodDao.getAnimalFoods(animalFoodQueryParams);
     }
 
-    @Override
-    public List<String> getAnimalFoodsComboBox() {
-        List<AnimalFood> animalFoodList = animalFoodDao.getAnimalFoodsComboBox();
-        List list = new ArrayList();
-        Set<String> placeSet = new HashSet<>();
-        Set<String> categorySet = new HashSet<>();
-
-        for (int i = 0; i < animalFoodList.size(); i++) {
-            placeSet.add(animalFoodList.get(i).getProductionPlace());
-            categorySet.add(animalFoodList.get(i).getCategory());
-        }
-        placeSet.remove("");
-        System.out.println(placeSet);
-        System.out.println(categorySet);
-
-        list.add(placeSet);
-        list.add(categorySet);
-
-        return list;
-    }
 }
