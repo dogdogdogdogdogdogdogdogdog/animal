@@ -18,18 +18,19 @@ function init() {
             document.getElementById("login_stat").style.visibility = "visible";
             document.getElementById("login_stat").innerHTML = `${user.email} 登出`;
             document.getElementById("login_stat").href = "javascript: goLoginAndRegist()";
-            // 登入後導覽列下拉選單隱藏「登入」連結 | 滑鼠掠過時圓弧效果移除
-            document.getElementById("login").removeAttribute("style");
+            // 登入後導覽列下拉選單隱藏「登入」連結
             document.getElementById("login").style.display = "none";
             // 登入後導覽列下拉選單顯示「登出」連結
             document.getElementById("sign_out").removeAttribute("style");
             // 登出連結導向goLoginAndRegist()
             document.getElementById("sign_out").href = "javascript: goLoginAndRegist()";
-            // 登入後導覽列下拉選單隱藏「會員資料變更」連結
+            // 登入後導覽列下拉選單顯示「會員資料變更」連結
             document.getElementById("userManagement").removeAttribute("style");
-            // 登入後導覽列下拉選單隱藏「會員刊登送養」連結
+            // 登入後導覽列下拉選單顯示「會員刊登送養」連結
             document.getElementById("publish").removeAttribute("style");
-            // 登入後導覽列下拉選單隱藏「送養資訊管理」連結
+            // 登入後導覽列下拉選單顯示「會員刊登文章」連結
+            document.getElementById("forum").removeAttribute("style");
+            // 登入後導覽列下拉選單顯示「送養資訊管理」連結
             document.getElementById("userPublishHistory").removeAttribute("style");
 
 

@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface PersonalAnimalDao {
 
-    List<PersonalAnimal> getPersonalAnimalComboBox();
-
     Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams);
 
     List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams);

@@ -368,7 +368,9 @@
 
         $.each(data["results"], function (index, item) {
             // console.log(item.userId)
-            var userInfo = getUserInfo(item.userId);
+            var userInfo = getUserInfo(item.userId);//傳入userid，取得使用者資訊
+            var messageData = getMessageInfo(item.articleId);//傳入文章id，取得留言資訊
+
             var html = `
                         <tr>
                             <td><div>${item.type}</div></td>
@@ -383,7 +385,7 @@
                                 </div>
                                     </td>
                             <td><div>${userInfo.name}</div></td>
-                            <td><div>留言數</div></td>
+                            <td><div>${messageData[1]}</div></td>
                             <td><div>${item.likes}/${item.views}</div></td>
                             <td><div>${item.modifiedDate}</div></td>
                         </tr>`;
@@ -424,7 +426,7 @@
 
                 $("#articleInfo").empty();
                 // console.log(articleData.userId)
-                var userArticleData = getUserInfo(articleData.userId);
+                var userArticleData = getUserInfo(articleData.userId);//傳入userId，取得使用者資訊
 
                 var html = `
                             <div class="modal-header">
@@ -497,7 +499,7 @@
                         <div id="chatBlock">
                         </div>
                         <input id="message" articleId="${articleData.articleId}" type="text"  ><button onclick="message()">留言</button>`;
-
+                //編輯、保存、取消、刪除按紐
                 var button = `
                         <div class="p-1">
                         <button id="editButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">編輯</button>

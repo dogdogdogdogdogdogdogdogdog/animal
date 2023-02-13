@@ -18,16 +18,7 @@ import java.util.Map;
 public class AnimalFoodDaoImpl implements AnimalFoodDao {
 
     @Autowired
-    private NamedParameterJdbcTemplate animalJdbcTemplate;
-
-
-    @Override
-    public List<AnimalFood> getAnimalFoodsComboBox() {
-        String sql = "SELECT * FROM animal_food WHERE 1=1";
-
-        List<AnimalFood> list = animalJdbcTemplate.query(sql, new AnimalFoodRowmapper());
-        return list;
-    }
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public Integer countAnimalFood(AnimalFoodQueryParams animalFoodQueryParams) {
@@ -39,7 +30,7 @@ public class AnimalFoodDaoImpl implements AnimalFoodDao {
         sql = addFilteringSql(sql, map, animalFoodQueryParams);
 
         // 將 count 值轉換為 Integer 類型的返回值
-        Integer total = animalJdbcTemplate.queryForObject(sql, map, Integer.class);
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
     }
@@ -59,7 +50,7 @@ public class AnimalFoodDaoImpl implements AnimalFoodDao {
         map.put("limit", animalFoodQueryParams.getLimit());
         map.put("offset", animalFoodQueryParams.getOffset());
 
-        List<AnimalFood> animalFoodList = animalJdbcTemplate.query(sql, map, new AnimalFoodRowmapper());
+        List<AnimalFood> animalFoodList = namedParameterJdbcTemplate.query(sql, map, new AnimalFoodRowmapper());
 
         return animalFoodList;
     }

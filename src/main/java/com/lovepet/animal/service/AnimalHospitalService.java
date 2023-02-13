@@ -11,5 +11,5 @@ public interface AnimalHospitalService {
 
     List<AnimalHospital> getAnimalHospitals(AnimalHospitalQueryParams animalHospitalQueryParams);
 
-    List<String> getAnimalHospitalsComboBox();
+    AnimalHospital getAnimalHospitalById(Integer hospitalId);
 }

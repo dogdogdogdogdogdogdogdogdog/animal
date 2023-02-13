@@ -20,7 +20,7 @@ import java.util.Map;
 @Component
 public class UserDaoImpl implements UserDao {
     @Autowired
-    private NamedParameterJdbcTemplate animalJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 
     @Override
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        animalJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         Integer id = keyHolder.getKey().intValue();
         return id;
@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", id);
 
-        List<User> userList = animalJdbcTemplate.query(sql, map, new UserRowmapper());
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0);
@@ -76,7 +76,7 @@ public class UserDaoImpl implements UserDao {
 
         map.put("userId", userId);
 
-        animalJdbcTemplate.update(sql, map);
+        namedParameterJdbcTemplate.update(sql, map);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class UserDaoImpl implements UserDao {
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
 
-        List<User> userList = animalJdbcTemplate.query(sql, map, new UserRowmapper());
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0);
@@ -99,7 +99,7 @@ public class UserDaoImpl implements UserDao {
         String sql = "select user_id from user where email=:email ";
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
-        List<User> userList = animalJdbcTemplate.query(sql, map, new UserGetIdRowmapper());
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserGetIdRowmapper());
 
         if (userList.size() > 0) {
             return userList.get(0).getId();

@@ -2,6 +2,7 @@ package com.lovepet.animal.model;
 
 public class AnimalHospital {
 
+    private Integer id;
     private String area;
     private String sn;
     private String license;
@@ -11,6 +12,14 @@ public class AnimalHospital {
     private String tel;
     private String dateOfIssue;
     private String address;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getArea() {
         return area;

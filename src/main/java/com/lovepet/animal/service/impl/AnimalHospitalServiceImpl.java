@@ -28,19 +28,8 @@ public class AnimalHospitalServiceImpl implements AnimalHospitalService {
         return animalHospitalDao.getAnimalHospitals(animalHospitalQueryParams);
     }
 
-    public List<String> getAnimalHospitalsComboBox(){
-        List<AnimalHospital> animalHospitalList = animalHospitalDao.getAnimalHospitalsComboBox();
-        List list = new ArrayList();
-        Set<String> areaSet = new HashSet<>();
-
-        for(int i =0; i<animalHospitalList.size(); i++){
-            areaSet.add(animalHospitalList.get(i).getArea());
-        }
-        areaSet.remove("");
-        System.out.println(areaSet);
-
-        list.add(areaSet);
-
-        return list;
+    @Override
+    public AnimalHospital getAnimalHospitalById(Integer hospitalId) {
+        return animalHospitalDao.getAnimalHospitalById(hospitalId);
     }
 }
