@@ -316,7 +316,6 @@
     $(".headerPage").load("header");//讀取導覽列
     var limit;
     var pages;
-    var article;
 
     function init() {//初始化
         $.ajax({//取得所有文章
@@ -368,9 +367,8 @@
         $("#test1Result").append(title);//加入標題
 
         $.each(data["results"], function (index, item) {
-
+            // console.log(item.userId)
             var userInfo = getUserInfo(item.userId);
-
             var html = `
                         <tr>
                             <td><div>${item.type}</div></td>
@@ -396,7 +394,7 @@
 
 
         pages = Math.ceil(data.total / data.limit);
-        console.log(data.offset / data.limit)
+        // console.log(data.offset / data.limit)
         limit = data.limit;
 
         if (data.total == 0) {
@@ -418,14 +416,14 @@
     function getArticleInfo(gid) {//點擊文章
 
         var id = $(gid).attr("id");//取得文章id
-        console.log("文章ID: " + id);
+        // console.log("文章ID: " + id);
         $.ajax({//使用文章id，查詢文章資訊
             type: "GET",
             url: "/forumArticles/" + id,
             success: function (articleData) {
 
                 $("#articleInfo").empty();
-
+                // console.log(articleData.userId)
                 var userArticleData = getUserInfo(articleData.userId);
 
                 var html = `
@@ -516,12 +514,12 @@
                         `;
 
                 $("#articleInfo").append(html);
-                console.log("articleId:" + articleData.userId);
+                // console.log("articleId:" + articleData.userId);
 
                 if (status == 302) {//判斷未登入
                     console.log("status:" + status);
                     console.log("未登入");
-                }else {
+                } else {
                     if (status == 200) {//判斷登入
                         if (articleData.userId == user.id) {//判斷是不是發文者
                             console.log("sessionName:" + user.name);
@@ -534,45 +532,55 @@
 
                 var messageHtml = "";
 
-                $.ajax({//使用文章id，查詢留言資訊
-                    type: "GET",
-                    url: "/message/" + articleData.articleId,
-                    success: function (messageData) {
-                        // console.log(messageData)
-                        $.each(messageData, function (index, item) {
+                var messageData = getMessageInfo(articleData.articleId);//傳入文章id，取得留言資訊
+                // console.log(messageData);
+                $.each(messageData[0], function (index, item) {
 
-                            var userMessageData = getUserInfo(item.userId);
+                    // console.log(item.userId);
 
-                            console.log(userMessageData);
-                            messageHtml = `
-                                    <div>${userMessageData.name} : ${messageData[index].content}</div>
+                    var userData = getUserInfo(item.userId);
+                    // console.log(userData.name);
+
+                    messageHtml = `
+                                    <div>${userData.name} : ${item.content}</div>
                                     `;
-                            console.log(messageHtml);
-                            $("#chatBlock").append(messageHtml);
+                    // console.log(messageHtml);
+                    $("#chatBlock").append(messageHtml);
 
-                        })
+                })
 
-                        console.log(messageHtml);
-                        $("#chatBlock").append(messageHtml);
-                    }
-                });
+                // console.log(messageHtml);
+                $("#chatBlock").append(messageHtml);
+
 
             }
         });
     }
 
     function getUserInfo(id) {//傳入id，回傳userData
-        var userData;
+        var rsData;
         $.ajax({//使用userId，查詢user資訊
             type: "GET",
             url: "/user/" + id,
             async: false,
             success: function (data) {
-                userData = data;
-
+                rsData = data;
             }
         });
-        return userData;
+        return rsData;
+    }
+
+    function getMessageInfo(id) {//傳入文章id，回傳userData留言
+        var rsData;
+        $.ajax({//使用userId，查詢user資訊
+            type: "GET",
+            url: "/message/" + id,
+            async: false,
+            success: function (data) {
+                rsData = data;
+            }
+        });
+        return rsData;
     }
 
 

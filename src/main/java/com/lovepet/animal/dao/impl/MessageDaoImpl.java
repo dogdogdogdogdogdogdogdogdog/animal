@@ -48,7 +48,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public List<UserFeedback> getMessage(MessageQueryParams messageQueryParams) {
-        String sql=" select * from feedback where article_id=:articleId order by floor ASC ";
+        String sql=" select * from feedback where article_id=:articleId order by post_date ASC ";
 //        String sql="select email,message,create_date from user LEFT JOIN user_feedback uf on user.user_id = uf.user_id where t_id=:tId";
         Map<String,Object> map=new HashMap<>();
         System.out.println(messageQueryParams.getArticleId());
