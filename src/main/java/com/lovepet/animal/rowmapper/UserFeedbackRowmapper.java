@@ -13,7 +13,7 @@ public class UserFeedbackRowmapper implements RowMapper<UserFeedback> {
         UserFeedback userFeedback=new UserFeedback();
       userFeedback.setContent(resultSet.getString("content"));
       userFeedback.setPostDate(resultSet.getTimestamp("post_date"));
-
+      userFeedback.setUserId(resultSet.getInt("user_id"));
       return userFeedback;
     }
 }

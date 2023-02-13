@@ -5,14 +5,14 @@ import java.util.Date;
 public class UserFeedback {
    private String content;
    private Date postDate;
-    private String userName;
+    private Integer userId;
 
-    public String getUserName() {
-        return userName;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Date getPostDate() {

@@ -500,11 +500,11 @@
                             <!--編輯、刪除發文者才能使用-->
                         </div>
                         <div class="modal-footer justify-content-center">
-                        <!--留言-->
+                            <!--留言-->
                         </div>
-                            <div id="chatBlock">
-                            </div>
-                            <input id="message" type="text"  ><button onclick="message()">留言</button>`;
+                        <div id="chatBlock">
+                        </div>
+                        <input id="message" articleId="${articleData.articleId}" type="text"  ><button onclick="message()">留言</button>`;
 
                         var button = `
                         <div class="p-1">
@@ -530,6 +530,34 @@
                         }
                     }
                 });
+                var messageHtml = "";
+                $.ajax({//使用文章id，查詢留言資訊
+                    type: "GET",
+                    url: "/message/" + articleData.articleId,
+                    success: function (messageData) {
+                        // console.log(messageData)
+                        $.each(messageData, function (index, item) {
+                            // console.log(item.userId)
+                            $.ajax({//使用文章id，查詢留言使用者
+                                type: "GET",
+                                url: "/user/" + item.userId,
+                                success: function (userDate) {
+                                    // console.log(userDate)
+                                    messageHtml = `
+                                    <div>${userDate.name} : ${messageData[index].content}</div>
+                                    `;
+                                    console.log(messageHtml);
+                                    $("#chatBlock").append(messageHtml);
+                                }
+                            });
+                        })
+
+
+                        console.log(messageHtml);
+                        $("#chatBlock").append(messageHtml);
+                    }
+                });
+
             }
         });
     }
@@ -736,7 +764,31 @@
             $("#cancelButton").attr("style", "display: none;")
         });
 
+        function message(){
+            if(user==null){
+                window.location.assign("/login_register")
+                return
+            }
+            let message= document.getElementById('message').value
+            tId = $("#message").attr("articleId");
+            console.log(tId);
+            let messageData={
+                content:message,
+                userId:user.id,
+                articleId:tId
+            }
+            let xhr=new XMLHttpRequest();
+            xhr.addEventListener('load',function(){
+                if(xhr.status==201){
+                    alert('留言成功')
+                    changePage(1);
+                }
+            })
+            xhr.open('post','/message')
+            xhr.setRequestHeader('Content-type', 'application/json')
+            xhr.send(JSON.stringify(messageData))
 
+        }
 </script>
 
 </body>

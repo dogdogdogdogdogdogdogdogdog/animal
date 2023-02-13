@@ -1,16 +1,26 @@
 package com.lovepet.animal.dto;
 
-public class MessageQueryParams {
-    private Integer tId;
-    private Integer userId;
-    private String message;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
-    public Integer gettId() {
-        return tId;
+public class MessageQueryParams {
+    @NotNull
+    private Integer articleId;
+    @NotNull
+    private Integer userId;
+    @NotBlank
+    @NotNull
+    private String content;
+
+    private Date postDate;
+
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void settId(Integer tId) {
-        this.tId = tId;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public Integer getUserId() {
@@ -21,11 +31,19 @@ public class MessageQueryParams {
         this.userId = userId;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
@@ -20,7 +21,7 @@ public class PersonalMessage {
     MessageService messageService;
 
     @PostMapping ("/message")
-    public ResponseEntity createMessage(@RequestBody MessageQueryParams messageQueryParams){
+    public ResponseEntity createMessage(@RequestBody @Valid MessageQueryParams messageQueryParams){
 
             messageService.createMessage(messageQueryParams);
 
@@ -29,7 +30,7 @@ public class PersonalMessage {
     @GetMapping("/message/{tId}")
     public ResponseEntity<List<UserFeedback>> getMessage(@PathVariable Integer tId){
         MessageQueryParams messageQueryParams=new MessageQueryParams();
-        messageQueryParams.settId(tId);
+        messageQueryParams.setArticleId(tId);
 
         List<UserFeedback> userFeedbacks =   messageService.getMessage(messageQueryParams);
            if (userFeedbacks!=null){
