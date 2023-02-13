@@ -1,5 +1,4 @@
-
-
+var listPage = 1;
 //輸出頁碼
 function pageSet(pages) {
     var pageHtml = '';
@@ -54,5 +53,3 @@ $('body').on('click', '.page_show span', function () {
     //根據頁碼獲取當前頁列表數據
     pageSet(pages);
 });
-
-var listPage = 1;

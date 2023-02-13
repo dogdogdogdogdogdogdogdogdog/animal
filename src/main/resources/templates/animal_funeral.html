@@ -274,6 +274,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script src="js/pageController.js"></script>
 
 <script type="text/javascript">
     // pages: 當次查詢的總頁數
@@ -389,65 +390,11 @@
         });
     }
 
-    // 設定頁碼至頁數切換區塊
-    function pageSet(pages) {
-        var pageHtml = '';
-        var start, end;
-        if (listPage < 6) {
-            start = 1;
-        } else {
-            start = listPage - 2;
-        }
-        if (listPage > pages - 5) {
-            end = pages;
-        } else {
-            end = listPage + 2;
-        }
-
-        if (listPage > 1) {
-            pageHtml += '<span>上一頁</span>';
-        }
-        for (var i = start, page_cur = ''; i <= end; i++) {
-            if (listPage == i) {
-                page_cur = 'page_cur';
-            } else {
-                page_cur = '';
-            }
-            pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
-        }
-        if (listPage < pages) {
-            pageHtml += '<span>下一頁</span>';
-        }
-        $('.page_show').empty().append(pageHtml);
-    }
-
     // 搜尋按鈕按下後執行換頁
     $("#search").click(function () {
         listPage = 1;
         changePage(listPage);
     })
-
-    // 頁碼按下後執行換頁
-    $("body").on("click", ".page_show span", function () {
-        if ($(this).hasClass("page_cur")) {
-            return;
-        }
-        var page = $(this).html();
-
-        switch (page) {
-            case "上一頁":
-                listPage = listPage - 1;
-                changePage(listPage);
-                break;
-            case "下一頁":
-                listPage = listPage + 1;
-                changePage(listPage);
-                break;
-            default:
-                listPage = parseInt(page);
-                changePage(listPage);
-        }
-    });
 
     // 換頁功能
     function changePage(page) {

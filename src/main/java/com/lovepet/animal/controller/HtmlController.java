@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HtmlController {
+
     @Autowired
     private AnimalService animalService;
 
@@ -18,7 +19,6 @@ public class HtmlController {
         
         return "animal_food";
     }
-
 
     @GetMapping("/header")//取得導覽列
     public String goHeader() {
@@ -52,7 +52,7 @@ public class HtmlController {
 
     @GetMapping("/funeral")
     public String goFuneral() {
-        return "funeral";
+        return "animal_funeral";
     }
 
     @GetMapping("/missing")
@@ -73,14 +73,6 @@ public class HtmlController {
     @GetMapping("/forum")
     public String goForum(){
         return "forum";
-    }
-    @GetMapping("/animal_discuss")
-    public String goDiscuss(){
-        return "animal_discuss";
-    }
-    @GetMapping("/public_shelter_test")
-    public String goPublicShelter() {
-        return "public_shelter_test";
     }
 
     @GetMapping("/public_shelter")
