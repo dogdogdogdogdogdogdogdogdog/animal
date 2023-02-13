@@ -7,10 +7,12 @@ function init() {
     $.ajax({//取得登入session
         type: "GET",
         url: "/session-userId",
+        async: false,
         success: function (data, text, xhr) {
             console.log("status:" + text + xhr.status);
             status = xhr.status;
             user = data;
+            console.log(user);
 
             // 登入後顯示 {會員Email} 登出
             document.getElementById("login_stat").style.visibility = "visible";

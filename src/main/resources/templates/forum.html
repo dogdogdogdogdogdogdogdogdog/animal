@@ -316,7 +316,6 @@
     $(".headerPage").load("header");//讀取導覽列
     var limit;
     var pages;
-    var user;
     var article;
 
     function init() {//初始化
@@ -325,16 +324,6 @@
             url: "/forumArticles",
             success: function (data) {
                 getAnimalFoodList(data);
-            }
-        });
-        $.ajax({//取得登入session
-            type: "GET",
-            url: "/session-userId",
-            success: function (data, text, xhr) {
-                console.log("status:" + text + xhr.status);
-                status = xhr.status;
-                user = data;
-                console.log(user);
             }
         });
     }
