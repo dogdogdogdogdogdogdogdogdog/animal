@@ -2,7 +2,7 @@ package com.lovepet.animal.controller;
 
 
 import com.lovepet.animal.dto.MessageQueryParams;
-import com.lovepet.animal.model.UserFeedback;
+import com.lovepet.animal.model.Message;
 import com.lovepet.animal.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,13 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class PersonalMessage {
+public class MessageController {
 
     @Autowired
     MessageService messageService;
@@ -30,7 +28,7 @@ public class PersonalMessage {
     }
 
     @GetMapping("/message/{tId}")
-    public ResponseEntity<List<UserFeedback>> getMessage(@PathVariable Integer tId) {
+    public ResponseEntity<List<Message>> getMessage(@PathVariable Integer tId) {
         MessageQueryParams messageQueryParams = new MessageQueryParams();
         messageQueryParams.setArticleId(tId);
 
@@ -38,13 +36,13 @@ public class PersonalMessage {
 
         Integer total = messageService.countMessage(messageQueryParams);
 
-        List<UserFeedback> userFeedbacks = messageService.getMessage(messageQueryParams);
+        List<Message> messages = messageService.getMessage(messageQueryParams);
 
-        list.add(userFeedbacks);
+        list.add(messages);
         list.add(total);
 
 
-        if (userFeedbacks != null) {
+        if (messages != null) {
             return ResponseEntity.status(HttpStatus.OK).body(list);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

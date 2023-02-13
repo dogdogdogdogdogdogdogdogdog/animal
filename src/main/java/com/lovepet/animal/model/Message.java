@@ -1,17 +1,10 @@
-package com.lovepet.animal.dto;
+package com.lovepet.animal.model;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class MessageQueryParams {
-
-    @NotNull
+public class Message {
     private Integer articleId;
-    @NotNull
     private Integer userId;
-    @NotBlank
-    @NotNull
     private String content;
     private String likes;
     private String unlikes;

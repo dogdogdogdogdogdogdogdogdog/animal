@@ -1,5 +1,6 @@
 package com.lovepet.animal.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class ForumArticleRequest {
@@ -9,8 +10,10 @@ public class ForumArticleRequest {
     @NotNull
     private String type;
     @NotNull
+    @NotBlank
     private String title;
     @NotNull
+    @NotBlank
     private String content;
     public Integer getUserId() {
         return userId;

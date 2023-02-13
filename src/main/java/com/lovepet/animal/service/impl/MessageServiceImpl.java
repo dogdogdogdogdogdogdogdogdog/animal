@@ -2,7 +2,7 @@ package com.lovepet.animal.service.impl;
 
 import com.lovepet.animal.dao.MessageDao;
 import com.lovepet.animal.dto.MessageQueryParams;
-import com.lovepet.animal.model.UserFeedback;
+import com.lovepet.animal.model.Message;
 import com.lovepet.animal.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<UserFeedback> getMessage(MessageQueryParams messageQueryParams) {
+    public List<Message> getMessage(MessageQueryParams messageQueryParams) {
         return messageDao.getMessage(messageQueryParams);
     }
 }

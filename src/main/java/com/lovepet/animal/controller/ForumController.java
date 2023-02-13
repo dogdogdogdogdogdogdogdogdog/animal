@@ -104,8 +104,8 @@ public class ForumController {
     }
 
     @DeleteMapping("/forumArticles/{forumArticleUserId}/{forumArticleId}")//刪除文章
-    public ResponseEntity<?> deleteForumArticle(@PathVariable Integer forumArticleUserId,@PathVariable Integer forumArticleId) {
-        forumArticleService.deleteForumArticleById(forumArticleUserId,forumArticleId);
+    public ResponseEntity<?> deleteForumArticle(@PathVariable Integer forumArticleUserId, @PathVariable Integer forumArticleId) {
+        forumArticleService.deleteForumArticleById(forumArticleUserId, forumArticleId);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
