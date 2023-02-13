@@ -15,6 +15,7 @@ public class HtmlController {
 
     @GetMapping("/animal_food")
     public String goAnimalFood() {
+        
         return "animal_food";
     }
 
@@ -76,6 +77,19 @@ public class HtmlController {
     @GetMapping("/publish")
     public String goPublish() {
         return "publish";
+    }
+
+    @GetMapping("/forum")
+    public String goForum(){
+        return "forum";
+    }
+    @GetMapping("/animal_discuss")
+    public String goDiscuss(){
+        return "animal_discuss";
+    }
+    @GetMapping("/public_shelter_test")
+    public String goPublicShelter() {
+        return "public_shelter_test";
     }
 
     @GetMapping("/public_shelter")

@@ -1,31 +1,30 @@
 package com.lovepet.animal.dao.impl;
 
-import com.lovepet.animal.dao.AnimalDao;
+import com.lovepet.animal.dao.PublicAnimalDao;
 import com.lovepet.animal.dto.AnimalQueryParams;
-
-import com.lovepet.animal.model.Shelter;
+import com.lovepet.animal.model.AnimalData;
 import com.lovepet.animal.rowmapper.AnimalRowmapper;
-import com.lovepet.animal.rowmapper.ShelterRowmapper;
-import com.lovepet.animal.util.PageContent;
+import com.lovepet.animal.util.PublicPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
-public class AnimalDaoImpl implements AnimalDao {
-    @Autowired
-    private NamedParameterJdbcTemplate animalJdbcTemplate;
+public class PublicAnimalDaoImpl implements PublicAnimalDao {
+        @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public PageContent getAnimals(AnimalQueryParams animalQueryParams) {
-        PageContent pageContent = new PageContent();
-        Map<String, Object> map = new HashMap<>();
+    public PublicPage<AnimalData>  getPublicAnimals(AnimalQueryParams animalQueryParams) {
         String sql = "SELECT animal_id, animal_kind, animal_Variety, animal_sex, animal_colour, animal_bodytype, animal_age, animal_sterilization, " +
                 "animal_bacterin, animal_foundplace, animal_remark, album_file, shelter_name, shelter_address, shelter_tel, animal_opendate, " +
                 "animal_createtime, animal_update, animal_status animal_area FROM public_animal WHERE 1=1 ";
-
+        HashMap<String,Object> map=new HashMap<>();
         String shelterAndKindQuery = "";
         if (!(animalQueryParams.getShelter().equals("所有收容所")) || !(animalQueryParams.getKind().equals("不分種類"))) {
             if (!(animalQueryParams.getShelter().equals("所有收容所"))) {
@@ -37,69 +36,73 @@ public class AnimalDaoImpl implements AnimalDao {
                 map.put("animalKind", animalQueryParams.getKind());
             }
 
-            pageContent.setPages(getPages(animalQueryParams, map, shelterAndKindQuery));
 
-        } else {
-            pageContent.setPages(getPages(animalQueryParams, map, ""));
         }
-
+        Integer pages=getPages( animalQueryParams,map,shelterAndKindQuery);
 
         String splitPage = " limit :limit offset :offset ";
         sql = sql + shelterAndKindQuery + splitPage;
         map.put("limit", animalQueryParams.getLimit());
-        map.put("offset", animalQueryParams.getOffset());
+        map.put("offset",(animalQueryParams.getPage()-1)* animalQueryParams.getLimit());
 
+       List<AnimalData> animals = namedParameterJdbcTemplate.query(sql, map, new AnimalRowmapper());
 
-        pageContent.setAnimals(animalJdbcTemplate.query(sql, map, new AnimalRowmapper()));
-
-
-        return pageContent;
+        PublicPage<AnimalData> publicPage=new PublicPage<>();
+       publicPage.setPublicAnimals(animals);
+       publicPage.setPage(showPage(animalQueryParams.getPage(),pages));
+        return publicPage;
     }
 
-
-    private List<Integer> getPages(AnimalQueryParams animalQueryParams, Map map, String shelterAndKindQuery) {
+    private Integer getPages(AnimalQueryParams animalQueryParams, Map map, String shelterAndKindQuery) {
         //String sql="select count(*) from shelter INNER join (select time.animal_id,animal_kind,animal_Variety,animal_sex,animal_bodytype,animal_colour,animal_age,animal_sterilization,animal_bacterin,animal_foundplace,animal_remark,album_file,animal_shelter_pkid,animal_opendate,animal_update,animal_createtime from animal INNER join time   on animal.animal_id= time.animal_id) animalJoinTime on shelter.animal_shelter_pkid=animalJoinTime.animal_shelter_pkid where 1=1 ";
         String sql = "SELECT COUNT(*) FROM public_animal WHERE 1=1";
 
 
-        Integer pages = animalJdbcTemplate.queryForObject(sql + shelterAndKindQuery, map, Integer.class);
+        Integer pages = namedParameterJdbcTemplate.queryForObject(sql + shelterAndKindQuery, map, Integer.class);
         if (pages % animalQueryParams.getLimit() != 0) {
-            return getPageList((pages / animalQueryParams.getLimit()) + 1);
+            return (pages / animalQueryParams.getLimit()) + 1;
         }
 
-        return getPageList(pages / animalQueryParams.getLimit());
+        return pages / animalQueryParams.getLimit();
     }
 
-    @Override
-    public List<Shelter> getShelter() {
-        String sql = "select shelter_name from public_animal";
-        Map<String, Object> map = new HashMap<>();
-        List<Shelter> dataList = animalJdbcTemplate.query(sql, map, new ShelterRowmapper());
 
-        HashSet<String> set = new HashSet<>();
-        List<Shelter> result = new ArrayList<>();
+    private  List<String> showPage(int curPage, int pages){
+        ArrayList<String> ls=new ArrayList<>();
+        for(int i=1;i<pages+1;i++){
+            ls.add(String.valueOf(i));
+        }
+        int p1=0;
+        int p2=6;
 
-        //System.out.println(dataList.size());
-        for (int i = 0; i < dataList.size(); i++) {
-            if (set.add(dataList.get(i).getName())) {
-                result.add(dataList.get(i));
-                //System.out.println(i + dataList.get(i).getName());
+        if(pages>6){
+            if(curPage>1){
+                p1=curPage-1;
+                p2=p2+p1;
+                int subLine=pages/2;
+                if(p1>subLine) {
+                    if (p2 > pages - 1) {
+                        p2 = pages;
+                        if(p2-p1<6){
+                            int gap=p2-p1;
+
+                            p1=p1-(6-gap);
+
+                        }
+                    }
+
+                }else {
+                    if (p1 <=0) {
+                        p1 = 0;
+                    }
+                }
+            }
+
+        }else{
+            if(pages>0){
+                p2=pages;
             }
         }
-        dataList.clear();
-        dataList.addAll(result);
-
-
-        return dataList;
+        return  ls.subList(p1,p2);
     }
-
-
-    private List<Integer> getPageList(int i) {
-        List<Integer> list = new ArrayList();
-        for (int j = 1; j <= i; j++) {
-            list.add(j);
-        }
-        return list;
-    }
-
 }
