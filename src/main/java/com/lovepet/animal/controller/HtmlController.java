@@ -15,8 +15,10 @@ public class HtmlController {
 
     @GetMapping("/animal_food")
     public String goAnimalFood() {
+        
         return "animal_food";
     }
+
 
     @GetMapping("/header")//取得導覽列
     public String goHeader() {
@@ -53,11 +55,6 @@ public class HtmlController {
         return "funeral";
     }
 
-    @GetMapping("/animal_discuss")
-    public String goAnimalDiscuss() {
-        return "animal_discuss";
-    }
-
     @GetMapping("/missing")
     public String goMissing() {
         return "missing";
@@ -71,6 +68,19 @@ public class HtmlController {
     @GetMapping("/publish")
     public String goPublish() {
         return "publish";
+    }
+
+    @GetMapping("/forum")
+    public String goForum(){
+        return "forum";
+    }
+    @GetMapping("/animal_discuss")
+    public String goDiscuss(){
+        return "animal_discuss";
+    }
+    @GetMapping("/public_shelter_test")
+    public String goPublicShelter() {
+        return "public_shelter_test";
     }
 
     @GetMapping("/public_shelter")

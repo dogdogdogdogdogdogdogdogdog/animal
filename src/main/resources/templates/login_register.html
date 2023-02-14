@@ -68,14 +68,14 @@
             margin-block: auto;
         }
 
-        /*輸入框及按鈕字體加大、邊角圓弧加大*/
-        input, button {
+        /*註冊登入區輸入框、按鈕、下拉選單字體加大、邊角圓弧加大*/
+        input, button, select {
             font-size: 20px !important;
             border-radius: 0.5rem !important;
         }
 
         /*ICON旁的輸入區鄰近邊角取消圓弧效果*/
-        span ~ input {
+        span ~ input, span ~ select {
             border-radius: 0 0.5rem 0.5rem 0 !important;
         }
 
@@ -173,7 +173,7 @@
                         <div class="form-group d-flex">
                             <span class="fa-icon"><i class="fa fa-transgender fa-2x"></i></span>
                             <select id="genderAjax" class="form-control">
-                                <option>性別</option>
+                                <option selected="selected">性別</option>
                                 <option value="男">男</option>
                                 <option value="女">女</option>
                             </select>

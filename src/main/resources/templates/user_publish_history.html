@@ -37,8 +37,9 @@
 
         /*按鈕樣式*/
         .btn.btn-primary {
+            padding: 6px 20px;
             font-size: 1rem;
-            letter-spacing: 10px;
+            letter-spacing: 1px;
             border: transparent !important;
             background: #fcd601 !important;
             opacity: 0.8;
@@ -51,67 +52,99 @@
             opacity: 1;
         }
 
-        /*註冊登入區標題顏色*/
-        h2 {
-            color: black !important;
-        }
-
-        /*註冊區的overlay遮罩魔改成垂直分隔線*/
-        .overlay {
-            background: transparent !important;
-            border-left: 1px solid grey;
-            height: 300px;
-            margin-block: auto;
-        }
-
-        /*輸入框及按鈕字體加大、邊角圓弧加大*/
-        input, button {
-            font-size: 20px !important;
-            border-radius: 0.5rem !important;
-        }
-
-        /*ICON旁的輸入區鄰近邊角取消圓弧效果*/
-        span ~ input {
-            border-radius: 0 0.5rem 0.5rem 0 !important;
-        }
-
-        /*ICON自訂樣式*/
-        .fa-icon {
-            color: black;
-            background: lightgrey;
+        /*表格格內間距*/
+        th, td {
+            padding: 15px;
             text-align: center;
-            padding: 0.5rem 1rem;
-            min-width: 13%;
-            border-top-left-radius: 0.5rem !important;
-            border-bottom-left-radius: 0.5em !important;
         }
 
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
         }
 
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child {
+            border-radius: 0px 20px 20px 0px !important;
         }
 
-        tr:nth-child(even) {
-            background-color: #dddddd;
+        /*經JS拼接的元素無法套用部分主表格樣式*/
+        /*表格奇數列背景色淺灰*/
+        tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
-        dialog {
-            border: none;
-            box-shadow: 0 2px 6px #ccc;
-            border-radius: 10px;
+        /*表格偶數列背景色*/
+        /*tr:nth-child(even) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
+            color: white;
+            background-color: #81a5ff !important;
+            /*轉場-淡入淡出效果*/
+            transition: background-color 0.35s ease-in-out !important;
         }
+
+        /*表格滑鼠掠過效果*/
+        tr:hover {
+            color: white;
+            background-color: #ffa500 !important;
+            /*轉場-淡入淡出效果*/
+            transition: background-color 0.35s ease-in-out;
+        }
+
+        /*表格內超連結樣式清空*/
+        table a {
+            /*color: rgba(0, 0, 0, 0.5) !important;*/
+            color: unset !important;
+        }
+
+        /*區塊陰影效果*/
+        .div-shadow {
+            box-shadow: 3px 3px 9px grey;
+        }
+
+        /*原生換頁UI*/
+        /*.block-27 ul li a, .block-27 ul li span {*/
+        /*    color: black;*/
+        /*    border: 2px solid #e6e6e6;*/
+        /*    background: #ffffce;*/
+        /*}*/
+
+        .page_show {
+            /*padding: 40px 0;*/
+            text-align: center;
+        }
+
+        .page_show span {
+            display: inline-block;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 11px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 1px;
+            border: #b7b7b7 solid 1px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        span.page_cur {
+            color: #fff;;
+            border: #282828 solid 1px;
+            background-color: #424242;
+        }
+
+        /*#scroll {position:fixed; top:300px; right:100px;}*/
+        /*.scrollItem {width:20px; height:70px;border:#e1e1e1 1px solid; cursor: pointer; text-align: center; padding-top: 10px;}*/
     </style>
 </head>
 
 <body>
-<div class="header-page"></div>
+<div class="headerPage"></div>
 <!-- END nav -->
 <section class="hero-wrap hero-wrap-2 img banner-img">
     <div class="container">
@@ -121,7 +154,7 @@
                     <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
                     <span class="ion-ios-arrow-forward"></span>
                 </p>
-                <h1 class="mb-0 bread text-shadow">送養資訊管理</h1>
+                <h1 class="mb-0 bread text-shadow">刊登資訊管理</h1>
             </div>
         </div>
     </div>
@@ -143,13 +176,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <p>疫苗</p>
-            <input id="animalBacterin" type="text" class="form-control" placeholder="名字">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>種類</p>
+            <p>物種</p>
             <input id="animalKind" type="text" class="form-control" placeholder="種類">
         </div>
     </div>
@@ -167,6 +194,12 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
+            <p>年紀</p>
+            <input id="animalAge" type="text" class="form-control" placeholder="年齡">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
             <p>體型</p>
             <input id="animalBodysize" type="text" class="form-control" placeholder="體型">
         </div>
@@ -179,19 +212,19 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <p>年紀</p>
-            <input id="animalAge" type="text" class="form-control" placeholder="年齡">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
             <p>是否結扎</p>
             <input id="animalSterilization" type="text" class="form-control" placeholder="是否結扎">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <p>地址</p>
+            <p>疫苗</p>
+            <input id="animalBacterin" type="text" class="form-control" placeholder="疫苗">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <p>地區</p>
             <input id="area" type="text" class="form-control" placeholder="地址">
         </div>
     </div>
@@ -212,36 +245,37 @@
     <button onclick="updatePublish()">修改</button>
     <button id="close">close</button>
 </dialog>
-<table id="publishContent">
-    <tr>
-        <th>名字</th>
-        <th>疫苗</th>
-        <th>種類</th>
-        <th>品種</th>
-        <th>性別</th>
-        <th>體型</th>
-        <th>顏色</th>
-        <th>年紀</th>
-        <th>是否結扎</th>
-        <th>地址</th>
-        <th>備註</th>
-    </tr>
 
-
-</table>
-
+<!-- 表格SQL查詢測試用 -->
+<!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+    <div class="container py-5">
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            </table>
+        </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
+                <div class="block-27">
+                    <p id="pageInfo"></p>
+                    <div class="page_show"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <footer class="footer">
     <div class="row mt-5">
         <div class="col-md-12 text-center">
-            <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is made with <i
-                        class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                                                          target="_blank">Colorlib.com</a>
+            <p class="copyright">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
         </div>
     </div>
 </footer>
@@ -279,6 +313,45 @@
 
 
 <script>
+    $(".headerPage").load("header");//讀取導覽列
+
+    function updateButton(element) {
+        var id = $(element).attr("animalId");
+        var infoModal = document.querySelector("#infoModal");
+        infoModal.showModal();
+        infoModal.setAttribute('class', id);
+
+        $.ajax({
+            type: "GET",
+            url: "/personalAnimals/" + id,
+            success: function (data) {
+                $("#animalName").val(data.animalName);
+                $("#animalKind").val(data.animalKind);
+                $("#animalVariety").val(data.animalVariety);
+                $("#animalSex").val(data.animalSex);
+                $("#animalAge").val(data.animalAge);
+                $("#animalBodysize").val(data.animalBodysize);
+                $("#animalColor").val(data.animalColor);
+                $("#animalSterilization").val(data.animalSterilization);
+                $("#animalBacterin").val(data.animalBacterin);
+                $("#area").val(data.area);
+                $("#description").val(data.description);
+                $("#curImg").html(`<img src="images/publish/${data.userId}-${data.animalId}.jpg"  width="300" height="400">`)
+
+            }
+        })
+
+    }
+
+    function deleteButton(element) {
+        var id = $(element).attr("animalId");
+        var delinfoModal = document.querySelector("#delinfoModal");
+        delinfoModal.showModal()
+        delinfoModal.setAttribute('class', id);
+
+
+    }
+
     let close = document.querySelector("#close");
     close.addEventListener("click", function () {
         infoModal.close();
@@ -286,10 +359,9 @@
     let delclose = document.querySelector("#delclose");
     delclose.addEventListener("click", function () {
         delinfoModal.close();
-    })</script>
-<!-- 讀取導覽列 -->
-<script>
-    $(".header-page").load("/header");
+    })
+
+
 </script>
 
 </body>

@@ -3,12 +3,13 @@ package com.lovepet.animal.controller;
 import com.lovepet.animal.dto.AnimalHospitalQueryParams;
 import com.lovepet.animal.model.AnimalHospital;
 import com.lovepet.animal.service.AnimalHospitalService;
-import com.lovepet.animal.util.PageAnimalHospital;
+import com.lovepet.animal.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class AnimalHospitalController {
     private AnimalHospitalService animalHospitalService;
 
     @GetMapping("/animal_hospitals")
-    public ResponseEntity getAnimalHospital(
+    public ResponseEntity<Page<AnimalHospital>> getAnimalHospitals(
             Model model,
             //查詢條件
             @RequestParam(required = false) String area,
@@ -29,7 +30,7 @@ public class AnimalHospitalController {
             // 分頁 Pagination
             @RequestParam(defaultValue = "10") Integer limit,
             @RequestParam(defaultValue = "0") Integer offset
-    ){
+    ) {
         AnimalHospitalQueryParams animalHospitalQueryParams = new AnimalHospitalQueryParams();
         animalHospitalQueryParams.setArea(area);
         animalHospitalQueryParams.setSearch(search);
@@ -43,21 +44,24 @@ public class AnimalHospitalController {
         Integer total = animalHospitalService.countAnimalHospital(animalHospitalQueryParams);
 
         // 分頁
-        PageAnimalHospital<AnimalHospital> page = new PageAnimalHospital();
+        Page<AnimalHospital> page = new Page<>();
         page.setLimit(limit);
         page.setOffset(offset);
         page.setTotal(total);
         page.setResults(animalHospitalList);
 
         return ResponseEntity.status(HttpStatus.OK).body(page);
-
     }
 
-    @GetMapping("/getAnimalHospitalsComboBox")
-    // 搜尋條件-送資料至下拉選單
-    public ResponseEntity getAnimalHospitalComboBox(Model model){
-        List list = animalHospitalService.getAnimalHospitalsComboBox();
+    @GetMapping("/animal_hospital/{hospitalId}")
+    public ResponseEntity<AnimalHospital> getAnimalHospital(@PathVariable Integer hospitalId) {
+        AnimalHospital animalHospital = animalHospitalService.getAnimalHospitalById(hospitalId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(list);
+        if (animalHospital != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(animalHospital);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
+
 }

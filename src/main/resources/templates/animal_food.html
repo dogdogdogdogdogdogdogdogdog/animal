@@ -190,15 +190,24 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
         <!-- 顯示搜尋條件 -->
         <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
             <div class="p-1">
-                <select class="custom-select" name="place" id="place">
+                <select class="custom-select" id="place">
+                    <option value="default">不限產地</option>
                 </select>
             </div>
             <div class="p-1">
-                <select class="custom-select" name="category" id="category">
+                <select class="custom-select" id="category">
+                    <option value="default">不限種類</option>
+                    <option value="乾飼糧">乾糧</option>
+                    <option value="半濕性飼糧">濕糧</option>
+                    <option value="零食">零食</option>
+                    <option value="罐頭">罐頭</option>
+                    <option value="生鮮、冷凍">生鮮、冷凍</option>
+                    <option value="補助食品">補助食品</option>
+                    <option value="潔牙骨">潔牙骨</option>
                 </select>
             </div>
             <div class="p-1">
-                <input type="text" class="custom-select" id="inputBox" placeholder="產品名稱搜尋"
+                <input type="text" class="custom-select" id="searchBar" placeholder="搜尋產品名稱"
                        style="background-image: none;">
             </div>
             <div class="p-1">
@@ -208,10 +217,19 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
         </div>
         <!-- 顯示資料內容 -->
         <div class="row ftco-animate">
-            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="tableAjax">
+                <tr class="h5">
+                    <th>產品名稱</th>
+                    <th style="width: 8%;">產地</th>
+                    <th style="width: 10%;">種類</th>
+                    <th style="width: 10%;">重量</th>
+                    <th style="width: 10%;">適用</th>
+                    <th style="width: 22%;">主要原料</th>
+                    <th style="width: 22%;">營養成份</th>
+                </tr>
             </table>
         </div>
-        <!-- 顯示查詢資訊 -->
+        <!-- 顯示資料筆數及頁碼 -->
         <div class="row ftco-animate">
             <div class="col-12 p-3 text-center">
                 <div class="block-27">
@@ -278,52 +296,44 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
 
     $.ajax({//載入下拉選單
         type: "GET",
-        url: "/getAnimalFoodsComboBox",
+        url: "/animal_foods?limit=10000",
         success: function (data) {
-            console.log(data);
-            console.log(data[0]);
-            console.log(data[1]);
-
-            $("#place").append("<option value='不限產地'>不限產地</option>");
-            $("#category").append("<option value='不限種類'>不限種類</option>");
-
-            $.each(data[0], function (index, item) {
-                $("#place").append("<option value='" + item + "'>" + item + "</option>");
+            // 使用 Set 排除重複迭代結果
+            var placeSet = new Set();
+            $.each(data["results"], function (index, item) {
+                placeSet.add(item.productionPlace);
             })
-            $.each(data[1], function (index, item) {
-                $("#category").append("<option value='" + item + "'>" + item + "</option>");
+
+            // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
+            // ※ Set 若轉換為 Array 後便能使用 jQuery 的 each 方法
+            // ※ var areaArray = Array.from(areaSet);
+            placeSet.forEach(function (place) {
+                let comboBoxContent = `
+                    <option value="${place}">${place}</option>
+                `;
+                $("#place").append(comboBoxContent);
             })
         }
     });
 
     function getAnimalFoodList(data) {//秀出搜尋結果
-        $("#test1Result").empty();//清空元素
+        // 清空表格 tr 元素
+        $("#tableAjax").children("tr").empty();
 
-        var title = "<tr class='h5'>" +
-            "<th>產品名稱</th>" +
-            "<th style='width: 8%;'>產地</th>" +
-            "<th style='width: 10%;'>種類</th>" +
-            "<th style='width: 10%;'>重量</th>" +
-            "<th style='width: 10%;'>適用</th>" +
-            "<th style='width: 22%;'>主要原料</th>" +
-            "<th style='width: 22%;'>營養成份</th>" +
-            "</tr>";
-
-        $("#test1Result").append(title);//加入標題
-
+        // 加入表格內容
         $.each(data["results"], function (index, item) {
-            var html = "" +
-                "<tr>" +
-                "<td>" + item.name + "</td>" +
-                "<td>" + item.productionPlace + "</td>" +
-                "<td>" + item.category + "</td>" +
-                "<td>" + item.weight + "</td>" +
-                "<td>" + item.suitable + "</td>" +
-                "<td>" + item.material + "</td>" +
-                "<td>" + item.nutrient + "</td>" +
-                "</tr>";
-
-            $("#test1Result").append(html);//加入內容
+            var tableContent =`
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.productionPlace}</td>
+                    <td>${item.category}</td>
+                    <td>${item.weight}</td>
+                    <td>${item.suitable}</td>
+                    <td>${item.material}</td>
+                    <td>${item.nutrient}</td>
+                </tr>
+            `;
+            $("#tableAjax").append(tableContent);//加入內容
         })
 
         pages = Math.ceil(data.total / data.limit);
@@ -409,34 +419,28 @@ API串進的資料庫內容格式化程度不一，故棄用資料庫拉出來�
     var listPage = 1;
 
     function changePage(page) {
+        var queryParams = "";
         var offset = limit * (page - 1);
-        console.log("offset" + offset);
-        console.log("page" + page);
-
         var place = $("#place").val();
         var category = $("#category").val();
-        var search = $("#search").val().trim();
-        var searchUrl = "";
+        var search = $("#searchBar").val().trim();
 
-        console.log(place)
-        console.log(category)
-        console.log(search)
+        queryParams += "&offset=" + offset;
 
-        if (place != "不限產地") {
-            searchUrl += "&place=" + place;
+        // 取得篩選區的參數
+        if (place != "default") {
+            queryParams += "&place=" + place;
         }
-        if (category != "不限種類") {
-            searchUrl += "&category=" + category;
+        if (category != "default") {
+            queryParams += "&category=" + category;
         }
-
         if (search != "") {
-            searchUrl += "&search=" + search;
+            queryParams += "&search=" + search;
         }
-        var url = "/animal_foods?offset=" + limit * (page - 1) + searchUrl;
-        console.log(url);
+
         $.ajax({
             type: "GET",
-            url: url,
+            url: "/animal_foods?" + queryParams,
             success: function (data) {
                 getAnimalFoodList(data);
             }
