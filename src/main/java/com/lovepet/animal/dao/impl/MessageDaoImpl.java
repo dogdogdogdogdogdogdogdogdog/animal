@@ -2,6 +2,7 @@ package com.lovepet.animal.dao.impl;
 
 import com.lovepet.animal.dao.MessageDao;
 import com.lovepet.animal.dto.MessageQueryParams;
+import com.lovepet.animal.dto.MessageRequest;
 import com.lovepet.animal.model.Message;
 import com.lovepet.animal.rowmapper.MessageRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,6 @@ public class MessageDaoImpl implements MessageDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public void createMessage(MessageQueryParams messageQueryParams) {
-        String sql = " INSERT INTO feedback (article_id, user_id, content, post_date, modified_date) values(:articleId, :userId, :content, :postDate, :modifiedDate) ";
-        Map<String, Object> map = new HashMap<>();
-        map.put("articleId", messageQueryParams.getArticleId());
-        map.put("userId", messageQueryParams.getUserId());
-        map.put("content", messageQueryParams.getContent());
-        map.put("postDate", new Date());
-        map.put("modifiedDate", new Date());
-
-        namedParameterJdbcTemplate.update(sql, map);
-    }
-
-    @Override
     public Integer countMessage(MessageQueryParams messageQueryParams) {
         String sql = "SELECT count(*) FROM feedback WHERE article_id = :articleId";
 
@@ -46,20 +34,63 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public List<Message> getMessage(MessageQueryParams messageQueryParams) {
-        String sql = " SELECT * FROM feedback WHERE article_id=:articleId ORDER BY post_date ASC ";
-//        String sql="select email,message,create_date from user LEFT JOIN user_feedback uf on user.user_id = uf.user_id where t_id=:tId";
+        String sql = "SELECT * FROM feedback WHERE 1=1";
+
         Map<String, Object> map = new HashMap<>();
-        System.out.println(messageQueryParams.getArticleId());
-        map.put("articleId", messageQueryParams.getArticleId());
+
+        if (messageQueryParams.getArticleId()!=null) {
+            sql += " AND article_id=:articleId ORDER BY post_date ASC";
+            map.put("articleId", messageQueryParams.getArticleId());
+        }
 
         List<Message> messages = namedParameterJdbcTemplate.query(sql, map, new MessageRowmapper());
 
-        if (messages.size() > 0) {
-            return messages;
+        return messages;
+    }
+
+
+    @Override
+    public void createMessage(MessageQueryParams messageQueryParams) {
+        String sql = " INSERT INTO feedback (article_id, user_id, content, post_date, modified_date) values(:articleId, :userId, :content, :postDate, :modifiedDate) ";
+        Map<String, Object> map = new HashMap<>();
+        map.put("articleId", messageQueryParams.getArticleId());
+        map.put("userId", messageQueryParams.getUserId());
+        map.put("content", messageQueryParams.getContent());
+        map.put("postDate", new Date());
+        map.put("modifiedDate", new Date());
+
+        namedParameterJdbcTemplate.update(sql, map);
+    }
+
+    @Override
+    public Message getMessageById(Integer messageId) {
+        String sql = "SELECT * FROM feedback WHERE message_id = :messageId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("messageId", messageId);
+
+        List<Message> messageList = namedParameterJdbcTemplate.query(sql, map, new MessageRowmapper());
+
+        if (messageList.size() > 0) {
+            return messageList.get(0);
+        }else {
+            return null;
         }
+    }
 
-        return null;
+    @Override
+    public void updataMessage(Integer messageId, MessageRequest messageRequest) {
+        String sql = "UPDATE feedback SET content = :content, modified_date = :modifiedDate WHERE message_id = :messageId";
+        Map<String, Object> map = new HashMap<>();
+        map.put("content", messageRequest.getContent());
+        map.put("modifiedDate", new Date());
+        map.put("messageId", messageId);
 
+        namedParameterJdbcTemplate.update(sql, map);
+    }
+
+    @Override
+    public void deleteMessageById(Integer articleId, Integer messageId) {
 
     }
 }

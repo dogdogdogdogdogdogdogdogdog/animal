@@ -376,17 +376,17 @@
                         <tr>
                             <td><div>${item.type}</div></td>
                             <td>
-                                <div id="${item.articleId}" onclick='getArticleInfo(this)' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
+                                <div id="${item.articleId}" onclick='getArticleInfo($(this).attr("id"))' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
                                     ${item.title}
                                 </div>
                             </td>
                             <td>
-                                <div id="${item.articleId}" onclick='getArticleInfo(this)' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
+                                <div id="${item.articleId}" onclick='getArticleInfo($(this).attr("id"))' style="cursor: pointer;" data-toggle='modal' data-target='#exampleModalCenter'>
                                     ${item.content.length > 10 ? item.content.slice(0, 10) + "......" : item.content}
                                 </div>
                                     </td>
                             <td><div>${userInfo.name}</div></td>
-                            <td><div>${messageData==null?0:messageData[1]}</div></td>
+                            <td><div>${messageData == null ? 0 : messageData[1]}</div></td>
                             <td><div>${item.likes}/${item.views}</div></td>
                             <td><div>${item.modifiedDate}</div></td>
                         </tr>`;
@@ -416,10 +416,10 @@
         $.getScript('js/main.js');
     }
 
-    function getArticleInfo(gid) {//點擊文章
+    function getArticleInfo(id) {//點擊文章
 
-        var id = $(gid).attr("id");//取得文章id
-        // console.log("文章ID: " + id);
+        // var id = $(gid).attr("id");//取得文章id
+        console.log("文章ID: " + id);
         $.ajax({//使用文章id，查詢文章資訊
             type: "GET",
             url: "/forumArticles/" + id,
@@ -494,12 +494,17 @@
                         </div>
                             <!--編輯、刪除發文者才能使用-->
                         </div>
-                        <div id="chatBlock" class="m-auto col-12 justify-content-center">
+                        <div id="chatBlock">
                             <!--留言-->
                         </div>
-                        <input id="message" articleId="${articleData.articleId}" type="text"  ><button onclick="message()">留言</button>`;
+                        <div>
+                        <input id="message" articleId="${articleData.articleId}" type="text" style='width: 30%;'>
+                        <button onclick="message()" style='width: 10%;'>留言</button>
+                        </div>
+                        `;
+
                 //編輯、保存、取消、刪除按紐
-                var button = `
+                var articleButton = `
                         <div class="p-1">
                         <button id="editButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">編輯</button>
                         </div>
@@ -525,7 +530,7 @@
                         if (articleData.userId == user.id) {//判斷是不是發文者
                             console.log("sessionName:" + user.name);
                             console.log("已登入");
-                            $("#loginButton").append(button);//加入編輯、刪除按鈕
+                            $("#loginButton").append(articleButton);//加入編輯、刪除按鈕
                         }
                     }
                 }
@@ -535,31 +540,46 @@
 
                 var messageData = getMessageInfo(articleData.articleId);//傳入文章id，取得留言資訊
                 // console.log(messageData);
-                if (messageData!=null) {
+                if (messageData != null) {
                     $.each(messageData[0], function (index, item) {
 
-                        // console.log(item.userId);
+                        console.log(item);
 
                         var userData = getUserInfo(item.userId);
                         // console.log(userData.name);
 
                         messageHtml = `
-                                    <div style="border-style: dashed double none;">
-                                        <div>${userData.name} 說 : ${item.content}</div>
-                                        <!--如果發文日期 不等於 修改日期 顯示已編輯-->
-                                        <div>${item.postDate == item.modifiedDate?item.postDate:item.modifiedDate+" 已編輯"}</div>
+                                    <div style="border-style: inset;">
+                                        <div>
+                                            <span>${userData.name} 說 : </span>
+                                            <span id="messageContent${item.messageId}">${item.content}</span>
+                                        </div>
+                                        <div id="messageId${item.messageId}" userId="${item.userId}" >${item.postDate == item.modifiedDate ? item.postDate : item.modifiedDate + " 已編輯"}</div>
 
                                     </div>
                                     `;
                         // console.log(messageHtml);
                         $("#chatBlock").append(messageHtml);
+
+                        //編輯、保存、取消、刪除按紐
+                        var messageButton = `
+                        <a href="javascript:;" onclick="editMessageButton(this)" id="editMessageButton${item.messageId}" messageId="${item.messageId}">編輯</a>
+                        <a href="javascript:;" onclick="saveMessageButton(this)" id="saveMessageButton${item.messageId}" messageId="${item.messageId}" articleId="${item.articleId}" style="display: none;">保存</a>
+                        <a href="javascript:;" onclick="cancelMessageButton(this)" id="cancelMessageButton${item.messageId}" messageId="${item.messageId}" style="display: none;">取消</a>
+                        <a href="javascript:;" onclick="deleteMessageButton(this)" id="deleteMessageButton${item.messageId}" messageId="${item.messageId}">刪除</a>
+                        `;
+
+                        if (status == 200) {//判斷登入
+                            var userId = $("#messageId" + item.messageId).attr("userId");
+                            console.log(userId);
+                            if (userId == user.id) {//判斷是不是留言者
+                                console.log("sessionName:" + user.name);
+                                console.log("已登入");
+                                $("#messageId" + item.messageId).append(messageButton);//加入編輯、保存、取消、刪除按紐
+                            }
+                        }
                     })
                 }
-
-
-
-
-
             }
         });
     }
@@ -578,6 +598,31 @@
     }
 
     function getMessageInfo(id) {//傳入文章id，回傳userData留言
+        var rsData;
+        $.ajax({//使用userId，查詢user資訊
+            type: "GET",
+            url: "/message?articleId=" + id,
+            async: false,
+            success: function (data) {
+                rsData = data;
+            }
+        });
+        return rsData;
+    }
+
+    function getArticle(id) {
+        var rsData;
+        $.ajax({//使用文章id，查詢文章資訊
+            type: "GET",
+            url: "/forumArticles/" + id,
+            success: function (data) {
+                rsData = data;
+            }
+        });
+        return rsData;
+    }
+
+    function getMessageInfoById(id) {//傳入留言id，回傳userData留言
         var rsData;
         $.ajax({//使用userId，查詢user資訊
             type: "GET",
@@ -602,14 +647,14 @@
         console.log("offset" + offset);
         console.log("page" + page);
 
-        var place = $("#place").val();
-        var category = $("#category").val();
-        console.log($("#inputArea").val());
+        // var place = $("#place").val();
+        // var category = $("#category").val();
+        // console.log($("#inputArea").val());
         var search = $("#inputBox").val().trim();
         var searchUrl = "";
 
-        console.log(place)
-        console.log(category)
+        // console.log(place)
+        // console.log(category)
         console.log(search)
 
         // if (place != "不限產地") {
@@ -656,6 +701,7 @@
         })
     })
 
+    //文章編輯按鈕
     $("body").on("click", "#editButton", function () {
         var type = $("#type").text();
         // console.log(type);
@@ -677,7 +723,7 @@
         var title = $("#title").text();
         var content = $("#conTent").html();
         var articleId = $("#saveButton").attr("articleId");
-        console.log(articleId);
+        console.log("編輯按鈕:"+articleId);
         console.log(type);
         console.log(title);
         console.log(content);
@@ -696,6 +742,7 @@
             success: function (data) {
                 alert("編輯成功!");
                 changePage(1);
+                getArticleInfo(articleId);
             }
         })
         $("#type").text(type);
@@ -724,9 +771,7 @@
         }
     });
 
-
     $("body").on("click", "#cancelButton", function () {
-
 
         $("#editType").attr("style", "display: none;");
         $("#type").attr("style", "display: inline;");
@@ -737,24 +782,94 @@
         $("#cancelButton").attr("style", "display: none;")
     });
 
+    //留言編輯按鈕
+    var content;//儲存修改前的留言
+    function editMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        content = $("#messageContent" + messageId).text();
+        console.log(messageId);
+
+        $("#messageContent" + messageId).attr("contenteditable", true);
+        $("#editMessageButton" + messageId).attr("style", "display: none;")
+        $("#saveMessageButton" + messageId).attr("style", "display: inline;")
+        $("#cancelMessageButton" + messageId).attr("style", "display: inline;")
+    }
+
+    function saveMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        var content = $("#messageContent" + messageId).text();
+        var articleId = $(th).attr("articleId");
+        console.log("saveMessage mssId: "+messageId);
+        console.log("saveMessage content: "+content);
+        console.log("saveMessage articleId: "+articleId);
+
+        $.ajax({
+            type: "PUT",
+            url: "/message/" + messageId,
+            contentType: "application/json; charset=UTF-8",
+            data:
+                JSON.stringify({
+                    "content": content
+                }),
+            success: function (data) {
+                alert("編輯成功!");
+                changePage(1);
+                getArticleInfo(articleId);
+            }
+        })
+
+        $("#messageContent" + messageId).attr("contenteditable", false);
+        $("#editMessageButton" + messageId).attr("style", "display: inline;")
+        $("#saveMessageButton" + messageId).attr("style", "display: none;")
+        $("#cancelMessageButton" + messageId).attr("style", "display: none;")
+    };
+
+    function deleteMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        console.log(messageId);
+        var articleId = $("#deleteMessageButtin" + messageId).attr("articleId")
+
+        if (confirm("確定要刪除嗎?") == true) {
+            $.ajax({
+                type: "DELETE",
+                url: "/message/" + articleId + "/" + messageId,
+                success: function () {
+                    alert("刪除成功!");
+                    changePage(1);
+                }
+            })
+        }
+    };
+
+    function cancelMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        console.log(messageId);
+
+        $("#messageContent" + messageId).text(content);
+        $("#messageContent" + messageId).attr("contenteditable", false);
+        $("#editMessageButton" + messageId).attr("style", "display: inline;")
+        $("#saveMessageButton" + messageId).attr("style", "display: none;")
+        $("#cancelMessageButton" + messageId).attr("style", "display: none;")
+    };
+
     function message() {
         if (user == null) {
             window.location.assign("/login_register")
             return
         }
         let message = document.getElementById('message').value
-        tId = $("#message").attr("articleId");
-        console.log(tId);
+        var articleId = $("#message").attr("articleId");
+        console.log(articleId);
         let messageData = {
             content: message,
             userId: user.id,
-            articleId: tId
+            articleId: articleId
         }
         let xhr = new XMLHttpRequest();
         xhr.addEventListener('load', function () {
             if (xhr.status == 201) {
                 alert('留言成功')
-                changePage(1);
+                getArticleInfo(articleId);
             }
         })
         xhr.open('post', '/message')
