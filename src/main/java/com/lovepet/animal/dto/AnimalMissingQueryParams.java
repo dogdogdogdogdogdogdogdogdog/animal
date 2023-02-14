@@ -6,7 +6,7 @@ public class AnimalMissingQueryParams {
     private String kind;
     private String variety;
     private String sex;
-    private String missingArea;
+    private String area;
     private String orderBy;
     private String sort;
     private Integer limit;
@@ -44,12 +44,12 @@ public class AnimalMissingQueryParams {
         this.sex = sex;
     }
 
-    public String getMissingArea() {
-        return missingArea;
+    public String getArea() {
+        return area;
     }
 
-    public void setMissingArea(String missingArea) {
-        this.missingArea = missingArea;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getOrderBy() {

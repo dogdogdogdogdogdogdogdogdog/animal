@@ -26,7 +26,7 @@ public class AnimalMissing {
 
     private  String imageUrl;
 
-    private  String missingArea;
+    private  String area;
 
     private  Date missingDate;
 
@@ -120,12 +120,12 @@ public class AnimalMissing {
         this.imageUrl = imageUrl;
     }
 
-    public String getMissingArea() {
-        return missingArea;
+    public String getArea() {
+        return area;
     }
 
-    public void setMissingArea(String missingArea) {
-        this.missingArea = missingArea;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public Date getMissingDate() {

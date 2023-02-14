@@ -19,6 +19,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 
+@Validated
 @RestController
 public class AnimalMissingController {
 
@@ -26,12 +27,12 @@ public class AnimalMissingController {
     private AnimalMissingService animalMissingService;
 
     @GetMapping("/animalsMissing") //查詢走失協尋資料(全部)
-    public ResponseEntity<Page> getAnimalMissing(
+    public ResponseEntity<Page<AnimalMissing>> getAnimalMissing(
             //查詢條件
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String kind,
             @RequestParam(required = false) String sex,
-            @RequestParam(required = false) String missing_area,
+            @RequestParam(required = false) String area,
 
             //排序
             @RequestParam(defaultValue = "created_data") String orderBy,
@@ -45,7 +46,7 @@ public class AnimalMissingController {
         AnimalMissingQueryParams animalMissingQueryParams = new AnimalMissingQueryParams();
         animalMissingQueryParams.setKind(kind);
         animalMissingQueryParams.setSex(sex);
-        animalMissingQueryParams.setMissingArea(missing_area);
+        animalMissingQueryParams.setArea(area);
         animalMissingQueryParams.setOrderBy(orderBy);
         animalMissingQueryParams.setSort(sort);
         animalMissingQueryParams.setLimit(limit);
@@ -93,7 +94,7 @@ public class AnimalMissingController {
                                                              @RequestParam("age") String age,
                                                              @RequestParam("description") String description,
                                                              @RequestParam("imageUrl") String imageUrl,
-                                                             @RequestParam("missingArea") String missingArea){
+                                                             @RequestParam("area") String area){
         AnimalMissingRequest animalMissingRequest = new AnimalMissingRequest();
         animalMissingRequest.setAnimalPhoto(animalPhoto);
         animalMissingRequest.setUserId(userId);
@@ -106,7 +107,7 @@ public class AnimalMissingController {
         animalMissingRequest.setAge(age);
         animalMissingRequest.setDescription(description);
         animalMissingRequest.setImageUrl(imageUrl);
-        animalMissingRequest.setMissingArea(missingArea);
+        animalMissingRequest.setArea(area);
         Integer animalMissingId = animalMissingService.createAnimalMissing(animalMissingRequest);
 
         AnimalMissing animalMissing = animalMissingService.getAnimalMissingById(animalMissingId);
@@ -126,7 +127,7 @@ public class AnimalMissingController {
                                                               @RequestParam(value = "age", required = false) String age,
                                                               @RequestParam(value = "description", required = false) String description,
                                                               @RequestParam(value = "imageUrl", required = false) String imageUrl,
-                                                              @RequestParam(value = "missingArea", required = false) String missingArea,
+                                                              @RequestParam(value = "area", required = false) String area,
                                                               @RequestParam(value = "item", required = false) Integer animalMissingId) {
         AnimalMissingRequest animalMissingRequest = new AnimalMissingRequest();
         animalMissingRequest.setAnimalPhoto(animalPhoto);
@@ -140,7 +141,7 @@ public class AnimalMissingController {
         animalMissingRequest.setAge(age);
         animalMissingRequest.setDescription(description);
         animalMissingRequest.setImageUrl(imageUrl);
-        animalMissingRequest.setMissingArea(missingArea);
+        animalMissingRequest.setArea(area);
 
         //檢查animalMissing Id 是否存在
         AnimalMissing animalMissing = animalMissingService.getAnimalMissingById(animalMissingId);

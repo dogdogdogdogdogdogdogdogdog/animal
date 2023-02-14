@@ -7,28 +7,28 @@ import javax.validation.constraints.NotNull;
 public class AnimalMissingRequest {
 
     @NotNull
-    private  Integer userId;
+    private Integer userId;
 
-    private  String name;
+    private String name;
 
     @NotNull
-    private  String kind;
+    private String kind;
 
-    private  String variety;
+    private String variety;
 
-    private  String bodysize;
+    private String bodysize;
 
-    private  String sex;
+    private String sex;
 
-    private  String color;
+    private String color;
 
-    private  String age;
+    private String age;
 
-    private  String description;
+    private String description;
 
-    private  String imageUrl;
+    private String imageUrl;
 
-    private  String missingArea;
+    private String area;
 
     private MultipartFile animalPhoto;
 
@@ -112,12 +112,12 @@ public class AnimalMissingRequest {
         this.imageUrl = imageUrl;
     }
 
-    public String getMissingArea() {
-        return missingArea;
+    public String getArea() {
+        return area;
     }
 
-    public void setMissingArea(String missingArea) {
-        this.missingArea = missingArea;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public MultipartFile getAnimalPhoto() {
@@ -127,4 +127,6 @@ public class AnimalMissingRequest {
     public void setAnimalPhoto(MultipartFile animalPhoto) {
         this.animalPhoto = animalPhoto;
     }
+
+
 }

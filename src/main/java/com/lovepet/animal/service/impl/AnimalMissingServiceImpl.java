@@ -60,7 +60,7 @@ public class AnimalMissingServiceImpl implements AnimalMissingService {
         Set<String> sexSet = new HashSet<>();
 
         for (int i = 0; i < animalMissingList.size(); i++) {
-            areaSet.add(animalMissingList.get(i).getMissingArea());
+            areaSet.add(animalMissingList.get(i).getArea());
             kindSet.add(animalMissingList.get(i).getKind());
             sexSet.add(animalMissingList.get(i).getSex());
         }

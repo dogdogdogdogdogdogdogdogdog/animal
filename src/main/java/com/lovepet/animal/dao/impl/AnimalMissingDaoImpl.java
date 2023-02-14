@@ -88,8 +88,8 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public  Integer createAnimalMissing(AnimalMissingRequest animalMissingRequest){
-        String sql = "INSERT INTO missing_animal(user_id, name, kind, variety, bodysize, sex, color, age, description, image_url, missing_area, missing_date, created_date)" +
-                "VALUES (:userId, :name, :kind, :variety, :bodysize, :sex, :color, :age, :description, :imageUrl, :missingArea, :missingDate, :createdDate)";
+        String sql = "INSERT INTO missing_animal(user_id, name, kind, variety, bodysize, sex, color, age, description, image_url, area, missing_date, created_date)" +
+                "VALUES (:userId, :name, :kind, :variety, :bodysize, :sex, :color, :age, :description, :imageUrl, :area, :missingDate, :createdDate)";
 
         Map<String, Object> map = new HashMap<>();
         map.put("userId", animalMissingRequest.getUserId());
@@ -102,7 +102,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
         map.put("age", animalMissingRequest.getAge());
         map.put("description", animalMissingRequest.getDescription());
         map.put("imageUrl", animalMissingRequest.getImageUrl());
-        map.put("missingArea", animalMissingRequest.getMissingArea());
+        map.put("area", animalMissingRequest.getArea());
 
         Date now = new Date();
         map.put("missingDate" , now);
@@ -123,7 +123,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
     public void updateAnimalMissing(Integer animalMissingId, AnimalMissingRequest animalMissingRequest){
         String sql = "UPDATE missing_animal SET user_id = userId, name = :name , kind = :kind, variety = :variety, bodysize = :bodysize," +
                 " sex = :sex, color = :color, age = :age, description = :description, image_url = :imageUrl," +
-                " missing_area = :missingArea, missing_date = :missingDate, created_date = :createdDate WHERE animal_id = :animalId";
+                " area = :area, missing_date = :missingDate, created_date = :createdDate WHERE animal_id = :animalId";
         writePhoto(animalMissingRequest, animalMissingId);
         Map<String, Object> map = new HashMap<>();
         map.put("animalId",animalMissingId);
@@ -136,7 +136,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
         map.put("age", animalMissingRequest.getAge());
         map.put("description", animalMissingRequest.getDescription());
         map.put("imageUrl", animalMissingRequest.getImageUrl());
-        map.put("missingArea", animalMissingRequest.getMissingArea());
+        map.put("area", animalMissingRequest.getArea());
         map.put("missingDate", new Date());
 
         namedParameterJdbcTemplate.update(sql, map);
@@ -164,9 +164,9 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
             map.put("sex", animalMissingQueryParams.getSex());
         }
 
-        if (animalMissingQueryParams.getMissingArea() != null) {
-            sql = sql + " AND missing_area = :missingArea";
-            map.put("missingArea", animalMissingQueryParams.getMissingArea());
+        if (animalMissingQueryParams.getArea() != null) {
+            sql = sql + " AND area = :area";
+            map.put("area", animalMissingQueryParams.getArea());
         }
 
         if(animalMissingQueryParams.getId()!=null){

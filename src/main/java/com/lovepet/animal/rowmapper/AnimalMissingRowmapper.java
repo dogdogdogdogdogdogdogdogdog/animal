@@ -24,7 +24,7 @@ public class AnimalMissingRowmapper implements RowMapper<AnimalMissing> {
         animalMissing.setAge(resultSet.getString("age"));
         animalMissing.setDescription(resultSet.getString("description"));
         animalMissing.setImageUrl(resultSet.getString("image_url"));
-        animalMissing.setMissingArea(resultSet.getString("missing_area"));
+        animalMissing.setArea(resultSet.getString("area"));
         animalMissing.setMissingDate(resultSet.getDate("missing_date"));
         animalMissing.setCreatedDate(resultSet.getDate("created_date"));
 
