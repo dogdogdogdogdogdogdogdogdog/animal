@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MissingService {
     void createMissing(MissingAnimalRequest missingAnimalRequest);
-     List<MissingData> getMissingAnimals(MissingAnimalsQueryParams missingAnimalsQueryParams);
-     List<MissingData> getMissingById(Integer id);
-     Integer countMissingAnimals(MissingAnimalsQueryParams missingAnimalsQueryParams);
+    List<MissingData> getMissingAnimals(MissingAnimalsQueryParams missingAnimalsQueryParams);
+    List<MissingData> getMissingById(Integer id);
+    Integer countMissingAnimals(MissingAnimalsQueryParams missingAnimalsQueryParams);
 }

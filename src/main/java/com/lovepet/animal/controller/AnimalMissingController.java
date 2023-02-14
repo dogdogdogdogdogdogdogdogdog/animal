@@ -5,6 +5,7 @@ import com.lovepet.animal.dto.AnimalMissingRequest;
 import com.lovepet.animal.model.AnimalMissing;
 import com.lovepet.animal.service.AnimalMissingService;
 import com.lovepet.animal.util.Page;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
 
-@Validated
+
 @RestController
 public class AnimalMissingController {
 

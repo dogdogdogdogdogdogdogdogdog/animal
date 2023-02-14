@@ -6,13 +6,15 @@ import com.lovepet.animal.dto.AnimalMissingRequest;
 import com.lovepet.animal.model.AnimalMissing;
 import com.lovepet.animal.service.AnimalMissingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AnimalMissingServiveImpl implements AnimalMissingService {
+@Component
+public class AnimalMissingServiceImpl implements AnimalMissingService {
 
     @Autowired
     private AnimalMissingDao animalMissingDao;
