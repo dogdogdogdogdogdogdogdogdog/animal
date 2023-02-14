@@ -19,4 +19,6 @@ public interface ForumArticleService {
     void updateForumArticle(Integer forumArticleId, ForumArticleRequest forumArticleRequest);
 
     void deleteForumArticleById(Integer forumArticleUserId, Integer forumArticleId);
+
+    void updateSysnews(ForumArticle forumArticle, Integer id);
 }

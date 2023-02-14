@@ -45,4 +45,10 @@ public class ForumArticleImpl implements ForumArticleService {
     public void deleteForumArticleById(Integer forumArticleUserId, Integer forumArticleId) {
         forumArticleDao.deleteForumArticleById(forumArticleUserId, forumArticleId);
     }
+
+    @Override
+    public void updateSysnews(ForumArticle forumArticle, Integer id) {
+        forumArticleDao.updateForum(forumArticle, id);
+    }
 }
+

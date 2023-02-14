@@ -19,4 +19,6 @@ public interface ForumArticleDao {
     void updateForumArticle(Integer forumArticleId, ForumArticleRequest forumArticleRequest);
 
     void deleteForumArticleById(Integer forumArticleUserId, Integer forumArticleId);
+
+    void updateForum(ForumArticle forumArticle, Integer id);
 }

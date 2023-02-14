@@ -159,4 +159,36 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         namedParameterJdbcTemplate.update(sql1, map1);
 
     }
+
+    @Override
+    public void updateForum(ForumArticle forumArticle, Integer id) {
+        String sql = "";
+        Map<String,Object> map = new HashMap<>();
+        System.out.println(forumArticle.getLikes());
+        System.out.println(forumArticle.getViews());
+
+        int likes = getForumArticleById(id).getLikes();
+        System.out.println(likes);
+
+        int views = getForumArticleById(id).getViews();
+        System.out.println(views);
+
+
+        if (forumArticle.getLikes() > likes) {
+            sql = "UPDATE article SET likes = :likes WHERE article_id = :articleId";
+
+
+            map.put("likes", forumArticle.getLikes());
+            map.put("articleId", id);
+        }
+
+        if (forumArticle.getViews() > views) {
+            sql = "UPDATE article SET views = :views WHERE article_id = :articleId";
+
+            map.put("views", forumArticle.getViews());
+            map.put("articleId", id);
+        }
+
+        namedParameterJdbcTemplate.update(sql, map);
+    }
 }

@@ -9,8 +9,8 @@ public class ForumArticle {
     private String type;
     private String title;
     private String content;
-    private String views;
-    private String likes;
+    private Integer views;
+    private Integer likes;
     private String unlikes;
     private Date postDate;
     private Date modifiedDate;
@@ -55,19 +55,19 @@ public class ForumArticle {
         this.content = content;
     }
 
-    public String getViews() {
+    public Integer getViews() {
         return views;
     }
 
-    public void setViews(String views) {
+    public void setViews(Integer views) {
         this.views = views;
     }
 
-    public String getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
-    public void setLikes(String likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
