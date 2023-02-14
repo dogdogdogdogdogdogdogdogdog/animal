@@ -5,11 +5,9 @@ import com.lovepet.animal.dto.AnimalMissingRequest;
 import com.lovepet.animal.model.AnimalMissing;
 import com.lovepet.animal.service.AnimalMissingService;
 import com.lovepet.animal.util.Page;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +25,7 @@ public class AnimalMissingController {
     private AnimalMissingService animalMissingService;
 
     @GetMapping("/animalsMissing") //查詢走失協尋資料(全部)
-    public ResponseEntity<Page<AnimalMissing>> getAnimalMissing(
+    public ResponseEntity<Page<AnimalMissing>> getAnimalsMissing(
             //查詢條件
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String kind,
@@ -35,7 +33,7 @@ public class AnimalMissingController {
             @RequestParam(required = false) String area,
 
             //排序
-            @RequestParam(defaultValue = "created_data") String orderBy,
+            @RequestParam(defaultValue = "missing_date") String orderBy,
             @RequestParam(defaultValue = "desc") String sort,
 
             //分頁
@@ -71,7 +69,7 @@ public class AnimalMissingController {
     }
 
     @GetMapping("/animalsMissing/{animalMissingId}")
-    public ResponseEntity<AnimalMissing> getAnimalMissing(@PathVariable Integer animalMissingId){
+    public ResponseEntity<AnimalMissing> getAnimalsMissing(@PathVariable Integer animalMissingId){
         AnimalMissing animalMissing = animalMissingService.getAnimalMissingById(animalMissingId);
 
         if(animalMissing != null){
@@ -165,12 +163,5 @@ public class AnimalMissingController {
         animalMissingService.deleteAnimalMissingById(animalMissingUserId, animalMissingId);
 
         return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    @GetMapping("/getAnimalsMissingComboBox") // 搜尋條件-送資料至下拉選單
-    public ResponseEntity getAnimalsMissingComboBox(Model model){
-        List list = animalMissingService.getAnimalsMissingComboBox();
-
-        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 }

@@ -178,18 +178,18 @@
                         <!-- 標題定位用主區塊 -->
                         <div class="col-4 px-0 d-flex justify-content-center">
                             <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
-                            <h3 class="modal-title font-weight-bold" id="animalName_static">這裡是寵物名字</h3>
+                            <h3 class="modal-title font-weight-bold" id="name_static">這裡是寵物名字</h3>
                             <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
                         </div>
                         <!-- 標題定位用右區塊 -->
                         <div class="col-4 px-0">
                             <div class="row m-0 pr-4 font-weight-bold justify-content-end">
                                 <span id="createdDate_static"></span>
-                                <span>&nbsp;刊登</span>
+                                <span>&nbsp;刊登日期</span>
                             </div>
                             <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                <span id="lastModifiedDate_static"></span>
-                                <span>&nbsp;更新</span>
+                                <span id="missingDate_static"></span>
+                                <span>&nbsp;走失日期</span>
                             </div>
                             <!-- 強制定位關閉功能於最右上角 -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -326,7 +326,7 @@
         type: "GET",
         url: "/animalsMissing",
         success: function (data) {
-            getAnimalList(data);
+            getAnimalMissingList(data);
         }
     });
 
@@ -360,7 +360,7 @@
         $.each(data["results"], function (index, item) {
             var tableContent = `
                 <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="published">
+                    <div class="missing">
                         <div class="img-wrap d-flex align-items-stretch">
                             <div class="work mb-4 img d-flex align-items-end" style="background-image: url(${item.imageUrl});"></div>
                         </div>
@@ -423,9 +423,8 @@
                 $("#description_static").text(data.description);
                 $("#imageUrl_static").css("background-image", `url('${data.imageUrl}')`);
                 $("#area_static").text(data.area);
-                $("#createdDate_static").text(data.createdDate);
                 $("#missingDate_static").text(data.missingDate);
-
+                $("#createdDate_static").text(data.createdDate);
             }
         });
     }
@@ -515,7 +514,7 @@
             type: "GET",
             url: "/animalsMissing?" + queryParams,
             success: function (data) {
-                getAnimalList(data);
+                getAnimalMissingList(data);
             }
         })
     }
