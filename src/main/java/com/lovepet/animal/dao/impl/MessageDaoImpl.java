@@ -91,6 +91,13 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public void deleteMessageById(Integer articleId, Integer messageId) {
+        String sql = "DELETE FROM feedback WHERE article_id = :articleId AND message_id = :messageId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("articleId", articleId);
+        map.put("messageId", messageId);
+
+        namedParameterJdbcTemplate.update(sql, map);
 
     }
 }

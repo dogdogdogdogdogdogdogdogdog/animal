@@ -2,17 +2,17 @@ var user;
 var status;
 
 const url = location.pathname.replaceAll("/", "");
-
+console.log(url)
 function init() {
     $.ajax({//取得登入session
         type: "GET",
         url: "/session-userId",
         async: false,
         success: function (data, text, xhr) {
-            console.log("status:" + text + xhr.status);
+            // console.log("status:" + text + xhr.status);
             status = xhr.status;
             user = data;
-            console.log(user);
+            // console.log(user);
 
             // 登入後顯示 {會員Email} 登出
             document.getElementById("login_stat").style.visibility = "visible";
@@ -35,6 +35,12 @@ function init() {
 
 
             switch (url) {
+                case 'forum':
+                    console.log(status)
+                    if (status==200) {
+                        $("#post").attr("style", "display: inline")
+                    }
+                    return;
                 case 'user_management':
                     $("#userEmail").val(user.email);
                     $("#userName").val(user.name);
@@ -46,7 +52,7 @@ function init() {
                         type: "GET",
                         url: "/personalAnimals?id=" + user.id,
                         success: function (data) {
-                            console.log(data);
+                            // console.log(data);
 
                             $("#test1Result").empty();//清空元素
                             var title = `
@@ -85,9 +91,9 @@ function init() {
             }
         },
         error: function (xhr, text) {
-            console.log("status:" + text + xhr.status);
+            // console.log("status:" + text + xhr.status);
             user = null;
-            console.log(user);
+            // console.log(user);
 
 
             if (xhr.status == 302 && (url == "user_publish_history" || url == "user_management" || url == "publish")) {

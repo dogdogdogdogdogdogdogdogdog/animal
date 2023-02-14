@@ -22,14 +22,6 @@ public class MessageController {
     @Autowired
     MessageService messageService;
 
-    @PostMapping("/message")
-    public ResponseEntity createMessage(@RequestBody @Valid MessageQueryParams messageQueryParams) {
-
-        messageService.createMessage(messageQueryParams);
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
     @GetMapping("/message")//取得所有留言
     public ResponseEntity<List<Message>> getMessage(
             @RequestParam(required = false) Integer articleId
@@ -59,6 +51,13 @@ public class MessageController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @PostMapping("/message")
+    public ResponseEntity createMessage(@RequestBody @Valid MessageQueryParams messageQueryParams) {
+
+        messageService.createMessage(messageQueryParams);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
     @PutMapping("/message/{messageId}")//編輯留言
     public ResponseEntity<Message> updateForumArticle(@PathVariable Integer messageId,
@@ -78,4 +77,10 @@ public class MessageController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedMessage);
     }
 
+    @DeleteMapping("/message/{articleId}/{messageId}")
+    public ResponseEntity<?> deleteMessage(@PathVariable Integer articleId, @PathVariable Integer messageId) {
+        messageService.deleteMessageById(articleId, messageId);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

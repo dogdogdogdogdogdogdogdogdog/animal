@@ -182,7 +182,7 @@
             </div>
             <!--            要設定成登入後才能看到-->
             <div class="p-1">
-                <button class="btn btn-primary" id="post" data-toggle='modal' data-target='#postModalCenter'>發文
+                <button id="post" class="btn btn-primary" style="display: none" data-toggle='modal' data-target='#postModalCenter'>發文
                 </button>
             </div>
         </div>
@@ -566,7 +566,7 @@
                         <a href="javascript:;" onclick="editMessageButton(this)" id="editMessageButton${item.messageId}" messageId="${item.messageId}">編輯</a>
                         <a href="javascript:;" onclick="saveMessageButton(this)" id="saveMessageButton${item.messageId}" messageId="${item.messageId}" articleId="${item.articleId}" style="display: none;">保存</a>
                         <a href="javascript:;" onclick="cancelMessageButton(this)" id="cancelMessageButton${item.messageId}" messageId="${item.messageId}" style="display: none;">取消</a>
-                        <a href="javascript:;" onclick="deleteMessageButton(this)" id="deleteMessageButton${item.messageId}" messageId="${item.messageId}">刪除</a>
+                        <a href="javascript:;" onclick="deleteMessageButton(this)" id="deleteMessageButton${item.messageId}" messageId="${item.messageId}" articleId="${item.articleId}">刪除</a>
                         `;
 
                         if (status == 200) {//判斷登入
@@ -766,6 +766,7 @@
                 success: function () {
                     alert("刪除成功!");
                     changePage(1);
+                    $("#exampleModalCenter").modal("hide");
                 }
             })
         }
@@ -827,7 +828,7 @@
     function deleteMessageButton(th) {
         var messageId = $(th).attr("messageId");//取得留言id
         console.log(messageId);
-        var articleId = $("#deleteMessageButtin" + messageId).attr("articleId")
+        var articleId = $("#deleteMessageButton" + messageId).attr("articleId")
 
         if (confirm("確定要刪除嗎?") == true) {
             $.ajax({
@@ -836,6 +837,7 @@
                 success: function () {
                     alert("刪除成功!");
                     changePage(1);
+                    getArticleInfo(articleId);
                 }
             })
         }

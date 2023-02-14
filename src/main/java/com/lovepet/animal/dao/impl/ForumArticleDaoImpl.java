@@ -43,7 +43,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
     public List<ForumArticle> getForumArticles(ForumArticleQueryParams forumArticleQueryParams) {
         String sql = "SELECT * FROM article WHERE 1=1";
 
-        Map<String, Object> map =new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
         //查詢條件
         sql = addFilteringSql(sql, map, forumArticleQueryParams);
@@ -93,10 +93,10 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
             map.put("type", forumArticleQueryParams.getType());
         }
 
-        if(forumArticleQueryParams.getSearch()!=null){
-            sql= sql + " AND title LIKE :search1 OR content LIKE :search2";
-            map.put("search1", "%"+forumArticleQueryParams.getSearch()+"%");
-            map.put("search2", "%"+forumArticleQueryParams.getSearch()+"%");
+        if (forumArticleQueryParams.getSearch() != null) {
+            sql = sql + " AND title LIKE :search1 OR content LIKE :search2";
+            map.put("search1", "%" + forumArticleQueryParams.getSearch() + "%");
+            map.put("search2", "%" + forumArticleQueryParams.getSearch() + "%");
         }
         return sql;
     }
@@ -118,7 +118,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         int forumArticleId = keyHolder.getKey().intValue();
 
@@ -148,7 +148,15 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", forumArticleUserId);
         map.put("articleId", forumArticleId);
+
         namedParameterJdbcTemplate.update(sql, map);
+
+        String sql1 = "DELETE FROM feedback WHERE article_id = :articleId";
+
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("articleId", forumArticleId);
+
+        namedParameterJdbcTemplate.update(sql1, map1);
 
     }
 }
