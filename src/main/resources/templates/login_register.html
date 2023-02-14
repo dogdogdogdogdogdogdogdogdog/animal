@@ -1,32 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>會員登入 - 寵物資訊平台</title>
+    <title>會員登入</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
-          rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- 禁用官方樣式 使用 Bootstrap 自帶樣式
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    -->
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/login.click.js"></script>
-    <script src="js/regist.click.js"></script>
-    <script src="js/judgeRegistEmail.js"></script>
-    <script src="js/judgeLoginEmail.js"></script>
+    <!-- 全域自訂CSS樣式 -->
+    <link rel="stylesheet" href="css/_custom.css">
     <!--  自訂樣式  -->
     <style>
-        /*網站背景紋理*/
-        .main-img {
-            background-image: url('/images/_main.png');
-            background-repeat: repeat;
-        }
-
         /*橫幅圖片*/
         .banner-img {
             background-image: url('/images/_banner1.jpg');
@@ -62,24 +53,38 @@
 
         /*註冊區的overlay遮罩魔改成垂直分隔線*/
         .overlay {
-            background: transparent !important;
+            /*background: transparent !important;*/
             border-left: 1px solid grey;
             height: 300px;
             margin-block: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            opacity: 1;
+        }
+
+        @media (min-width: 992px) {
+            .overlay {
+                width: 50%;
+            }
         }
 
         /*註冊登入區輸入框、按鈕、下拉選單字體加大、邊角圓弧加大*/
-        input, button, select {
-            font-size: 20px !important;
-            border-radius: 0.5rem !important;
+        .form-group input,
+        .form-group button,
+        .form-group select {
+            font-size: 20px;
+            border-radius: 0.5rem;
         }
 
-        /*ICON旁的輸入區鄰近邊角取消圓弧效果*/
-        span ~ input, span ~ select {
+        /*ICON 鄰近輸入區邊角取消圓弧效果*/
+        span + input, span + select {
             border-radius: 0 0.5rem 0.5rem 0 !important;
         }
 
-        /*ICON自訂樣式*/
+        /*ICON 自訂樣式*/
         .fa-icon {
             color: black;
             background: lightgrey;
@@ -93,23 +98,9 @@
 </head>
 
 <body>
-<div class="header-page"></div>
-<!-- END nav -->
-<section class="hero-wrap hero-wrap-2 img banner-img">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
-            <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2 text-shadow">
-                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
-                    <span class="ion-ios-arrow-forward"></span>
-                </p>
-                <h1 class="mb-0 bread text-shadow">會員登入</h1>
-            </div>
-        </div>
-    </div>
-</section>
+<div id="header-page"></div>
 
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+<section class="ftco-section main-img">
     <div class="overlay"></div>
     <div class="container d-flex flex-wrap" style="max-width: 1200px;">
         <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
@@ -198,19 +189,10 @@
     </div>
 </section>
 
-<footer class="footer">
-    <div class="row mt-5">
-        <div class="col-md-12 text-center">
-            <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
-                        href="https://colorlib.com" target="_blank">Colorlib.com</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-        </div>
-    </div>
-</footer>
+<!-- 頁腳 -->
+<div id="footer-page"></div>
 
-<!-- loader -->
+<!-- 頁面載入動畫 -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
         <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
@@ -355,11 +337,14 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
-<!-- 讀取導覽列 -->
 <script>
-    $(".header-page").load("header");
+    <!-- 讀取頁首及頁腳 -->
+    $("#header-page").load("/header", function (){
+        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
+        $("#page-title").text($("title")[0].innerText);
+    });
+    $("#footer-page").load("/footer");
 </script>
 
 </body>

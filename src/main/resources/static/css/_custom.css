@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+/*!
+專案網站-浪寵尋家
+自訂CSS樣式表
+*/
+
+/*網站背景紋理*/
+/*寬度 < 576px 時背景設定*/
+.main-img {
+    background-image: url('../images/_section_footer.png'),
+    url('../images/_section_header-right.png'),
+    url('../images/_main.png');
+    background-repeat: repeat-x,
+    no-repeat,
+    repeat;
+    background-position: bottom,
+    top right,
+    center;
+}
+
+/*寬度 > 576px 時背景設定*/
+@media (min-width: 576px) {
+    .main-img {
+        background-image: url('../images/_section_footer.png'),
+        url('../images/_section_header-right.png'),
+        url('../images/_main.png');
+        background-repeat: repeat-x,
+        no-repeat,
+        repeat;
+        background-position: bottom,
+        top right,
+        center;
+    }
+}
+
+/*寬度 > 992px 時背景設定*/
+@media (min-width: 992px) {
+    .main-img {
+        background-image: url('../images/_section_footer.png'),
+        url('../images/_section_header-left.png'),
+        url('../images/_section_header-right.png'),
+        url('../images/_main.png');
+        background-repeat: repeat-x,
+        no-repeat,
+        no-repeat,
+        repeat;
+        background-position: bottom,
+        top left,
+        top right,
+        center;
+    }
+}
