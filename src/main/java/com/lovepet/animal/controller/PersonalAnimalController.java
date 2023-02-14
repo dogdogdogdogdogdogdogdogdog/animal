@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
@@ -61,6 +60,7 @@ public class PersonalAnimalController {
         page.setLimit(limit);
         page.setOffset(offset);
         page.setTotal(total);
+
         page.setResults(personalAnimalList);
 
         return ResponseEntity.status(HttpStatus.OK).body(page);
