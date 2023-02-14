@@ -57,7 +57,7 @@ public class HtmlController {
 
     @GetMapping("/missing")
     public String goMissing() {
-        return "missing";
+        return "animal_missing";
     }
 
     @GetMapping("/personal_shelter")

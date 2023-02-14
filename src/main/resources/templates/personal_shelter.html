@@ -326,7 +326,7 @@
 <script src="js/main.js"></script>
 <script src="js/pageController.js"></script>
 <!-- 讀取導覽列 -->
-<script src="js/Page.js"></script>
+<script>$(".header-page").load("header");</script>
 <script>
     var limit;
     var pages;
@@ -490,9 +490,6 @@
             }
         })
     }
-
-    <!-- 讀取導覽列 -->
-    $(".header-page").load("header");
 </script>
 </body>
 
