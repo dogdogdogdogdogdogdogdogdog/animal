@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>走失協尋 - 寵物資訊平台</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,7 +25,7 @@
 
         /*橫幅圖片*/
         .banner-img {
-            background-image: url('/images/_banner4.jpg');
+            background-image: url('/images/_banner1.jpg');
             height: 300px !important;
         }
 
@@ -36,8 +35,42 @@
             text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
         }
 
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 0.8;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: #fff !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*ICON自訂樣式*/
+        .fa-icon {
+            color: orange;
+            /*background: lightgrey;*/
+            /*text-align: center;*/
+            padding-top: 0.5rem;
+            /*min-width: 13%;*/
+            /*border-top-left-radius: 0.5rem !important;*/
+            /*border-bottom-left-radius: 0.5em !important;*/
+        }
+
+        /*顯示物件-滑鼠掠過顏色*/
+        .staff:hover .text, .staff:focus .text {
+            background: #81a5ff !important;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
         .page_show {
-            padding: 40px 0;
+            /*padding: 40px 0;*/
             text-align: center;
         }
 
@@ -80,63 +113,167 @@
     </div>
 </section>
 
-<section class="ftco-section main-img">
-<hr>
-<div style="margin: auto; width: 800px;">
-    物種 :
-    <select name="animalKind" id="kind">
-        <option>不分種類</option>
-        <option>狗</option>
-        <option>貓</option>
-        <option>其他</option>
-    </select>
-    性別 :
-    <select name="animalSex" id="sex">
-        <option>不分種類</option>
-        <option>公</option>
-        <option>母</option>
-    </select>
-</div>
-
-<section class="ftco-section bg-light">
+<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
     <div class="container">
-        <div class="row" id="test1Result">
-
-            <div class='col-md-6 col-lg-3 ftco-animate'>
-                           <div class='staff'>
-                                    <div class='img-wrap d-flex align-items-stretch'>
-                                           <div class='work mb-4 img d-flex align-items-end' style='background-image: url("imgUrl");'>
-                                             </div>
-                                    </div>
-                                    <div class='text pt-3 px-3 pb-4 text-center' style='cursor: pointer;'>
-                                          <h3 > animalName </h3>
-                                           <div class='faded'>
-                                                      <p>物種: animalKind </p>
-                                                        <p>品種:  animalVariety </p>
-                                                        <p>性別:  animalSex </p>
-                                                        <p>日期:  lastModifiedDate </p>
-                                           </div>
-
-                                    </div>
-                           </div>
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <div class="p-1">
+                <select class="custom-select" id="area">
+                    <option value="default">不限地區</option>
+                </select>
             </div>
-
-
+            <div class="p-1">
+                <select class="custom-select" id="kind">
+                    <option value="default">不限種類</option>
+                    <option value="狗">狗</option>
+                    <option value="貓">貓</option>
+                </select>
+            </div>
+            <div class="p-1">
+                <select class="custom-select" id="sex">
+                    <option value="default">不限性別</option>
+                    <option value="公">公</option>
+                    <option value="母">母</option>
+                </select>
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+        </div>
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3">
+                <div class="row" id="test1Result">
+                </div>
+            </div>
+        </div>
+        <!-- 顯示資料筆數及頁碼 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
+                <div class="block-27">
+                    <p id="pageInfo"></p>
+                    <div class="page_show"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Modal-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content main-img">
+                    <!-- 寵物名字放在標題 -->
+                    <div class="modal-header">
+                        <!-- 標題定位用左區塊 -->
+                        <div class="col-4 px-0">
+                        </div>
+                        <!-- 標題定位用主區塊 -->
+                        <div class="col-4 px-0 d-flex justify-content-center">
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold" id="name_static">這裡是寵物名字</h3>
+                            <span class="fa-icon"><i class="fa fa-paw fa-2x"></i></span>
+                        </div>
+                        <!-- 標題定位用右區塊 -->
+                        <div class="col-4 px-0">
+                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                                <span id="createdDate_static"></span>
+                                <span>&nbsp;刊登日期</span>
+                            </div>
+                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                                <span id="missingDate_static"></span>
+                                <span>&nbsp;走失日期</span>
+                            </div>
+                            <!-- 強制定位關閉功能於最右上角 -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 設定上下邊線效果 區隔 header 和 footer -->
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto col-12 justify-content-center">
+                            <div class="col-xl-6 col-12">
+                                <!-- 彈出框圖片高度於小畫面顯示異常 強制設定600px高 -->
+                                <div id="imageUrl_static" class="work mb-4 img d-flex align-items-end"
+                                     style="height: 600px !important; background-position: center center !important;">
+                                </div>
+                            </div>
+                            <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                                <div class="col-4 mt-0">
+                                    <div class="d-block">
+                                        <span>會員編號 :</span>
+                                        <span id="userId_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>動物編號 :</span>
+                                        <span id="animalId_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>物種 :</span>
+                                        <span id="kind_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>品種 :</span>
+                                        <span id="variety_static"></span>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-block">
+                                        <span>性別 :</span>
+                                        <span id="sex_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>年齡 :</span>
+                                        <span id="age_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>體型 :</span>
+                                        <span id="bodysize_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>毛色 :</span>
+                                        <span id="color_static"></span>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-block">
+                                        <span>地區 :</span>
+                                        <span id="area_static"></span>
+                                    </div>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-block" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
+                                    </div>
+                                </div>
+                                <!-- 備註(寵物描述) -->
+                                <div class="col-12 pt-3">
+                                    <div class="d-block font-weight-bold" style="color: black;">
+                                        <span id="description_static"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-
-
-<div style="margin: auto; width: 800px;">
-    <p id="pageInfo"  class="1"> </p><br>
-
-    <div id="ps" class="page_show">
-<!--        <span >上一頁</span>-->
-<!--        <span class="page_cur">1</span>-->
-<!--        <span>下一頁</span>-->
-    </div>
-</div>
 <footer class="footer">
     <div class="row mt-5">
         <div class="col-md-12 text-center">
@@ -179,10 +316,210 @@
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 <!-- 讀取導覽列 -->
-<script src="js/MissingPageContent.js"></script>
-
+<script src="js/Page.js"></script>
 
 <script>
+    var limit;
+    var pages;
+
+    $.ajax({//載入頁面先執行一次
+        type: "GET",
+        url: "/animalsMissing",
+        success: function (data) {
+            getAnimalMissingList(data);
+        }
+    });
+
+    // 載入篩選區下拉選單
+    $.ajax({
+        type: "GET",
+        url: "/animalsMissing?limit=1000",
+        success: function (data) {
+            // 使用 Set 排除重複迭代結果
+            var areaSet = new Set();
+            $.each(data["results"], function (index, item) {
+                areaSet.add(item.area);
+            })
+
+            // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
+            // ※ Set 若轉換為 Array 後便能使用 jQuery 的 each 方法
+            // ※ var areaArray = Array.from(areaSet);
+            areaSet.forEach(function (area) {
+                let comboBoxContent = `
+                    <option value="${area}">${area}</option>
+                `;
+                $("#area").append(comboBoxContent);
+            })
+        }
+    });
+
+    function getAnimalMissingList(data) {
+        // 清空元素
+        $("#contentAjax").empty();
+
+        $.each(data["results"], function (index, item) {
+            var tableContent = `
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="missing">
+                        <div class="img-wrap d-flex align-items-stretch">
+                            <div class="work mb-4 img d-flex align-items-end" style="background-image: url(${item.imageUrl});"></div>
+                        </div>
+                        <div class="text pt-3 px-3 pb-4 text-center">
+                            <h3 id="${item.animalId}">${item.name}</h3>
+                            <div class="faded">
+                                <p>物種: ${item.kind}</p>
+                                <p>性別: ${item.sex}</p>
+                                <p>地區: ${item.area}</p>
+                                <p>日期: ${item.missingDate}</p>
+                            </div>
+                            <button type="button" onclick="getAnimalMissingInfo(this)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            詳細資料
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $("#contentAjax").append(tableContent);
+        })
+
+        pages = Math.ceil(data.total / data.limit);
+        console.log(data.offset / data.limit)
+        limit = data.limit;
+
+        if (data.total == 0) {
+            $("#pageInfo").text("查無資料");
+        } else {
+            $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+        }
+
+        pageSet(pages);
+
+        console.log("單頁筆數limit:" + data["limit"]);
+        console.log("跳過幾筆資料offset:" + data["offset"]);
+        console.log("總筆數:" + data["total"]);
+
+        $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
+        $.getScript('js/main.js');
+    }
+
+    function getAnimalMissingInfo(gid) {//點擊詳細資料按紐
+
+        var id = $(gid).siblings("h3").attr("id");
+        console.log(gid);
+        console.log(id);
+        $.ajax({
+            type: "GET",
+            url: "/animalsMissing/" + id,
+            success: function (data) {
+                $("#userId_static").text(data.userId);
+                $("#animalId_static").text(data.animalId);
+                $("#name_static").text(data.name);
+                $("#kind_static").text(data.kind);
+                $("#variety_static").text(data.variety);
+                $("#bodysize_static").text(data.bodysize);
+                $("#sex_static").text(data.sex);
+                $("#color_static").text(data.color);
+                $("#age_static").text(data.age);
+                $("#description_static").text(data.description);
+                $("#imageUrl_static").css("background-image", `url('${data.imageUrl}')`);
+                $("#area_static").text(data.area);
+                $("#missingDate_static").text(data.missingDate);
+                $("#createdDate_static").text(data.createdDate);
+            }
+        });
+    }
+    //輸出頁碼
+    function pageSet(pages) {
+        var pageHtml = '';
+        var start, end;
+        if (listPage < 6) {
+            start = 1;
+        } else {
+            start = listPage - 5;
+        }
+        if (listPage > pages - 5) {
+            end = pages;
+        } else {
+            end = listPage + 5;
+        }
+
+        if (listPage > 1) {
+            pageHtml += '<span>上一頁</span>';
+        }
+        for (var i = start, page_cur = ''; i <= end; i++) {
+            if (listPage == i) {
+                page_cur = 'page_cur';
+            } else {
+                page_cur = '';
+            }
+            pageHtml += '<span class="' + page_cur + '">' + i + '</span>';
+        }
+        if (listPage < pages) {
+            pageHtml += '<span>下一頁</span>';
+        }
+        $('.page_show').empty().append(pageHtml);
+    }
+
+    //選擇分頁
+    $('body').on('click', '.page_show span', function () {
+        var $this = $(this);
+        if ($this.hasClass('page_cur')) {
+            return;
+        }
+        var page = $this.html();
+        if (page == '上一頁') {
+            listPage = listPage - 1;
+            changePage(listPage);
+            // goPrePage();
+        } else if (page == '下一頁') {
+            listPage = listPage + 1;
+            changePage(listPage);
+            // goNextPage();
+        } else {
+            listPage = parseInt(page);
+            changePage(listPage);
+        }
+        //根據頁碼獲取當前頁列表數據
+        pageSet(pages);
+    });
+
+    $("#search").click(function () {//搜尋按鈕被按下
+        listPage = 1;
+        changePage(listPage);
+    })
+
+    var listPage = 1;
+
+    function changePage(page) {
+        var queryParams = "";
+        var offset = limit * (page - 1);
+        var area = $("#area").val();
+        var kind = $("#kind").val();
+        var sex = $("#sex").val();
+
+        queryParams += "&offset=" + offset;
+
+        // 取得篩選區的參數
+        if (area != "default") {
+            queryParams += "&area=" + area;
+        }
+        if (kind != "default") {
+            queryParams += "&kind=" + kind;
+        }
+        if (sex != "default") {
+            queryParams += "&sex=" + sex;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "/animalsMissing?" + queryParams,
+            success: function (data) {
+                getAnimalMissingList(data);
+            }
+        })
+    }
+
+    <!-- 讀取導覽列 -->
     $(".header-page").load("header");
 </script>
 
