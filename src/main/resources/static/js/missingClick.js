@@ -26,10 +26,11 @@ function publishMissingAnimal(){
             alert('協尋資料刊登成功')
         }
     })
-    xhr.open('post', 'http://localhost:8080/missingAnimals');
+    xhr.open('post', 'http://localhost:8080/animalsMissing');
 
     xhr.send(fd);
 
 
 
-}
+
+ }
