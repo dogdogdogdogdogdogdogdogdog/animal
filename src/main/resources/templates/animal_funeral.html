@@ -18,38 +18,33 @@
     <link rel="stylesheet" href="css/_custom.css">
     <!--  自訂樣式  -->
     <style>
-        /*橫幅圖片*/
-        .banner-img {
-            background-image: url('/images/_banner1.jpg');
-            height: 300px !important;
-        }
-
-        /*橫幅文字陰影*/
-        .text-shadow {
-            color: #fff !important;
-            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
-        }
-
         /*按鈕樣式*/
         .btn.btn-primary {
+            color: black !important;
             padding: 6px 20px;
             font-size: 1rem;
             letter-spacing: 1px;
             border: transparent !important;
             background: #fcd601 !important;
-            opacity: 0.8;
+            opacity: 1;
         }
 
         /*按鈕樣式-滑鼠掠過*/
         .btn.btn-primary:hover {
-            color: #fff !important;
+            color: white !important;
             background: #ffa500 !important;
             opacity: 1;
         }
 
+        /*表格欄位間距*/
+        th {
+            padding: 15px !important;
+            text-align: center;
+        }
+
         /*表格格內間距*/
-        th, td {
-            padding: 15px;
+        td {
+            padding: 10px !important;
             text-align: center;
         }
 
@@ -76,7 +71,7 @@
         /*表格欄位列背景色固定*/
         tr:first-child, table tr:first-child:hover {
             color: white;
-            background-color: deeppink !important;
+            background-color: #f3bd73 !important;
             /*轉場-淡入淡出效果*/
             transition: background-color 0.35s ease-in-out !important;
         }
@@ -84,7 +79,7 @@
         /*表格滑鼠掠過效果*/
         tr:hover {
             color: white;
-            background-color: #ffa500 !important;
+            background-color: #ff07004a !important;
             /*轉場-淡入淡出效果*/
             transition: background-color 0.35s ease-in-out;
         }
@@ -462,7 +457,7 @@
     }
 
     <!-- 讀取頁首及頁腳 -->
-    $("#header-page").load("/header", function (){
+    $("#header-page").load("/header", function () {
         // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
         $("#page-title").text($("title")[0].innerText);
     });

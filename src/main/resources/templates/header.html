@@ -22,11 +22,12 @@
             font-family: "Nagurigaki Crayon";
             src: url("/fonts.custom/NagurigakiCrayon.ttf") format("truetype");
         }
+
         /*字體樣式-字距 6px 帶文字陰影*/
         .custom-font {
             font-family: "Nagurigaki Crayon";
             letter-spacing: 6px;
-            filter: drop-shadow(2px 2px 1px black);
+            filter: drop-shadow(0px 0px 1px black);
         }
 
         /*導覽列-文字與間距*/
@@ -307,11 +308,12 @@
 </section>
 <!-- 輪播系統結束 -->
 <!-- 迷你導航列開始 -->
-<section class="hero-wrap hero-wrap-2 img" style="height: 20px; background-color: #81a5ff;">
+<section class="hero-wrap hero-wrap-2 img" style="height: 40px; background-color: #f3bd73;">
     <div class="container">
-        <div class="row no-gutters slider-text align-items-end" style="height: 20px;">
+        <div class="row no-gutters slider-text align-items-end" style="height: 40px;">
             <div class="col-md-12 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2 text-center" style="cursor: default; filter: drop-shadow(2px 2px 1px black);">
+                <p class="breadcrumbs mb-2 text-center pt-2"
+                   style="cursor: default; filter: drop-shadow(2px 2px 1px black);">
                     <a href="/index"><i class="fa fa-home" style="color: white;"></i></a>
                     <i class="fa fa-angle-double-right px-2" style="color: white;"></i>
                     <span id="page-title" style="color: white;">目前頁面</span>
@@ -326,7 +328,7 @@
 <script>
     $(".owl-carousel").owlCarousel({
         // 輪播開始位置設為隨機
-        startPosition: Math.floor(Math.random()*6),
+        startPosition: Math.floor(Math.random() * 6),
         // startPosition: 0,
         autoplay: true, // 自動輪播
         loop: true, // 循環輪播

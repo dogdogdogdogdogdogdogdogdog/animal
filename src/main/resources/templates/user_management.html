@@ -18,44 +18,54 @@
     <link rel="stylesheet" href="css/_custom.css">
     <!--  自訂樣式  -->
     <style>
-        /*橫幅圖片*/
-        .banner-img {
-            background-image: url('/images/_banner1.jpg');
-            height: 300px !important;
-        }
-
-        /*橫幅文字陰影*/
-        .text-shadow {
-            color: #fff !important;
-            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
-        }
-
         /*按鈕樣式*/
         .btn.btn-primary {
+            color: black !important;
+            padding: 6px 20px;
             font-size: 1rem;
-            letter-spacing: 10px;
+            letter-spacing: 1px;
             border: transparent !important;
             background: #fcd601 !important;
-            opacity: 0.8;
+            opacity: 1;
         }
 
         /*按鈕樣式-滑鼠掠過*/
         .btn.btn-primary:hover {
-            color: #fff !important;
+            color: white !important;
             background: #ffa500 !important;
             opacity: 1;
         }
 
-        /*註冊登入區標題顏色*/
-        h2 {
-            color: black !important;
+        /*註冊登入區輸入框、按鈕、下拉選單字體加大、邊角圓弧加大*/
+        .form-group input,
+        .form-group button,
+        .form-group select {
+            font-size: 20px !important;
+            border-radius: 0.5rem;
         }
 
-        /*輸入框及按鈕字體加大、邊角圓弧加大*/
-        input, button {
-            font-size: 20px !important;
-            border-radius: 0.5rem !important;
+        /*ICON 鄰近輸入區邊角取消圓弧效果*/
+        span + input, span + select {
+            border-radius: 0 0.5rem 0.5rem 0 !important;
         }
+
+        /*ICON 自訂樣式*/
+        .fa-icon {
+            color: black;
+            background: lightgrey;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            min-width: 13%;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5em !important;
+        }
+
+        /*區塊標題樣式*/
+        h2 {
+            color: black !important;
+            font-weight: bolder !important;
+        }
+
     </style>
 </head>
 
