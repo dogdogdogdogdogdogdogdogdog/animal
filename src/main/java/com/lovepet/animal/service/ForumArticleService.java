@@ -20,5 +20,4 @@ public interface ForumArticleService {
 
     void deleteForumArticleById(Integer forumArticleUserId, Integer forumArticleId);
 
-    void updateSysnews(ForumArticle forumArticle, Integer id);
 }

@@ -112,35 +112,18 @@ public class ForumController {
 
 
 
-    @PutMapping("/Sysnewslike/{forumArticleId}")
-    public ResponseEntity<ForumArticle> setLikeCount(@PathVariable Integer forumArticleId) {
+//    @GetMapping("/like")
+//    public ResponseEntity<?> setLikeCount(String articleId, String userId) {
 
-        //檢查forumArticleId 是否存在
-        ForumArticle forumArticle = forumArticleService.getForumArticleById(forumArticleId);
+//        System.out.println("點讚");
+//        boolean isSuccess = forumArticleService.storeUserTrends("blog_like", articleId, userId);
+//        if (isSuccess) {
+//            System.out.println("點讚成功");
+//            return ResponseEntity.status(HttpStatus.OK).build();
+//        }
+//        System.out.println("點讚失敗");
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-        if (forumArticle == null) {//找不到回傳404 NOT_FOUND
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+//    }
 
-        Integer likeCount = forumArticle.getLikes();
-        forumArticle.setArticleId(forumArticleId);
-        forumArticle.setLikes(likeCount + 1);
-
-        forumArticleService.updateSysnews(forumArticle, forumArticleId);
-
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    @ResponseBody
-    @RequestMapping("/Sysnewsview")
-    public String setViewCount(String articleId) {
-        int id = Integer.parseInt(articleId);
-        System.out.println(id);
-        // 得到这一篇文章
-        ForumArticle forumArticleById = forumArticleService.getForumArticleById(id);
-        Integer viewCount = forumArticleById.getViews();
-        forumArticleById.setViews(viewCount + 1);
-        forumArticleService.updateSysnews(forumArticleById, id);
-        return "ok";
-    }
 }

@@ -395,7 +395,7 @@
                 $("#animalSterilization_static").text(data.animalSterilization);
                 $("#animalBacterin_static").text(data.animalBacterin);
                 $("#area_static").text(data.area);
-                $("#description_static").html(data.description);
+                $("#description_static").html(data.description.replaceAll("\n", "<br>"));
                 $("#createdDate_static").text(data.createdDate);
                 $("#lastModifiedDate_static").text(data.lastModifiedDate);
                 $("#imageUrl_static").css("background-image", `url('${data.imageUrl}')`);
