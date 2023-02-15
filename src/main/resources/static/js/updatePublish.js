@@ -34,7 +34,7 @@ function updatePublish(){
         }
 
     })
-    xhr.open('put', 'http://localhost:8080/personalAnimals', true);
+    xhr.open('put', '/personalAnimals', true);
     xhr.send(fd);
 
 

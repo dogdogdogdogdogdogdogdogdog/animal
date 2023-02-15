@@ -138,14 +138,14 @@ function checkLogin_bak() {
 
                         return
                     })
-                    xhr.open('get', "http://localhost:8080/personalAnimals?id=" + user.id);
+                    xhr.open('get', "/personalAnimals?id=" + user.id);
                     xhr.send();
 
             }
         }
 
     })
-    xhr1.open('get', "http://localhost:8080/session-userId");
+    xhr1.open('get', "/session-userId");
     xhr1.send();
 }
 
@@ -155,10 +155,10 @@ function goLoginAndRegist() {
     xhr.addEventListener('load', function () {
 
         if (xhr.status = 200) {
-            window.location.replace("http://localhost:8080/login_register");
+            window.location.replace("/login_register");
         }
     })
-    xhr.open('get', "http://localhost:8080/sign_out")
+    xhr.open('get', "/sign_out")
     xhr.send();
 }
 

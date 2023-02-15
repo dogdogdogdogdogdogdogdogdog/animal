@@ -16,7 +16,7 @@ if(xhr.status==200){
 })
 
 
-    xhr.open("delete",`http://localhost:8080/personalAnimals/${user.id}/${document.getElementById("delinfoModal").className}`)
+    xhr.open("delete",`/personalAnimals/${user.id}/${document.getElementById("delinfoModal").className}`)
 xhr.send()
 
 }

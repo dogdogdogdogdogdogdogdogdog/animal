@@ -208,7 +208,7 @@
                 document.getElementById("promptEmail").style.display = "none";
             }
         })
-        xhr.open('get', "http://localhost:8080/user/registed?email=" + document.getElementById(email).value);
+        xhr.open('get', "/user/registed?email=" + document.getElementById(email).value);
         xhr.send();
     }
 
@@ -253,7 +253,7 @@
             if (xhr.status == 200) {
                 alert("登入成功")
                 console.log(xhr.response)
-                window.location.replace("http://localhost:8080/user_management");
+                window.location.replace("/user_management");
 
                 // document.getElementById("registStatus").innerHTML="<div style='color: green'>註冊成功請登入";
             } else if (xhr.status == 400) {
@@ -262,7 +262,7 @@
             }
 
         })
-        xhr.open('post', 'http://localhost:8080/user/login', true);
+        xhr.open('post', '/user/login', true);
         xhr.setRequestHeader('Content-type', 'application/json');
         var data = JSON.stringify(account);
         xhr.send(data);
@@ -305,7 +305,7 @@
             }
 
         })
-        xhr.open('post', 'http://localhost:8080/user/register', true);
+        xhr.open('post', '/user/register', true);
         xhr.setRequestHeader('Content-type', 'application/json');
         var data = JSON.stringify(account);
         xhr.send(data);

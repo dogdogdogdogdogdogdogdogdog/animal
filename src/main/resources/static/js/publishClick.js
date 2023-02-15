@@ -35,7 +35,7 @@ function publishAnimal(){
             alert('新增成功')
         }
     })
-    xhr.open('post','http://localhost:8080/personalAnimals')
+    xhr.open('post','/personalAnimals')
    xhr.send(fd)
 
 
