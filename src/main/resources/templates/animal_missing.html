@@ -420,7 +420,7 @@
                 $("#sex_static").text(data.sex);
                 $("#color_static").text(data.color);
                 $("#age_static").text(data.age);
-                $("#description_static").text(data.description);
+                $("#description_static").html(data.description.replaceAll("\n", "<br>"));
                 $("#imageUrl_static").css("background-image", `url('${data.imageUrl}')`);
                 $("#area_static").text(data.area);
                 $("#missingDate_static").text(data.missingDate);

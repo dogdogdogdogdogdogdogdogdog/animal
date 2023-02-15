@@ -28,7 +28,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public List<AnimalMissing> getAnimalsMissingComboBox(){
-        String sql = "SELECT * FROM missing_animal WHERE 1=1";
+        String sql = "SELECT * FROM animal_missing WHERE 1=1";
 
         List<AnimalMissing> list = namedParameterJdbcTemplate.query(sql, new AnimalMissingRowmapper());
         return list;
@@ -36,7 +36,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public Integer countAnimalMissing(AnimalMissingQueryParams animalMissingQueryParams){
-        String sql = "SELECT count(*) FROM missing_animal WHERE 1=1";
+        String sql = "SELECT count(*) FROM animal_missing WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
 
@@ -50,7 +50,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public List<AnimalMissing> getAnimalsMissing(AnimalMissingQueryParams animalMissingQueryParams){
-        String sql = "SELECT * FROM missing_animal WHERE 1=1";
+        String sql = "SELECT * FROM animal_missing WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
 
@@ -72,7 +72,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public AnimalMissing getAnimalMissingById(Integer animalMissingId){
-        String sql = "SELECT * FROM missing_animal WHERE animal_id = :animalMissingId";
+        String sql = "SELECT * FROM animal_missing WHERE animal_id = :animalMissingId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("animalMissingId", animalMissingId);
@@ -88,7 +88,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public  Integer createAnimalMissing(AnimalMissingRequest animalMissingRequest){
-        String sql = "INSERT INTO missing_animal(user_id, name, kind, variety, bodysize, sex, color, age, description, image_url, area, missing_date, created_date)" +
+        String sql = "INSERT INTO animal_missing(user_id, name, kind, variety, bodysize, sex, color, age, description, image_url, area, missing_date, created_date)" +
                 "VALUES (:userId, :name, :kind, :variety, :bodysize, :sex, :color, :age, :description, :imageUrl, :area, :missingDate, :createdDate)";
 
         Map<String, Object> map = new HashMap<>();
@@ -121,7 +121,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public void updateAnimalMissing(Integer animalMissingId, AnimalMissingRequest animalMissingRequest){
-        String sql = "UPDATE missing_animal SET user_id = userId, name = :name , kind = :kind, variety = :variety, bodysize = :bodysize," +
+        String sql = "UPDATE animal_missing SET user_id = userId, name = :name , kind = :kind, variety = :variety, bodysize = :bodysize," +
                 " sex = :sex, color = :color, age = :age, description = :description, image_url = :imageUrl," +
                 " area = :area, missing_date = :missingDate, created_date = :createdDate WHERE animal_id = :animalId";
         writePhoto(animalMissingRequest, animalMissingId);
@@ -145,7 +145,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public void deleteAnimalMissingById(Integer animalMissingUserId, Integer animalMissingId){
-        String sql = "DELETE FROM missing_animal WHERE user_id=:animalMissingUserId AND animal_id = :animalMissingId";
+        String sql = "DELETE FROM animal_missing WHERE user_id=:animalMissingUserId AND animal_id = :animalMissingId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("animalMissingId", animalMissingId);
