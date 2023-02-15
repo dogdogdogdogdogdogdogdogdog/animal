@@ -23,7 +23,7 @@ public class AnimalFuneralController {
     @Autowired
     private AnimalFuneralService animalFuneralService;
 
-    @GetMapping("/funerals")
+    @GetMapping("/animal_funerals")
     public ResponseEntity<Page<AnimalFuneral>> getAnimalFunerals(
             // 查詢條件 Filtering
             @RequestParam(required = false) String area,
@@ -52,7 +52,7 @@ public class AnimalFuneralController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
-    @GetMapping("/funerals/{funeralId}")
+    @GetMapping("/animal_funerals/{funeralId}")
     public ResponseEntity<AnimalFuneral> getAnimalFuneral(@PathVariable Integer funeralId) {
         AnimalFuneral animalFuneral = animalFuneralService.getFuneralById(funeralId);
 
@@ -63,7 +63,7 @@ public class AnimalFuneralController {
         }
     }
 
-    @PostMapping("/funerals")
+    @PostMapping("/animal_funerals")
     public ResponseEntity<AnimalFuneral> createAnimalFuneral(@RequestBody @Valid AnimalFuneralRequest animalFuneralRequest) {
         Integer animalFuneralId = animalFuneralService.createFuneral(animalFuneralRequest);
 
@@ -72,7 +72,7 @@ public class AnimalFuneralController {
         return ResponseEntity.status(HttpStatus.CREATED).body(animalFuneral);
     }
 
-    @PutMapping("/funerals/{funeralId}")
+    @PutMapping("/animal_funerals/{funeralId}")
     public ResponseEntity<AnimalFuneral> updateAnimalFuneral(@PathVariable Integer funeralId,
                                                              @RequestBody @Valid AnimalFuneralRequest animalFuneralRequest) {
         AnimalFuneral animalFuneral = animalFuneralService.getFuneralById(funeralId);
@@ -88,7 +88,7 @@ public class AnimalFuneralController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedAnimalFuneral);
     }
 
-    @DeleteMapping("/funerals/{funeralId}")
+    @DeleteMapping("/animal_funerals/{funeralId}")
     public ResponseEntity<AnimalFuneral> deleteAnimalFuneral(@PathVariable Integer funeralId) {
         animalFuneralService.deleteFuneralById(funeralId);
 

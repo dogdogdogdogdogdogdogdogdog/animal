@@ -1,34 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>動物醫院 - 寵物資訊平台</title>
+    <title>動物醫院</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
-          rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- 禁用官方樣式 使用 Bootstrap 自帶樣式
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    -->
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- 全域自訂CSS樣式 -->
+    <link rel="stylesheet" href="css/_custom.css">
     <!--  自訂樣式  -->
     <style>
-        /*網站背景紋理*/
-        .main-img {
-            background-image: url('/images/_main.png');
-            background-repeat: repeat;
-        }
-
-        /*橫幅圖片*/
-        .banner-img {
-            background-image: url('/images/_banner1.jpg');
-            height: 300px !important;
-        }
-
         /*橫幅文字陰影*/
         .text-shadow {
             color: #fff !important;
@@ -81,7 +70,7 @@
         /*表格欄位列背景色固定*/
         tr:first-child, table tr:first-child:hover {
             color: white;
-            background-color: #81a5ff !important;
+            background-color: deeppink !important;
             /*轉場-淡入淡出效果*/
             transition: background-color 0.35s ease-in-out !important;
         }
@@ -136,29 +125,18 @@
             border: #282828 solid 1px;
             background-color: #424242;
         }
+
+        miniNavBar {
+            background-color: black !important;
+        }
+
     </style>
 </head>
 
 <body>
-<div class="header-page"></div>
-<!-- END nav -->
-<section class="hero-wrap hero-wrap-2 img banner-img">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
-            <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2 text-shadow">
-                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
-                    <span class="ion-ios-arrow-forward"></span>
-                </p>
-                <h1 class="mb-0 bread text-shadow">動物醫院</h1>
-            </div>
-        </div>
-    </div>
-</section>
+<div id="header-page"></div>
 
-<!-- 表格SQL查詢測試用 -->
-<!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
-<section id="query_block" class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
+<section id="query_block" class="ftco-section main-img">
     <div class="container py-5">
         <!-- 顯示搜尋條件 -->
         <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
@@ -240,23 +218,10 @@
     </div>
 </section>
 
-<footer class="footer">
-    <div class="row mt-5">
-        <div class="col-md-12 text-center">
-            <p class="copyright">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is
-                made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                                                               target="_blank">Colorlib.com</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-        </div>
-    </div>
-</footer>
+<!-- 頁腳 -->
+<div id="footer-page"></div>
 
-<!-- loader -->
+<!-- 頁面載入動畫 -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
         <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
@@ -278,21 +243,30 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script>
+    <!-- 讀取頁首及頁腳 -->
+    $("#header-page").load("/header", function () {
+        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
+        $("#page-title").text($("title")[0].innerText);
+    });
+    $("#footer-page").load("/footer");
+</script>
+
 <script src="js/pageController.js"></script>
 
 <script type="text/javascript">
-    var limit;
+    // pages: 當次查詢的總頁數
+    // limit: 當次查詢的筆數，預設值設定於 Controller 中
     var pages;
+    var limit;
 
     // 初次載入時取得全部查詢結果
     $.ajax({
         type: "GET",
         url: "/animal_hospitals",
         success: function (data) {
+            // 取得初次查詢資料
             getAnimalHospitalList(data);
         }
     });
@@ -320,7 +294,8 @@
         }
     });
 
-    function getAnimalHospitalList(data) {//秀出搜尋結果
+    // 表格查詢結果
+    function getAnimalHospitalList(data) {
         // 清空表格 tr 元素
         $("#tableAjax").children("tr").empty();
 
@@ -351,11 +326,13 @@
             $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
         }
 
-        // 設定當次查詢資料的總頁數至頁碼區塊
+        // 設定當次查詢資料的總頁數至頁數切換區塊
         pageSet(pages);
 
+        /* 此頁面單次查詢資料筆數較少 暫時停用捲動功能
         // 查詢結束後捲動視窗至篩選欄
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 100);
+        $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+        */
 
         // 重新載入 Bootstrap 模板 js
         $.getScript('js/main.js');
@@ -380,6 +357,7 @@
         changePage(listPage);
     })
 
+    // 換頁功能
     function changePage(page) {
         var queryParams = "";
         var offset = limit * (page - 1);
@@ -404,9 +382,6 @@
             }
         })
     }
-
-    <!-- 讀取導覽列 -->
-    $(".header-page").load("header");
 </script>
 
 </body>
