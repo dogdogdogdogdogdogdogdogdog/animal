@@ -5,12 +5,14 @@ import com.lovepet.animal.dto.ForumArticleRequest;
 import com.lovepet.animal.model.ForumArticle;
 import com.lovepet.animal.service.ForumArticleService;
 import com.lovepet.animal.util.Page;
+import com.lovepet.animal.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -22,6 +24,9 @@ public class ForumController {
 
     @Autowired
     private ForumArticleService forumArticleService;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     @GetMapping("/forumArticles")//查詢所有文章
     public ResponseEntity<Page<ForumArticle>> getForumArticles(
@@ -111,9 +116,23 @@ public class ForumController {
     }
 
 
+    @GetMapping("/like")
+    public ResponseEntity<?> setLikeCount() {
 
-//    @GetMapping("/like")
-//    public ResponseEntity<?> setLikeCount(String articleId, String userId) {
+        /**
+         * 插入缓存数据
+         */
+
+        boolean var = redisUtils.set("redis_key", "redis_vale");
+        System.out.println(var);
+
+        /**
+         * 读取缓存数据
+         */
+
+        String value = redisUtils.get("redis_key");
+        System.out.println(value);
+
 
 //        System.out.println("點讚");
 //        boolean isSuccess = forumArticleService.storeUserTrends("blog_like", articleId, userId);
@@ -122,8 +141,8 @@ public class ForumController {
 //            return ResponseEntity.status(HttpStatus.OK).build();
 //        }
 //        System.out.println("點讚失敗");
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-//    }
+    }
 
 }
