@@ -25,9 +25,6 @@ public class ForumController {
     @Autowired
     private ForumArticleService forumArticleService;
 
-    @Autowired
-    private RedisUtils redisUtils;
-
     @GetMapping("/forumArticles")//查詢所有文章
     public ResponseEntity<Page<ForumArticle>> getForumArticles(
             //查詢條件
@@ -113,36 +110,6 @@ public class ForumController {
         forumArticleService.deleteForumArticleById(forumArticleUserId, forumArticleId);
 
         return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-
-    @GetMapping("/like")
-    public ResponseEntity<?> setLikeCount() {
-
-        /**
-         * 插入缓存数据
-         */
-
-        boolean var = redisUtils.set("redis_key", "redis_vale");
-        System.out.println(var);
-
-        /**
-         * 读取缓存数据
-         */
-
-        String value = redisUtils.get("redis_key");
-        System.out.println(value);
-
-
-//        System.out.println("點讚");
-//        boolean isSuccess = forumArticleService.storeUserTrends("blog_like", articleId, userId);
-//        if (isSuccess) {
-//            System.out.println("點讚成功");
-//            return ResponseEntity.status(HttpStatus.OK).build();
-//        }
-//        System.out.println("點讚失敗");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
     }
 
 }
