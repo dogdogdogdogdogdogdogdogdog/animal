@@ -1,18 +1,22 @@
+// js 改動必須清除瀏覽器快取 否則瀏覽器會從 VM 中執行改動前的暫存檔案
+
 var user;
-var status;
+var httpStatus;
 
 const url = location.pathname.replaceAll("/", "");
-console.log(url)
+console.log("Current Page: " + url);
+
 function init() {
     $.ajax({//取得登入session
         type: "GET",
         url: "/session-userId",
-        async: false,
-        success: function (data, text, xhr) {
-            // console.log("status:" + text + xhr.status);
-            status = xhr.status;
+        // async: false,
+        success: function (data, textStatus, xhr) {
+            console.log("Check Login Result: " + textStatus + ", Http Status: " + xhr.status);
+            httpStatus = xhr.status;
             user = data;
-            // console.log(user);
+            console.log(user);
+
 
             // 登入後顯示 {會員Email} 登出
             document.getElementById("login_stat").style.visibility = "visible";
@@ -36,12 +40,13 @@ function init() {
 
             switch (url) {
                 case 'forum':
-                    console.log(status)
-                    if (status==200) {
+                    console.log("Http Status in Current Page: " + httpStatus);
+                    if (httpStatus == 200) {
                         $("#post").attr("style", "display: inline")
                     }
                     return;
                 case 'user_management':
+                    console.log("Http Status in Current Page: " + httpStatus);
                     $("#userEmail").val(user.email);
                     $("#userName").val(user.name);
                     $("#userTel").val(user.tel);
@@ -90,11 +95,10 @@ function init() {
                     })
             }
         },
-        error: function (xhr, text) {
-            // console.log("status:" + text + xhr.status);
+        error: function (xhr, textStatus) {
+            console.log("Check Login Result: " + textStatus + ", Http Status: " + xhr.status);
             user = null;
-            // console.log(user);
-
+            console.log("NOT Login yet");
 
             if (xhr.status == 302 && (url == "user_publish_history" || url == "user_management" || url == "publish")) {
                 window.location.href = '/login_register';
@@ -102,18 +106,17 @@ function init() {
         }
     });
 }
+
 init();
 
+// 登出時執行並清空 session
 function goLoginAndRegist() {//??
     xhr = new XMLHttpRequest();
-
-    xhr.addEventListener('load', function () {
-
+    xhr.addEventListener("load", function () {
         if (xhr.status = 200) {
-            window.location.replace("http://localhost:8080/login_register");
+            window.location.replace("/login_register");
         }
     })
-    xhr.open('get', "http://localhost:8080/sign_out")
+    xhr.open("GET", "/sign_out")
     xhr.send();
 }
-

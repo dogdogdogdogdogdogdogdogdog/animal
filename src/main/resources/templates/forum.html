@@ -137,13 +137,15 @@
 
 
         .modal-content span {
+            color: black;
             font-size: 16px;
             font-weight: 700;
             display: block;
             line-height: 30px;
         }
 
-        .modal-content .text-time {
+        .modal-content .text-light {
+            color: grey !important;
             font-size: 12px !important;
             font-weight: 700;
             line-height: 10px;
@@ -199,7 +201,7 @@
         </div>
         <!-- 顯示資料內容 -->
         <div class="row ftco-animate">
-            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="tableAjax">
                 <tbody>
 
                 </tbody>
@@ -241,8 +243,7 @@
                             <h3 class="modal-title font-weight-bold">]</h3>
                             <h3 id="articleTitle" class="modal-title font-weight-bold">文章標題</h3>
 
-                            <div id="loginButton" class="row m-0 pr-4 font-weight-bold justify-content-end">
-                            </div>
+
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
                                 <span aria-hidden="true">&times;</span>
@@ -256,32 +257,41 @@
                             <div class="row m-0 p-0 col-12" style="border-bottom: 1px solid lightgrey;">
                                 <div class="row col-6 m-0 p-0 font-weight-bold justify-content-start"
                                      style="align-items: center;">
-                                    <span id="articleUserName" class="font-weight-bold"
-                                          style="text-decoration: underline"></span>
+                                    <!-- 使用者名稱 -->
+                                    <span id="articleUserName" class=""
+                                          style="text-decoration: underline">使用者名稱</span>
                                 </div>
                                 <div class="row col-6 m-0 p-0">
                                     <div class="row col-12 m-0 p-0 justify-content-end">
-                                        <span class="text-time">發文時間&nbsp;</span>
-                                        <span class="text-time" id="articlePostDate"></span>
+                                        <span class="text-light">發文時間&nbsp;</span>
+                                        <span class="text-light" id="articlePostDate"></span>
                                     </div>
                                     <div class="row col-12 m-0 p-0 justify-content-end">
-                                        <span class="text-time">更新時間&nbsp;</span>
-                                        <span class="text-time" id="articleModifiedDate"></span>
+                                        <span class="text-light">更新時間&nbsp;</span>
+                                        <span class="text-light" id="articleModifiedDate"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="m-0 p-0 col-12">
                                 <span id="conTent">文章內文</span>
+                                <p id="loginButton" class="text-right" style="display: none;">
+                                    <!-- 自訂屬性 articleId -->
+                                    <button id="editButton" articleId="" class="btn btn-primary">編輯</button>
+                                    <button id="saveButton" articleId="" class="btn btn-primary" style="display: none;">保存</button>
+                                    <button id="cancelButton" class="btn btn-primary" style="display: none;">取消</button>
+                                    <button id="deleteButton" articleId="" class="btn btn-primary">刪除</button>
+                                </p>
                             </div>
+                        </div>
+                        <!-- 新增留言 -->
+                        <div class="row m-auto col-xl-10 col-lg-10 col-12 justify-content-center">
+                            <!-- 自訂屬性 articleId -->
+                            <textarea id="message" articleId=""></textarea>
+                            <button class="btn btn-primary" onclick="message()">我要留言</button>
+                            <button class="btn btn-primary" onclick="">取消</button>
                         </div>
                         <div id="chatBlock" class="row m-auto col-xl-10 col-lg-10 col-12 justify-content-center">
                             <!-- 文章留言區塊 -->
-                        </div>
-                        <!-- 文章留言 -->
-                        <div class="row m-auto col-xl-10 col-lg-10 col-12 justify-content-center">
-                            <!-- 自訂屬性 articleId -->
-                            <input id="message" articleId="" type="text" style='width: 30%;'>
-                            <button class="btn btn-primary" onclick="message()">留言</button>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center">
@@ -435,7 +445,7 @@
 
 
     function getForumArticleList(data) {//秀出搜尋結果
-        $("#test1Result").empty();//清空元素
+        $("#tableAjax").empty();//清空元素
 
         var title = `
             <tr class='h5'>
@@ -448,7 +458,7 @@
                 <th style='width: 10%;'><div>更新日期</div></th>
             </tr>`;
 
-        $("#test1Result").append(title);//加入標題
+        $("#tableAjax").append(title);//加入標題
 
         $.each(data["results"], function (index, item) {
             // console.log(item.userId)
@@ -476,7 +486,7 @@
                     <td><div>${item.modifiedDate}</div></td>
                 </tr>
 `;
-            $("#test1Result").append(html);//加入內容
+            $("#tableAjax").append(html);//加入內容
         });
 
 
@@ -507,7 +517,7 @@
         console.log("文章ID: " + id);
         $.ajax({//使用文章id，查詢文章資訊
             type: "GET",
-            async: false,
+            // async: false,
             url: "/forumArticles/" + id,
             success: function (articleData) {
                 // 傳入userId，取得使用者資訊
@@ -520,31 +530,22 @@
                 $("#articlePostDate").text(articleData.postDate);
                 $("#articleModifiedDate").text(articleData.modifiedDate);
                 $("#conTent").html(articleData.content);
+
+                // 新增留言區域賦予 articleId
                 $("#message").attr("articleId", articleData.articleId);
 
-                //編輯、保存、取消、刪除按紐
-                var articleButton = `
-                    <div class="p-1">
-                        <button id="editButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">編輯</button>
-                    </div>
-                    <div class="p-1">
-                      <button id="saveButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary" style="display: none;">保存</button>
-                    </div>
-                    <div class="p-1">
-                     <button id="cancelButton" type="button" class="btn btn-primary" style="display: none;">取消</button>
-                    </div>
-                    <div class="p-1">
-                       <button id="deleteButton" articleId="${articleData.articleId}" type="button" class="btn btn-primary">刪除</button>
-                    </div>
-                `;
-
+                // 文章編輯按鈕賦予 articleId
+                $("#editButton").attr("articleId", articleData.articleId);
+                $("#saveButton").attr("articleId", articleData.articleId);
+                $("#deleteButton").attr("articleId", articleData.articleId);
                 // 判斷登入狀態 發文者已登入則顯示按鈕
-                if (status == 302) {
-                    console.log("HTTP Status: " + status + "[未登入]");
-                } else if (status == 200 && articleData.userId == user.id) {
+                if (httpStatus == 302) {
+                    console.log("Forum Page HttpStatus: " + httpStatus + "[未登入]");
+                } else if (httpStatus == 200 && articleData.userId == user.id) {
                     console.log("sessionName:" + user.name + "[已登入]");
-                    // 加入編輯、刪除按鈕
-                    $("#loginButton").append(articleButton);
+                    // $("#loginButton").empty();
+                    $("#loginButton").removeAttr("style");
+
                 }
 
                 // 清空留言區內容
@@ -558,7 +559,7 @@
                         messageHtml = `
                                 <div class="m-1 p-3 col-12 div-style ftco-animate">
                                     <span id="messageContent${item.messageId}">${item.content}</span>
-                                    <span id="messageId${item.messageId}" userId="${item.userId}" class="text-right text-time">
+                                    <span id="messageId${item.messageId}" userId="${item.userId}" class="text-right text-light">
                                     ${item.modifiedDate == item.postDate ?
                             userData.name + "&nbsp;留言於&nbsp;" + item.postDate :
                             userData.name + "&nbsp;編輯於&nbsp;" + item.modifiedDate}
@@ -575,7 +576,7 @@
                         <a href="javascript:;" onclick="deleteMessageButton(this)" id="deleteMessageButton${item.messageId}" messageId="${item.messageId}" articleId="${item.articleId}">刪除</a>
                         `;
                         var userId = $("#messageId" + item.messageId).attr("userId");
-                        if (status == 200 && userId == user.id) {
+                        if (httpStatus == 200 && userId == user.id) {
                             console.log(userId);
                             $("#messageId" + item.messageId).append(messageButton);
                         }
@@ -583,6 +584,16 @@
                 }
             }
         });
+        // 測試用 上面複製來的 放在ajax外執行
+        // 這console.log到底會不會出現 奇怪
+        if (httpStatus == 302) {
+            console.log("Forum Page HttpStatus: " + httpStatus + "[未登入]");
+        } else if (httpStatus == 200) {
+            console.log("sessionName:" + user.name + "[已登入]");
+            // // $("#loginButton").empty();
+            $("#loginButton").removeAttr("style");
+
+        }
         $.getScript('js/main.js');
     }
 
@@ -693,14 +704,14 @@
 
     //文章編輯按鈕
     $("body").on("click", "#editButton", function () {
-        var type = $("#type").text();
-        // console.log(type);
+        var type = $("#articleType").text();
+        console.log(type);
 
         $("#editSelect").val(type);
 
         $("#editType").attr("style", "display: inline;");
-        $("#type").attr("style", "display: none;");
-        $("#title").attr("contenteditable", true);
+        $("#articleType").attr("style", "display: none;");
+        $("#articleTitle").attr("contenteditable", true);
         $("#conTent").attr("contenteditable", true);
         $("#editButton").attr("style", "display: none;")
         $("#saveButton").attr("style", "display: inline;")
@@ -735,11 +746,11 @@
                 getArticleInfo(articleId);
             }
         })
-        $("#type").text(type);
+        $("#articleType").text(type);
 
         $("#editType").attr("style", "display: none;");
-        $("#type").attr("style", "display: inline;");
-        $("#title").attr("contenteditable", false);
+        $("#articleType").attr("style", "display: inline;");
+        $("#articleTitle").attr("contenteditable", false);
         $("#conTent").attr("contenteditable", false);
         $("#editButton").attr("style", "display: inline;")
         $("#saveButton").attr("style", "display: none;")
@@ -765,8 +776,8 @@
     $("body").on("click", "#cancelButton", function () {
 
         $("#editType").attr("style", "display: none;");
-        $("#type").attr("style", "display: inline;");
-        $("#title").attr("contenteditable", false);
+        $("#articleType").attr("style", "display: inline;");
+        $("#articleTitle").attr("contenteditable", false);
         $("#conTent").attr("contenteditable", false);
         $("#editButton").attr("style", "display: inline;")
         $("#saveButton").attr("style", "display: none;")
@@ -846,6 +857,7 @@
 
     function message() {
         if (user == null) {
+            alert('請登入會員')
             window.location.assign("/login_register")
             return
         }
