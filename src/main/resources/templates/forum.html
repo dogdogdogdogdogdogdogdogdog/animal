@@ -121,6 +121,7 @@
             background-color: #424242;
         }
 
+        /*彈出式互動視窗背景*/
         .modal-content.modal-bg {
             background-image: url('/images/_section_bg.png');
             background-repeat: repeat;
@@ -135,7 +136,7 @@
             border-radius: 10px;
         }
 
-
+        /*文章及留言樣式*/
         .modal-content span {
             color: black;
             font-size: 16px;
@@ -144,6 +145,7 @@
             line-height: 30px;
         }
 
+        /*文章及留言-時間樣式*/
         .modal-content .text-light {
             color: grey !important;
             font-size: 12px !important;
@@ -151,19 +153,26 @@
             line-height: 10px;
         }
 
-        .bubbleTail {
-            position: absolute;
-            left: 100%;
-            bottom: 0px;
-            width: 16px;
-            height: 16px;
-            border-width: 0;
-            border-style: solid;
-            border-color: transparent;
-            border-top-width: 10px;
-            border-top-color: currentColor;
-            border-radius: 0 32px 0 0;
-            color: #dddddd;
+        /*文章分類樣式-寬度強制固定*/
+        #articleTypeEdit, #articleType {
+            width: 70px;
+            color: white;
+            background-color: #ff07004a;
+            padding: 1px 1px;
+            border-radius: 5px;
+        }
+
+        /*文章分類樣式-下拉選單調整到置中*/
+        #articleTypeEdit {
+            text-indent: -12px;
+        }
+
+        /*文章作者樣式*/
+        #articleUserName {
+            color: white;
+            background-color: #ff07004a;
+            padding: 1px 10px;
+            border-radius: 5px;
         }
 
     </style>
@@ -192,7 +201,7 @@
                 <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
                 </button>
             </div>
-            <!--            要設定成登入後才能看到-->
+            <!-- 發文按鈕 (登入後才顯示) -->
             <div class="p-1">
                 <button id="post" class="btn btn-primary" style="display: none" data-toggle='modal'
                         data-target='#postModalCenter'>發文
@@ -226,23 +235,21 @@
                     <!-- Modal 文章資訊-->
                     <div class="modal-header">
                         <div class="col-12 px-0 d-flex justify-content-center">
-                            <h3 class="modal-title font-weight-bold">[</h3>
-                            <h3 id="articleType" class="modal-title font-weight-bold">文章分類</h3>
-                            <h3 id="editType" class="modal-title font-weight-bold" style="display: none;">
-                                <select id="editSelect">
-                                    <option value='綜合'>綜合</option>
-                                    <option value='問題'>問題</option>
-                                    <option value='心得'>心得</option>
-                                    <option value='開箱'>開箱</option>
-                                    <option value='新聞'>新聞</option>
-                                    <option value='知識'>知識</option>
-                                    <option value='閒聊'>閒聊</option>
-                                    <option value='創作'>創作</option>
+                            <div class="modal-title d-flex">
+                                <!-- 文章分類 (編輯時) -->
+                                <select id="articleTypeEdit" class="custom-select text-center ftco-animate" style="display: none;">
+                                    <option value="綜合">綜合</option>
+                                    <option value="問題">問題</option>
+                                    <option value="心得">心得</option>
+                                    <option value="開箱">開箱</option>
+                                    <option value="新聞">新聞</option>
+                                    <option value="知識">知識</option>
+                                    <option value="閒聊">閒聊</option>
+                                    <option value="創作">創作</option>
                                 </select>
-                            </h3>
-                            <h3 class="modal-title font-weight-bold">]</h3>
-                            <h3 id="articleTitle" class="modal-title font-weight-bold">文章標題</h3>
-
+                                <h3 id="articleType" class="my-0 font-weight-bold text-center">文章分類</h3>
+                                <h3 id="articleTitle" class="my-0 mx-2 font-weight-bold text-center">文章標題</h3>
+                            </div>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
@@ -255,11 +262,9 @@
                         <div class="row mx-auto mb-3 p-3 col-xl-10 col-lg-10 col-12 justify-content-center div-style">
                             <!-- 文章內文區塊 -->
                             <div class="row m-0 p-0 col-12" style="border-bottom: 1px solid lightgrey;">
-                                <div class="row col-6 m-0 p-0 font-weight-bold justify-content-start"
-                                     style="align-items: center;">
+                                <div class="row col-6 mx-0 mb-2 p-0 font-weight-bold justify-content-start">
                                     <!-- 使用者名稱 -->
-                                    <span id="articleUserName" class=""
-                                          style="text-decoration: underline">使用者名稱</span>
+                                    <span id="articleUserName">使用者名稱</span>
                                 </div>
                                 <div class="row col-6 m-0 p-0">
                                     <div class="row col-12 m-0 p-0 justify-content-end">
@@ -274,34 +279,48 @@
                             </div>
                             <div class="m-0 p-0 col-12">
                                 <span id="conTent">文章內文</span>
-                                <p id="loginButton" class="text-right" style="display: none;">
+                                <span id="loginButton" class="text-right" style="display: none;">
                                     <!-- 自訂屬性 articleId -->
-                                    <button id="editButton" articleId="" class="btn btn-primary">編輯</button>
-                                    <button id="saveButton" articleId="" class="btn btn-primary" style="display: none;">保存</button>
-                                    <button id="cancelButton" class="btn btn-primary" style="display: none;">取消</button>
+                                    <button id="editButton" articleId="" class="btn btn-primary ftco-animate">編輯</button>
+                                    <button id="saveButton" articleId="" class="btn btn-primary ftco-animate" style="display: none;">
+                                        保存
+                                    </button>
+                                    <button id="cancelButton" class="btn btn-primary ftco-animate" style="display: none;">取消
+                                    </button>
                                     <button id="deleteButton" articleId="" class="btn btn-primary">刪除</button>
-                                </p>
+                                </span>
                             </div>
                         </div>
-                        <!-- 新增留言 -->
-                        <div class="row m-auto col-xl-10 col-lg-10 col-12 justify-content-center">
+                        <!-- 新增留言區塊 -->
+                        <div class="row mx-auto mb-3 col-xl-10 col-lg-10 col-12 justify-content-center">
                             <!-- 自訂屬性 articleId -->
-                            <textarea id="message" articleId=""></textarea>
-                            <button class="btn btn-primary" onclick="message()">我要留言</button>
-                            <button class="btn btn-primary" onclick="">取消</button>
+                            <span id="addMsgArea" articleId="" contenteditable="true"
+                                 class="m-1 p-3 col-12 div-style ftco-animate" style="display: none;">
+                            </span>
+                            <span class="text-right" style="display: block;">
+                                <button id="newMsgBtn" class="btn btn-primary mx-1 ftco-animate" onclick="newMsg()">我要留言
+                                </button>
+                                <button id="saveMsgBtn" class="btn btn-primary ftco-animate" onclick="saveMsg()"
+                                        style="display: none;">保存
+                                </button>
+                                <button id="cancelMsgBtn" class="btn btn-primary ftco-animate" onclick="cancelMsg()"
+                                        style="display: none;">取消
+                            </button>
+                            </span>
                         </div>
                         <div id="chatBlock" class="row m-auto col-xl-10 col-lg-10 col-12 justify-content-center">
                             <!-- 文章留言區塊 -->
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <div class="p-1">
-                            <button id="likes" type="button" class="btn btn-primary">讚！</button>
-                        </div>
-                        <div class="p-1">
-                            <button id="unlikes" type="button" class="btn btn-primary">倒讚</button>
-                        </div>
-                        <!--編輯、刪除發文者才能使用-->
+                        <!-- 點讚功能未實作先隱藏
+                            <div class="p-1">
+                                <button id="likes" type="button" class="btn btn-primary">讚！</button>
+                            </div>
+                            <div class="p-1">
+                                <button id="unlikes" type="button" class="btn btn-primary">倒讚</button>
+                            </div>
+                        -->
                     </div>
 
 
@@ -512,12 +531,19 @@
     }
 
     function getArticleInfo(id) {//點擊文章
+        // 新增留言區-按鈕及可編輯處初始化
+        $("#addMsgArea").empty();
+        $("#addMsgArea").attr("contenteditable", false);
+        $("#addMsgArea").attr("style", "display: none;");
+        $("#newMsgBtn").attr("style", "display: inline;");
+        $("#saveMsgBtn").attr("style", "display: none;");
+        $("#cancelMsgBtn").attr("style", "display: none;");
 
         // var id = $(gid).attr("id");//取得文章id
         console.log("文章ID: " + id);
         $.ajax({//使用文章id，查詢文章資訊
             type: "GET",
-            // async: false,
+            async: false,
             url: "/forumArticles/" + id,
             success: function (articleData) {
                 // 傳入userId，取得使用者資訊
@@ -531,21 +557,26 @@
                 $("#articleModifiedDate").text(articleData.modifiedDate);
                 $("#conTent").html(articleData.content);
 
-                // 新增留言區域賦予 articleId
-                $("#message").attr("articleId", articleData.articleId);
+                // 新增留言區賦予 articleId
+                $("#addMsgArea").attr("articleId", articleData.articleId);
 
-                // 文章編輯按鈕賦予 articleId
+                // 文章編輯區按鈕賦予 articleId
                 $("#editButton").attr("articleId", articleData.articleId);
                 $("#saveButton").attr("articleId", articleData.articleId);
                 $("#deleteButton").attr("articleId", articleData.articleId);
-                // 判斷登入狀態 發文者已登入則顯示按鈕
-                if (httpStatus == 302) {
-                    console.log("Forum Page HttpStatus: " + httpStatus + "[未登入]");
-                } else if (httpStatus == 200 && articleData.userId == user.id) {
-                    console.log("sessionName:" + user.name + "[已登入]");
-                    // $("#loginButton").empty();
-                    $("#loginButton").removeAttr("style");
-
+                // 文章編輯區-發文者已登入則顯示按鈕
+                if (httpStatus == 200 && articleData.userId == user.id) {
+                    $("#loginButton").attr("style", "display: block;");
+                    // 文章編輯區-按鈕及可編輯處初始化
+                    $("#articleTypeEdit").attr("style", "display: none;");
+                    $("#articleType").attr("style", "display: inline;");
+                    $("#articleTitle").attr("contenteditable", false);
+                    $("#conTent").attr("contenteditable", false);
+                    $("#editButton").attr("style", "display: inline;")
+                    $("#saveButton").attr("style", "display: none;")
+                    $("#cancelButton").attr("style", "display: none;")
+                } else {
+                    $("#loginButton").attr("style", "display: none;");
                 }
 
                 // 清空留言區內容
@@ -560,9 +591,7 @@
                                 <div class="m-1 p-3 col-12 div-style ftco-animate">
                                     <span id="messageContent${item.messageId}">${item.content}</span>
                                     <span id="messageId${item.messageId}" userId="${item.userId}" class="text-right text-light">
-                                    ${item.modifiedDate == item.postDate ?
-                            userData.name + "&nbsp;留言於&nbsp;" + item.postDate :
-                            userData.name + "&nbsp;編輯於&nbsp;" + item.modifiedDate}
+                                     ${item.modifiedDate == item.postDate ? userData.name + "&nbsp;留言於&nbsp;" + item.postDate : userData.name + "&nbsp;編輯於&nbsp;" + item.modifiedDate}
                                     </span>
                                 </div>
                         `;
@@ -584,16 +613,6 @@
                 }
             }
         });
-        // 測試用 上面複製來的 放在ajax外執行
-        // 這console.log到底會不會出現 奇怪
-        if (httpStatus == 302) {
-            console.log("Forum Page HttpStatus: " + httpStatus + "[未登入]");
-        } else if (httpStatus == 200) {
-            console.log("sessionName:" + user.name + "[已登入]");
-            // // $("#loginButton").empty();
-            $("#loginButton").removeAttr("style");
-
-        }
         $.getScript('js/main.js');
     }
 
@@ -707,9 +726,9 @@
         var type = $("#articleType").text();
         console.log(type);
 
-        $("#editSelect").val(type);
+        $("#articleTypeEdit").val(type);
 
-        $("#editType").attr("style", "display: inline;");
+        $("#articleTypeEdit").attr("style", "display: inline;");
         $("#articleType").attr("style", "display: none;");
         $("#articleTitle").attr("contenteditable", true);
         $("#conTent").attr("contenteditable", true);
@@ -720,8 +739,8 @@
 
     $("body").on("click", "#saveButton", function () {
 
-        var type = $("#editSelect").val();
-        var title = $("#title").text();
+        var type = $("#articleTypeEdit").val();
+        var title = $("#articleTitle").text();
         var content = $("#conTent").html();
         var articleId = $("#saveButton").attr("articleId");
         console.log("編輯按鈕:" + articleId);
@@ -748,7 +767,7 @@
         })
         $("#articleType").text(type);
 
-        $("#editType").attr("style", "display: none;");
+        $("#articleTypeEdit").attr("style", "display: none;");
         $("#articleType").attr("style", "display: inline;");
         $("#articleTitle").attr("contenteditable", false);
         $("#conTent").attr("contenteditable", false);
@@ -775,7 +794,7 @@
 
     $("body").on("click", "#cancelButton", function () {
 
-        $("#editType").attr("style", "display: none;");
+        $("#articleTypeEdit").attr("style", "display: none;");
         $("#articleType").attr("style", "display: inline;");
         $("#articleTitle").attr("contenteditable", false);
         $("#conTent").attr("contenteditable", false);
@@ -855,32 +874,65 @@
         $("#cancelMessageButton" + messageId).attr("style", "display: none;")
     };
 
-    function message() {
+    // 新增留言區「我要留言」按鈕呼叫
+    function newMsg() {
+        // 已登入才可留言
         if (user == null) {
             alert('請登入會員')
             window.location.assign("/login_register")
             return
         }
-        let message = document.getElementById('message').value
-        var articleId = $("#message").attr("articleId");
+
+        // 新增留言區按鈕狀態初始化
+        $("#addMsgArea").empty();
+        $("#addMsgArea").attr("contenteditable", "true");
+        $("#addMsgArea").attr("style", "display: block;");
+        $("#newMsgBtn").attr("style", "display: none;");
+        $("#saveMsgBtn").attr("style", "display: inline;");
+        $("#cancelMsgBtn").attr("style", "display: inline;");
+    }
+
+    // 新增留言區「取消」按鈕呼叫
+    function cancelMsg() {
+        // 新增留言區按鈕狀態初始化
+        $("#addMsgArea").empty();
+        $("#addMsgArea").attr("contenteditable", "false");
+        $("#addMsgArea").attr("style", "display: none;");
+        $("#newMsgBtn").attr("style", "display: inline;");
+        $("#saveMsgBtn").attr("style", "display: none;");
+        $("#cancelMsgBtn").attr("style", "display: none;");
+    }
+
+    // 新增留言區「保存」按鈕呼叫
+    function saveMsg() {
+
+        var message = $("#addMsgArea").text();
+        var articleId = $("#addMsgArea").attr("articleId");
         console.log(articleId);
-        let messageData = {
+        var messageData = {
             content: message,
             userId: user.id,
             articleId: articleId
         }
-        let xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
         xhr.addEventListener('load', function () {
             if (xhr.status == 201) {
                 alert('留言成功')
                 getArticleInfo(articleId);
             }
         })
-        xhr.open('post', '/message')
+        xhr.open('POST', '/message')
         xhr.setRequestHeader('Content-type', 'application/json')
         xhr.send(JSON.stringify(messageData))
 
+        // 新增留言區按鈕狀態初始化
+        $("#addMsgArea").attr("contenteditable", "false");
+        $("#addMsgArea").attr("style", "display: none;");
+        $("#newMsgBtn").attr("style", "display: inline;");
+        $("#saveMsgBtn").attr("style", "display: none;");
+        $("#cancelMsgBtn").attr("style", "display: none;");
     }
+
 </script>
 
 </body>
