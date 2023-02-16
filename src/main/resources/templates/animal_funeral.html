@@ -58,13 +58,13 @@
             border-radius: 0px 20px 20px 0px !important;
         }
 
-        /*表格奇數列背景色淺灰*/
-        /*tr:nth-of-type(odd) {*/
-        /*    background-color: rgba(0, 0, 0, 0.05);*/
-        /*}*/
+        /*表格奇數列背景色*/
+        tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
 
-        /*表格偶數列背景色*/
-        /*tr:nth-child(even) {*/
+        /*!*表格偶數列背景色*!*/
+        /*tr:nth-of-type(even) {*/
         /*    background-color: rgba(0, 0, 0, 0.05);*/
         /*}*/
 
@@ -150,12 +150,14 @@
         <div class="row ftco-animate">
             <table class="ftco-animate col-12 table-hover table-striped m-auto text-center font-weight-bold"
                    id="tableAjax">
+                <tbody>
                 <tr class="h5">
                     <th style="width: 25%;">機構</th>
                     <th style="width: 15%;">電話</th>
                     <th style="width: 35%">地址</th>
                     <th style="width: 25%;">服務項目</th>
                 </tr>
+                </tbody>
             </table>
         </div>
         <!-- 顯示資料筆數及頁碼 -->

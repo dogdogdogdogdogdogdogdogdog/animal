@@ -8,9 +8,14 @@
 /*網站背景紋理*/
 /*寬度 < 576px 時背景設定*/
 .main-img {
+    /*
+    頁腳: 水平軸重複、置底
+    右頁首: 不重複、右置頂
+    背景(紋理圖): 重複、置中
+    */
     background-image: url('../images/_section_footer.png'),
     url('../images/_section_header-right.png'),
-    url('../images/_main.png');
+    url('../images/_section_bg.png');
     background-repeat: repeat-x,
     no-repeat,
     repeat;
@@ -21,10 +26,15 @@
 
 /*寬度 > 576px 時背景設定*/
 @media (min-width: 576px) {
+    /*
+    頁腳: 水平軸重複、置底
+    右頁首: 不重複、右置頂
+    背景(紋理圖): 重複、置中
+    */
     .main-img {
         background-image: url('../images/_section_footer.png'),
         url('../images/_section_header-right.png'),
-        url('../images/_main.png');
+        url('../images/_section_bg.png');
         background-repeat: repeat-x,
         no-repeat,
         repeat;
@@ -36,11 +46,17 @@
 
 /*寬度 > 992px 時背景設定*/
 @media (min-width: 992px) {
+    /*
+    頁腳: 水平軸重複、置底
+    左頁首: 不重複、左置頂
+    右頁首: 不重複、右置頂
+    背景(紋理圖): 重複、置中
+    */
     .main-img {
         background-image: url('../images/_section_footer.png'),
         url('../images/_section_header-left.png'),
         url('../images/_section_header-right.png'),
-        url('../images/_main.png');
+        url('../images/_section_bg.png');
         background-repeat: repeat-x,
         no-repeat,
         no-repeat,
