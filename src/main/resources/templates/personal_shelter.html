@@ -335,7 +335,7 @@
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="published">
                         <div class="img-wrap d-flex align-items-stretch">
-                            <div class="work mb-4 img d-flex align-items-end" style="background-image: url(${item.imageUrl});"></div>
+                            <div class="work mb-4 img d-flex align-items-end" style="background-image: url('/images/publish/${item.userId}-${item.animalId}.jpg');"></div>
                         </div>
                         <div class="text pt-3 px-3 pb-4 text-center">
                             <h3 id="${item.animalId}">${item.animalName}</h3>
@@ -400,7 +400,7 @@
                 $("#description_static").html(data.description.replaceAll("\n", "<br>"));
                 $("#createdDate_static").text(data.createdDate);
                 $("#lastModifiedDate_static").text(data.lastModifiedDate);
-                $("#imageUrl_static").css("background-image", `url('${data.imageUrl}')`);
+                $("#imageUrl_static").css("background-image", `url('/images/publish/${data.userId}-${data.animalId}.jpg')`);
                 // console.log("會員:" + data.userId +
                 //     "\n編號:" + data.animalId +
                 //     "\n名字:" + data.animalName +
