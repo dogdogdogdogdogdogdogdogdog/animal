@@ -507,7 +507,7 @@
         console.log("總筆數:" + data["total"]);
 
         // 查詢結束後捲動視窗至篩選欄
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+        // $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
         $.getScript('js/main.js');
     }
 
@@ -517,7 +517,7 @@
         console.log("文章ID: " + id);
         $.ajax({//使用文章id，查詢文章資訊
             type: "GET",
-            // async: false,
+            async: false,
             url: "/forumArticles/" + id,
             success: function (articleData) {
                 // 傳入userId，取得使用者資訊
@@ -721,7 +721,7 @@
     $("body").on("click", "#saveButton", function () {
 
         var type = $("#editSelect").val();
-        var title = $("#title").text();
+        var title = $("#articleTitle").text();
         var content = $("#conTent").html();
         var articleId = $("#saveButton").attr("articleId");
         console.log("編輯按鈕:" + articleId);

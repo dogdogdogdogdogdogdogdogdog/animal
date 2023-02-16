@@ -17,19 +17,12 @@ public class RedisUtils {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    /**
-     * 读取缓存
-     *
-     * @param key
-     * @return
-     */
+    //讀取緩存
     public String get(final String key) {
         return redisTemplate.opsForValue().get(key);
     }
 
-    /**
-     * 写入缓存
-     */
+    //寫入緩存
     public boolean set(final String key, String value) {
         boolean result = false;
         try {
@@ -41,9 +34,7 @@ public class RedisUtils {
         return result;
     }
 
-    /**
-     * 更新缓存
-     */
+    //更新緩存
     public boolean getAndSet(final String key, String value) {
         boolean result = false;
         try {
@@ -55,9 +46,7 @@ public class RedisUtils {
         return result;
     }
 
-    /**
-     * 删除缓存
-     */
+    //刪除緩存
     public boolean delete(final String key) {
         boolean result = false;
         try {
@@ -67,5 +56,11 @@ public class RedisUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    //查詢有沒有這筆key
+    public boolean checkHasKey(final String key) {
+
+        return redisTemplate.hasKey(key);
     }
 }
