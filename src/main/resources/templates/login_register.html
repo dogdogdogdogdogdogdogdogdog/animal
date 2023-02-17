@@ -197,6 +197,29 @@
     </svg>
 </div>
 
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/main.js"></script>
+<script>
+    <!-- 讀取頁首及頁腳 -->
+    $("#header-page").load("/header", function () {
+        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
+        $("#page-title").text($("title")[0].innerText);
+    });
+    $("#footer-page").load("/footer");
+</script>
 <script type="text/javascript">
     function judgeRegisterEmail(email) {
 
@@ -322,32 +345,6 @@
         var data = JSON.stringify(account);
         xhr.send(data);
     }
-
 </script>
-
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-migrate-3.0.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/jquery.animateNumber.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/jquery.timepicker.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/main.js"></script>
-<script>
-    <!-- 讀取頁首及頁腳 -->
-    $("#header-page").load("/header", function () {
-        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
-        $("#page-title").text($("title")[0].innerText);
-    });
-    $("#footer-page").load("/footer");
-</script>
-
 </body>
 </html>

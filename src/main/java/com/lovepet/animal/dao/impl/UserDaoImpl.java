@@ -67,7 +67,7 @@ public class UserDaoImpl implements UserDao {
     public String updateUser(Integer userId, UserUpdateRequest userUpdateRequest) {
         String sql;
         if (userUpdateRequest.getEditPassword() == null) {//未修改密碼
-            System.out.println("未修改密碼");
+//            System.out.println("未修改密碼");
             sql = "UPDATE user SET name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
                     "WHERE user_id = :userId";
             Map<String, Object> map = new HashMap<>();
@@ -77,9 +77,10 @@ public class UserDaoImpl implements UserDao {
             map.put("userId", userId);
 
             namedParameterJdbcTemplate.update(sql, map);
-            return "未修改密碼";
+            System.out.println("修改成功，未修改密碼");
+            return "1";
         }else {
-            System.out.println("修改密碼");
+//            System.out.println("修改密碼");
             sql = "UPDATE user SET password = :password, name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
                     "WHERE user_id = :userId";
 
@@ -92,7 +93,8 @@ public class UserDaoImpl implements UserDao {
             map.put("userId", userId);
 
             namedParameterJdbcTemplate.update(sql, map);
-            return "修改密碼";
+            System.out.println("修改成功，有修改密碼");
+            return "2";
         }
     }
 

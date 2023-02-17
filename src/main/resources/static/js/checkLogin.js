@@ -111,14 +111,13 @@ function init() {
 
 init();
 
-// 登出時執行並清空 session
-function goLoginAndRegist() {//??
-    xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function () {
-        if (xhr.status = 200) {
+function goLoginAndRegist() {// 登出時執行並清空 session
+    $.ajax({
+        type: "GET",
+        url: "/sign_out",
+        async: false,
+        success: function () {
             window.location.replace("/login_register");
         }
     })
-    xhr.open("GET", "/sign_out")
-    xhr.send();
 }

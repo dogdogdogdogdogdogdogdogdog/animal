@@ -191,7 +191,7 @@
         var editPasswd = $("#editPassword").val();
         var editPasswdCheck = $("#editPasswordCheck").val();
         var oldPasswd = $("#userOldPassword").val();
-        console.log("會員Id: "+user.id);
+        console.log("會員Id: " + user.id);
         if (editPasswd != "" && editPasswdCheck == "") {//沒有修改密碼
             if (name == "" || tel == "" || oldPasswd == "") {
                 alert("請填寫所有欄位!");
@@ -210,8 +210,19 @@
                     }),
                 success: function (data) {
                     console.log(data);
-                    alert(data);
-                    init();
+                    switch (data) {
+                        case "1":
+                            alert("修改成功! 請重新登入");
+                            goLoginAndRegist();
+                            break
+                        case "2":
+                            alert("修改成功! 請使用新密碼登入");
+                            goLoginAndRegist();
+                            break
+                        case "0":
+                            alert("密碼錯誤!");
+                            break
+                    }
                 }
             })
             console.log("沒有修改密碼")
@@ -237,15 +248,26 @@
                             "name": name,
                             "password": oldPasswd,
                             "tel": tel,
-                            "editPassword" : editPasswd
+                            "editPassword": editPasswd
                         }),
                     success: function (data) {
-                        init();
                         console.log(data);
-                        alert(data);
+                        switch (data) {
+                            case "1":
+                                alert("修改成功! 請重新登入");
+                                goLoginAndRegist();
+                                break
+                            case "2":
+                                alert("修改成功! 請使用新密碼登入");
+                                goLoginAndRegist();
+                                break
+                            case "0":
+                                alert("密碼錯誤!");
+                                break
+                        }
                     }
                 })
-            }else {
+            } else {
                 alert("密碼不一致!");
             }
             console.log("有修改密碼");

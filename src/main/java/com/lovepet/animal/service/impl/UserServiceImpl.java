@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
             return userDao.updateUser(userId, userUpdateRequest);
         }else {
             System.out.println("密碼錯誤");
-            return "密碼錯誤";
+            return "0";
         }
 
     }
