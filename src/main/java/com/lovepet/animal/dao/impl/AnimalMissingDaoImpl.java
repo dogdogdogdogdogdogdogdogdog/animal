@@ -15,6 +15,8 @@ import org.springframework.util.ClassUtils;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +68,45 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
         map.put("offset", animalMissingQueryParams.getOffset());
 
         List<AnimalMissing> animalMissingList = namedParameterJdbcTemplate.query(sql, map, new AnimalMissingRowmapper());
+
+
+//                InputStream fis = null;
+//        FileOutputStream fos = null;
+//        for (AnimalMissing animalMissing : animalMissingList) {
+//            String url = animalMissing.getImageUrl();
+//
+//            try {
+//                URL imageUrl = new URL(url);
+//                imageUrl.openConnection();
+//                HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+//                conn.connect();
+//                fis = conn.getInputStream();
+//                String path = String.format(System.getProperty("user.dir") +
+//                        "\\src\\main\\resources\\static\\images\\missing\\%s", animalMissing.getUserId() + "-" + animalMissing.getAnimalId() + ".jpg");
+//                fos=new FileOutputStream(path);
+//                byte[] buffer = new byte[1024];
+//                int len;
+//                while ((len = fis.read(buffer)) != -1) {
+//                    fos.write(buffer, 0, len);
+//                }
+//                fos.flush();
+//                fis.close();
+//                fos.close();
+//            } catch (Exception e) {
+//
+//            }
+//        }
+
+//                for (AnimalMissing animalMissing : animalMissingList) {
+//            String sql1 = " update animal_missing set image_url=:url where animal_id=:aid and user_id=:uid ";
+//            Map<String, Object> map1 = new HashMap<>();
+//            map1.put("url", "/images/missing/" + animalMissing.getUserId() + "-" + animalMissing.getAnimalId() + ".jpg");
+//            map1.put("aid", animalMissing.getAnimalId());
+//            map1.put("uid", animalMissing.getUserId());
+//
+//            namedParameterJdbcTemplate.update(sql1, map1);
+//
+//        }
 
         return animalMissingList;
     }
