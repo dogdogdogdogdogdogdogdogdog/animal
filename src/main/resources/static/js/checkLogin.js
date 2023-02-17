@@ -10,7 +10,7 @@ function init() {
     $.ajax({//取得登入session
         type: "GET",
         url: "/session-userId",
-        // async: false,
+        async: false,
         success: function (data, textStatus, xhr) {
             console.log("Check Login Result: " + textStatus + ", Http Status: " + xhr.status);
             httpStatus = xhr.status;
@@ -49,6 +49,8 @@ function init() {
                     console.log("Http Status in Current Page: " + httpStatus);
                     $("#userEmail").val(user.email);
                     $("#userName").val(user.name);
+                    $("#userGender").val(user.gender);
+                    $("#editPassword").val("****************")
                     $("#userTel").val(user.tel);
                     return
 

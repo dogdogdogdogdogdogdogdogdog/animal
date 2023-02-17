@@ -66,14 +66,43 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
 
+//        InputStream fis = null;
+//        FileOutputStream fos = null;
+//        for (PersonalAnimal personalAnimal : personalAnimalList) {
+//            String url = personalAnimal.getImageUrl();
+//
+//            try {
+//                URL imageUrl = new URL(url);
+//                imageUrl.openConnection();
+//                HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+//                conn.connect();
+//                fis = conn.getInputStream();
+//                String path = String.format(System.getProperty("user.dir") +
+//                        "\\src\\main\\resources\\static\\images\\publish\\%s", personalAnimal.getUserId() + "-" + personalAnimal.getAnimalId() + ".jpg");
+//                fos=new FileOutputStream(path);
+//                byte[] buffer = new byte[1024];
+//                int len;
+//                while ((len = fis.read(buffer)) != -1) {
+//                    fos.write(buffer, 0, len);
+//                }
+//                fos.flush();
+//                fis.close();
+//                fos.close();
+//            } catch (Exception e) {
+//
+//            }
+//        }
 
-
-
-
-
-
-
-
+//        for (PersonalAnimal personalAnimal : personalAnimalList) {
+//            String sql1 = " update personal_animal set image_url=:url where animal_id=:aid and user_id=:uid ";
+//            Map<String, Object> map1 = new HashMap<>();
+//            map1.put("url", "/images/publish/" + personalAnimal.getUserId() + "-" + personalAnimal.getAnimalId() + ".jpg");
+//            map1.put("aid", personalAnimal.getAnimalId());
+//            map1.put("uid", personalAnimal.getUserId());
+//
+//            namedParameterJdbcTemplate.update(sql1, map1);
+//
+//        }
 
 
         return personalAnimalList;
@@ -128,7 +157,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         int personalAnimalId = keyHolder.getKey().intValue();
 
-            writePhoto(personalAnimalRequest,personalAnimalId);
+        writePhoto(personalAnimalRequest, personalAnimalId);
 
         return personalAnimalId;
     }
@@ -139,7 +168,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
                 "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor , " +
                 "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
-        writePhoto(personalAnimalRequest,personalAnimalId);
+        writePhoto(personalAnimalRequest, personalAnimalId);
         Map<String, Object> map = new HashMap<>();
         map.put("animalId", personalAnimalId);
         map.put("userId", personalAnimalRequest.getUserId());
@@ -161,12 +190,12 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     }
 
     @Override
-    public void deletePersonalAnimalById(Integer personalAnimalUserId,Integer personalAnimalId) {
+    public void deletePersonalAnimalById(Integer personalAnimalUserId, Integer personalAnimalId) {
         String sql = "DELETE FROM personal_animal WHERE user_id=:personalAnimalUserId  AND animal_id = :personalAnimalId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
-        map.put("personalAnimalUserId",personalAnimalUserId);
+        map.put("personalAnimalUserId", personalAnimalUserId);
         namedParameterJdbcTemplate.update(sql, map);
     }
 
@@ -186,14 +215,14 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
             map.put("area", personalAnimalQueryParams.getArea());
         }
 
-        if(personalAnimalQueryParams.getId()!=null){
-            sql= sql + " AND user_id=:userId ";
-            map.put("userId",personalAnimalQueryParams.getId());
+        if (personalAnimalQueryParams.getId() != null) {
+            sql = sql + " AND user_id=:userId ";
+            map.put("userId", personalAnimalQueryParams.getId());
         }
         return sql;
     }
 
-    private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
+    private void writePhoto(PersonalAnimalRequest personalAnimalRequest, Integer personalAnimalId) {
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
 
@@ -257,7 +286,6 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 //
 //                }
 //                }
-
 
 
 //改名

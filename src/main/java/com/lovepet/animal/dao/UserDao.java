@@ -1,8 +1,8 @@
 package com.lovepet.animal.dao;
 
 import com.lovepet.animal.dto.UserRegisterRequest;
+import com.lovepet.animal.dto.UserUpdateRequest;
 import com.lovepet.animal.model.User;
-import org.springframework.http.ResponseEntity;
 
 public interface UserDao {
     Integer createUser(UserRegisterRequest userRegisterRequest);
@@ -12,7 +12,7 @@ public interface UserDao {
     User getUserByEmail(String email);
 
     Integer getUserIdByEmail(String email);
-    void updateUser(Integer userId, UserRegisterRequest userRegisterRequest);
+    String updateUser(Integer userId, UserUpdateRequest userUpdateRequest);
 
 }
 

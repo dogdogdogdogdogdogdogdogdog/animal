@@ -2,6 +2,7 @@ package com.lovepet.animal.service;
 
 import com.lovepet.animal.dto.UserLoginRequest;
 import com.lovepet.animal.dto.UserRegisterRequest;
+import com.lovepet.animal.dto.UserUpdateRequest;
 import com.lovepet.animal.model.User;
 
 
@@ -17,5 +18,5 @@ public interface UserService {
 
     Integer getUserIdByEmail(String email);
 
-    void updateUser(Integer userId, UserRegisterRequest userRegisterRequest);
+    String updateUser(Integer userId, UserUpdateRequest userUpdateRequest);
 }

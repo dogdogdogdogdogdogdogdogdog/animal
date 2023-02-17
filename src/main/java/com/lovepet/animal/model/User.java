@@ -8,7 +8,7 @@ public class User {
 
     private Integer id;
     private String email;
-    @JsonIgnore
+//    @JsonIgnore
     private String password;
     private String name;
     private String tel;

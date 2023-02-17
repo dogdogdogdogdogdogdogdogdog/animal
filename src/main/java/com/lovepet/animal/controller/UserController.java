@@ -5,6 +5,7 @@ import com.lovepet.animal.dto.ForumArticleRequest;
 import com.lovepet.animal.dto.UserLoginRequest;
 import com.lovepet.animal.dto.UserRegisterRequest;
 
+import com.lovepet.animal.dto.UserUpdateRequest;
 import com.lovepet.animal.model.ForumArticle;
 import com.lovepet.animal.model.User;
 import com.lovepet.animal.service.UserService;
@@ -43,6 +44,7 @@ public class UserController {
 
         session.setAttribute("userId", user.getId());
         session.setAttribute("email", user.getEmail());
+        session.setAttribute("password", user.getPassword());
         session.setAttribute("name", user.getName());
         session.setAttribute("tel", user.getTel());
         session.setAttribute("gender", user.getGender());
@@ -56,6 +58,7 @@ public class UserController {
     public ResponseEntity<User> getUserSession(HttpSession session) { //@Path用來取得url路徑的值
         User user = new User();
         user.setId((Integer) session.getAttribute("userId"));
+        user.setPassword((String) session.getAttribute("password"));
         user.setEmail((String) session.getAttribute("email"));
         user.setName((String) session.getAttribute("name"));
         user.setTel((String) session.getAttribute("tel"));
@@ -75,21 +78,18 @@ public class UserController {
     }
 
     @PutMapping("/user/{userId}")//修改user資料
-    public ResponseEntity<User> updateUser(@PathVariable Integer userId,
-                                           @RequestBody @Valid UserRegisterRequest userRegisterRequest) {
+    public String updateUser(@PathVariable Integer userId,
+                                           @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
+
         //檢查userId 是否存在
         User user = userService.getUserById(userId);
 
         if (user == null) {//找不到回傳404 NOT_FOUND
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return "會員不存在";
         }
 
         //修改文章內容
-        userService.updateUser(userId, userRegisterRequest);
-
-        User updatedUser = userService.getUserById(userId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
+        return userService.updateUser(userId, userUpdateRequest);
     }
 
     @GetMapping("/sign_out")//登出

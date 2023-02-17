@@ -2,6 +2,7 @@ package com.lovepet.animal.dao.impl;
 
 import com.lovepet.animal.dao.UserDao;
 import com.lovepet.animal.dto.UserRegisterRequest;
+import com.lovepet.animal.dto.UserUpdateRequest;
 import com.lovepet.animal.model.User;
 import com.lovepet.animal.rowmapper.UserGetIdRowmapper;
 import com.lovepet.animal.rowmapper.UserRowmapper;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -62,21 +64,36 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(Integer userId, UserRegisterRequest userRegisterRequest) {
-        String sql = "UPDATE user SET email = :email, password = :password, name = :name, tel = :tel, gender = :gender, last_modified_date = lastModifiedDate " +
-                "WHERE user_id = :userId";
+    public String updateUser(Integer userId, UserUpdateRequest userUpdateRequest) {
+        String sql;
+        if (userUpdateRequest.getEditPassword() == null) {//未修改密碼
+            System.out.println("未修改密碼");
+            sql = "UPDATE user SET name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
+                    "WHERE user_id = :userId";
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", userUpdateRequest.getName());
+            map.put("tel", userUpdateRequest.getTel());
+            map.put("lastModifiedDate", new Date());
+            map.put("userId", userId);
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("email", userRegisterRequest.getEmail());
-        map.put("password", userRegisterRequest.getPassword());
-        map.put("name", userRegisterRequest.getName());
-        map.put("tel", userRegisterRequest.getTel());
-        map.put("gender", userRegisterRequest.getGender());
-        map.put("lastModifiedDate", new Date());
+            namedParameterJdbcTemplate.update(sql, map);
+            return "未修改密碼";
+        }else {
+            System.out.println("修改密碼");
+            sql = "UPDATE user SET password = :password, name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
+                    "WHERE user_id = :userId";
 
-        map.put("userId", userId);
+            String hashedPassword = DigestUtils.md5DigestAsHex(userUpdateRequest.getEditPassword().getBytes());
+            Map<String, Object> map = new HashMap<>();
+            map.put("password", hashedPassword);
+            map.put("name", userUpdateRequest.getName());
+            map.put("tel", userUpdateRequest.getTel());
+            map.put("lastModifiedDate", new Date());
+            map.put("userId", userId);
 
-        namedParameterJdbcTemplate.update(sql, map);
+            namedParameterJdbcTemplate.update(sql, map);
+            return "修改密碼";
+        }
     }
 
     @Override
