@@ -39,12 +39,12 @@ function init() {
 
 
             switch (url) {
-                case 'forum':
-                    console.log("Http Status in Current Page: " + httpStatus);
-                    if (httpStatus == 200) {
-                        $("#post").attr("style", "display: inline")
-                    }
-                    return;
+                // case 'forum':
+                //     console.log("Http Status in Current Page: " + httpStatus);
+                //     if (httpStatus == 200) {
+                //         $("#postFormBtn").attr("style", "display: inline")
+                //     }
+                //     return;
                 case 'user_management':
                     console.log("Http Status in Current Page: " + httpStatus);
                     $("#userEmail").val(user.email);
