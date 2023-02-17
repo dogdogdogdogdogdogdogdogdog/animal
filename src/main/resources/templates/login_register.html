@@ -146,6 +146,12 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
+                            <input id="passwordCheckAjax" type="password" class="form-control" placeholder="密碼確認">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
                             <span class="fa-icon"><i class="fa fa-user-o fa-2x"></i></span>
                             <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
                         </div>
@@ -271,11 +277,15 @@
     function register() {
         var emailAjax = document.getElementById("emailAjax").value
         var passwordAjax = document.getElementById("passwordAjax").value
+        var passwordCheckAjax = document.getElementById("passwordCheckAjax").value
         var nameAjax = document.getElementById("nameAjax").value
         var telAjax = document.getElementById("telAjax").value
         var genderAjax = document.getElementById("genderAjax").value
-        if (emailAjax == "" || passwordAjax == "" || nameAjax == "" || telAjax == "" || genderAjax == "") {
-            alert("註冊所有資料必須填寫")
+        if (emailAjax == "" || passwordAjax == "" || passwordCheckAjax == "" || nameAjax == "" || telAjax == "" || genderAjax == "性別") {
+            alert("註冊所有資料必須填寫");
+            return
+        }else if (passwordAjax != passwordCheckAjax) {
+            alert("密碼不一致");
             return
         }
 
@@ -292,9 +302,11 @@
 
             if (xhr.status == 201) {
                 document.getElementById("emailAjax").value = ""
+                document.getElementById("passwordCheckAjax").value = ""
                 document.getElementById("passwordAjax").value = ""
                 document.getElementById("nameAjax").value = ""
                 document.getElementById("telAjax").value = ""
+                document.getElementById("genderAjax").value = "性別";
                 document.getElementById("promptEmail").innerText = ""
                 alert("註冊成功請登入")
 
