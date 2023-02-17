@@ -227,13 +227,14 @@
         <!-- 顯示搜尋條件 -->
         <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
             <div class="p-1">
-                <select class="custom-select" name="place" id="place">
+                <select class="custom-select" name="place" id="typeCombobox">
+                    <option value="default">全部分類</option>
                 </select>
             </div>
-            <div class="p-1">
-                <select class="custom-select" name="category" id="category">
-                </select>
-            </div>
+<!--            <div class="p-1">-->
+<!--                <select class="custom-select" name="category" id="category">-->
+<!--                </select>-->
+<!--            </div>-->
             <div class="p-1">
                 <input type="text" class="custom-select" id="inputBox" placeholder="查詢標題或內文"
                        style="background-image: none;">
@@ -388,6 +389,7 @@
                             <div class="row m-0 p-1 col-12" style="border-bottom: 1px solid lightgrey;">
                                 <div class="col-lg-2">
                                     <select id="postType" class="custom-select">
+                                        <option value="default">分類</option>
                                         <option value="綜合">綜合</option>
                                         <option value="問題">問題</option>
                                         <option value="心得">心得</option>
@@ -406,7 +408,7 @@
                             <!-- 文章內容 -->
                             <div class="m-0 p-0 col-12">
                                 <textarea id="postContent" oninput="setTextAreaHeight(this);"
-                                          class="px-4 col-12"></textarea>
+                                          class="px-4 col-12" placeholder="&#10;※發文宣導※&#10;&#10;● 不違反善良風俗。&#10;● 禁止標題與內文不符。&#10;● 不要進行人身攻擊，小心無意間觸法。&#10;● 推廣正面發文風氣，從你我做起。"></textarea>
                             </div>
                         </div>
                     </div>
@@ -478,25 +480,28 @@
 
     init();//載入頁面先執行一次
 
-    // $.ajax({//載入下拉選單
-    //     type: "GET",
-    //     url: "/getAnimalFoodsComboBox",
-    //     success: function (data) {
-    //         console.log(data);
-    //         console.log(data[0]);
-    //         console.log(data[1]);
-    //
-    //         $("#place").append("<option value='不限產地'>不限產地</option>");
-    //         $("#category").append("<option value='不限種類'>不限種類</option>");
-    //
-    //         $.each(data[0], function (index, item) {
-    //             $("#place").append("<option value='" + item + "'>" + item + "</option>");
-    //         })
-    //         $.each(data[1], function (index, item) {
-    //             $("#category").append("<option value='" + item + "'>" + item + "</option>");
-    //         })
-    //     }
-    // });
+    // 載入篩選區下拉選單
+    $.ajax({
+        type: "GET",
+        url: "/forumArticles",
+        success: function (data) {
+            // 使用 Set 排除重複迭代結果
+            var typeSet = new Set();
+            $.each(data["results"], function (index, item) {
+                typeSet.add(item.type);
+            })
+
+            // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
+            // ※ Set 若轉換為 Array 後便能使用 jQuery 的 each 方法
+            // ※ var areaArray = Array.from(areaSet);
+            typeSet.forEach(function (type) {
+                let comboBoxContent = `
+                    <option value="${type}">${type}</option>
+                `;
+                $("#typeCombobox").append(comboBoxContent);
+            })
+        }
+    });
 
 
     function getForumArticleList(data) {//秀出搜尋結果
@@ -509,7 +514,7 @@
                 <th style='width: 20%;'><div></div></th>
                 <th style='width: 10%;'><div>作者</div></th>
                 <th style='width: 5%;'><div>留言</div></th>
-                <th style='width: 10%;'><div>讚/瀏覽</div></th>
+<!--                <th style='width: 10%;'><div>讚/瀏覽</div></th>-->
                 <th style='width: 10%;'><div>更新日期</div></th>
             </tr>`;
 
@@ -523,7 +528,7 @@
             var html = `
                 <tr>
                     <td>
-                        <div>${item.type}</div>
+                        <div onclick='getType($(this).text())' style="cursor: pointer;">${item.type}</div>
                     </td>
                     <td>
                         <div id="${item.articleId}" onclick='getArticleInfo($(this).attr("id"))' style="cursor: pointer;" data-toggle='modal' data-target='#browseModalCenter'>
@@ -537,7 +542,7 @@
                     </td>
                     <td><div>${userInfo.name}</div></td>
                     <td><div>${messageData == null ? 0 : messageData[1]}</div></td>
-                    <td><div>${item.likes}/${item.views}</div></td>
+<!--                    <td><div>${item.likes}/${item.views}</div></td>-->
                     <td><div>${item.modifiedDate}</div></td>
                 </tr>
 `;
@@ -562,7 +567,7 @@
         console.log("總筆數:" + data["total"]);
 
         // 查詢結束後捲動視窗至篩選欄
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+        // $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
         $.getScript('js/main.js');
     }
 
@@ -678,6 +683,12 @@
         return rsData;
     }
 
+    function getType(type) {
+        console.log(type)
+        $("#typeCombobox").val(type);
+        listPage = 1;
+        changePage(listPage);
+    }
     function getArticle(id) {
         var rsData;
         $.ajax({//使用文章id，查詢文章資訊
@@ -715,15 +726,21 @@
         console.log("offset" + offset);
         console.log("page" + page);
 
+        var queryParams = "";
+        var type = $("#typeCombobox").val();
         var search = $("#inputBox").val().trim();
-        var searchUrl = "";
 
         console.log(search)
 
-        if (search != "") {
-            searchUrl += "&search=" + search;
+        // 取得篩選區的參數
+        if (type != "default") {
+            queryParams += "&type=" + type;
         }
-        var url = "/forumArticles?offset=" + limit * (page - 1) + searchUrl;
+
+        if (search != "") {
+            queryParams += "&search=" + search;
+        }
+        var url = "/forumArticles?offset=" + limit * (page - 1) + queryParams;
         console.log(url);
         $.ajax({
             type: "GET",
@@ -740,11 +757,15 @@
         if (httpStatus == 200) {
             $("#postModalCenter").modal("show");
         } else {
-            alert('請先登入會員')
-            return
+            if (confirm('尚未登入會員，是否前往登入?') == true) {
+                window.location.href = '/login_register';
+            }else {
+                return
+            }
         }
 
         // 清空內容
+        $("#postType").val("default");
         $("#postTitle").val("");
         $("#postContent").val("");
     }
@@ -761,7 +782,10 @@
             return
         } else if (title == "") {
             alert('請填寫文章標題')
-            return;
+            return
+        } else if (type == "default") {
+            alert('請選擇文章分類')
+            return
         }
 
         $.ajax({
@@ -945,8 +969,11 @@
     function newMsg() {
         // 已登入才可留言
         if (user == null) {
-            alert('請先登入會員')
-            return
+            if (confirm('尚未登入會員，是否前往登入?') == true) {
+                window.location.href = '/login_register';
+            }else {
+                return
+            }
         }
 
         // 新增留言區按鈕初始化
