@@ -16,6 +16,8 @@ import org.springframework.util.ClassUtils;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +63,18 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("limit", personalAnimalQueryParams.getLimit());
         map.put("offset", personalAnimalQueryParams.getOffset());
 
+
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+
+
+
+
+
+
+
+
+
+
 
         return personalAnimalList;
     }
@@ -216,3 +229,45 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
 
 }
+
+
+//下載
+//    InputStream fis=null;
+//    FileOutputStream fos=null;
+//        for(PersonalAnimal personalAnimal:personalAnimalList){
+//                String url=personalAnimal.getImageUrl();
+//
+//                try {
+//                URL imageUrl = new URL(url);
+//                imageUrl.openConnection();
+//                HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
+//                conn.connect();
+//                fis= conn.getInputStream();
+//                String   path =String.format("D:\\animal\\src\\main\\resources\\static\\images\\publish\\%s-%s.jpg",personalAnimal.getUserId(),personalAnimal.getAnimalId());
+//                fos=new FileOutputStream(path);
+//                byte[] buffer=new byte[1024];
+//                int len;
+//                while((len=fis.read(buffer))!=-1) {
+//                fos.write(buffer,0,len);
+//                }
+//                fos.flush();
+//                fis.close();
+//                fos.close();
+//                }catch (Exception e){
+//
+//                }
+//                }
+
+
+
+//改名
+// for(PersonalAnimal personalAnimal:personalAnimalList){
+//         String sql1=" update personal_animal set image_url=:url where animal_id=:aid and user_id=:uid ";
+//         Map<String,Object> map1=new HashMap<>();
+//        map1.put("url","/images/publish/"+personalAnimal.getUserId()+"-"+personalAnimal.getAnimalId()+".jpg");
+//        map1.put("aid",personalAnimal.getAnimalId());
+//        map1.put("uid",personalAnimal.getUserId());
+//
+//        namedParameterJdbcTemplate.update(sql1,map1);
+//
+//        }
