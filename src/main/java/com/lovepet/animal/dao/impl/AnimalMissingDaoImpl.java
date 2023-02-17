@@ -182,7 +182,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
             // 專案路徑
             String pathSrc = String.format(System.getProperty("user.dir") +
-                    "\\src\\main\\resources\\static\\images\\publish\\%s", animalMissingRequest.getUserId() + "-" + animalMissingRequest + ".jpg");
+                    "\\src\\main\\resources\\static\\images\\missing\\%s", animalMissingRequest.getUserId() + "-" + animalMissingRequest + ".jpg");
 
             // 編譯路徑
             String pathTarget = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath() +
