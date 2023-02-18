@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface PersonalAnimalService {
 
-    List<String> getPersonalAnimalsComboBox();
-
     Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams);
 
     List<PersonalAnimal> getPersonalAnimals(PersonalAnimalQueryParams personalAnimalQueryParams);

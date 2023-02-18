@@ -20,15 +20,6 @@ public class AnimalFoodDaoImpl implements AnimalFoodDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-
-    @Override
-    public List<AnimalFood> getAnimalFoodsComboBox() {
-        String sql = "SELECT * FROM animal_food WHERE 1=1";
-
-        List<AnimalFood> list = namedParameterJdbcTemplate.query(sql, new AnimalFoodRowmapper());
-        return list;
-    }
-
     @Override
     public Integer countAnimalFood(AnimalFoodQueryParams animalFoodQueryParams) {
         String sql = "SELECT count(*) FROM animal_food WHERE 1=1";

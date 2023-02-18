@@ -25,7 +25,7 @@ function publishAnimal(){
     fd.append("animalColor",color)
     fd.append("animalSterilization",sterilization)
     fd.append("animalBacterin",bacterin)
-    fd.append("photoUrl",'/static/images/publish/')
+    fd.append("photoUrl",user.id)
     fd.append("area",area)
     fd.append("description",description)
     let xhr=new XMLHttpRequest()
@@ -35,7 +35,7 @@ function publishAnimal(){
             alert('新增成功')
         }
     })
-    xhr.open('post','http://localhost:8080/personalAnimals')
+    xhr.open('post','/personalAnimals')
    xhr.send(fd)
 
 

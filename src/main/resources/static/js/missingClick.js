@@ -2,18 +2,20 @@
 function publishMissingAnimal(){
     let missingInput = document.getElementById("missingInput")
     let input=missingInput.getElementsByTagName("input")
-    let fd=new FormData
+    console.log(input)
+    let fd=new FormData()
     let c=0
     for(let i=0;i<input.length;i++){
         if(input[i].value!="") {
             c++
-            if (input[i].id == "missingAnimalPhoto") {
+
+            if (input[i].id == "animalPhoto") {
                 fd.append(input[i].id, input[i].files[0])
             }
             fd.append(input[i].id, input[i].value)
         }
         }
-    fd.append("photoUrl",'/static/images/publish/')
+    fd.append("imageUrl",'/static/images/publish/')
     fd.append("userId",user.id)
     if(c<(input.length)){alert('資料請確實填寫');return}
 
@@ -26,7 +28,7 @@ function publishMissingAnimal(){
             alert('協尋資料刊登成功')
         }
     })
-    xhr.open('post', 'http://localhost:8080/missingAnimals');
+    xhr.open('post', '/animalsMissing');
 
     xhr.send(fd);
 

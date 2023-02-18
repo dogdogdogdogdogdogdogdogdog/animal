@@ -99,7 +99,6 @@ public class AnimalDaoImpl implements AnimalDao {
         for (int j = 1; j <= i; j++) {
             list.add(j);
         }
-
         return list;
     }
 

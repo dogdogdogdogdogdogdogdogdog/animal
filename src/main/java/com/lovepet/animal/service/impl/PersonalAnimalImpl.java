@@ -50,27 +50,4 @@ public class PersonalAnimalImpl implements PersonalAnimalService {
         personalAnimalDao.deletePersonalAnimalById(personalAnimalUserId,personalAnimalId);
     }
 
-    @Override
-    public List<String> getPersonalAnimalsComboBox() {
-        List<PersonalAnimal> personalAnimalList = personalAnimalDao.getPersonalAnimalComboBox();
-        List list = new ArrayList();
-        Set<String> areaSet = new HashSet<>();
-        Set<String> kindSet = new HashSet<>();
-        Set<String> sexSet = new HashSet<>();
-
-        for (int i = 0; i < personalAnimalList.size(); i++) {
-            areaSet.add(personalAnimalList.get(i).getArea());
-            kindSet.add(personalAnimalList.get(i).getAnimalKind());
-            sexSet.add(personalAnimalList.get(i).getAnimalSex());
-        }
-        System.out.println(areaSet);
-        System.out.println(kindSet);
-        System.out.println(sexSet);
-
-        list.add(areaSet);
-        list.add(kindSet);
-        list.add(sexSet);
-
-        return list;
-    }
 }

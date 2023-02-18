@@ -8,7 +8,8 @@ import com.lovepet.animal.util.PageContent;
 import java.util.List;
 
 public interface AnimalService {
-     PageContent getAnimals(AnimalQueryParams animalQueryParams);
 
+     PageContent getAnimals(AnimalQueryParams animalQueryParams);
     List<Shelter> getShelter();
+
 }

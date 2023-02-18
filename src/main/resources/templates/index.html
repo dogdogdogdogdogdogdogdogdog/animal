@@ -1,75 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>寵物資訊平台</title>
+    <title>浪寵尋家</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
-          rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- 禁用官方樣式 使用 Bootstrap 自帶樣式
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    -->
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- 全域自訂CSS樣式 -->
+    <link rel="stylesheet" href="css/_custom.css">
 </head>
 <style>
-    .main-img {
-        background-image: url('/images/_main.png');
-        background-repeat: repeat;
+    /*按鈕樣式*/
+    .btn.btn-primary {
+        color: black !important;
+        padding: 6px 20px;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        border: transparent !important;
+        background: #fcd601 !important;
+        opacity: 1;
+        border-radius: 20px;
     }
 
-    .mySlides {
-        display: none
+    /*按鈕樣式-滑鼠掠過*/
+    .btn.btn-primary:hover {
+        color: white !important;
+        background: #ffa500 !important;
+        opacity: 1;
     }
 
-    .w3-left,
-    .w3-right,
-    .w3-badge {
-        cursor: pointer
-    }
-
-    .w3-badge {
-        height: 13px;
-        width: 13px;
-        padding: 0
-    }
-
-    .w3-border {
-        margin-left: auto;
-        margin-right: auto;
+    .container p {
+        color: black;
+        font-size: 20px;
+        /*font-weight: bolder;*/
     }
 </style>
 
 <body>
-<div class="header-page"></div>
-<!-- END nav -->
-<div class="w3-content w3-display-container" style="max-width:2000px">
-    <img class="mySlides" src="images/TEST.png" style="width:100%" height="350px">
-    <img class="mySlides" src="images/cat2.jpg" style="width:100%" height="350px">
-    <img class="mySlides" src="images/cat3.jpg" style="width:100%" height="350px">
-    <img class="mySlides" src="images/cat4.jpg" style="width:100%" height="350px">
-
-    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
-
-        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-        <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-
-        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
-        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
-    </div>
-</div>
+<div id="header-page"></div>
 
 <section class="ftco-section main-img" style="padding-bottom: 50px">
     <div class="container py-3">
         <div class="col-auto py-3 heading-section text-center ftco-animate">
-            <h2>領養資訊</h2>
+            <h2>認養資訊</h2>
         </div>
         <div class="row">
             <div class="col-md-4 ftco-animate">
@@ -116,8 +98,8 @@
                     </div>
                 </div>
             </div>
-            <input class="w3-btn w3-orange w3-border w3-border-orange w3-round-xlarge" type="button"
-                   onclick="location.href='/personal_shelter';" value="查看更多"/>
+            <div class="col-md-12 d-flex justify-content-center ftco-animate">
+            <a href="/personal_shelter" class="btn btn-primary">想多瞭解<span class="fa fa-caret-right px-2"></span></a>
         </div>
     </div>
     <div class="container py-3">
@@ -168,29 +150,27 @@
                     </div>
                 </div>
             </div>
-            <input class="w3-btn w3-orange w3-border w3-border-orange w3-round-xlarge " type="button"
-                   onclick="location.href='/missing';" value="查看更多"/>
+            <div class="col-md-12 d-flex justify-content-center ftco-animate">
+            <a href="/missing" class="btn btn-primary">想多瞭解<span class="fa fa-caret-right px-2"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="padding-bottom: 12rem;">
+        <div class="col-auto pt-5 heading-section text-center ftco-animate">
+            <h2>關於我們</h2>
+        </div>
+        <div class="text-center">
+            <hr>
+            <p>當「認養代替購買」成為口號時，我們想用行動來幫助找家的浪浪們。</p>
+            <p>現今毛小孩不只是寵物，更是陪伴我們的家人。</p>
+            <p>因此創建這個資訊整合平台，透過簡易操作讓愛爸愛媽們找到心儀的毛孩。</p>
+            <p>每一個毛孩都值得擁有家，為它們提供安全和愛，豐富彼此的生命！</p>
         </div>
     </div>
 </section>
-
-<footer class="footer">
-    <div class="row mt-5">
-        <div class="col-md-12 text-center">
-            <p class="copyright">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is
-                made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                                                               target="_blank">Colorlib.com</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-        </div>
-    </div>
-</footer>
-
-<!-- loader -->
+<!-- 頁腳 -->
+<div id="footer-page"></div>
+<!-- 頁面載入動畫 -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
         <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
@@ -198,8 +178,6 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
-
-
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
 <script src="js/popper.min.js"></script>
@@ -213,15 +191,14 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
-
-<script src="js/index.js"></script>
-<!-- 讀取導覽列 -->
 <script>
-    $(".header-page").load("header");
+    <!-- 讀取頁首及頁腳 -->
+    $("#header-page").load("/header", function (){
+        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
+        $("#page-title").text($("title")[0].innerText);
+    });
+    $("#footer-page").load("/footer");
 </script>
 </body>
 

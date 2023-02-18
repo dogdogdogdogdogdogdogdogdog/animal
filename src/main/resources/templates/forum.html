@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>交流天地</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- 禁用官方樣式 使用 Bootstrap 自帶樣式
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 全域自訂CSS樣式 -->
+    <link rel="stylesheet" href="css/_custom.css">
+    <script src="js/button.click.js"></script>
+    <!--  自訂樣式  -->
+    <style>
+        /*按鈕樣式*/
+        .btn.btn-primary {
+            color: black !important;
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #fcd601 !important;
+            opacity: 1;
+        }
+
+        /*按鈕樣式-滑鼠掠過*/
+        .btn.btn-primary:hover {
+            color: white !important;
+            background: #ffa500 !important;
+            opacity: 1;
+        }
+
+        /*表格欄位間距*/
+        th {
+            padding: 15px !important;
+            text-align: center;
+        }
+
+        /*表格格內間距*/
+        td {
+            padding: 10px !important;
+            text-align: center;
+        }
+
+        /*表格邊角圓弧-左上及左下*/
+        th:first-child, td:first-child {
+            border-radius: 20px 0px 0px 20px !important;
+        }
+
+        /*表格邊角圓弧-右上及右下*/
+        th:last-child, td:last-child {
+            border-radius: 0px 20px 20px 0px !important;
+        }
+
+        /*表格奇數列背景色*/
+        tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /*!*表格偶數列背景色*!*/
+        /*tr:nth-of-type(even) {*/
+        /*    background-color: rgba(0, 0, 0, 0.05);*/
+        /*}*/
+
+        /*表格欄位列背景色固定*/
+        tr:first-child, table tr:first-child:hover {
+            color: white;
+            background-color: #f3bd73 !important;
+            transition: background-color 0.35s ease-in-out !important;
+        }
+
+        /*表格滑鼠掠過效果*/
+        tr:hover {
+            color: white;
+            background-color: #ff07004a !important;
+            transition: background-color 0.35s ease-in-out;
+        }
+
+        /*表格內超連結樣式清空*/
+        table a {
+            /*color: rgba(0, 0, 0, 0.5) !important;*/
+            color: unset !important;
+        }
+
+        /*原生換頁UI*/
+        /*.block-27 ul li a, .block-27 ul li span {*/
+        /*    color: black;*/
+        /*    border: 2px solid #e6e6e6;*/
+        /*    background: #ffffce;*/
+        /*}*/
+
+        .page_show {
+            /*padding: 40px 0;*/
+            text-align: center;
+        }
+
+        .page_show span {
+            display: inline-block;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 11px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 1px;
+            border: #b7b7b7 solid 1px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        span.page_cur {
+            color: #fff;;
+            border: #282828 solid 1px;
+            background-color: #424242;
+        }
+
+        /*彈出式互動視窗背景*/
+        .modal-content.modal-bg {
+            background-image: url('/images/_section_bg.png');
+            background-repeat: repeat;
+            background-position: center;
+            /*background-color: white;*/
+        }
+
+        /*區塊陰影效果*/
+        .div-style {
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 2px 2px 5px grey;
+            border-radius: 10px;
+        }
+
+        /*文章樣式*/
+        #conTent, #postContent, #addMsgArea {
+            color: black;
+            font-size: 16px;
+            font-weight: 700;
+            padding-top: 0;
+            padding-bottom: 0;
+            display: block;
+            line-height: 30px;
+        }
+
+        #postContent {
+            height: 250px;
+            resize: none !important;
+            border: none !important;
+            /*outline: none !important;*/
+            /*box-shadow: none !important;*/
+        }
+
+        #addMsgArea {
+            height: 100px;
+            resize: none !important;
+        }
+
+        /*新增文章標題*/
+        #postTitle {
+            color: black;
+            font-size: 16px;
+            font-weight: 700;
+            display: block;
+            line-height: 30px;
+        }
+
+        /*留言樣式*/
+        .modal-content span {
+            color: black;
+            font-size: 16px;
+            font-weight: 700;
+            display: block;
+            line-height: 30px;
+        }
+
+        /*文章及留言-時間樣式*/
+        .modal-content .text-light {
+            color: grey !important;
+            font-size: 12px !important;
+            font-weight: 700;
+            line-height: 10px;
+        }
+
+        /*瀏覽文章分類樣式-寬高強制固定*/
+        #articleTypeEdit, #articleType {
+            width: 70px;
+            height: 40px;
+            color: white;
+            background-color: #ff07004a;
+            padding: 6px 1px;
+            border-radius: 5px;
+        }
+
+        /*瀏覽文章分類樣式-下拉選單調整到置中*/
+        #articleTypeEdit {
+            text-indent: -12px;
+        }
+
+        /*瀏覽文章作者樣式*/
+        #articleUserName {
+            color: white;
+            background-color: #ff07004a;
+            padding: 1px 10px;
+            border-radius: 5px;
+        }
+
+        /*發表文章分類樣式*/
+        #postType {
+            color: white;
+            background-color: #ff07004a;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="header-page"></div>
+
+<section id="query_block" class="ftco-section main-img">
+    <div class="container py-5">
+        <!-- 顯示搜尋條件 -->
+        <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
+            <div class="p-1">
+                <select class="custom-select" name="place" id="typeCombobox">
+                    <option value="default">全部分類</option>
+                </select>
+            </div>
+<!--            <div class="p-1">-->
+<!--                <select class="custom-select" name="category" id="category">-->
+<!--                </select>-->
+<!--            </div>-->
+            <div class="p-1">
+                <input type="text" class="custom-select" id="inputBox" placeholder="查詢標題或內文"
+                       style="background-image: none;">
+            </div>
+            <div class="p-1">
+                <button class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i>搜尋
+                </button>
+            </div>
+            <!-- 發文按鈕 -->
+            <div class="p-1">
+                <button id="postFormBtn" class="btn btn-primary" onclick="postFormInit()">發文</button>
+            </div>
+        </div>
+        <!-- 顯示資料內容 -->
+        <div class="row ftco-animate">
+            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="tableAjax">
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- 顯示查詢資訊 -->
+        <div class="row ftco-animate">
+            <div class="col-12 p-3 text-center">
+                <div class="block-27">
+                    <p id="pageInfo"></p>
+                    <div class="page_show"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Modal 瀏覽文章-->
+        <div class="modal fade" id="browseModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div id="articleInfo" class="modal-content modal-bg">
+                    <!-- Modal 文章資訊-->
+                    <div class="modal-header">
+                        <div class="col-12 px-0 d-flex justify-content-center">
+                            <div class="modal-title d-flex">
+                                <!-- 瀏覽文章分類區塊 (編輯時) -->
+                                <select id="articleTypeEdit" class="custom-select text-center"
+                                        style="display: none;">
+                                    <option value="綜合">綜合</option>
+                                    <option value="問題">問題</option>
+                                    <option value="心得">心得</option>
+                                    <option value="開箱">開箱</option>
+                                    <option value="新聞">新聞</option>
+                                    <option value="知識">知識</option>
+                                    <option value="閒聊">閒聊</option>
+                                    <option value="創作">創作</option>
+                                </select>
+                                <h5 id="articleType" class="my-0 font-weight-bold text-center">
+                                    文章分類</h5>
+                                <h3 id="articleTitle" class="my-0 mx-2 font-weight-bold text-center">文章標題</h3>
+                            </div>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="browseClose"
+                                    style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row mx-auto mb-3 p-3 col-lg-10 col-12 justify-content-center div-style">
+                            <!-- 瀏覽文章內文區塊 -->
+                            <div class="row m-0 px-3 col-12" style="border-bottom: 1px solid lightgrey;">
+                                <div class="row col-6 mx-0 mb-2 p-0 font-weight-bold justify-content-start">
+                                    <!-- 使用者名稱 -->
+                                    <span id="articleUserName">使用者名稱</span>
+                                </div>
+                                <div class="row col-6 m-0 p-0">
+                                    <div class="row col-12 m-0 p-0 justify-content-end">
+                                        <span class="text-light">發文時間&nbsp;</span>
+                                        <span class="text-light" id="articlePostDate"></span>
+                                    </div>
+                                    <div class="row col-12 m-0 p-0 justify-content-end">
+                                        <span class="text-light">更新時間&nbsp;</span>
+                                        <span class="text-light" id="articleModifiedDate"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 瀏覽文章按鈕區塊 -->
+                            <div class="m-0 p-0 col-12">
+                            <span id="conTent" class="col-12" contenteditable="false">文章內文</span>
+                            <span id="loginButton" class="mt-1 text-right" style="display: none;">
+                                    <!-- 自訂屬性 articleId -->
+                                    <button id="editButton" articleId=""
+                                            class="btn btn-primary ftco-animate">編輯</button>
+                                    <button id="saveButton" articleId="" class="btn btn-primary ftco-animate"
+                                            style="display: none;">
+                                        保存
+                                    </button>
+                                    <button id="cancelButton" class="btn btn-primary ftco-animate"
+                                            style="display: none;">取消
+                                    </button>
+                                    <button id="deleteButton" articleId=""
+                                            class="btn btn-primary ftco-animate">刪除</button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- 新增留言區塊 -->
+                        <div class="row mx-auto mb-3 col-lg-10 col-12 justify-content-center">
+                            <!-- 自訂屬性 articleId -->
+                            <textarea id="addMsgArea" articleId="" class="m-1 col-12 div-style ftco-animate"
+                                      oninput="setTextAreaHeight(this);" style="display: none;"></textarea>
+                            <span class="mt-1 text-right" style="display: block;">
+                                <button id="newMsgBtn" class="btn btn-primary mx-1 ftco-animate" onclick="newMsg()">我要留言
+                                </button>
+                                <button id="saveMsgBtn" class="btn btn-primary ftco-animate" onclick="saveMsg()"
+                                        style="display: none;">保存
+                                </button>
+                                <button id="cancelMsgBtn" class="btn btn-primary ftco-animate" onclick="cancelMsg()"
+                                        style="display: none;">取消
+                            </button>
+                            </span>
+                        </div>
+                        <div id="chatBlock" class="row m-auto col-lg-10 col-12 justify-content-center">
+                            <!-- 文章留言區塊 -->
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <!-- 點讚功能未實作先隱藏
+                            <div class="p-1">
+                                <button id="likes" type="button" class="btn btn-primary">讚！</button>
+                            </div>
+                            <div class="p-1">
+                                <button id="unlikes" type="button" class="btn btn-primary">倒讚</button>
+                            </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal 發表文章-->
+        <div class="modal fade" id="postModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content modal-bg">
+                    <div class="modal-header">
+                        <!-- 標題 -->
+                        <div class="col-12 px-0 d-flex justify-content-center">
+                            <h3 class="modal-title font-weight-bold">發表文章</h3>
+                        </div>
+                    </div>
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto mb-3 p-3 col-lg-10 col-12 justify-content-center div-style">
+                            <!-- 文章分類及文章標題 -->
+                            <div class="row m-0 p-1 col-12" style="border-bottom: 1px solid lightgrey;">
+                                <div class="col-lg-2">
+                                    <select id="postType" class="custom-select">
+                                        <option value="default">分類</option>
+                                        <option value="綜合">綜合</option>
+                                        <option value="問題">問題</option>
+                                        <option value="心得">心得</option>
+                                        <option value="開箱">開箱</option>
+                                        <option value="新聞">新聞</option>
+                                        <option value="知識">知識</option>
+                                        <option value="閒聊">閒聊</option>
+                                        <option value="創作">創作</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-10">
+                                    <input type="text" id="postTitle" class="form-control" placeholder="標題"
+                                           style="border: none; height: unset !important;">
+                                </div>
+                            </div>
+                            <!-- 文章內容 -->
+                            <div class="m-0 p-0 col-12">
+                                <textarea id="postContent" oninput="setTextAreaHeight(this);"
+                                          class="px-4 col-12" placeholder="&#10;※發文宣導※&#10;&#10;● 不違反善良風俗。&#10;● 禁止標題與內文不符。&#10;● 不要進行人身攻擊，小心無意間觸法。&#10;● 推廣正面發文風氣，從你我做起。"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button id="postSubmitBtn" type="button" class="btn btn-primary">送出</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="postClose"
+                                style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 頁腳 -->
+<div id="footer-page"></div>
+
+
+<!-- 頁面載入動畫 -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/pageController.js"></script>
+<script>
+    <!-- 讀取頁首及頁腳 -->
+    $("#header-page").load("/header", function () {
+        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
+        $("#page-title").text($("title")[0].innerText);
+    });
+    $("#footer-page").load("/footer");
+</script>
+
+<script type="text/javascript">
+    var limit;
+    var pages;
+
+    function init() {//初始化
+        $.ajax({//取得所有文章
+            type: "GET",
+            url: "/forumArticles",
+            async: false,
+            success: function (data) {
+                getForumArticleList(data);
+            }
+        });
+    }
+
+    init();//載入頁面先執行一次
+
+    // 載入篩選區下拉選單
+    $.ajax({
+        type: "GET",
+        url: "/forumArticles",
+        success: function (data) {
+            // 使用 Set 排除重複迭代結果
+            var typeSet = new Set();
+            $.each(data["results"], function (index, item) {
+                typeSet.add(item.type);
+            })
+
+            // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
+            // ※ Set 若轉換為 Array 後便能使用 jQuery 的 each 方法
+            // ※ var areaArray = Array.from(areaSet);
+            typeSet.forEach(function (type) {
+                let comboBoxContent = `
+                    <option value="${type}">${type}</option>
+                `;
+                $("#typeCombobox").append(comboBoxContent);
+            })
+        }
+    });
+
+
+    function getForumArticleList(data) {//秀出搜尋結果
+        $("#tableAjax").empty();//清空元素
+
+        var title = `
+            <tr class='h5'>
+                <th style='width: 10%;'><div>分類</div></th>
+                <th style='width: 10%;'><div>標題</div></th>
+                <th style='width: 20%;'><div></div></th>
+                <th style='width: 10%;'><div>作者</div></th>
+                <th style='width: 5%;'><div>留言</div></th>
+<!--                <th style='width: 10%;'><div>讚/瀏覽</div></th>-->
+                <th style='width: 10%;'><div>更新日期</div></th>
+            </tr>`;
+
+        $("#tableAjax").append(title);//加入標題
+
+        $.each(data["results"], function (index, item) {
+            // console.log(item.userId)
+            var userInfo = getUserInfo(item.userId);//傳入userid，取得使用者資訊
+            var messageData = getMessageInfo(item.articleId);//傳入文章id，取得留言資訊
+            // console.log(messageData);
+            var html = `
+                <tr>
+                    <td>
+                        <div onclick='getType($(this).text())' style="cursor: pointer;">${item.type}</div>
+                    </td>
+                    <td>
+                        <div id="${item.articleId}" onclick='getArticleInfo($(this).attr("id"))' style="cursor: pointer;" data-toggle='modal' data-target='#browseModalCenter'>
+                            ${item.title}
+                        </div>
+                    </td>
+                    <td>
+                        <div id="${item.articleId}" onclick='getArticleInfo($(this).attr("id"))' style="cursor: pointer;" data-toggle='modal' data-target='#browseModalCenter'>
+                            ${item.content.length > 10 ? item.content.slice(0, 10) + "......" : item.content}
+                        </div>
+                    </td>
+                    <td><div>${userInfo.name}</div></td>
+                    <td><div>${messageData == null ? 0 : messageData[1]}</div></td>
+<!--                    <td><div>${item.likes}/${item.views}</div></td>-->
+                    <td><div>${item.modifiedDate}</div></td>
+                </tr>
+`;
+            $("#tableAjax").append(html);//加入內容
+        });
+
+
+        pages = Math.ceil(data.total / data.limit);
+        // console.log(data.offset / data.limit)
+        limit = data.limit;
+
+        if (data.total == 0) {
+            $("#pageInfo").text("查無資料");
+        } else {
+            $("#pageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+        }
+
+        pageSet(pages);
+
+        console.log("單頁筆數limit:" + data["limit"]);
+        console.log("跳過幾筆資料offset:" + data["offset"]);
+        console.log("總筆數:" + data["total"]);
+
+        // 查詢結束後捲動視窗至篩選欄
+        // $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+        $.getScript('js/main.js');
+    }
+
+    function getArticleInfo(id) {//點擊文章
+        // 新增留言區-按鈕及可編輯處初始化
+        $("#addMsgArea").val("");
+        $("#addMsgArea").attr("style", "display: none;");
+        $("#newMsgBtn").attr("style", "display: inline;");
+        $("#saveMsgBtn").attr("style", "display: none;");
+        $("#cancelMsgBtn").attr("style", "display: none;");
+
+        // var id = $(gid).attr("id");//取得文章id
+        console.log("文章ID: " + id);
+        $.ajax({//使用文章id，查詢文章資訊
+            type: "GET",
+            async: false,
+            url: "/forumArticles/" + id,
+            success: function (articleData) {
+                // 傳入userId，取得使用者資訊
+                var userArticleData = getUserInfo(articleData.userId);
+
+                // 加入文章內文
+                $("#articleType").text(articleData.type);
+                $("#articleTitle").text(articleData.title);
+                $("#articleUserName").text(userArticleData.name);
+                $("#articlePostDate").text(articleData.postDate);
+                $("#articleModifiedDate").text(articleData.modifiedDate);
+                $("#conTent").html(articleData.content);
+
+                // 新增留言區賦予 articleId
+                $("#addMsgArea").attr("articleId", articleData.articleId);
+
+                // 文章編輯區按鈕賦予 articleId
+                $("#editButton").attr("articleId", articleData.articleId);
+                $("#saveButton").attr("articleId", articleData.articleId);
+                $("#deleteButton").attr("articleId", articleData.articleId);
+                // 文章編輯區-發文者已登入則顯示按鈕
+                if (httpStatus == 200 && articleData.userId == user.id) {
+                    $("#loginButton").attr("style", "display: block;");
+                    // 文章編輯區-按鈕及可編輯處初始化
+                    $("#articleTypeEdit").attr("style", "display: none;");
+                    $("#articleType").attr("style", "display: inline;");
+                    $("#articleTitle").attr("contenteditable", false);
+                    $("#conTent").attr("contenteditable", false);
+                    $("#editButton").attr("style", "display: inline;")
+                    $("#saveButton").attr("style", "display: none;")
+                    $("#cancelButton").attr("style", "display: none;")
+                    $("#deleteButton").attr("style", "display: inline;")
+                } else {
+                    $("#loginButton").attr("style", "display: none;");
+                }
+
+                // 清空留言區內容
+                $("#chatBlock").empty();
+                // 傳入文章 id 取得留言資料
+                var messageData = getMessageInfo(articleData.articleId);
+                if (messageData != null) {
+                    $.each(messageData[0], function (index, item) {
+                        // 傳入 userId 取得 user 資料
+                        var userData = getUserInfo(item.userId);
+                        messageHtml = `
+                            <div class="m-1 p-3 col-12 div-style ftco-animate">
+                                <span id="messageContent${item.messageId}">${item.content}</span>
+                                <span id="messageId${item.messageId}" userId="${item.userId}" class="text-right text-light">
+                                 ${item.modifiedDate == item.postDate ? userData.name + "&nbsp;留言於&nbsp;" + item.postDate : userData.name + "&nbsp;編輯於&nbsp;" + item.modifiedDate}
+                                </span>
+                            </div>
+                        `;
+                        $("#chatBlock").append(messageHtml);
+
+                        // 判斷登入狀態 留言者已登入則顯示按紐 (編輯、保存、取消、刪除)
+                        var messageButton = `
+                        <a href="javascript:;" onclick="editMessageButton(this)" id="editMessageButton${item.messageId}" messageId="${item.messageId}">編輯</a>
+                        <a href="javascript:;" onclick="saveMessageButton(this)" id="saveMessageButton${item.messageId}" messageId="${item.messageId}" articleId="${item.articleId}" style="display: none;">保存</a>
+                        <a href="javascript:;" onclick="cancelMessageButton(this)" id="cancelMessageButton${item.messageId}" messageId="${item.messageId}" style="display: none;">取消</a>
+                        <a href="javascript:;" onclick="deleteMessageButton(this)" id="deleteMessageButton${item.messageId}" messageId="${item.messageId}" articleId="${item.articleId}">刪除</a>
+                        `;
+                        var userId = $("#messageId" + item.messageId).attr("userId");
+                        if (httpStatus == 200 && userId == user.id) {
+                            console.log(userId);
+                            $("#messageId" + item.messageId).append(messageButton);
+                        }
+                    });
+                }
+            }
+        });
+        $.getScript('js/main.js');
+    }
+
+    function getUserInfo(id) {//傳入id，回傳userData
+        var rsData;
+        $.ajax({//使用userId，查詢user資訊
+            type: "GET",
+            url: "/user/" + id,
+            async: false,
+            success: function (data) {
+                rsData = data;
+            }
+        });
+        return rsData;
+    }
+
+    function getMessageInfo(id) {//傳入文章id，回傳userData留言
+        var rsData;
+        $.ajax({//使用userId，查詢user資訊
+            type: "GET",
+            url: "/message?articleId=" + id,
+            async: false,
+            success: function (data) {
+                rsData = data;
+            }
+        });
+        return rsData;
+    }
+
+    function getType(type) {
+        console.log(type)
+        $("#typeCombobox").val(type);
+        listPage = 1;
+        changePage(listPage);
+    }
+    function getArticle(id) {
+        var rsData;
+        $.ajax({//使用文章id，查詢文章資訊
+            type: "GET",
+            url: "/forumArticles/" + id,
+            success: function (data) {
+                rsData = data;
+            }
+        });
+        return rsData;
+    }
+
+    function getMessageInfoById(id) {//傳入留言id，回傳userData留言
+        var rsData;
+        $.ajax({//使用userId，查詢user資訊
+            type: "GET",
+            url: "/message/" + id,
+            async: false,
+            success: function (data) {
+                rsData = data;
+            }
+        });
+        return rsData;
+    }
+
+    $("#search").click(function () {//搜尋按鈕被按下
+        listPage = 1;
+        changePage(listPage);
+    })
+
+    var listPage = 1;
+
+    function changePage(page) {//傳入頁數可查詢指定頁面
+        var offset = limit * (page - 1);
+        console.log("offset" + offset);
+        console.log("page" + page);
+
+        var queryParams = "";
+        var type = $("#typeCombobox").val();
+        var search = $("#inputBox").val().trim();
+
+        console.log(search)
+
+        // 取得篩選區的參數
+        if (type != "default") {
+            queryParams += "&type=" + type;
+        }
+
+        if (search != "") {
+            queryParams += "&search=" + search;
+        }
+        var url = "/forumArticles?offset=" + limit * (page - 1) + queryParams;
+        console.log(url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                getForumArticleList(data);
+            }
+        })
+    }
+
+    // 發表文章區域初始化
+    function postFormInit() {
+        // 登入判斷
+        if (httpStatus == 200) {
+            $("#postModalCenter").modal("show");
+        } else {
+            if (confirm('尚未登入會員，是否前往登入?') == true) {
+                window.location.href = '/login_register';
+            }else {
+                return
+            }
+        }
+
+        // 清空內容
+        $("#postType").val("default");
+        $("#postTitle").val("");
+        $("#postContent").val("");
+    }
+
+    // 發表文章區域-送出發文
+    $("#postSubmitBtn").on("click", function () {
+
+        var type = $("#postType").val();
+        var title = $("#postTitle").val();
+        var content = $("#postContent").val().replaceAll("\n", "<br>");
+
+        if (content == "") {
+            alert('請填寫文章內容')
+            return
+        } else if (title == "") {
+            alert('請填寫文章標題')
+            return
+        } else if (type == "default") {
+            alert('請選擇文章分類')
+            return
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/forumArticles",
+            contentType: "application/json; charset=UTF-8",
+            data:
+                JSON.stringify({
+                    "userId": user.id,
+                    "type": type,
+                    "title": title,
+                    "content": content
+                }),
+            success: function (data) {
+                alert("發文成功!");
+                // 發文成功後關閉彈出式互動視窗
+                $(".close[aria-label='postClose']").click();
+                changePage(1);
+            }
+        })
+    })
+
+    //文章編輯按鈕
+    $("body").on("click", "#editButton", function () {
+        var type = $("#articleType").text();
+        console.log(type);
+
+        $("#articleTypeEdit").val(type);
+
+        $("#articleTypeEdit").attr("style", "display: inline;");
+        $("#articleType").attr("style", "display: none;");
+        $("#articleTitle").attr("contenteditable", true);
+        $("#conTent").attr("contenteditable", true);
+        $("#editButton").attr("style", "display: none;");
+        $("#saveButton").attr("style", "display: inline;");
+        $("#cancelButton").attr("style", "display: inline;");
+        $("#deleteButton").attr("style", "display: none;");
+    })
+
+    $("body").on("click", "#saveButton", function () {
+
+        var type = $("#articleTypeEdit").val();
+        var title = $("#articleTitle").text();
+        var content = $("#conTent").html();
+        var articleId = $("#saveButton").attr("articleId");
+        console.log("編輯按鈕:" + articleId);
+        console.log(type);
+        console.log(title);
+        console.log(content);
+
+        $.ajax({
+            type: "PUT",
+            url: "/forumArticles/" + articleId,
+            contentType: "application/json; charset=UTF-8",
+            data:
+                JSON.stringify({
+                    "userId": user.id,
+                    "type": type,
+                    "title": title,
+                    "content": content
+                }),
+            success: function (data) {
+                alert("編輯成功!");
+                changePage(1);
+                getArticleInfo(articleId);
+
+                // 編輯成功後將按鈕初始化
+                $("#articleType").text(type);
+                $("#articleTypeEdit").attr("style", "display: none;");
+                $("#articleType").attr("style", "display: inline;");
+                $("#articleTitle").attr("contenteditable", false);
+                $("#conTent").attr("contenteditable", false);
+                $("#editButton").attr("style", "display: inline;");
+                $("#saveButton").attr("style", "display: none;");
+                $("#cancelButton").attr("style", "display: none;");
+                $("#deleteButton").attr("style", "display: inline;");
+            }
+        })
+    });
+
+    $("body").on("click", "#deleteButton", function () {
+        var articleId = $("#deleteButton").attr("articleId");
+
+        if (confirm("確定要刪除嗎?") == true) {
+            $.ajax({
+                type: "DELETE",
+                url: "/forumArticles/" + user.id + "/" + articleId,
+                success: function () {
+                    alert("刪除成功!");
+                    changePage(1);
+                    $("#browseModalCenter").modal("hide");//隱藏彈出視窗
+                }
+            })
+        }
+    });
+
+    $("body").on("click", "#cancelButton", function () {
+
+        $("#articleTypeEdit").attr("style", "display: none;");
+        $("#articleType").attr("style", "display: inline;");
+        $("#articleTitle").attr("contenteditable", false);
+        $("#conTent").attr("contenteditable", false);
+        $("#editButton").attr("style", "display: inline;");
+        $("#saveButton").attr("style", "display: none;");
+        $("#cancelButton").attr("style", "display: none;");
+        $("#deleteButton").attr("style", "display: inline;");
+    });
+
+    //留言編輯按鈕
+    var content;//儲存修改前的留言
+    function editMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        content = $("#messageContent" + messageId).text();
+        console.log(messageId);
+
+        $("#messageContent" + messageId).attr("contenteditable", true);
+        $("#editMessageButton" + messageId).attr("style", "display: none;");
+        $("#saveMessageButton" + messageId).attr("style", "display: inline;");
+        $("#cancelMessageButton" + messageId).attr("style", "display: inline;")
+    }
+
+    function saveMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        var content = $("#messageContent" + messageId).text();
+        var articleId = $(th).attr("articleId");
+        console.log("saveMessage mssId: " + messageId);
+        console.log("saveMessage content: " + content);
+        console.log("saveMessage articleId: " + articleId);
+
+        $.ajax({
+            type: "PUT",
+            url: "/message/" + messageId,
+            contentType: "application/json; charset=UTF-8",
+            data:
+                JSON.stringify({
+                    "content": content
+                }),
+            success: function (data) {
+                alert("編輯成功!");
+                changePage(1);
+                getArticleInfo(articleId);
+            }
+        })
+
+        $("#messageContent" + messageId).attr("contenteditable", false);
+        $("#editMessageButton" + messageId).attr("style", "display: inline;");
+        $("#saveMessageButton" + messageId).attr("style", "display: none;");
+        $("#cancelMessageButton" + messageId).attr("style", "display: none;");
+    };
+
+    function deleteMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        console.log(messageId);
+        var articleId = $("#deleteMessageButton" + messageId).attr("articleId")
+
+        if (confirm("確定要刪除嗎?") == true) {
+            $.ajax({
+                type: "DELETE",
+                url: "/message/" + articleId + "/" + messageId,
+                success: function () {
+                    alert("刪除成功!");
+                    changePage(1);
+                    getArticleInfo(articleId);
+                }
+            })
+        }
+    };
+
+    function cancelMessageButton(th) {
+        var messageId = $(th).attr("messageId");//取得留言id
+        console.log(messageId);
+
+        $("#messageContent" + messageId).text(content);
+        $("#messageContent" + messageId).attr("contenteditable", false);
+        $("#editMessageButton" + messageId).attr("style", "display: inline;");
+        $("#saveMessageButton" + messageId).attr("style", "display: none;");
+        $("#cancelMessageButton" + messageId).attr("style", "display: none;");
+    };
+
+    // 新增留言區「我要留言」按鈕呼叫
+    function newMsg() {
+        // 已登入才可留言
+        if (user == null) {
+            if (confirm('尚未登入會員，是否前往登入?') == true) {
+                window.location.href = '/login_register';
+            }else {
+                return
+            }
+        }
+
+        // 新增留言區按鈕初始化
+        $("#addMsgArea").val("");
+        $("#addMsgArea").attr("style", "display: block;");
+        $("#newMsgBtn").attr("style", "display: none;");
+        $("#saveMsgBtn").attr("style", "display: inline;");
+        $("#cancelMsgBtn").attr("style", "display: inline;");
+    }
+
+    // 新增留言區「取消」按鈕呼叫
+    function cancelMsg() {
+        // 新增留言區按鈕初始化
+        $("#addMsgArea").val("");
+        $("#addMsgArea").attr("style", "display: none;");
+        $("#newMsgBtn").attr("style", "display: inline;");
+        $("#saveMsgBtn").attr("style", "display: none;");
+        $("#cancelMsgBtn").attr("style", "display: none;");
+    }
+
+    // 新增留言區「保存」按鈕呼叫
+    function saveMsg() {
+        var message = $("#addMsgArea").val();
+
+        if (message == "") {
+            alert('請填寫內容')
+            return
+        }
+        var articleId = $("#addMsgArea").attr("articleId");
+        console.log(articleId);
+        var messageData = {
+            content: message,
+            userId: user.id,
+            articleId: articleId
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', function () {
+            if (xhr.status == 201) {
+                alert('留言成功')
+                getArticleInfo(articleId);
+            }
+        })
+        xhr.open('POST', '/message')
+        xhr.setRequestHeader('Content-type', 'application/json')
+        xhr.send(JSON.stringify(messageData))
+
+        // 新增留言區按鈕初始化
+        $("#addMsgArea").attr("style", "display: none;");
+        $("#newMsgBtn").attr("style", "display: inline;");
+        $("#saveMsgBtn").attr("style", "display: none;");
+        $("#cancelMsgBtn").attr("style", "display: none;");
+    }
+
+    function setTextAreaHeight(textarea) {
+        // 不同 textarea 間使用各自標籤內高度設定值作為此處初始值
+        if (textarea.id == "conTent" || textarea.id == "postContent") {
+            textarea.style.height = "250px";
+        } else if (textarea.id == "addMsgArea") {
+            textarea.style.height = "100px";
+        }
+
+        textarea.style.height = (textarea.scrollHeight) + "px";
+    }
+
+</script>
+
+</body>
+</html>

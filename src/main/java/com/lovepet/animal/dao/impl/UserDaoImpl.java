@@ -2,6 +2,7 @@ package com.lovepet.animal.dao.impl;
 
 import com.lovepet.animal.dao.UserDao;
 import com.lovepet.animal.dto.UserRegisterRequest;
+import com.lovepet.animal.dto.UserUpdateRequest;
 import com.lovepet.animal.model.User;
 import com.lovepet.animal.rowmapper.UserGetIdRowmapper;
 import com.lovepet.animal.rowmapper.UserRowmapper;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -49,7 +51,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(Integer id) {
-        String sql = "select user_id,email,password,name,tel from user where user_id=:userId ";
+        String sql = "SELECT * FROM user WHERE user_id=:userId ";
         Map<String, Object> map = new HashMap<>();
         map.put("userId", id);
 
@@ -62,8 +64,43 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public String updateUser(Integer userId, UserUpdateRequest userUpdateRequest) {
+        String sql;
+        if (userUpdateRequest.getEditPassword() == null) {//未修改密碼
+//            System.out.println("未修改密碼");
+            sql = "UPDATE user SET name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
+                    "WHERE user_id = :userId";
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", userUpdateRequest.getName());
+            map.put("tel", userUpdateRequest.getTel());
+            map.put("lastModifiedDate", new Date());
+            map.put("userId", userId);
+
+            namedParameterJdbcTemplate.update(sql, map);
+            System.out.println("修改成功，未修改密碼");
+            return "1";
+        }else {
+//            System.out.println("修改密碼");
+            sql = "UPDATE user SET password = :password, name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
+                    "WHERE user_id = :userId";
+
+            String hashedPassword = DigestUtils.md5DigestAsHex(userUpdateRequest.getEditPassword().getBytes());
+            Map<String, Object> map = new HashMap<>();
+            map.put("password", hashedPassword);
+            map.put("name", userUpdateRequest.getName());
+            map.put("tel", userUpdateRequest.getTel());
+            map.put("lastModifiedDate", new Date());
+            map.put("userId", userId);
+
+            namedParameterJdbcTemplate.update(sql, map);
+            System.out.println("修改成功，有修改密碼");
+            return "2";
+        }
+    }
+
+    @Override
     public User getUserByEmail(String email) {
-        String sql = "select user_id,email,password,name,tel from user where email=:email ";
+        String sql = "select * from user where email=:email ";
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
 

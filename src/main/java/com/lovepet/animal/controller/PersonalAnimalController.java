@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
@@ -61,6 +60,7 @@ public class PersonalAnimalController {
         page.setLimit(limit);
         page.setOffset(offset);
         page.setTotal(total);
+
         page.setResults(personalAnimalList);
 
         return ResponseEntity.status(HttpStatus.OK).body(page);
@@ -78,35 +78,35 @@ public class PersonalAnimalController {
     }
 
     @PostMapping("/personalAnimals")//新增個人收容所資料
-    public ResponseEntity<PersonalAnimal> createPersonalAnimal(@RequestParam("animalPhoto")  MultipartFile animalPhoto,
-                                                               @RequestParam("userId")  Integer userId,
+    public ResponseEntity<PersonalAnimal> createPersonalAnimal(@RequestParam("animalPhoto") MultipartFile animalPhoto,
+                                                               @RequestParam("userId") Integer userId,
                                                                @RequestParam("animalName") String animalName,
-                                                               @RequestParam("animalKind")  String animalKind,
+                                                               @RequestParam("animalKind") String animalKind,
                                                                @RequestParam("animalVariety") String animalVariety,
-                                                               @RequestParam("animalSex")  String animalSex,
-                                                               @RequestParam("animalAge")  String animalAge,
-                                                               @RequestParam("animalBodysize")  String animalBodysize,
-                                                               @RequestParam("animalColor")  String animalColor,
+                                                               @RequestParam("animalSex") String animalSex,
+                                                               @RequestParam("animalAge") String animalAge,
+                                                               @RequestParam("animalBodysize") String animalBodysize,
+                                                               @RequestParam("animalColor") String animalColor,
                                                                @RequestParam("animalSterilization") String animalSterilization,
-                                                               @RequestParam("animalBacterin")  String animalBacterin,
+                                                               @RequestParam("animalBacterin") String animalBacterin,
                                                                @RequestParam("photoUrl") String imageUrl,
-                                                               @RequestParam("area")  String area,
+                                                               @RequestParam("area") String area,
                                                                @RequestParam("description") String description) {
-       PersonalAnimalRequest personalAnimalRequest=new PersonalAnimalRequest();
-       personalAnimalRequest.setAnimalPhoto(animalPhoto);
-       personalAnimalRequest.setUserId(userId);
-       personalAnimalRequest.setAnimalName(animalName);
-       personalAnimalRequest.setAnimalKind(animalKind);
-       personalAnimalRequest.setAnimalVariety(animalVariety);
-       personalAnimalRequest.setAnimalSex(animalSex);
-       personalAnimalRequest.setAnimalAge(animalAge);
-       personalAnimalRequest.setAnimalBodysize(animalBodysize);
-       personalAnimalRequest.setAnimalColor(animalColor);
-       personalAnimalRequest.setAnimalSterilization(animalSterilization);
-       personalAnimalRequest.setAnimalBacterin(animalBacterin);
-       personalAnimalRequest.setImageUrl(imageUrl);
-       personalAnimalRequest.setArea(area);
-       personalAnimalRequest.setDescription(description);
+        PersonalAnimalRequest personalAnimalRequest = new PersonalAnimalRequest();
+        personalAnimalRequest.setAnimalPhoto(animalPhoto);
+        personalAnimalRequest.setUserId(userId);
+        personalAnimalRequest.setAnimalName(animalName);
+        personalAnimalRequest.setAnimalKind(animalKind);
+        personalAnimalRequest.setAnimalVariety(animalVariety);
+        personalAnimalRequest.setAnimalSex(animalSex);
+        personalAnimalRequest.setAnimalAge(animalAge);
+        personalAnimalRequest.setAnimalBodysize(animalBodysize);
+        personalAnimalRequest.setAnimalColor(animalColor);
+        personalAnimalRequest.setAnimalSterilization(animalSterilization);
+        personalAnimalRequest.setAnimalBacterin(animalBacterin);
+        personalAnimalRequest.setImageUrl(imageUrl);
+        personalAnimalRequest.setArea(area);
+        personalAnimalRequest.setDescription(description);
         Integer personalAnimalId = personalAnimalService.createPersonalAnimal(personalAnimalRequest);
 
         PersonalAnimal personalAnimal = personalAnimalService.getPersonalAnimalById(personalAnimalId);
@@ -115,22 +115,22 @@ public class PersonalAnimalController {
     }
 
     @PutMapping("/personalAnimals")//修改個人收容所資料
-    public ResponseEntity<PersonalAnimal> updatePersonalAnimal(@RequestParam(value = "animalPhoto",required = false)  MultipartFile animalPhoto,
-                                                               @RequestParam(value = "userId",required = false)  Integer userId,
-                                                               @RequestParam(value = "animalName",required = false)  String animalName,
-                                                               @RequestParam(value = "animalKind",required = false)  String animalKind,
-                                                               @RequestParam(value = "animalVariety",required = false)  String animalVariety,
-                                                               @RequestParam(value = "animalSex",required = false)  String animalSex,
-                                                               @RequestParam(value = "animalAge",required = false)  String animalAge,
-                                                               @RequestParam(value = "animalBodysize",required = false) String animalBodysize,
-                                                               @RequestParam(value = "animalColor",required = false)  String animalColor,
-                                                               @RequestParam(value = "animalSterilization",required = false)  String animalSterilization,
-                                                               @RequestParam(value = "animalBacterin",required = false)  String animalBacterin,
-                                                               @RequestParam(value = "imageUrl",required = false)  String imageUrl,
-                                                               @RequestParam(value = "area",required = false) String area,
-                                                               @RequestParam(value = "description",required = false)  String description,
-                                                               @RequestParam(value = "item",required = false)  Integer personalAnimalId) {
-        PersonalAnimalRequest personalAnimalRequest=new PersonalAnimalRequest();
+    public ResponseEntity<PersonalAnimal> updatePersonalAnimal(@RequestParam(value = "animalPhoto", required = false) MultipartFile animalPhoto,
+                                                               @RequestParam(value = "userId", required = false) Integer userId,
+                                                               @RequestParam(value = "animalName", required = false) String animalName,
+                                                               @RequestParam(value = "animalKind", required = false) String animalKind,
+                                                               @RequestParam(value = "animalVariety", required = false) String animalVariety,
+                                                               @RequestParam(value = "animalSex", required = false) String animalSex,
+                                                               @RequestParam(value = "animalAge", required = false) String animalAge,
+                                                               @RequestParam(value = "animalBodysize", required = false) String animalBodysize,
+                                                               @RequestParam(value = "animalColor", required = false) String animalColor,
+                                                               @RequestParam(value = "animalSterilization", required = false) String animalSterilization,
+                                                               @RequestParam(value = "animalBacterin", required = false) String animalBacterin,
+                                                               @RequestParam(value = "imageUrl", required = false) String imageUrl,
+                                                               @RequestParam(value = "area", required = false) String area,
+                                                               @RequestParam(value = "description", required = false) String description,
+                                                               @RequestParam(value = "item", required = false) Integer personalAnimalId) {
+        PersonalAnimalRequest personalAnimalRequest = new PersonalAnimalRequest();
         personalAnimalRequest.setAnimalPhoto(animalPhoto);
         personalAnimalRequest.setUserId(userId);
         personalAnimalRequest.setAnimalName(animalName);
@@ -161,16 +161,10 @@ public class PersonalAnimalController {
     }
 
     @DeleteMapping("/personalAnimals/{personalUserId}/{personalAnimalId}")
-    public ResponseEntity<?> deletePersonalAnimal(@PathVariable Integer personalUserId,@PathVariable Integer personalAnimalId) {
-        personalAnimalService.deletePersonalAnimalById(personalUserId,personalAnimalId);
+    public ResponseEntity<?> deletePersonalAnimal(@PathVariable Integer personalUserId, @PathVariable Integer personalAnimalId) {
+        personalAnimalService.deletePersonalAnimalById(personalUserId, personalAnimalId);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/getPersonalAnimalsComboBox")// 搜尋條件-送資料至下拉選單
-    public ResponseEntity getPersonalAnimalsComboBox(Model model) {
-        List list = personalAnimalService.getPersonalAnimalsComboBox();
-
-        return ResponseEntity.status(HttpStatus.OK).body(list);
-    }
 }

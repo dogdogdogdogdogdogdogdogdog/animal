@@ -3,6 +3,7 @@ package com.lovepet.animal.service.impl;
 import com.lovepet.animal.dao.UserDao;
 import com.lovepet.animal.dto.UserLoginRequest;
 import com.lovepet.animal.dto.UserRegisterRequest;
+import com.lovepet.animal.dto.UserUpdateRequest;
 import com.lovepet.animal.model.User;
 import com.lovepet.animal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,28 @@ public class UserServiceImpl implements UserService {
 
 //        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return null;
+    }
+
+    @Override
+    public String updateUser(Integer userId, UserUpdateRequest userUpdateRequest) {
+        User user = userDao.getUserById(userId);
+        if (user == null) {
+            System.out.println("null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        String hashedPassword = DigestUtils.md5DigestAsHex(userUpdateRequest.getPassword().getBytes());
+        System.out.println(hashedPassword);
+        System.out.println(user.getPassword());
+        if (user.getPassword().equals(hashedPassword)) {
+            System.out.println("密碼正確");
+            userUpdateRequest.setPassword(hashedPassword);
+
+            return userDao.updateUser(userId, userUpdateRequest);
+        }else {
+            System.out.println("密碼錯誤");
+            return "0";
+        }
+
     }
 
     @Override

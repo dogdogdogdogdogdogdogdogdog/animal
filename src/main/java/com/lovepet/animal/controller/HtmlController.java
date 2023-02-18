@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HtmlController {
+
     @Autowired
     private AnimalService animalService;
 
@@ -18,9 +19,16 @@ public class HtmlController {
         return "animal_food";
     }
 
-    @GetMapping("/header")//取得導覽列
+    // 取得頁首
+    @GetMapping("/header")
     public String goHeader() {
         return "header";
+    }
+
+    // 取得頁腳
+    @GetMapping("/footer")
+    public String goFooter() {
+        return "footer";
     }
 
     @GetMapping("/user_publish_history")
@@ -35,20 +43,27 @@ public class HtmlController {
 
     @GetMapping("/login_register")
     public String goLoginRegister() {
-        return "login_register";}
+        return "login_register";
+    }
 
-    @GetMapping("index")
-    public String goIndex() { return  "index";}
+    @GetMapping("/index")
+    public String goIndex() {
+        return "index";
+    }
 
-    @GetMapping("animal_hospital")
-    public String goAnimalHospital() { return  "animal_hospital";}
+    @GetMapping("/animal_hospital")
+    public String goAnimalHospital() {
+        return "animal_hospital";
+    }
 
-    @GetMapping("funeral")
-    public String goFuneral() { return  "funeral";}
+    @GetMapping("/animal_funeral")
+    public String goFuneral() {
+        return "animal_funeral";
+    }
 
     @GetMapping("/missing")
     public String goMissing() {
-        return "missing";
+        return "animal_missing";
     }
 
     @GetMapping("/personal_shelter")
@@ -61,15 +76,13 @@ public class HtmlController {
         return "publish";
     }
 
+    @GetMapping("/forum")
+    public String goForum(){
+        return "forum";
+    }
+
     @GetMapping("/public_shelter")
-    public String goPublicShelter(
-            Model model,
-            @RequestParam(defaultValue = "12") Integer limit,
-            @RequestParam(defaultValue = "0") Integer offset,
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "所有收容所") String shelterName,
-            @RequestParam(defaultValue = "不分種類") String animalKind
-    ) {
+    public String goPublicShelter(Model model, @RequestParam(defaultValue = "12") Integer limit, @RequestParam(defaultValue = "0") Integer offset, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "所有收容所") String shelterName, @RequestParam(defaultValue = "不分種類") String animalKind) {
 
         AnimalQueryParams animalQueryParams = new AnimalQueryParams();
         animalQueryParams.setLimit(limit);

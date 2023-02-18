@@ -1,85 +1,55 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>會員登入 -寵物資訊平台</title>
+    <title>會員登入</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
-          rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- 禁用官方樣式 使用 Bootstrap 自帶樣式
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    -->
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/login.click.js"></script>
-    <script src="js/regist.click.js"></script>
-    <script src="js/judgeRegistEmail.js"></script>
-    <script src="js/judgeLoginEmail.js"></script>
+    <!-- 全域自訂CSS樣式 -->
+    <link rel="stylesheet" href="css/_custom.css">
     <!--  自訂樣式  -->
     <style>
-        /*網站背景紋理*/
-        .main-img {
-            background-image: url('/images/_main.png');
-            background-repeat: repeat;
-        }
-
-        /*橫幅圖片*/
-        .banner-img {
-            background-image: url('/images/_banner1.jpg');
-            height: 300px !important;
-        }
-
-        /*橫幅文字陰影*/
-        .text-shadow {
-            color: #fff !important;
-            text-shadow: 2px 2px 6px black, 3px 3px 2rem black, -3px -3px 2rem black !important;
-        }
-
         /*按鈕樣式*/
         .btn.btn-primary {
+            color: black !important;
+            padding: 6px 20px;
             font-size: 1rem;
-            letter-spacing: 10px;
+            letter-spacing: 1px;
             border: transparent !important;
             background: #fcd601 !important;
-            opacity: 0.8;
+            opacity: 1;
         }
 
         /*按鈕樣式-滑鼠掠過*/
         .btn.btn-primary:hover {
-            color: #fff !important;
+            color: white !important;
             background: #ffa500 !important;
             opacity: 1;
         }
 
-        /*註冊登入區標題顏色*/
-        h2 {
-            color: black !important;
-        }
-
-        /*註冊區的overlay遮罩魔改成垂直分隔線*/
-        .overlay {
-            background: transparent !important;
-            border-left: 1px solid grey;
-            height: 300px;
-            margin-block: auto;
-        }
-
-        /*輸入框及按鈕字體加大、邊角圓弧加大*/
-        input, button {
+        /*註冊登入區輸入框、按鈕、下拉選單字體加大、邊角圓弧加大*/
+        .form-group input,
+        .form-group button,
+        .form-group select {
             font-size: 20px !important;
-            border-radius: 0.5rem !important;
+            border-radius: 0.5rem;
         }
 
-        /*ICON旁的輸入區鄰近邊角取消圓弧效果*/
-        span ~ input {
+        /*ICON 鄰近輸入區邊角取消圓弧效果*/
+        span + input, span + select {
             border-radius: 0 0.5rem 0.5rem 0 !important;
         }
 
-        /*ICON自訂樣式*/
+        /*ICON 自訂樣式*/
         .fa-icon {
             color: black;
             background: lightgrey;
@@ -89,120 +59,136 @@
             border-top-left-radius: 0.5rem !important;
             border-bottom-left-radius: 0.5em !important;
         }
+
+        /*區塊標題樣式*/
+        h2 {
+            color: black !important;
+            font-weight: bolder !important;
+        }
+
+        /*垂直分隔線*/
+        .overlay {
+            border-left: 1px solid grey;
+            height: 300px;
+            margin-block: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            opacity: 1;
+        }
+
+        @media (min-width: 992px) {
+            .overlay {
+                width: 50%;
+            }
+        }
     </style>
 </head>
 
 <body>
-<div class="header-page"></div>
-<!-- END nav -->
-<section class="hero-wrap hero-wrap-2 img banner-img">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end" style="height: 300px;">
-            <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2 text-shadow">
-                    <span><a class="text-shadow" href="/index">首頁 &gt;</a></span>
-                    <span class="ion-ios-arrow-forward"></span>
-                </p>
-                <h1 class="mb-0 bread text-shadow">會員登入</h1>
+<div id="header-page"></div>
+
+<section class="ftco-section main-img">
+    <div class="overlay"></div>
+    <div class="container d-flex flex-wrap" style="max-width: 1200px;">
+        <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
+            <h2 class="m-3">登入</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
+                            <input id="loginEmail" type="email" class="form-control" placeholder="電子郵件"
+                                   onchange="judgeLoginEmail(this.id)">
+                        </div>
+                    </div>
+                    <!-- Email 驗證訊息 -->
+                    <!-- 登入欄位Email可用性驗證或非必要，暫時隱藏此功能 -->
+                    <span id="loginPromptEmail" class="col-md-12 form-group"
+                          style="display: none; position: relative !important; top: -0.5rem !important;"></span>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
+                            <input id="loginPassword" type="password" class="form-control" placeholder="密碼">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button id="loginBtn" onclick="login()" class="form-control btn btn-primary py-1 px-4">
+                                登入
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
+            <h2 id="registStatus" class="m-3">註冊</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
+                            <input id="emailAjax" type="email" class="form-control" placeholder="電子郵件"
+                                   onchange="judgeRegisterEmail(this.id)" required/>
+                        </div>
+                    </div>
+                    <!-- Email 驗證訊息 -->
+                    <span id="promptEmail" class="col-md-12 form-group"
+                          style="display: none; position: relative !important; top: -0.5rem !important;"></span>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
+                            <input id="passwordAjax" type="password" class="form-control" placeholder="密碼">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
+                            <input id="passwordCheckAjax" type="password" class="form-control" placeholder="密碼確認">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-user-o fa-2x"></i></span>
+                            <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-transgender fa-2x"></i></span>
+                            <select id="genderAjax" class="form-control">
+                                <option selected="selected">性別</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group d-flex">
+                            <span class="fa-icon"><i class="fa fa-phone fa-2x"></i></span>
+                            <input id="telAjax" type="tel" class="form-control" placeholder="聯絡電話">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button id="registBtn" onclick="register()" class="form-control btn btn-primary py-1 px-4">
+                                註冊
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb main-img">
-    <div class="overlay"></div>
-    <div class="container d-flex flex-wrap" style="max-width: 1200px;">
-        <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
-            <h2 class="m-3">登入</h2>
-            <form class="appointment">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-12">
-                            <div class="form-group d-flex">
-                                <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
-                                <input id="loginEmail" type="email" class="form-control" placeholder="電子郵件"
-                                       onchange="judgeLoginEmail(this.id)">
-                                <b id="loginPromptEmail"></b>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group d-flex">
-                                <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
-                                <input id="loginPassword" type="password" class="form-control" placeholder="密碼">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <button id="loginBtn" onclick="login()" class="btn btn-primary py-3 px-4">登入</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-12 col-lg-6 half p-5 ftco-animate">
-            <h2 id="registStatus" class="m-3">註冊</h2>
-            <form class="appointment">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-12">
-                            <div class="form-group d-flex">
-                                <span class="fa-icon"><i class="fa fa-envelope-o fa-2x"></i></span>
-                                <input id="emailAjax" type="email" class="form-control" placeholder="電子郵件"
-                                       onchange="judgeRegisterEmail(this.id)" required/>
-                                <b id="promptEmail"></b>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group d-flex">
-                                <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
-                                <input id="passwordAjax" type="password" class="form-control" placeholder="密碼">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group d-flex">
-                                <span class="fa-icon"><i class="fa fa-user-o fa-2x"></i></span>
-                                <input id="nameAjax" type="text" class="form-control" placeholder="姓名">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input id="genderAjax" type="text" class="form-control" placeholder="性別">
+<!-- 頁腳 -->
+<div id="footer-page"></div>
 
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group d-flex">
-                                <span class="fa-icon"><i class="fa fa-phone fa-2x"></i></span>
-                                <input id="telAjax" type="tel" class="form-control" placeholder="聯絡電話">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <button id="registBtn" onclick="register()" class="btn btn-primary py-3 px-4">註冊
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="row mt-5">
-        <div class="col-md-12 text-center">
-            <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
-                        href="https://colorlib.com" target="_blank">Colorlib.com</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-        </div>
-    </div>
-</footer>
-
-<!-- loader -->
+<!-- 頁面載入動畫 -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
         <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
@@ -211,35 +197,72 @@
     </svg>
 </div>
 
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/main.js"></script>
+<script>
+    <!-- 讀取頁首及頁腳 -->
+    $("#header-page").load("/header", function () {
+        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
+        $("#page-title").text($("title")[0].innerText);
+    });
+    $("#footer-page").load("/footer");
+</script>
 <script type="text/javascript">
     function judgeRegisterEmail(email) {
 
         var xhr = new XMLHttpRequest();
         xhr.addEventListener('load', function () {
             if (xhr.status == 200) {
-                document.getElementById("promptEmail").innerHTML = "<div style='color: red'>Registed</div>"
-            }
-            if (xhr.status == 404) {
-                document.getElementById("promptEmail").innerHTML = "<div style='color: green'>Can use</div>"
+                // 移除 display: none
+                document.getElementById("promptEmail").style.removeProperty("display");
+                document.getElementById("promptEmail").innerHTML = "該Email已被註冊";
+                document.getElementById("promptEmail").style.color = "red";
+                // 相對位置調整
+                document.getElementById("promptEmail").style.position = "relative";
+                document.getElementById("promptEmail").style.top = "-0.5rem";
+            } else {
+                document.getElementById("promptEmail").style.display = "none";
             }
         })
-        xhr.open('get', "http://localhost:8080/user/registed?email=" + document.getElementById(email).value);
+        xhr.open('get', "/user/registed?email=" + document.getElementById(email).value);
         xhr.send();
     }
 
+    // 登入欄位Email可用性驗證或非必要，暫時隱藏此功能
     function judgeLoginEmail(email) {
+        /*
 
         var xhr = new XMLHttpRequest();
         xhr.addEventListener('load', function () {
-            if (xhr.status == 200) {
-                document.getElementById("loginPromptEmail").innerHTML = ""
-            }
-            if (xhr.status == 404) {
-                document.getElementById("loginPromptEmail").innerHTML = "<div style='color: red'>尚未註冊請至註冊欄位註冊</div>"
+            if (xhr.status == 404 && document.getElementById(email).value != "") {
+                // 移除 display: none
+                document.getElementById("loginPromptEmail").style.removeProperty("display");
+                document.getElementById("loginPromptEmail").style.color = "red";
+                document.getElementById("loginPromptEmail").innerHTML = "該Email查無註冊資料";
+                // 相對位置調整
+                document.getElementById("loginPromptEmail").style.position = "relative";
+                document.getElementById("loginPromptEmail").style.top = "-0.5rem";
+            } else {
+                document.getElementById("loginPromptEmail").style.display = "none"
             }
         })
         xhr.open('get', "http://localhost:8080/user/registed?email=" + document.getElementById(email).value);
         xhr.send();
+
+        */
     }
 
     function login() {
@@ -259,7 +282,7 @@
             if (xhr.status == 200) {
                 alert("登入成功")
                 console.log(xhr.response)
-                window.location.replace("http://localhost:8080/user_management");
+                window.location.replace("/user_management");
 
                 // document.getElementById("registStatus").innerHTML="<div style='color: green'>註冊成功請登入";
             } else if (xhr.status == 400) {
@@ -268,7 +291,7 @@
             }
 
         })
-        xhr.open('post', 'http://localhost:8080/user/login', true);
+        xhr.open('post', '/user/login', true);
         xhr.setRequestHeader('Content-type', 'application/json');
         var data = JSON.stringify(account);
         xhr.send(data);
@@ -277,10 +300,15 @@
     function register() {
         var emailAjax = document.getElementById("emailAjax").value
         var passwordAjax = document.getElementById("passwordAjax").value
+        var passwordCheckAjax = document.getElementById("passwordCheckAjax").value
         var nameAjax = document.getElementById("nameAjax").value
         var telAjax = document.getElementById("telAjax").value
-        if (emailAjax == "" || passwordAjax == "" || nameAjax == "" || telAjax == "") {
-            alert("註冊所有資料必須填寫")
+        var genderAjax = document.getElementById("genderAjax").value
+        if (emailAjax == "" || passwordAjax == "" || passwordCheckAjax == "" || nameAjax == "" || telAjax == "" || genderAjax == "性別") {
+            alert("註冊所有資料必須填寫");
+            return
+        }else if (passwordAjax != passwordCheckAjax) {
+            alert("密碼不一致");
             return
         }
 
@@ -288,7 +316,8 @@
             email: emailAjax,
             password: passwordAjax,
             name: nameAjax,
-            tel: telAjax
+            tel: telAjax,
+            gender: genderAjax
         }
 
         var xhr = new XMLHttpRequest();
@@ -296,9 +325,11 @@
 
             if (xhr.status == 201) {
                 document.getElementById("emailAjax").value = ""
+                document.getElementById("passwordCheckAjax").value = ""
                 document.getElementById("passwordAjax").value = ""
                 document.getElementById("nameAjax").value = ""
                 document.getElementById("telAjax").value = ""
+                document.getElementById("genderAjax").value = "性別";
                 document.getElementById("promptEmail").innerText = ""
                 alert("註冊成功請登入")
 
@@ -309,34 +340,11 @@
             }
 
         })
-        xhr.open('post', 'http://localhost:8080/user/register', true);
+        xhr.open('post', '/user/register', true);
         xhr.setRequestHeader('Content-type', 'application/json');
         var data = JSON.stringify(account);
         xhr.send(data);
     }
-
 </script>
-
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-migrate-3.0.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/jquery.animateNumber.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/jquery.timepicker.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
-<script src="js/main.js"></script>
-<!-- 讀取導覽列 -->
-<script>
-    $(".header-page").load("header");
-</script>
-
 </body>
 </html>

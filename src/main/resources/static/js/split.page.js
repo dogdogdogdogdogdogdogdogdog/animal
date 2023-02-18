@@ -5,9 +5,9 @@ function search() {
     var x = document.getElementById("page").value;
     var request = new XMLHttpRequest();
 
-    ajaxToServer(request, "select", 2, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "page")
+    ajaxToServer(request, "select", 2, "/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "page")
 
-    ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
+    ajaxToServer(request, "section", 1, "/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
 
 }
 
@@ -18,10 +18,10 @@ function sendPageToServer() {
     if (hasSearchCondition()) {
         var kind = document.getElementById("kind").value;
         var shelter = document.getElementById("shelter").value;
-        ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
+        ajaxToServer(request, "section", 1, "/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
 
     } else {
-        ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x, "animalContext")
+        ajaxToServer(request, "section", 1, "/public_shelter?page=" + x, "animalContext")
 
     }
 }
@@ -31,7 +31,7 @@ function sendPageToServerBySearch() {
     var shelter = document.getElementById("shelter").value;
     var x = document.getElementById("page").value;
     var request = new XMLHttpRequest();
-    ajaxToServer(request, "section", 1, "http://localhost:8080/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
+    ajaxToServer(request, "section", 1, "/public_shelter?page=" + x + "&animalKind=" + kind + "&shelterName=" + shelter, "animalContext")
 }
 
 function goPrePage() {

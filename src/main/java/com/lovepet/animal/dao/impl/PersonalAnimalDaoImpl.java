@@ -3,19 +3,21 @@ package com.lovepet.animal.dao.impl;
 import com.lovepet.animal.dao.PersonalAnimalDao;
 import com.lovepet.animal.dto.PersonalAnimalQueryParams;
 import com.lovepet.animal.dto.PersonalAnimalRequest;
-import com.lovepet.animal.model.AnimalFood;
 import com.lovepet.animal.model.PersonalAnimal;
-import com.lovepet.animal.rowmapper.AnimalFoodRowmapper;
 import com.lovepet.animal.rowmapper.PersonalAnimalRowmapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ClassUtils;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,14 +28,6 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Override
-    public List<PersonalAnimal> getPersonalAnimalComboBox() {
-        String sql = "SELECT * FROM personal_animal WHERE 1=1";
-
-        List<PersonalAnimal> list = namedParameterJdbcTemplate.query(sql, new PersonalAnimalRowmapper());
-        return list;
-    }
 
     @Override
     public Integer countPersonalAnimal(PersonalAnimalQueryParams personalAnimalQueryParams) {
@@ -69,7 +63,47 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("limit", personalAnimalQueryParams.getLimit());
         map.put("offset", personalAnimalQueryParams.getOffset());
 
+
         List<PersonalAnimal> personalAnimalList = namedParameterJdbcTemplate.query(sql, map, new PersonalAnimalRowmapper());
+
+//        InputStream fis = null;
+//        FileOutputStream fos = null;
+//        for (PersonalAnimal personalAnimal : personalAnimalList) {
+//            String url = personalAnimal.getImageUrl();
+//
+//            try {
+//                URL imageUrl = new URL(url);
+//                imageUrl.openConnection();
+//                HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+//                conn.connect();
+//                fis = conn.getInputStream();
+//                String path = String.format(System.getProperty("user.dir") +
+//                        "\\src\\main\\resources\\static\\images\\publish\\%s", personalAnimal.getUserId() + "-" + personalAnimal.getAnimalId() + ".jpg");
+//                fos=new FileOutputStream(path);
+//                byte[] buffer = new byte[1024];
+//                int len;
+//                while ((len = fis.read(buffer)) != -1) {
+//                    fos.write(buffer, 0, len);
+//                }
+//                fos.flush();
+//                fis.close();
+//                fos.close();
+//            } catch (Exception e) {
+//
+//            }
+//        }
+
+//        for (PersonalAnimal personalAnimal : personalAnimalList) {
+//            String sql1 = " update personal_animal set image_url=:url where animal_id=:aid and user_id=:uid ";
+//            Map<String, Object> map1 = new HashMap<>();
+//            map1.put("url", "/images/publish/" + personalAnimal.getUserId() + "-" + personalAnimal.getAnimalId() + ".jpg");
+//            map1.put("aid", personalAnimal.getAnimalId());
+//            map1.put("uid", personalAnimal.getUserId());
+//
+//            namedParameterJdbcTemplate.update(sql1, map1);
+//
+//        }
+
 
         return personalAnimalList;
     }
@@ -123,7 +157,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         int personalAnimalId = keyHolder.getKey().intValue();
 
-            writePhoto(personalAnimalRequest,personalAnimalId);
+        writePhoto(personalAnimalRequest, personalAnimalId);
 
         return personalAnimalId;
     }
@@ -134,7 +168,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
                 "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor , " +
                 "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
-        writePhoto(personalAnimalRequest,personalAnimalId);
+        writePhoto(personalAnimalRequest, personalAnimalId);
         Map<String, Object> map = new HashMap<>();
         map.put("animalId", personalAnimalId);
         map.put("userId", personalAnimalRequest.getUserId());
@@ -156,12 +190,12 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
     }
 
     @Override
-    public void deletePersonalAnimalById(Integer personalAnimalUserId,Integer personalAnimalId) {
+    public void deletePersonalAnimalById(Integer personalAnimalUserId, Integer personalAnimalId) {
         String sql = "DELETE FROM personal_animal WHERE user_id=:personalAnimalUserId  AND animal_id = :personalAnimalId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("personalAnimalId", personalAnimalId);
-        map.put("personalAnimalUserId",personalAnimalUserId);
+        map.put("personalAnimalUserId", personalAnimalUserId);
         namedParameterJdbcTemplate.update(sql, map);
     }
 
@@ -181,25 +215,42 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
             map.put("area", personalAnimalQueryParams.getArea());
         }
 
-        if(personalAnimalQueryParams.getId()!=null){
-            sql= sql + " AND user_id=:userId ";
-            map.put("userId",personalAnimalQueryParams.getId());
+        if (personalAnimalQueryParams.getId() != null) {
+            sql = sql + " AND user_id=:userId ";
+            map.put("userId", personalAnimalQueryParams.getId());
         }
         return sql;
     }
-    private void writePhoto(PersonalAnimalRequest personalAnimalRequest,Integer personalAnimalId){
+
+    private void writePhoto(PersonalAnimalRequest personalAnimalRequest, Integer personalAnimalId) {
         try {
             InputStream fis = personalAnimalRequest.getAnimalPhoto().getInputStream();
-            String path = String.format("D:/animal/src/main/resources/static/images/publish/%s", personalAnimalRequest.getUserId()+"-"+personalAnimalId + ".jpg");
-            FileOutputStream fos = new FileOutputStream(path);
+
+            // 專案路徑
+            String pathSrc = String.format(System.getProperty("user.dir") +
+                    "\\src\\main\\resources\\static\\images\\publish\\%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+
+            // 編譯路徑
+            String pathTarget = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath() +
+                    "static/images/publish/%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+
+            FileOutputStream fosSrc = new FileOutputStream(pathSrc);
+            FileOutputStream fosTarget = new FileOutputStream(pathTarget);
+
             byte[] buffer = new byte[1024];
             int len;
+
             while ((len = fis.read(buffer)) != -1) {
-                fos.write(buffer, 0, len);
+                fosSrc.write(buffer, 0, len);
+                fosTarget.write(buffer, 0, len);
             }
-            fos.flush();
+
+            fosSrc.flush();
+            fosSrc.close();
+            fosTarget.flush();
+            fosTarget.close();
+
             fis.close();
-            fos.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -207,3 +258,44 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
 
 }
+
+
+//下載
+//    InputStream fis=null;
+//    FileOutputStream fos=null;
+//        for(PersonalAnimal personalAnimal:personalAnimalList){
+//                String url=personalAnimal.getImageUrl();
+//
+//                try {
+//                URL imageUrl = new URL(url);
+//                imageUrl.openConnection();
+//                HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
+//                conn.connect();
+//                fis= conn.getInputStream();
+//                String   path =String.format("D:\\animal\\src\\main\\resources\\static\\images\\publish\\%s-%s.jpg",personalAnimal.getUserId(),personalAnimal.getAnimalId());
+//                fos=new FileOutputStream(path);
+//                byte[] buffer=new byte[1024];
+//                int len;
+//                while((len=fis.read(buffer))!=-1) {
+//                fos.write(buffer,0,len);
+//                }
+//                fos.flush();
+//                fis.close();
+//                fos.close();
+//                }catch (Exception e){
+//
+//                }
+//                }
+
+
+//改名
+// for(PersonalAnimal personalAnimal:personalAnimalList){
+//         String sql1=" update personal_animal set image_url=:url where animal_id=:aid and user_id=:uid ";
+//         Map<String,Object> map1=new HashMap<>();
+//        map1.put("url","/images/publish/"+personalAnimal.getUserId()+"-"+personalAnimal.getAnimalId()+".jpg");
+//        map1.put("aid",personalAnimal.getAnimalId());
+//        map1.put("uid",personalAnimal.getUserId());
+//
+//        namedParameterJdbcTemplate.update(sql1,map1);
+//
+//        }
