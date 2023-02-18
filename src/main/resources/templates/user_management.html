@@ -176,15 +176,13 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/_animal-init.js"></script>
 <script>
-    <!-- 讀取頁首及頁腳 -->
-    $("#header-page").load("/header", function () {
-        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
-        $("#page-title").text($("title")[0].innerText);
-    });
-    $("#footer-page").load("/footer");
-</script>
-<script>
+
+    $("#userEmail").val(user.email);
+    $("#userName").val(user.name);
+    $("#userTel").val(user.tel);
+
     function edit() {
         var name = $("#userName").val();
         var tel = $("#userTel").val();
@@ -200,7 +198,7 @@
             $.ajax({
                 type: "PUT",
                 url: "/user/" + user.id,
-                async: false,
+                // async: false,
                 contentType: "application/json; charset=UTF-8",
                 data:
                     JSON.stringify({
@@ -241,7 +239,7 @@
                 $.ajax({
                     type: "PUT",
                     url: "/user/" + user.id,
-                    async: false,
+                    // async: false,
                     contentType: "application/json; charset=UTF-8",
                     data:
                         JSON.stringify({

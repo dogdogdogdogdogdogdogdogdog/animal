@@ -130,7 +130,7 @@ function generateBtn(min,max,element){
 //             document.getElementById("pageInfo").className=curPage
 //         }
 //     })
-//     xhr.open('get', `http://localhost:8080/missingAnimals?offset=${((curPage - 1) * countOfPerPage)}`)
+//     xhr.open('get', `/missingAnimals?offset=${((curPage - 1) * countOfPerPage)}`)
 //     xhr.send()
 // }
 
