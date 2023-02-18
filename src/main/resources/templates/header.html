@@ -235,19 +235,18 @@
                 </li>
 
                 <!-- 下拉選單 -->
-                <li class="nav-item dropdown">
-                    <span class="nav-link dropdown-toggle" data-toggle="dropdown">會員中心</span>
+                <!-- 登入時顯示 -->
+                <li id="userMenuLogin" class="nav-item dropdown" style="display: none">
+                    <span id="userMenuTitle" class="nav-link dropdown-toggle" data-toggle="dropdown">會員中心</span>
                     <div class="dropdown-menu">
-                        <a id="login" class="dropdown-item" href="/login_register"
-                           style="border-radius: 0 0 0.5rem 0.5rem">登入</a>
-                        <a id="userManagement" class="dropdown-item" href="/user_management" style="display: none;">會員資料</a>
-                        <a id="publish" class="dropdown-item" href="/publish" style="display: none;">我想送養/協尋</a>
-                        <a id="userPublishHistory" class="dropdown-item" href="/user_publish_history"
-                           style="display: none;">我的刊登</a>
-                        <a id="sign_out" class="dropdown-item" href="javascript: signOutRedirect()"
-                           style="display: none;">登出</a>
+                        <a id="userManagement" class="dropdown-item" href="/user_management">會員資料</a>
+                        <a id="publish" class="dropdown-item" href="/publish">我想送養/協尋</a>
+                        <a id="userPublishHistory" class="dropdown-item" href="/user_publish_history">我的刊登清單</a>
+                        <a id="sign_out" class="dropdown-item" href="javascript: signOutRedirect()">登出</a>
                     </div>
                 </li>
+                <!-- 未登入顯示 -->
+                <li id="userMenuSignOut" class="nav-item"><a href="/login_register" class="nav-link">會員登入</a></li>
             </ul>
         </div>
     </div>
