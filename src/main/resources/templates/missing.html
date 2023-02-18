@@ -144,15 +144,7 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/_animal-init.js"></script>
 <script src="js/MissingPageContent.js"></script>
-<script>
-    <!-- 讀取頁首及頁腳 -->
-    $("#header-page").load("/header", function (){
-        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
-        $("#page-title").text($("title")[0].innerText);
-    });
-    $("#footer-page").load("/footer");
-</script>
-
 </body>
 </html>

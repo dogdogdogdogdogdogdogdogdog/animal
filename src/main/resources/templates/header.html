@@ -192,7 +192,8 @@
                     </p>
                 </div>
                 <div class="py-1">
-                    <a href="#" id="login_stat" class="d-flex align-items-center justify-content-center"
+                    <a href="javascript: signOutRedirect()" id="login_stat"
+                       class="d-flex align-items-center justify-content-center"
                        style="color: white; visibility: hidden;">會員登入中</a>
                 </div>
             </div>
@@ -222,14 +223,14 @@
                 </li>
                 <li class="nav-item"><a href="/missing" class="nav-link">走失協尋</a></li>
                 <li class="nav-item"><a href="/forum" class="nav-link">交流天地</a></li>
-                <li class="nav-item "><a href="/animal_hospital" class="nav-link">動物醫院</a></li>
-                <li class="nav-item"><a href="/animal_funeral" class="nav-link">寵物送別</a></li>
 
                 <!-- 下拉選單 -->
                 <li class="nav-item dropdown">
-                    <span class="nav-link dropdown-toggle" data-toggle="dropdown">政府資料</span>
+                    <span class="nav-link dropdown-toggle" data-toggle="dropdown">相關資料</span>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/animal_food">合法寵物食品</a>
+                        <a class="dropdown-item" href="/animal_hospital">動物醫院</a>
+                        <a class="dropdown-item" href="/animal_funeral">寵物送別</a>
+                        <a class="dropdown-item" href="/animal_food">寵物食品</a>
                     </div>
                 </li>
 
@@ -240,11 +241,11 @@
                         <a id="login" class="dropdown-item" href="/login_register"
                            style="border-radius: 0 0 0.5rem 0.5rem">登入</a>
                         <a id="userManagement" class="dropdown-item" href="/user_management" style="display: none;">會員資料</a>
-                        <a id="publish" class="dropdown-item" href="/publish" style="display: none;">我想 送養/協尋</a>
+                        <a id="publish" class="dropdown-item" href="/publish" style="display: none;">刊登 送養/協尋</a>
                         <a id="userPublishHistory" class="dropdown-item" href="/user_publish_history"
                            style="display: none;">我的刊登</a>
-                        <a id="forum" class="dropdown-item" href="/forum" style="display: none;">會員刊登文章</a>
-                        <a id="sign_out" class="dropdown-item" href="/sign_out" style="display: none;">登出</a>
+                        <a id="sign_out" class="dropdown-item" href="javascript: signOutRedirect()"
+                           style="display: none;">登出</a>
                     </div>
                 </li>
             </ul>
@@ -322,11 +323,22 @@
     </div>
 </section>
 <!-- 迷你導航列結束 -->
-<!-- 判斷 登入前/登入後 顯示或隱藏特定網頁元素 -->
-<script src="js/checkLogin.js"></script>
 <script>
+    // 登出時執行並清空 session
+    function signOutRedirect() {
+        xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", function () {
+            if (xhr.status = 200) {
+                window.location.replace("/login_register");
+            }
+        })
+        xhr.open("GET", "/sign_out")
+        xhr.send();
+    }
+
+    // 輪播系統設定
     $(".owl-carousel").owlCarousel({
-        // 輪播開始位置設為隨機
+        // 輪播開始位置設為隨機 數字為項目總數量
         startPosition: Math.floor(Math.random() * 6),
         // startPosition: 0,
         autoplay: true, // 自動輪播

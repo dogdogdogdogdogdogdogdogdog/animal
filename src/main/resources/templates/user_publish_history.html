@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>刊登送養資料管理</title>
+    <title>刊登認養管理</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -219,7 +219,19 @@
     <div class="container py-5">
         <!-- 顯示資料內容 -->
         <div class="row ftco-animate">
-            <table class="col-12 table-hover table-striped m-auto text-center font-weight-bold" id="test1Result">
+            <table class="ftco-animate col-12 table-hover table-striped m-auto text-center font-weight-bold"
+                   id="tableAjax">
+                <tbody>
+                <tr class="h5">
+                    <th style="width: 10%;">名字</th>
+                    <th style="width: 10%;">物種</th>
+                    <th style="width: 10%;">品種</th>
+                    <th style="width: 10%;">性別</th>
+                    <th style="width: 10%;">刊登日期</th>
+                    <th style="width: 10%;">更新日期</th>
+                    <th style="width: 20%;">操作</th>
+                </tr>
+                </tbody>
             </table>
         </div>
         <!-- 顯示查詢資訊 -->
@@ -228,6 +240,128 @@
                 <div class="block-27">
                     <p id="pageInfo"></p>
                     <div class="page_show"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Modal-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content modal-bg">
+                    <!-- 寵物名字放在標題 -->
+                    <div class="modal-header">
+                        <!-- 標題定位用左區塊 -->
+                        <div class="col-4 px-0">
+                        </div>
+                        <!-- 標題定位用主區塊 -->
+                        <div class="col-4 px-0 d-flex justify-content-center">
+                            <span class="py-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold" id="animalName_static">這裡是寵物名字</h3>
+                            <span class="py-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
+                        </div>
+                        <!-- 標題定位用右區塊 -->
+                        <div class="col-4 px-0">
+                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                                <span id="createdDate_static"></span>
+                                <span>&nbsp;刊登</span>
+                            </div>
+                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
+                                <span id="lastModifiedDate_static"></span>
+                                <span>&nbsp;更新</span>
+                            </div>
+                            <!-- 強制定位關閉功能於最右上角 -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 設定上下邊線效果 區隔 header 和 footer -->
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto col-12 justify-content-center">
+                            <div class="col-xl-6 col-12">
+                                <!-- 彈出框圖片高度於小畫面顯示異常 強制設定600px高 -->
+                                <div id="imageUrl_static" class="work mb-4 img d-flex align-items-end"
+                                     style="height: 600px !important; background-position: center center !important;">
+                                </div>
+                            </div>
+                            <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                                <div class="col-4 mt-0">
+                                    <div class="d-block">
+                                        <span>會員編號 :</span>
+                                        <span id="userId_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>動物編號 :</span>
+                                        <span id="animalId_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>物種 :</span>
+                                        <span id="animalKind_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>品種 :</span>
+                                        <span id="animalVariety_static"></span>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-block">
+                                        <span>性別 :</span>
+                                        <span id="animalSex_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>年齡 :</span>
+                                        <span id="animalAge_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>體型 :</span>
+                                        <span id="animalBodysize_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>毛色 :</span>
+                                        <span id="animalColor_static"></span>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-block">
+                                        <span>絕育 :</span>
+                                        <span id="animalSterilization_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>疫苗 :</span>
+                                        <span id="animalBacterin_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>地區 :</span>
+                                        <span id="area_static"></span>
+                                    </div>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-block" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
+                                    </div>
+                                </div>
+                                <!-- 備註(寵物描述) -->
+                                <div class="col-12 pt-3">
+                                    <div class="d-block font-weight-bold" style="color: black;">
+                                        <span id="description_static"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -262,9 +396,65 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/_animal-init.js"></script>
 <script src="js/updatePublish.js"></script>
 <script src="js/delPublish.js"></script>
 <script>
+
+    // 查詢該使用者的刊登資訊
+    $.ajax({
+        type: "GET",
+        url: "/personalAnimals?id=" + user.id,
+        success: function (data) {
+            // 清空表格 tr 元素
+            $("#tableAjax").children("tr").empty();
+
+            $.each(data["results"], function (index, item) {
+                var tableContent = `
+                    <tr>
+                        <td>${item.animalName}</td>
+                        <td>${item.animalKind}</td>
+                        <td>${item.animalVariety}</td>
+                        <td>${item.animalSex}</td>
+                        <td>${item.createdDate}</td>
+                        <td>${item.lastModifiedDate}</td>
+                        <td>
+                            <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="updateButton2(this)" data-toggle="modal" data-target="#exampleModalCenter">更新</button>
+                            <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="updateButton(this)">更新-舊</button>
+                            <button id="delete" animalId="${item.animalId}" class="btn btn-primary" onclick="deleteButton(this)">刪除</button>
+                        </td>
+                    </tr>
+                `;
+                $("#tableAjax").append(tableContent);
+            })
+            // <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="updateButton(this)">更新</button>
+        }
+    })
+
+    function updateButton2(element) {
+
+        var animalId = $(element).attr("animalId");
+
+        $.ajax({
+            type: "GET",
+            url: "/personalAnimals/" + animalId,
+            success: function (data) {
+                $("#animalName_static").text(data.animalName);
+                $("#animalKind_static").text(data.animalKind);
+                $("#animalVariety_static").text(data.animalVariety);
+                $("#animalSex_static").text(data.animalSex);
+                $("#animalAge_static").text(data.animalAge);
+                $("#animalBodysize_static").text(data.animalBodysize);
+                $("#animalColor_static").text(data.animalColor);
+                $("#animalSterilization_static").text(data.animalSterilization);
+                $("#animalBacterin_static").text(data.animalBacterin);
+                $("#area_static").text(data.area);
+                $("#description_static").html(data.description);
+                $("#imageUrl_static").css("background-image", `url('images/publish/${data.userId}-${data.animalId}.jpg')`)
+            }
+        })
+    }
+
 
     function updateButton(element) {
         var id = $(element).attr("animalId");
@@ -310,13 +500,6 @@
         delinfoModal.close();
     });
 
-
-    <!-- 讀取頁首及頁腳 -->
-    $("#header-page").load("/header", function (){
-        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
-        $("#page-title").text($("title")[0].innerText);
-    });
-    $("#footer-page").load("/footer");
 </script>
 
 </body>
