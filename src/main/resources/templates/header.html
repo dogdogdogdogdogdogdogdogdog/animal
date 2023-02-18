@@ -221,7 +221,7 @@
                         <a class="dropdown-item" href="/personal_shelter">刊登認養</a>
                     </div>
                 </li>
-                <li class="nav-item"><a href="/missing" class="nav-link">走失協尋</a></li>
+                <li class="nav-item"><a href="/animal_missing" class="nav-link">走失協尋</a></li>
                 <li class="nav-item"><a href="/forum" class="nav-link">交流天地</a></li>
 
                 <!-- 下拉選單 -->
@@ -255,7 +255,7 @@
 <!-- 導覽列結束 -->
 <!-- 輪播系統開始 -->
 <section>
-    <div class="owl-carousel owl-theme">
+    <div class="owl-carousel owl-theme animal-header    ">
         <div class="item img banner-img" style="background-image: url('/images/_banner1.jpg');">
             <div style="position: relative; top: 25%; left: 5%;">
                 <span>毛孩幸福，從這裡開始</span>
@@ -337,7 +337,7 @@
     }
 
     // 輪播系統設定
-    $(".owl-carousel").owlCarousel({
+    $(".animal-header").owlCarousel({
         // 輪播開始位置設為隨機 數字為項目總數量
         startPosition: Math.floor(Math.random() * 6),
         // startPosition: 0,
@@ -392,7 +392,7 @@
     owlNavCustom();
 
     // 重新載入 Bootstrap 模板 js
-    $.getScript('js/main.js');
+    // $.getScript('js/main.js');
 </script>
 
 </body>

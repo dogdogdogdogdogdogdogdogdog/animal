@@ -159,7 +159,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         // 寫入圖片
         writePhoto(personalAnimalRequest, personalAnimalId);
-        // 取得 animal_id 後更新 image_url 資料 (檔案命名規則: images/publish/{user_id}-{animal_id}.jpg)
+        // 取得 animal_id 後更新 image_url 資料 (檔案命名規則: /images/publish/{user_id}-{animal_id}.jpg)
         updatePersonalAnimal(personalAnimalId, personalAnimalRequest);
 
         return personalAnimalId;
@@ -184,7 +184,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("animalColor", personalAnimalRequest.getAnimalColor());
         map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
         map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
-        map.put("imageUrl", "images/publish/" + personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+        map.put("imageUrl", "/images/publish/" + personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
         map.put("area", personalAnimalRequest.getArea());
         map.put("description", personalAnimalRequest.getDescription());
         map.put("lastModifiedDate", new Date());

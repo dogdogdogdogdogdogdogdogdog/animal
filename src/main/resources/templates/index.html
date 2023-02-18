@@ -38,120 +38,77 @@
         opacity: 1;
     }
 
+    /*關於我們-文字段落格式*/
     .container p {
         color: black;
         font-size: 20px;
         /*font-weight: bolder;*/
     }
+
+    /*輪播系統主區域增加自訂文字*/
+    .owl-carousel.animal-publish span,
+    .owl-carousel.animal-missing span {
+        font-size: 10px;
+        font-weight: bolder;
+        color: white;
+        padding: 10px;
+        /*position: relative;*/
+        /*top: 25%;*/
+        /*left: 25%;*/
+
+        /*!*半透明黑色背景效果*!*/
+        /*background-color: rgba(0, 0, 0, 0.4);*/
+
+        /*外框陰影效果*/
+        filter: drop-shadow(2px 2px 1px black);
+    }
+
+    .owl-carousel.animal-publish .banner-img,
+    .owl-carousel.animal-missing .banner-img {
+        border-radius: 10px;
+        /*padding: 10px;*/
+        /*position: relative;*/
+        /*top: 25%;*/
+        /*left: 25%;*/
+
+        /*!*半透明黑色背景效果*!*/
+        /*background-color: rgba(0, 0, 0, 0.4);*/
+
+        /*外框陰影效果*/
+        /*filter: drop-shadow(2px 2px 1px black);*/
+    }
+
 </style>
 
 <body>
 <div id="header-page"></div>
 
+<section>
+</section>
 <section class="ftco-section main-img" style="padding-bottom: 50px">
     <div class="container py-3">
         <div class="col-auto py-3 heading-section text-center ftco-animate">
             <h2>認養資訊</h2>
         </div>
-        <div class="row">
-            <div class="col-md-4 ftco-animate">
-                <div class="work mb-4 img d-flex align-items-end" style="background-image: url(images/gallery-1.jpg);">
-                    <a href="images/gallery-1.jpg"
-                       class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="fa fa-expand"></span>
-                    </a>
-                    <div class="desc w-100 px-4">
-                        <div class="text w-100 mb-3">
-                            <span>Cat</span>
-                            <h2><a href="work-single.html">Persian Cat</a></h2>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="work mb-4 img d-flex align-items-end" style="background-image: url(images/gallery-2.jpg);">
-                    <a href="images/gallery-2.jpg"
-                       class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="fa fa-expand"></span>
-                    </a>
-                    <div class="desc w-100 px-4">
-                        <div class="text w-100 mb-3">
-                            <span>Dog</span>
-                            <h2><a href="work-single.html">Pomeranian</a></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="work mb-4 img d-flex align-items-end" style="background-image: url(images/gallery-3.jpg);">
-                    <a href="images/gallery-3.jpg"
-                       class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="fa fa-expand"></span>
-                    </a>
-                    <div class="desc w-100 px-4">
-                        <div class="text w-100 mb-3">
-                            <span>Cat</span>
-                            <h2><a href="work-single.html">Sphynx Cat</a></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="owl-carousel owl-theme animal-publish ftco-animate">
+        <!-- 輪播系統物件放置處 -->
+        </div>
+        <div class="row pt-2">
             <div class="col-md-12 d-flex justify-content-center ftco-animate">
-            <a href="/personal_shelter" class="btn btn-primary">想多瞭解<span class="fa fa-caret-right px-2"></span></a>
+                <a href="/personal_shelter" class="btn btn-primary">想多瞭解<span class="fa fa-caret-right px-2"></span></a>
+            </div>
         </div>
     </div>
     <div class="container py-3">
         <div class="col-auto py-3 heading-section text-center ftco-animate">
-            <h2>走失協尋</h2>
+            <h2>協尋資訊</h2>
         </div>
-        <div class="row">
-            <div class="col-md-4 ftco-animate">
-                <div class="work mb-4 img d-flex align-items-end" style="background-image: url(images/gallery-1.jpg);">
-                    <a href="images/gallery-1.jpg"
-                       class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="fa fa-expand"></span>
-                    </a>
-                    <div class="desc w-100 px-4">
-                        <div class="text w-100 mb-3">
-                            <span>Cat</span>
-                            <h2><a href="work-single.html">Persian Cat</a></h2>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="work mb-4 img d-flex align-items-end" style="background-image: url(images/gallery-2.jpg);">
-                    <a href="images/gallery-2.jpg"
-                       class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="fa fa-expand"></span>
-                    </a>
-                    <div class="desc w-100 px-4">
-                        <div class="text w-100 mb-3">
-                            <span>Dog</span>
-                            <h2><a href="work-single.html">Pomeranian</a></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="work mb-4 img d-flex align-items-end" style="background-image: url(images/gallery-3.jpg);">
-                    <a href="images/gallery-3.jpg"
-                       class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="fa fa-expand"></span>
-                    </a>
-                    <div class="desc w-100 px-4">
-                        <div class="text w-100 mb-3">
-                            <span>Cat</span>
-                            <h2><a href="work-single.html">Sphynx Cat</a></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="owl-carousel owl-theme animal-missing ftco-animate">
+        <!-- 輪播系統物件放置處 -->
+        </div>
+        <div class="row pt-2">
             <div class="col-md-12 d-flex justify-content-center ftco-animate">
-            <a href="/missing" class="btn btn-primary">想多瞭解<span class="fa fa-caret-right px-2"></span></a>
+                <a href="/animal_missing" class="btn btn-primary">想多瞭解<span class="fa fa-caret-right px-2"></span></a>
             </div>
         </div>
     </div>
@@ -193,6 +150,11 @@
 <script src="js/scrollax.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/_animal-init.js"></script>
+<script src="js/_index-carousel.js"></script>
+<script>
+
+
+</script>
 </body>
 
 </html>
