@@ -14,6 +14,13 @@ function publishAnimal(){
     let description=document.getElementById("createRemark").value
     let file=document.getElementById("fileForm").files[0]
     let fd=new FormData();
+    if (kind == "default" || sex == "default" || body == "default" || age == "default" || sterilization == "default" || area == "default") {
+        alert("請填寫所有欄位!");
+        return
+    } else if (name == null || variety == null || color == null || bacterin == null || file == null) {
+        alert("請填寫所有欄位!");
+        return
+    }
     fd.append("animalPhoto",file)
     fd.append("userId",user.id)
     fd.append("animalName",name)
