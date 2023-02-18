@@ -121,6 +121,10 @@
             border: #282828 solid 1px;
             background-color: #424242;
         }
+        .modal-content span {
+            flex-shrink: 0;
+        }
+
     </style>
 </head>
 
@@ -296,56 +300,59 @@
                             </div>
                             <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
                                 <div class="col-4 mt-0">
-                                    <div class="d-block">
-                                        <span>會員編號 :</span>
-                                        <span id="userId_static"></span>
-                                    </div>
-                                    <div class="d-block">
-                                        <span>動物編號 :</span>
-                                        <span id="animalId_static"></span>
-                                    </div>
-                                    <div class="d-block">
+                                    <div class="d-flex">
                                         <span>物種 :</span>
-                                        <span id="animalKind_static"></span>
+<!--                                        <span id="animalKind_static"></span>-->
+                                        <input id="animalKind_static" class="custom-select" type="text">
                                     </div>
-                                    <div class="d-block">
+                                    <div class="d-flex">
                                         <span>品種 :</span>
                                         <span id="animalVariety_static"></span>
                                     </div>
-                                </div>
-                                <div class="col-4 mt-0">
-                                    <div class="d-block">
+                                    <div class="d-flex">
                                         <span>性別 :</span>
                                         <span id="animalSex_static"></span>
                                     </div>
-                                    <div class="d-block">
+                                    <div class="d-flex">
                                         <span>年齡 :</span>
                                         <span id="animalAge_static"></span>
                                     </div>
-                                    <div class="d-block">
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-flex">
                                         <span>體型 :</span>
                                         <span id="animalBodysize_static"></span>
                                     </div>
-                                    <div class="d-block">
+                                    <div class="d-flex">
                                         <span>毛色 :</span>
                                         <span id="animalColor_static"></span>
                                     </div>
-                                </div>
-                                <div class="col-4 mt-0">
-                                    <div class="d-block">
+                                    <div class="d-flex">
                                         <span>絕育 :</span>
                                         <span id="animalSterilization_static"></span>
                                     </div>
-                                    <div class="d-block">
+                                    <div class="d-flex">
                                         <span>疫苗 :</span>
                                         <span id="animalBacterin_static"></span>
                                     </div>
-                                    <div class="d-block">
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-flex">
                                         <span>地區 :</span>
                                         <span id="area_static"></span>
                                     </div>
                                     <!-- 這是一個保留欄位 -->
-                                    <div class="d-block" style="visibility: hidden;">
+                                    <div class="d-flex" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
+                                    </div>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-flex" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
+                                    </div>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-flex" style="visibility: hidden;">
                                         <span>dummy</span>
                                         <span id="">dummy</span>
                                     </div>
