@@ -121,6 +121,7 @@
             border: #282828 solid 1px;
             background-color: #424242;
         }
+
         .modal-content span {
             flex-shrink: 0;
         }
@@ -221,29 +222,69 @@
 <!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
 <section id="query_block" class="ftco-section main-img">
     <div class="container py-5">
-        <!-- 顯示資料內容 -->
-        <div class="row ftco-animate">
-            <table class="ftco-animate col-12 table-hover table-striped m-auto text-center font-weight-bold"
-                   id="tableAjax">
-                <tbody>
-                <tr class="h5">
-                    <th style="width: 10%;">名字</th>
-                    <th style="width: 10%;">物種</th>
-                    <th style="width: 10%;">品種</th>
-                    <th style="width: 10%;">性別</th>
-                    <th style="width: 10%;">刊登日期</th>
-                    <th style="width: 10%;">更新日期</th>
-                    <th style="width: 20%;">操作</th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- 顯示查詢資訊 -->
-        <div class="row ftco-animate">
-            <div class="col-12 p-3 text-center">
-                <div class="block-27">
-                    <p id="pageInfo"></p>
-                    <div class="page_show"></div>
+        <ul id="myTab" class="nav nav-tabs p-2">
+            <li class="active">
+                <a href="#personal" class="btn btn-primary" data-toggle="tab">送養管理</a>
+            </li>
+            <li>
+                <a href="#missing" class="btn btn-primary" data-toggle="tab">協尋管理</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade show active" id="personal">
+                <!-- 顯示資料內容 -->
+                <div class="row ftco-animate">
+                    <table class="ftco-animate col-12 table-hover table-striped m-auto text-center font-weight-bold"
+                           id="personalTableAjax">
+                        <tbody>
+                        <tr class="h5">
+                            <th style="width: 10%;">名字</th>
+                            <th style="width: 10%;">物種</th>
+                            <th style="width: 10%;">品種</th>
+                            <th style="width: 10%;">性別</th>
+                            <th style="width: 10%;">刊登日期</th>
+                            <th style="width: 10%;">更新日期</th>
+                            <th style="width: 20%;">操作</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 顯示查詢資訊 -->
+                <div class="row ftco-animate">
+                    <div class="col-12 p-3 text-center">
+                        <div class="block-27">
+                            <p id="personPageInfo"></p>
+                            <div class="page_show"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="missing">
+                <!-- 顯示資料內容 -->
+                <div class="row ftco-animate">
+                    <table class="ftco-animate col-12 table-hover table-striped m-auto text-center font-weight-bold"
+                           id="missingTableAjax">
+                        <tbody>
+                        <tr class="h5">
+                            <th style="width: 10%;">名字</th>
+                            <th style="width: 10%;">物種</th>
+                            <th style="width: 10%;">品種</th>
+                            <th style="width: 10%;">性別</th>
+                            <th style="width: 10%;">刊登日期</th>
+                            <th style="width: 10%;">更新日期</th>
+                            <th style="width: 20%;">操作</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 顯示查詢資訊 -->
+                <div class="row ftco-animate">
+                    <div class="col-12 p-3 text-center">
+                        <div class="block-27">
+                            <p id="missingPageInfo"></p>
+                            <div class="page_show"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -302,7 +343,7 @@
                                 <div class="col-4 mt-0">
                                     <div class="d-flex">
                                         <span>物種 :</span>
-<!--                                        <span id="animalKind_static"></span>-->
+                                        <!--                                        <span id="animalKind_static"></span>-->
                                         <input id="animalKind_static" class="custom-select" type="text">
                                     </div>
                                     <div class="d-flex">
@@ -414,7 +455,7 @@
         url: "/personalAnimals?id=" + user.id,
         success: function (data) {
             // 清空表格 tr 元素
-            $("#tableAjax").children("tr").empty();
+            $("#personalTableAjax").children("tr").empty();
 
             $.each(data["results"], function (index, item) {
                 var tableContent = `
@@ -432,7 +473,7 @@
                         </td>
                     </tr>
                 `;
-                $("#tableAjax").append(tableContent);
+                $("#personalTableAjax").append(tableContent);
             })
             // <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="updateButton(this)">更新</button>
         }
