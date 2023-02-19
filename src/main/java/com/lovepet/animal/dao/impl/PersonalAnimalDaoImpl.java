@@ -157,7 +157,12 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
 
         int personalAnimalId = keyHolder.getKey().intValue();
 
-        writePhoto(personalAnimalRequest, personalAnimalId);
+        // 寫入圖片
+        if (personalAnimalRequest.getAnimalPhoto() != null) {
+            writePhoto(personalAnimalRequest, personalAnimalId);
+        }
+        // 取得 animal_id 後更新 image_url 資料 (檔案命名規則: /images/publish/{user_id}-{animal_id}.jpg)
+        updatePersonalAnimal(personalAnimalId, personalAnimalRequest);
 
         return personalAnimalId;
     }
@@ -168,7 +173,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
                 "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor , " +
                 "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
-        writePhoto(personalAnimalRequest, personalAnimalId);
+
         Map<String, Object> map = new HashMap<>();
         map.put("animalId", personalAnimalId);
         map.put("userId", personalAnimalRequest.getUserId());
@@ -181,10 +186,15 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("animalColor", personalAnimalRequest.getAnimalColor());
         map.put("animalSterilization", personalAnimalRequest.getAnimalSterilization());
         map.put("animalBacterin", personalAnimalRequest.getAnimalBacterin());
-        map.put("imageUrl", personalAnimalRequest.getImageUrl());
+        map.put("imageUrl", "/images/publish/" + personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
         map.put("area", personalAnimalRequest.getArea());
         map.put("description", personalAnimalRequest.getDescription());
         map.put("lastModifiedDate", new Date());
+
+        // 寫入圖片
+        if (personalAnimalRequest.getAnimalPhoto() != null) {
+            writePhoto(personalAnimalRequest, personalAnimalId);
+        }
 
         namedParameterJdbcTemplate.update(sql, map);
     }
@@ -231,8 +241,8 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
                     "\\src\\main\\resources\\static\\images\\publish\\%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
 
             // 編譯路徑
-            String pathTarget = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath() +
-                    "static/images/publish/%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
+            String pathTarget = String.format(System.getProperty("user.dir") +
+                    "\\target\\classes\\static\\images\\publish\\%s", personalAnimalRequest.getUserId() + "-" + personalAnimalId + ".jpg");
 
             FileOutputStream fosSrc = new FileOutputStream(pathSrc);
             FileOutputStream fosTarget = new FileOutputStream(pathTarget);

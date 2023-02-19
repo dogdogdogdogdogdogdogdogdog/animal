@@ -29,7 +29,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public List<AnimalMissing> getAnimalsMissingComboBox(){
+    public List<AnimalMissing> getAnimalsMissingComboBox() {
         String sql = "SELECT * FROM animal_missing WHERE 1=1";
 
         List<AnimalMissing> list = namedParameterJdbcTemplate.query(sql, new AnimalMissingRowmapper());
@@ -37,7 +37,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
     }
 
     @Override
-    public Integer countAnimalMissing(AnimalMissingQueryParams animalMissingQueryParams){
+    public Integer countAnimalMissing(AnimalMissingQueryParams animalMissingQueryParams) {
         String sql = "SELECT count(*) FROM animal_missing WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
@@ -51,7 +51,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
     }
 
     @Override
-    public List<AnimalMissing> getAnimalsMissing(AnimalMissingQueryParams animalMissingQueryParams){
+    public List<AnimalMissing> getAnimalsMissing(AnimalMissingQueryParams animalMissingQueryParams) {
         String sql = "SELECT * FROM animal_missing WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
@@ -112,7 +112,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
     }
 
     @Override
-    public AnimalMissing getAnimalMissingById(Integer animalMissingId){
+    public AnimalMissing getAnimalMissingById(Integer animalMissingId) {
         String sql = "SELECT * FROM animal_missing WHERE animal_id = :animalMissingId";
 
         Map<String, Object> map = new HashMap<>();
@@ -120,15 +120,15 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
         List<AnimalMissing> animalMissingList = namedParameterJdbcTemplate.query(sql, map, new AnimalMissingRowmapper());
 
-        if(animalMissingList.size() > 0){
+        if (animalMissingList.size() > 0) {
             return animalMissingList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
 
     @Override
-    public  Integer createAnimalMissing(AnimalMissingRequest animalMissingRequest){
+    public Integer createAnimalMissing(AnimalMissingRequest animalMissingRequest) {
         String sql = "INSERT INTO animal_missing(user_id, name, kind, variety, bodysize, sex, color, age, description, image_url, area, missing_date, created_date)" +
                 "VALUES (:userId, :name, :kind, :variety, :bodysize, :sex, :color, :age, :description, :imageUrl, :area, :missingDate, :createdDate)";
 
@@ -146,8 +146,8 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
         map.put("area", animalMissingRequest.getArea());
 
         Date now = new Date();
-        map.put("missingDate" , now);
-        map.put("createdDate" , now);
+        map.put("missingDate", now);
+        map.put("createdDate", now);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -155,37 +155,47 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
         int animalMissingId = keyHolder.getKey().intValue();
 
+        // 寫入圖片
+        if (animalMissingRequest.getAnimalPhoto() != null) {
             writePhoto(animalMissingRequest, animalMissingId);
+        }
+        // 取得 animal_id 後更新 image_url 資料 (檔案命名規則: images/missing/{user_id}-{animal_id}.jpg)
+        updateAnimalMissing(animalMissingId, animalMissingRequest);
 
         return animalMissingId;
     }
 
     @Override
-    public void updateAnimalMissing(Integer animalMissingId, AnimalMissingRequest animalMissingRequest){
-        String sql = "UPDATE animal_missing SET user_id = userId, name = :name , kind = :kind, variety = :variety, bodysize = :bodysize," +
+    public void updateAnimalMissing(Integer animalMissingId, AnimalMissingRequest animalMissingRequest) {
+        String sql = "UPDATE animal_missing SET user_id = :userId, name = :name , kind = :kind, variety = :variety, bodysize = :bodysize," +
                 " sex = :sex, color = :color, age = :age, description = :description, image_url = :imageUrl," +
-                " area = :area, missing_date = :missingDate, created_date = :createdDate WHERE animal_id = :animalId";
-        writePhoto(animalMissingRequest, animalMissingId);
+                " area = :area WHERE animal_id = :animalId";
+
         Map<String, Object> map = new HashMap<>();
-        map.put("animalId",animalMissingId);
+        map.put("animalId", animalMissingId);
         map.put("userId", animalMissingRequest.getUserId());
         map.put("name", animalMissingRequest.getName());
         map.put("kind", animalMissingRequest.getKind());
         map.put("variety", animalMissingRequest.getVariety());
         map.put("sex", animalMissingRequest.getSex());
+        map.put("bodysize", animalMissingRequest.getBodysize());
         map.put("color", animalMissingRequest.getColor());
         map.put("age", animalMissingRequest.getAge());
         map.put("description", animalMissingRequest.getDescription());
-        map.put("imageUrl", animalMissingRequest.getImageUrl());
+        map.put("imageUrl", "/images/missing/" + animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
         map.put("area", animalMissingRequest.getArea());
-        map.put("missingDate", new Date());
+
+        // 寫入圖片
+        if (animalMissingRequest.getAnimalPhoto() != null) {
+            writePhoto(animalMissingRequest, animalMissingId);
+        }
 
         namedParameterJdbcTemplate.update(sql, map);
     }
 
 
     @Override
-    public void deleteAnimalMissingById(Integer animalMissingUserId, Integer animalMissingId){
+    public void deleteAnimalMissingById(Integer animalMissingUserId, Integer animalMissingId) {
         String sql = "DELETE FROM animal_missing WHERE user_id=:animalMissingUserId AND animal_id = :animalMissingId";
 
         Map<String, Object> map = new HashMap<>();
@@ -210,9 +220,9 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
             map.put("area", animalMissingQueryParams.getArea());
         }
 
-        if(animalMissingQueryParams.getId()!=null){
-            sql= sql + " AND user_id=:userId ";
-            map.put("userId",animalMissingQueryParams.getId());
+        if (animalMissingQueryParams.getId() != null) {
+            sql = sql + " AND user_id=:userId ";
+            map.put("userId", animalMissingQueryParams.getId());
         }
         return sql;
     }
@@ -223,11 +233,11 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
             // 專案路徑
             String pathSrc = String.format(System.getProperty("user.dir") +
-                    "\\src\\main\\resources\\static\\images\\missing\\%s", animalMissingRequest.getUserId() + "-" + animalMissingRequest + ".jpg");
+                    "\\src\\main\\resources\\static\\images\\missing\\%s", animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
 
             // 編譯路徑
-            String pathTarget = String.format(ClassUtils.getDefaultClassLoader().getResource("").getPath() +
-                    "static/images/publish/%s", animalMissingRequest.getUserId() + "-" + animalMissingRequest + ".jpg");
+            String pathTarget = String.format(System.getProperty("user.dir") +
+                    "\\target\\classes\\static\\images\\missing\\%s", animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
 
             FileOutputStream fosSrc = new FileOutputStream(pathSrc);
             FileOutputStream fosTarget = new FileOutputStream(pathTarget);

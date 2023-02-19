@@ -33,6 +33,7 @@
         .btn.btn-primary:hover {
             color: white !important;
             background: #ffa500 !important;
+            outline: 1px solid;
             opacity: 1;
         }
 
@@ -100,14 +101,6 @@
             /*min-width: 13%;*/
             /*border-top-left-radius: 0.5rem !important;*/
             /*border-bottom-left-radius: 0.5em !important;*/
-        }
-
-        /*彈出式互動視窗背景*/
-        .modal-content.modal-bg {
-            background-image: url('/images/_section_bg.png');
-            background-repeat: repeat;
-            background-position: center;
-            /*background-color: white;*/
         }
 
         .page_show {
@@ -250,17 +243,8 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
 <script src="js/main.js"></script>
-<script>
-    <!-- 讀取頁首及頁腳 -->
-    $("#header-page").load("/header", function () {
-        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
-        $("#page-title").text($("title")[0].innerText);
-    });
-    $("#footer-page").load("/footer");
-</script>
-
+<script src="js/_animal-init.js"></script>
 <script src="js/pageController.js"></script>
-
 <script type="text/javascript">
     // pages: 當次查詢的總頁數
     // limit: 當次查詢的筆數，預設值設定於 Controller 中

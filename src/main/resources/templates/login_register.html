@@ -33,6 +33,7 @@
         .btn.btn-primary:hover {
             color: white !important;
             background: #ffa500 !important;
+            outline: 1px solid;
             opacity: 1;
         }
 
@@ -210,16 +211,8 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/main.js"></script>
-<script>
-    <!-- 讀取頁首及頁腳 -->
-    $("#header-page").load("/header", function () {
-        // 取消非同步執行 讀取完 header 後再取得 title 名稱放入迷你導覽列
-        $("#page-title").text($("title")[0].innerText);
-    });
-    $("#footer-page").load("/footer");
-</script>
+<script src="js/_animal-init.js"></script>
 <script type="text/javascript">
     function judgeRegisterEmail(email) {
 
@@ -259,7 +252,7 @@
                 document.getElementById("loginPromptEmail").style.display = "none"
             }
         })
-        xhr.open('get', "http://localhost:8080/user/registed?email=" + document.getElementById(email).value);
+        xhr.open('get', "/user/registed?email=" + document.getElementById(email).value);
         xhr.send();
 
         */
@@ -282,11 +275,11 @@
             if (xhr.status == 200) {
                 alert("登入成功")
                 console.log(xhr.response)
-                window.location.replace("/user_management");
+                window.location.replace("/index");
 
                 // document.getElementById("registStatus").innerHTML="<div style='color: green'>註冊成功請登入";
             } else if (xhr.status == 400) {
-                alert("登入失敗 帳號或密碼輸入錯誤 ")
+                alert("登入失敗\n帳號或密碼輸入錯誤")
                 // document.getElementById("registStatus").innerHTML="<div style='color: red'>註冊失敗";
             }
 
@@ -345,6 +338,8 @@
         var data = JSON.stringify(account);
         xhr.send(data);
     }
+
 </script>
+
 </body>
 </html>

@@ -67,3 +67,10 @@
         center;
     }
 }
+
+/*彈出式互動視窗背景*/
+.modal-bg {
+    background-image: url('../images/_section_bg.png');
+    background-repeat: repeat;
+    background-position: center;
+}
