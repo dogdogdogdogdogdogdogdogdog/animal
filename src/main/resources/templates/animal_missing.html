@@ -140,7 +140,7 @@
                         <!-- 標題定位用主區塊 -->
                         <div class="col-4 px-0 d-flex justify-content-center">
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
-                            <h3 class="modal-title font-weight-bold" id="Name_static">這裡是寵物名字</h3>
+                            <h3 class="modal-title font-weight-bold" id="name_static">這裡是寵物名字</h3>
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
                         </div>
                         <!-- 標題定位用右區塊 -->
@@ -308,7 +308,7 @@
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="published">
                         <div class="img-wrap d-flex align-items-stretch">
-                            <div class="work mb-4 img d-flex align-items-end" style="background-image: url(${item.imageUrl});"></div>
+                            <div class="work mb-4 img d-flex align-items-end" style="background-image: url('${item.imageUrl}?random=${Date.now()}');"></div>
                         </div>
                         <div class="text pt-3 px-3 pb-4 text-center">
                             <h3 id="${item.animalId}">${item.name}</h3>
@@ -367,7 +367,8 @@
                 $("#color_static").text(data.color);
                 $("#age_static").text(data.age);
                 $("#description_static").html(data.description.replaceAll("\n", "<br>"));
-                $("#imageUrl_static").css("background-image", `url('${data.imageUrl}')`);
+                // 避免從快取獲得圖片 加入隨機網址參數
+                $("#imageUrl_static").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
                 $("#area_static").text(data.area);
                 $("#missingDate_static").text(data.missingDate);
                 $("#createdDate_static").text(data.createdDate);

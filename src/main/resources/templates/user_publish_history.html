@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>刊登認養管理</title>
+    <title>刊登管理</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -37,7 +37,7 @@
             opacity: 1;
         }
 
-        /*按鈕樣式*/
+        /*刪除按鈕樣式*/
         .btn.btn-del {
             color: black !important;
             padding: 6px 20px;
@@ -48,11 +48,30 @@
             opacity: 1;
         }
 
-        /*按鈕樣式-滑鼠掠過*/
+        /*刪除按鈕樣式-滑鼠掠過*/
         .btn.btn-del:hover {
             color: white !important;
             background: red !important;
             outline: 1px solid;
+            opacity: 1;
+        }
+
+        /*切換按鈕樣式*/
+        .btn.btn-switch {
+            color: white !important;
+            padding: 6px 20px;
+            font-size: 20px;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: grey !important;
+            border-radius: 0;
+            opacity: 1;
+        }
+
+        /*切換按鈕樣式-滑鼠掠過及已切換*/
+        .btn.btn-switch:hover, .btn.btn-switch.active {
+            color: black !important;
+            background: #fcd601 !important;
             opacity: 1;
         }
 
@@ -110,6 +129,34 @@
             color: unset !important;
         }
 
+        /*資料標題*/
+        .modal-body .d-flex span {
+            flex-shrink: 0;
+            height: 40px;
+            color: black;
+            background: lightgrey;
+            text-align: center;
+            padding: 5px 10px;
+            margin: 5px 0;
+            /*min-width: 13%;*/
+            border-top-left-radius: 5px !important;
+            border-bottom-left-radius: 5px !important;
+        }
+
+        /*文字編輯區塊樣式*/
+        #description_personal, #animalName_personal,
+        #description_missing, #animalName_missing {
+            background-color: white;
+            border: 1px solid;
+            border-radius: 10px;
+        }
+
+        /*資料標題鄰近輸入區*/
+        span + input, span + select {
+            margin: 5px 0;
+            border-radius: 0 5px 5px 0 !important;
+        }
+
         /*原生換頁UI*/
         /*.block-27 ul li a, .block-27 ul li span {*/
         /*    color: black;*/
@@ -142,132 +189,26 @@
             background-color: #424242;
         }
 
-        /*資料標題*/
-        .modal-body .d-flex span {
-            flex-shrink: 0;
-            height: 40px;
-            color: black;
-            background: lightgrey;
-            text-align: center;
-            padding: 5px 10px;
-            margin: 5px 0;
-            /*min-width: 13%;*/
-            border-top-left-radius: 5px !important;
-            border-bottom-left-radius: 5px !important;
-        }
-
-        /*文字編輯區塊樣式*/
-        #description_static, #animalName_static {
-            background-color: white;
-            border: 1px solid;
-            border-radius: 10px;
-        }
-
-        /*資料標題鄰近輸入區*/
-        span + input, span + select {
-            margin: 5px 0;
-            border-radius: 0 5px 5px 0 !important;
-        }
-
     </style>
 </head>
 
 <body>
 <div id="header-page"></div>
 
-<dialog id="infoModal">
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>名字</p>
-            <input id="animalName" type="text" class="form-control" placeholder="名字">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>物種</p>
-            <input id="animalKind" type="text" class="form-control" placeholder="種類">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>品種</p>
-            <input id="animalVariety" type="text" class="form-control" placeholder="品種">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>性別</p>
-            <input id="animalSex" type="text" class="form-control" placeholder="性別">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>年紀</p>
-            <input id="animalAge" type="text" class="form-control" placeholder="年齡">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>體型</p>
-            <input id="animalBodysize" type="text" class="form-control" placeholder="體型">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>顏色</p>
-            <input id="animalColor" type="text" class="form-control" placeholder="顏色">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>是否結扎</p>
-            <input id="animalSterilization" type="text" class="form-control" placeholder="是否結扎">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>疫苗</p>
-            <input id="animalBacterin" type="text" class="form-control" placeholder="疫苗">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>地區</p>
-            <input id="area" type="text" class="form-control" placeholder="地址">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>備註</p>
-            <input id="description" type="text" class="form-control" placeholder="備註">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <p>目前圖片</p>
-            <div id="curImg"></div>
-            <p>修改圖片</p>
-            <input type="file" id="animalPhoto"/>
-        </div>
-    </div>
-    <button onclick="updatePublish()">修改</button>
-    <button id="close">close</button>
-</dialog>
-
-<!-- 表格SQL查詢測試用 -->
-<!-- m-auto 邊界距離自動調整 p-3 設定區塊寬高間隔均為p-3號 border-radius 邊角圓弧效果 -->
 <section id="query_block" class="ftco-section main-img">
     <div class="container py-5">
-        <ul id="myTab" class="nav nav-tabs p-2">
+        <ul id="myTab" class="ftco-animate nav nav-tabs row m-0 justify-content-center" style="border: none;">
             <li class="active">
-                <a href="#personal" class="btn btn-primary" data-toggle="tab">送養管理</a>
+                <a href="#personal" class="btn btn-switch active" data-toggle="tab"
+                   style="border-top-left-radius: 10px !important;">送養管理</a>
             </li>
             <li>
-                <a href="#missing" class="btn btn-primary" data-toggle="tab">協尋管理</a>
+                <a href="#missing" class="btn btn-switch" data-toggle="tab"
+                   style="border-top-right-radius: 10px !important;">協尋管理</a>
             </li>
         </ul>
         <div id="myTabContent" class="tab-content">
-            <!--一般領養 Table-->
+            <!-- 刊登認養 Table-->
             <div class="tab-pane fade show active" id="personal">
                 <!-- 顯示資料內容 -->
                 <div class="row ftco-animate">
@@ -296,7 +237,7 @@
                     </div>
                 </div>
             </div>
-            <!--走失協尋 Table-->
+            <!-- 走失協尋 Table-->
             <div class="tab-pane fade" id="missing">
                 <!-- 顯示資料內容 -->
                 <div class="row ftco-animate">
@@ -328,14 +269,8 @@
         </div>
     </div>
     <div class="container">
-        <!-- Modal-->
-        <div class="modal-body">
-            <div class="container-fluid">
-                <div class="row">
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="publishModalCenter" tabindex="-1" role="dialog"
+        <!-- Modal 刊登領養 -->
+        <div class="modal fade" id="personalModalCenter" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content modal-bg">
@@ -344,7 +279,8 @@
                         <!-- 標題定位用主區塊 -->
                         <div class="col-12 px-0 d-flex justify-content-center">
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
-                            <h3 class="modal-title font-weight-bold px-2" id="animalName_static" contenteditable="true">
+                            <h3 class="modal-title font-weight-bold px-2" id="animalName_personal"
+                                contenteditable="true">
                                 這裡是寵物名字</h3>
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
                             <!-- 強制定位關閉功能於最右上角 -->
@@ -360,21 +296,21 @@
                         <div class="row m-auto col-12 justify-content-center">
                             <div class="col-xl-6 col-12">
                                 <!-- 彈出框圖片高度於小畫面顯示異常 強制設定600px高 -->
-                                <div id="imageUrl_static" class="work img d-flex mb-4"
+                                <div id="imageUrl_personal" class="work img d-flex mb-4"
                                      style="height: 600px !important; background-position: center center !important;">
                                 </div>
                             </div>
                             <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
                                 <div class="col-12 mt-0">
                                     <div class="d-flex align-items-center">
-                                        <span class="mr-1">照片</span>
-                                        <input type="file" id="animalPhoto_static">
+                                        <span class="mr-1" style="border-radius: 5px !important;">照片</span>
+                                        <input type="file" id="animalPhoto_personal">
                                     </div>
                                 </div>
                                 <div class="col-4 mt-0">
                                     <div class="d-flex">
                                         <span>物種</span>
-                                        <select id="animalKind_static" class="custom-select" type="text"
+                                        <select id="animalKind_personal" class="custom-select" type="text"
                                                 style="height: 40px !important;">
                                             <option value="其他">其他</option>
                                             <option value="狗">狗狗</option>
@@ -386,12 +322,12 @@
                                     </div>
                                     <div class="d-flex">
                                         <span>品種</span>
-                                        <input id="animalVariety_static" class="form-control" type="text"
+                                        <input id="animalVariety_personal" class="form-control" type="text"
                                                style="height: 40px !important;">
                                     </div>
                                     <div class="d-flex">
                                         <span>性別</span>
-                                        <select id="animalSex_static" class="custom-select" type="text"
+                                        <select id="animalSex_personal" class="custom-select" type="text"
                                                 style="height: 40px !important;">
                                             <option value="不確定">不確定</option>
                                             <option value="公">男生</option>
@@ -400,7 +336,7 @@
                                     </div>
                                     <div class="d-flex">
                                         <span>年齡</span>
-                                        <select id="animalAge_static" class="custom-select" type="text"
+                                        <select id="animalAge_personal" class="custom-select" type="text"
                                                 style="height: 40px !important;">
                                             <option value="不確定">不確定</option>
                                             <option value="幼年">幼年</option>
@@ -412,7 +348,7 @@
                                 <div class="col-4 mt-0">
                                     <div class="d-flex">
                                         <span>體型</span>
-                                        <select id="animalBodysize_static" class="custom-select" type="text"
+                                        <select id="animalBodysize_personal" class="custom-select" type="text"
                                                 style="height: 40px !important;">
                                             <option value="小型">小型</option>
                                             <option value="中型">中型</option>
@@ -421,12 +357,12 @@
                                     </div>
                                     <div class="d-flex">
                                         <span>毛色</span>
-                                        <input id="animalColor_static" class="form-control" type="text"
+                                        <input id="animalColor_personal" class="form-control" type="text"
                                                style="height: 40px !important;">
                                     </div>
                                     <div class="d-flex">
                                         <span>絕育</span>
-                                        <select id="animalSterilization_static" class="custom-select" type="text"
+                                        <select id="animalSterilization_personal" class="custom-select" type="text"
                                                 style="height: 40px !important;">
                                             <option value="不確定">不確定</option>
                                             <option value="已結紮">已結紮</option>
@@ -435,7 +371,7 @@
                                     </div>
                                     <div class="d-flex">
                                         <span>疫苗</span>
-                                        <select id="animalBacterin_static" class="custom-select" type="text"
+                                        <select id="animalBacterin_personal" class="custom-select" type="text"
                                                 style="height: 40px !important;">
                                             <option value="無資料">無資料</option>
                                         </select>
@@ -444,7 +380,7 @@
                                 <div class="col-4 mt-0">
                                     <div class="d-flex">
                                         <span>地區</span>
-                                        <select id="area_static" class="custom-select" type="text"
+                                        <select id="area_personal" class="custom-select" type="text"
                                                 style="height: 40px !important;">
                                             <option value="台北市">台北市</option>
                                             <option value="新北市">新北市</option>
@@ -473,12 +409,12 @@
                                     <!-- 這是一個隱藏欄位 -->
                                     <div class="d-flex" style="visibility: hidden;">
                                         <span>會員編號</span>
-                                        <span id="userId_static"></span>
+                                        <span id="userId_personal"></span>
                                     </div>
                                     <!-- 這是一個隱藏欄位 -->
                                     <div class="d-flex" style="visibility: hidden;">
                                         <span>動物編號</span>
-                                        <span id="animalId_static"></span>
+                                        <span id="animalId_personal"></span>
                                     </div>
                                     <!-- 這是一個保留欄位 -->
                                     <div class="d-flex" style="visibility: hidden;">
@@ -489,14 +425,177 @@
                                 <!-- 備註(寵物描述) -->
                                 <div class="col-12 pt-3">
                                     <div class="d-block font-weight-bold" style="color: black;">
-                                        <div class="p-2" id="description_static" contenteditable="true"></div>
+                                        <div class="p-2" id="description_personal" contenteditable="true"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="publishSave()">保存
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="personalSave()">保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal 走失協尋 -->
+        <div class="modal fade" id="missingModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content modal-bg">
+                    <!-- 寵物名字放在標題 -->
+                    <div class="modal-header">
+                        <!-- 標題定位用主區塊 -->
+                        <div class="col-12 px-0 d-flex justify-content-center">
+                            <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold px-2" id="animalName_missing"
+                                contenteditable="true">
+                                這裡是寵物名字</h3>
+                            <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
+                            <!-- 強制定位關閉功能於最右上角 -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 設定上下邊線效果 區隔 header 和 footer -->
+                    <div class="modal-body"
+                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                        <div class="row m-auto col-12 justify-content-center">
+                            <div class="col-xl-6 col-12">
+                                <!-- 彈出框圖片高度於小畫面顯示異常 強制設定600px高 -->
+                                <div id="imageUrl_missing" class="work img d-flex mb-4"
+                                     style="height: 600px !important; background-position: center center !important;">
+                                </div>
+                            </div>
+                            <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                                <div class="col-12 mt-0">
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-1" style="border-radius: 5px !important;">照片</span>
+                                        <input type="file" id="animalPhoto_missing">
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-flex">
+                                        <span>物種</span>
+                                        <select id="animalKind_missing" class="custom-select" type="text"
+                                                style="height: 40px !important;">
+                                            <option value="其他">其他</option>
+                                            <option value="狗">狗狗</option>
+                                            <option value="貓">貓咪</option>
+                                            <option value="鳥">鳥兒</option>
+                                            <option value="兔">兔兔</option>
+                                            <option value="鼠">小鼠</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>品種</span>
+                                        <input id="animalVariety_missing" class="form-control" type="text"
+                                               style="height: 40px !important;">
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>性別</span>
+                                        <select id="animalSex_missing" class="custom-select" type="text"
+                                                style="height: 40px !important;">
+                                            <option value="不確定">不確定</option>
+                                            <option value="公">男生</option>
+                                            <option value="母">女生</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>年齡</span>
+                                        <select id="animalAge_missing" class="custom-select" type="text"
+                                                style="height: 40px !important;">
+                                            <option value="不確定">不確定</option>
+                                            <option value="幼年">幼年</option>
+                                            <option value="成年">成年</option>
+                                            <option value="老年">老年</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <div class="d-flex">
+                                        <span>體型</span>
+                                        <select id="animalBodysize_missing" class="custom-select" type="text"
+                                                style="height: 40px !important;">
+                                            <option value="小型">小型</option>
+                                            <option value="中型">中型</option>
+                                            <option value="大型">大型</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>毛色</span>
+                                        <input id="animalColor_missing" class="form-control" type="text"
+                                               style="height: 40px !important;">
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>地區</span>
+                                        <select id="area_missing" class="custom-select" type="text"
+                                                style="height: 40px !important;">
+                                            <option value="台北市">台北市</option>
+                                            <option value="新北市">新北市</option>
+                                            <option value="基隆市">基隆市</option>
+                                            <option value="宜蘭縣">宜蘭縣</option>
+                                            <option value="桃園市">桃園市</option>
+                                            <option value="新竹市">新竹市</option>
+                                            <option value="新竹縣">新竹縣</option>
+                                            <option value="苗栗縣">苗栗縣</option>
+                                            <option value="台中市">台中市</option>
+                                            <option value="彰化縣">彰化縣</option>
+                                            <option value="南投縣">南投縣</option>
+                                            <option value="雲林縣">雲林縣</option>
+                                            <option value="嘉義市">嘉義市</option>
+                                            <option value="嘉義縣">嘉義縣</option>
+                                            <option value="台南市">台南市</option>
+                                            <option value="高雄市">高雄市</option>
+                                            <option value="屏東縣">屏東縣</option>
+                                            <option value="花蓮縣">花蓮縣</option>
+                                            <option value="台東縣">台東縣</option>
+                                            <option value="澎湖縣">澎湖縣</option>
+                                            <option value="金門縣">金門縣</option>
+                                            <option value="連江縣">連江縣</option>
+                                        </select>
+                                    </div>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-flex" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-0">
+                                    <!-- 這是一個隱藏欄位 -->
+                                    <div class="d-flex" style="visibility: hidden;">
+                                        <span>會員編號</span>
+                                        <span id="userId_missing"></span>
+                                    </div>
+                                    <!-- 這是一個隱藏欄位 -->
+                                    <div class="d-flex" style="visibility: hidden;">
+                                        <span>動物編號</span>
+                                        <span id="animalId_missing"></span>
+                                    </div>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-flex" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
+                                    </div>
+                                    <!-- 這是一個保留欄位 -->
+                                    <div class="d-flex" style="visibility: hidden;">
+                                        <span>dummy</span>
+                                        <span id="">dummy</span>
+                                    </div>
+                                </div>
+                                <!-- 備註(寵物描述) -->
+                                <div class="col-12 pt-3">
+                                    <div class="d-block font-weight-bold" style="color: black;">
+                                        <div class="p-2" id="description_missing" contenteditable="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="missingSave()">保存
                         </button>
                     </div>
                 </div>
@@ -538,10 +637,13 @@
 <script src="js/delPublish.js"></script>
 <script>
     // 載入頁面先執行一次
-    init();
+    getPersonal();
+    getMissing();
 
-    // 查詢該使用者的刊登資訊
-    function init() {
+    //////////////////////////////////////////////////////////////////////
+    // 刊登送養
+    // 查詢該使用者的送養資訊
+    function getPersonal() {
         // 清空表格 tr 元素
         $("#personalTableAjax").children("tr").empty();
 
@@ -562,8 +664,8 @@
                         <td>${item.createdDate}</td>
                         <td>${item.lastModifiedDate}</td>
                         <td>
-                            <button id="publishModifyBtn" animalId="${item.animalId}" class="btn btn-primary" onclick="publishModify(this)" data-toggle="modal" data-target="#publishModalCenter">更新</button>
-                            <button id="publishDelBtn" animalId="${item.animalId}" class="btn btn-del" onclick="publishDel(this)">刪除</button>
+                            <button id="personalModifyBtn" animalId="${item.animalId}" class="btn btn-primary" onclick="personalModify(this)" data-toggle="modal" data-target="#personalModalCenter">修改</button>
+                            <button id="personalDelBtn" animalId="${item.animalId}" class="btn btn-del" onclick="personalDel(this)">刪除</button>
                         </td>
                     </tr>
                 `;
@@ -579,19 +681,19 @@
             }
         })
     }
-    init();
 
-    function publishModify(element) {
+    // 讀取單筆送養資料
+    function personalModify(element) {
         // 攜帶檔案初始化
-        $("#animalPhoto_static").val("");
+        $("#animalPhoto_personal").val("");
         // 項目下拉選單初始化
-        $("#animalKind_static option").removeAttr("selected");
-        $("#animalSex_static option").removeAttr("selected");
-        $("#animalAge_static option").removeAttr("selected");
-        $("#animalBodysize_static option").removeAttr("selected");
-        $("#animalSterilization_static option").removeAttr("selected");
-        $("#animalBacterin_static option").removeAttr("selected");
-        $("#area_static option").removeAttr("selected");
+        $("#animalKind_personal option").removeAttr("selected");
+        $("#animalSex_personal option").removeAttr("selected");
+        $("#animalAge_personal option").removeAttr("selected");
+        $("#animalBodysize_personal option").removeAttr("selected");
+        $("#animalSterilization_personal option").removeAttr("selected");
+        $("#animalBacterin_personal option").removeAttr("selected");
+        $("#area_personal option").removeAttr("selected");
 
         // 取得更新按鈕上的 animalId
         var animalId = $(element).attr("animalId");
@@ -601,54 +703,54 @@
             url: "/personalAnimals/" + animalId,
             success: function (data) {
                 // 變更 select 外觀選取項目
-                $("#animalKind_static").val(`${data.animalKind}`).change();
+                $("#animalKind_personal").val(`${data.animalKind}`).change();
                 // 變更 option 實際選取項目
-                $(`#animalKind_static option[value='${data.animalKind}']`).attr("selected", "selected");
-                $("#animalSex_static").val(`${data.animalSex}`).change();
-                $(`#animalSex_static option[value='${data.animalSex}']`).attr("selected", "selected");
-                $("#animalAge_static").val(`${data.animalAge}`).change();
-                $(`#animalAge_static option[value='${data.animalAge}']`).attr("selected", "selected");
-                $("#animalBodysize_static").val(`${data.animalBodysize}`).change();
-                $(`#animalBodysize_static option[value='${data.animalBodysize}']`).attr("selected", "selected");
-                $("#animalSterilization_static").val(`${data.animalSterilization}`).change();
-                $(`#animalSterilization_static option[value='${data.animalSterilization}']`).attr("selected", "selected");
-                $("#animalBacterin_static").val(`${data.animalBacterin}`).change();
-                $(`#animalBacterin_static option[value='${data.animalBacterin}']`).attr("selected", "selected");
-                $("#area_static").val(`${data.area}`).change();
-                $(`#area_static option[value='${data.area}']`).attr("selected", "selected");
+                $(`#animalKind_personal option[value='${data.animalKind}']`).attr("selected", "selected");
+                $("#animalSex_personal").val(`${data.animalSex}`).change();
+                $(`#animalSex_personal option[value='${data.animalSex}']`).attr("selected", "selected");
+                $("#animalAge_personal").val(`${data.animalAge}`).change();
+                $(`#animalAge_personal option[value='${data.animalAge}']`).attr("selected", "selected");
+                $("#animalBodysize_personal").val(`${data.animalBodysize}`).change();
+                $(`#animalBodysize_personal option[value='${data.animalBodysize}']`).attr("selected", "selected");
+                $("#animalSterilization_personal").val(`${data.animalSterilization}`).change();
+                $(`#animalSterilization_personal option[value='${data.animalSterilization}']`).attr("selected", "selected");
+                $("#animalBacterin_personal").val(`${data.animalBacterin}`).change();
+                $(`#animalBacterin_personal option[value='${data.animalBacterin}']`).attr("selected", "selected");
+                $("#area_personal").val(`${data.area}`).change();
+                $(`#area_personal option[value='${data.area}']`).attr("selected", "selected");
 
-                $("#animalName_static").text(data.animalName);
-                $("#animalVariety_static").val(data.animalVariety);
-                $("#animalColor_static").val(data.animalColor);
-                $("#description_static").html(data.description);
+                $("#animalName_personal").text(data.animalName);
+                $("#animalVariety_personal").val(data.animalVariety);
+                $("#animalColor_personal").val(data.animalColor);
+                $("#description_personal").html(data.description);
                 // 避免從快取獲得圖片 加入隨機網址參數
-                $("#imageUrl_static").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
-                $("#userId_static").text(data.userId);
-                $("#animalId_static").text(data.animalId);
+                $("#imageUrl_personal").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
+                $("#userId_personal").text(data.userId);
+                $("#animalId_personal").text(data.animalId);
             }
         })
     }
 
-    // 保存修改資料
-    function publishSave() {
+    // 保存送養資料
+    function personalSave() {
         // 二進位圖片檔案 須用 formData 格式傳遞
         var formData = new FormData();
-        // formData.append("animalPhoto", document.getElementById("animalPhoto_static").files[0]);
-        formData.append("animalPhoto", $("#animalPhoto_static")[0].files[0]);
-        formData.append("item", $("#animalId_static").text());
-        formData.append("userId", $("#userId_static").text());
-        formData.append("animalName", $("#animalName_static").text());
-        formData.append("animalKind", $("#animalKind_static").val());
-        formData.append("animalVariety", $("#animalVariety_static").val());
-        formData.append("animalSex", $("#animalSex_static").val());
-        formData.append("animalAge", $("#animalAge_static").val());
-        formData.append("animalBodysize", $("#animalBodysize_static").val());
-        formData.append("animalColor", $("#animalColor_static").val());
-        formData.append("animalSterilization", $("#animalSterilization_static").val());
-        formData.append("animalBacterin", $("#animalBacterin_static").val());
+        // formData.append("animalPhoto", document.getElementById("animalPhoto_personal").files[0]);
+        formData.append("animalPhoto", $("#animalPhoto_personal")[0].files[0]);
+        formData.append("item", $("#animalId_personal").text());
+        formData.append("userId", $("#userId_personal").text());
+        formData.append("animalName", $("#animalName_personal").text());
+        formData.append("animalKind", $("#animalKind_personal").val());
+        formData.append("animalVariety", $("#animalVariety_personal").val());
+        formData.append("animalSex", $("#animalSex_personal").val());
+        formData.append("animalAge", $("#animalAge_personal").val());
+        formData.append("animalBodysize", $("#animalBodysize_personal").val());
+        formData.append("animalColor", $("#animalColor_personal").val());
+        formData.append("animalSterilization", $("#animalSterilization_personal").val());
+        formData.append("animalBacterin", $("#animalBacterin_personal").val());
         formData.append("imageUrl", "");
-        formData.append("area", $("#area_static").val());
-        formData.append("description", $("#description_static").html().replaceAll("<div>", "<br>").replaceAll("</div>", ""));
+        formData.append("area", $("#area_personal").val());
+        formData.append("description", $("#description_personal").html().replaceAll("<div>", "<br>").replaceAll("</div>", ""));
 
         $.ajax({
             type: "PUT",
@@ -660,13 +762,13 @@
             success: function (data) {
                 alert("更新成功!");
                 // 更新資料後重抓頁面
-                init();
+                getPersonal();
             }
         });
     }
 
-
-    function publishDel(element) {
+    // 刪除送養資料
+    function personalDel(element) {
         var id = $(element).attr("animalId");
         if (confirm("確定要刪除?") == true) {
             $.ajax({
@@ -675,14 +777,14 @@
                 success: function () {
                     alert("刪除成功")
                     // 刪除資料後重抓頁面
-                    init();
+                    getPersonal();
                 }
             })
         }
     }
 
     //////////////////////////////////////////////////////////////////////
-    // 走失協尋
+    // 刊登協尋
     // 查詢該使用者的刊登資訊
     function getMissing() {
         $.ajax({
@@ -702,9 +804,8 @@
                         <td>${item.createdDate}</td>
                         <td>${item.missingDate}</td>
                         <td>
-                            <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="missingUpdateButton2(this)" data-toggle="modal" data-target="#exampleModalCenter">更新</button>
-                            <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="missingUpdateButton(this)">更新-舊</button>
-                            <button id="delete" animalId="${item.animalId}" class="btn btn-primary" onclick="missingDeleteButton(this)">刪除</button>
+                            <button id="missingModifyBtn" animalId="${item.animalId}" class="btn btn-primary" onclick="missingModify(this)" data-toggle="modal" data-target="#missingModalCenter">修改</button>
+                            <button id="missingDelBtn" animalId="${item.animalId}" class="btn btn-del" onclick="missingDel(this)">刪除</button>
                         </td>
                     </tr>
                 `;
@@ -716,64 +817,89 @@
                 } else {
                     $("#missingPageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
                 }
-                // <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="updateButton(this)">更新</button>
             }
         })
     }
-    getMissing();
-    function missingUpdateButton2(element) {
 
+    // 讀取單筆協尋資料
+    function missingModify(element) {
+        // 攜帶檔案初始化
+        $("#animalPhoto_missing").val("");
+        // 項目下拉選單初始化
+        $("#animalKind_missing option").removeAttr("selected");
+        $("#animalSex_missing option").removeAttr("selected");
+        $("#animalAge_missing option").removeAttr("selected");
+        $("#animalBodysize_missing option").removeAttr("selected");
+        $("#area_missing option").removeAttr("selected");
+
+        // 取得更新按鈕上的 animalId
         var animalId = $(element).attr("animalId");
 
         $.ajax({
             type: "GET",
             url: "/animalsMissing/" + animalId,
             success: function (data) {
-                $("#animalName_static").text(data.animalName);
-                $("#animalKind_static").text(data.animalKind);
-                $("#animalVariety_static").text(data.animalVariety);
-                $("#animalSex_static").text(data.animalSex);
-                $("#animalAge_static").text(data.animalAge);
-                $("#animalBodysize_static").text(data.animalBodysize);
-                $("#animalColor_static").text(data.animalColor);
-                $("#animalSterilization_static").text(data.animalSterilization);
-                $("#animalBacterin_static").text(data.animalBacterin);
-                $("#area_static").text(data.area);
-                $("#description_static").html(data.description);
-                $("#imageUrl_static").css("background-image", `url('images/missing/${data.userId}-${data.animalId}.jpg')`)
+                // 變更 select 外觀選取項目
+                $("#animalKind_missing").val(`${data.kind}`).change();
+                // 變更 option 實際選取項目
+                $(`#animalKind_missing option[value='${data.kind}']`).attr("selected", "selected");
+                $("#animalSex_missing").val(`${data.sex}`).change();
+                $(`#animalSex_missing option[value='${data.sex}']`).attr("selected", "selected");
+                $("#animalAge_missing").val(`${data.age}`).change();
+                $(`#animalAge_missing option[value='${data.age}']`).attr("selected", "selected");
+                $("#animalBodysize_missing").val(`${data.bodysize}`).change();
+                $(`#animalBodysize_missing option[value='${data.bodysize}']`).attr("selected", "selected");
+                $("#area_missing").val(`${data.area}`).change();
+                $(`#area_missing option[value='${data.area}']`).attr("selected", "selected");
+
+                $("#animalName_missing").text(data.name);
+                $("#animalVariety_missing").val(data.variety);
+                $("#animalColor_missing").val(data.color);
+                $("#description_missing").html(data.description);
+                // 避免從快取獲得圖片 加入隨機網址參數
+                $("#imageUrl_missing").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
+                $("#userId_missing").text(data.userId);
+                $("#animalId_missing").text(data.animalId);
             }
         })
     }
 
-    function missingUpdateButton(element) {
-        var id = $(element).attr("animalId");
-        var infoModal = document.querySelector("#infoModal");
-        infoModal.showModal();
-        infoModal.setAttribute('class', id);
+    // 保存協尋資料
+    function missingSave() {
+        // 二進位圖片檔案 須用 formData 格式傳遞
+        var formData = new FormData();
+        // formData.append("animalPhoto", document.getElementById("animalPhoto_missing").files[0]);
+        formData.append("animalPhoto", $("#animalPhoto_missing")[0].files[0]);
+        formData.append("item", $("#animalId_missing").text());
+        formData.append("userId", $("#userId_missing").text());
+        formData.append("name", $("#animalName_missing").text());
+        formData.append("kind", $("#animalKind_missing").val());
+        formData.append("variety", $("#animalVariety_missing").val());
+        formData.append("sex", $("#animalSex_missing").val());
+        formData.append("age", $("#animalAge_missing").val());
+        formData.append("bodysize", $("#animalBodysize_missing").val());
+        formData.append("color", $("#animalColor_missing").val());
+        formData.append("imageUrl", "");
+        formData.append("area", $("#area_missing").val());
+        formData.append("description", $("#description_missing").html().replaceAll("<div>", "<br>").replaceAll("</div>", ""));
 
         $.ajax({
-            type: "GET",
-            url: "/animalsMissing/" + id,
+            type: "PUT",
+            url: "/animalMissing",
+            contentType: false, // required
+            processData: false, // required
+            mimeType: "multipart/form-data",
+            data: formData,
             success: function (data) {
-                $("#animalName").val(data.animalName);
-                $("#animalKind").val(data.animalKind);
-                $("#animalVariety").val(data.animalVariety);
-                $("#animalSex").val(data.animalSex);
-                $("#animalAge").val(data.animalAge);
-                $("#animalBodysize").val(data.animalBodysize);
-                $("#animalColor").val(data.animalColor);
-                $("#animalSterilization").val(data.animalSterilization);
-                $("#animalBacterin").val(data.animalBacterin);
-                $("#area").val(data.area);
-                $("#description").val(data.description);
-                $("#curImg").html(`<img src="images/missing/${data.userId}-${data.animalId}.jpg"  width="300" height="400">`)
-
+                alert("更新成功!");
+                // 更新資料後重抓頁面
+                getPersonal();
             }
-        })
-
+        });
     }
 
-    function missingDeleteButton(element) {
+    // 刪除協尋資料
+    function missingDel(element) {
         var id = $(element).attr("animalId");
         if (confirm("確定要刪除?") == true) {
             $.ajax({
@@ -786,16 +912,6 @@
             })
         }
     }
-
-    //////////////////////////////////////////////
-    let close = document.querySelector("#close");
-    close.addEventListener("click", function () {
-        infoModal.close();
-    });
-    let delclose = document.querySelector("#delclose");
-    delclose.addEventListener("click", function () {
-        delinfoModal.close();
-    });
 
 </script>
 

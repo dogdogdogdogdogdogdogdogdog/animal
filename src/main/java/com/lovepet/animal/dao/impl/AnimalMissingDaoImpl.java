@@ -157,7 +157,7 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
         // 寫入圖片
         writePhoto(animalMissingRequest, animalMissingId);
-        // 取得 animal_id 後更新 image_url 資料 (檔案命名規則: images/publish/{user_id}-{animal_id}.jpg)
+        // 取得 animal_id 後更新 image_url 資料 (檔案命名規則: images/missing/{user_id}-{animal_id}.jpg)
         updateAnimalMissing(animalMissingId, animalMissingRequest);
 
         return animalMissingId;
@@ -165,9 +165,9 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
     @Override
     public void updateAnimalMissing(Integer animalMissingId, AnimalMissingRequest animalMissingRequest){
-        String sql = "UPDATE animal_missing SET user_id = userId, name = :name , kind = :kind, variety = :variety, bodysize = :bodysize," +
+        String sql = "UPDATE animal_missing SET user_id = :userId, name = :name , kind = :kind, variety = :variety, bodysize = :bodysize," +
                 " sex = :sex, color = :color, age = :age, description = :description, image_url = :imageUrl," +
-                " area = :area, missing_date = :missingDate WHERE animal_id = :animalId";
+                " area = :area WHERE animal_id = :animalId";
         writePhoto(animalMissingRequest, animalMissingId);
         Map<String, Object> map = new HashMap<>();
         map.put("animalId",animalMissingId);
@@ -180,9 +180,8 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
         map.put("color", animalMissingRequest.getColor());
         map.put("age", animalMissingRequest.getAge());
         map.put("description", animalMissingRequest.getDescription());
-        map.put("imageUrl", animalMissingRequest.getImageUrl());
+        map.put("imageUrl", "/images/missing/" + animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
         map.put("area", animalMissingRequest.getArea());
-        map.put("missingDate", new Date());
 
         namedParameterJdbcTemplate.update(sql, map);
     }
@@ -227,11 +226,11 @@ public class AnimalMissingDaoImpl implements AnimalMissingDao {
 
             // 專案路徑
             String pathSrc = String.format(System.getProperty("user.dir") +
-                    "\\src\\main\\resources\\static\\images\\publish\\%s", animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
+                    "\\src\\main\\resources\\static\\images\\missing\\%s", animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
 
             // 編譯路徑
             String pathTarget = String.format(System.getProperty("user.dir") +
-                    "\\target\\classes\\static\\images\\publish\\%s", animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
+                    "\\target\\classes\\static\\images\\missing\\%s", animalMissingRequest.getUserId() + "-" + animalMissingId + ".jpg");
 
             FileOutputStream fosSrc = new FileOutputStream(pathSrc);
             FileOutputStream fosTarget = new FileOutputStream(pathTarget);
