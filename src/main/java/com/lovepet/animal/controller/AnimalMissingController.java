@@ -157,7 +157,7 @@ public class AnimalMissingController {
         return ResponseEntity.status(HttpStatus.OK).body(updateAnimalMissing);
     }
 
-    @DeleteMapping("/AnimalsMissing/{animalMissingUserId}/{animalMissingId}")
+    @DeleteMapping("/animalsMissing/{animalMissingUserId}/{animalMissingId}")
     public ResponseEntity<?> deleteAnimalMissing(@PathVariable Integer animalMissingUserId,
                                                  @PathVariable Integer animalMissingId){
         animalMissingService.deleteAnimalMissingById(animalMissingUserId, animalMissingId);

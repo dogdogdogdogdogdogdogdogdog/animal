@@ -25,7 +25,8 @@ function publishMissingAnimal() {
     let variety = document.getElementById("variety").value;
     let name = document.getElementById("name").value;
     let sex = document.getElementById("sex").value;
-    let body = document.getElementById("bodysize").value;
+    let bodysize = document.getElementById("bodysize").value;
+    console.log()
     let color = document.getElementById("color").value;
     let age = document.getElementById("age").value;
     let area = document.getElementById("area").value;
@@ -45,7 +46,7 @@ function publishMissingAnimal() {
     fd.append("variety", variety);
     fd.append("name", name);
     fd.append("sex", sex);
-    fd.append("bodysize", body);
+    fd.append("bodysize", bodysize);
     fd.append("color", color);
     fd.append("age", age);
     fd.append("area", area);
@@ -58,13 +59,13 @@ function publishMissingAnimal() {
     xhr.addEventListener('load', function () {
         if (xhr.status == 201) {
             if (confirm("刊登成功!，要繼續刊登嗎?") == true) {
-                window.location.replace("/missing");
+                window.location.replace("/publish");
             } else {
-                window.location.replace("/personal_shelter");
+                window.location.replace("/missing");
             }
         }
     })
-    xhr.open('post', '/animalsMissing');
+    xhr.open('POST', '/animalsMissing');
     xhr.send(fd);
 
 
