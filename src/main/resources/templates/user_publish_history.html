@@ -175,13 +175,6 @@
 <body>
 <div id="header-page"></div>
 
-<dialog id="delinfoModal">
-    <p>確定刪除?</p>
-    <button id="delConfirm" onclick="delPublish()">確定</button>
-    <button id="delclose">close</button>
-</dialog>
-
-
 <dialog id="infoModal">
     <div class="col-md-6">
         <div class="form-group">
@@ -274,6 +267,7 @@
             </li>
         </ul>
         <div id="myTabContent" class="tab-content">
+            <!--一般領養 Table-->
             <div class="tab-pane fade show active" id="personal">
                 <!-- 顯示資料內容 -->
                 <div class="row ftco-animate">
@@ -302,6 +296,7 @@
                     </div>
                 </div>
             </div>
+            <!--走失協尋 Table-->
             <div class="tab-pane fade" id="missing">
                 <!-- 顯示資料內容 -->
                 <div class="row ftco-animate">
@@ -314,7 +309,7 @@
                             <th style="width: 10%;">品種</th>
                             <th style="width: 10%;">性別</th>
                             <th style="width: 10%;">刊登日期</th>
-                            <th style="width: 10%;">更新日期</th>
+                            <th style="width: 10%;">走失日期</th>
                             <th style="width: 20%;">操作</th>
                         </tr>
                         </tbody>
@@ -574,9 +569,17 @@
                 `;
                     $("#personalTableAjax").append(tableContent);
                 })
+
+                pages = Math.ceil(data.total / data.limit);
+                if (data.total == 0) {
+                    $("#personPageInfo").text("查無資料");
+                } else {
+                    $("#personPageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+                }
             }
         })
     }
+    init();
 
     function publishModify(element) {
         // 攜帶檔案初始化
@@ -665,11 +668,126 @@
 
     function publishDel(element) {
         var id = $(element).attr("animalId");
-        var delinfoModal = document.querySelector("#delinfoModal");
-        delinfoModal.showModal()
-        delinfoModal.setAttribute('class', id);
+        if (confirm("確定要刪除?") == true) {
+            $.ajax({
+                type: "DELETE",
+                url: `/personalAnimals/${user.id}/${id}`,
+                success: function () {
+                    alert("刪除成功")
+                    // 刪除資料後重抓頁面
+                    init();
+                }
+            })
+        }
     }
 
+    //////////////////////////////////////////////////////////////////////
+    // 走失協尋
+    // 查詢該使用者的刊登資訊
+    function getMissing() {
+        $.ajax({
+            type: "GET",
+            url: "/animalsMissing?id=" + user.id,
+            success: function (data) {
+                // 清空表格 tr 元素
+                $("#missingTableAjax").children("tr").empty();
+
+                $.each(data["results"], function (index, item) {
+                    var tableContent = `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.kind}</td>
+                        <td>${item.variety}</td>
+                        <td>${item.sex}</td>
+                        <td>${item.createdDate}</td>
+                        <td>${item.missingDate}</td>
+                        <td>
+                            <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="missingUpdateButton2(this)" data-toggle="modal" data-target="#exampleModalCenter">更新</button>
+                            <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="missingUpdateButton(this)">更新-舊</button>
+                            <button id="delete" animalId="${item.animalId}" class="btn btn-primary" onclick="missingDeleteButton(this)">刪除</button>
+                        </td>
+                    </tr>
+                `;
+                    $("#missingTableAjax").append(tableContent);
+                })
+                pages = Math.ceil(data.total / data.limit);
+                if (data.total == 0) {
+                    $("#missingPageInfo").text("查無資料");
+                } else {
+                    $("#missingPageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
+                }
+                // <button id="update" animalId="${item.animalId}" class="btn btn-primary" onclick="updateButton(this)">更新</button>
+            }
+        })
+    }
+    getMissing();
+    function missingUpdateButton2(element) {
+
+        var animalId = $(element).attr("animalId");
+
+        $.ajax({
+            type: "GET",
+            url: "/animalsMissing/" + animalId,
+            success: function (data) {
+                $("#animalName_static").text(data.animalName);
+                $("#animalKind_static").text(data.animalKind);
+                $("#animalVariety_static").text(data.animalVariety);
+                $("#animalSex_static").text(data.animalSex);
+                $("#animalAge_static").text(data.animalAge);
+                $("#animalBodysize_static").text(data.animalBodysize);
+                $("#animalColor_static").text(data.animalColor);
+                $("#animalSterilization_static").text(data.animalSterilization);
+                $("#animalBacterin_static").text(data.animalBacterin);
+                $("#area_static").text(data.area);
+                $("#description_static").html(data.description);
+                $("#imageUrl_static").css("background-image", `url('images/missing/${data.userId}-${data.animalId}.jpg')`)
+            }
+        })
+    }
+
+    function missingUpdateButton(element) {
+        var id = $(element).attr("animalId");
+        var infoModal = document.querySelector("#infoModal");
+        infoModal.showModal();
+        infoModal.setAttribute('class', id);
+
+        $.ajax({
+            type: "GET",
+            url: "/animalsMissing/" + id,
+            success: function (data) {
+                $("#animalName").val(data.animalName);
+                $("#animalKind").val(data.animalKind);
+                $("#animalVariety").val(data.animalVariety);
+                $("#animalSex").val(data.animalSex);
+                $("#animalAge").val(data.animalAge);
+                $("#animalBodysize").val(data.animalBodysize);
+                $("#animalColor").val(data.animalColor);
+                $("#animalSterilization").val(data.animalSterilization);
+                $("#animalBacterin").val(data.animalBacterin);
+                $("#area").val(data.area);
+                $("#description").val(data.description);
+                $("#curImg").html(`<img src="images/missing/${data.userId}-${data.animalId}.jpg"  width="300" height="400">`)
+
+            }
+        })
+
+    }
+
+    function missingDeleteButton(element) {
+        var id = $(element).attr("animalId");
+        if (confirm("確定要刪除?") == true) {
+            $.ajax({
+                type: "DELETE",
+                url: `/animalsMissing/${user.id}/${id}`,
+                success: function () {
+                    alert("刪除成功")
+                    getMissing();
+                }
+            })
+        }
+    }
+
+    //////////////////////////////////////////////
     let close = document.querySelector("#close");
     close.addEventListener("click", function () {
         infoModal.close();
