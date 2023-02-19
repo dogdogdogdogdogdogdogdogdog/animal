@@ -158,7 +158,9 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         int personalAnimalId = keyHolder.getKey().intValue();
 
         // 寫入圖片
-        writePhoto(personalAnimalRequest, personalAnimalId);
+        if (personalAnimalRequest.getAnimalPhoto() != null) {
+            writePhoto(personalAnimalRequest, personalAnimalId);
+        }
         // 取得 animal_id 後更新 image_url 資料 (檔案命名規則: /images/publish/{user_id}-{animal_id}.jpg)
         updatePersonalAnimal(personalAnimalId, personalAnimalRequest);
 
@@ -171,7 +173,7 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
                 "animal_age = :animalAge, animal_bodysize = :animalBodysize, animal_color = :animalColor , " +
                 "animal_sterilization = :animalSterilization, animal_bacterin = :animalBacterin, image_url = :imageUrl, area = :area, description = :description, " +
                 "last_modified_date = :lastModifiedDate WHERE animal_id = :animalId";
-        writePhoto(personalAnimalRequest, personalAnimalId);
+
         Map<String, Object> map = new HashMap<>();
         map.put("animalId", personalAnimalId);
         map.put("userId", personalAnimalRequest.getUserId());
@@ -188,6 +190,11 @@ public class PersonalAnimalDaoImpl implements PersonalAnimalDao {
         map.put("area", personalAnimalRequest.getArea());
         map.put("description", personalAnimalRequest.getDescription());
         map.put("lastModifiedDate", new Date());
+
+        // 寫入圖片
+        if (personalAnimalRequest.getAnimalPhoto() != null) {
+            writePhoto(personalAnimalRequest, personalAnimalId);
+        }
 
         namedParameterJdbcTemplate.update(sql, map);
     }
