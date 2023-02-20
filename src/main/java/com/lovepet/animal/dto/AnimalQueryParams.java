@@ -3,9 +3,27 @@ package com.lovepet.animal.dto;
 public class AnimalQueryParams {
     private Integer limit;
     private Integer offset;
-    private Integer page;
+
     private String shelter;
     private String kind;
+    private String area;
+    Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 
     public String getShelter() {
         return shelter;
@@ -21,14 +39,6 @@ public class AnimalQueryParams {
 
     public void setKind(String kind) {
         this.kind = kind;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
     }
 
     public Integer getLimit() {

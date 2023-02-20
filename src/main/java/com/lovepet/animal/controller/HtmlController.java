@@ -82,19 +82,7 @@ public class HtmlController {
     }
 
     @GetMapping("/public_shelter")
-    public String goPublicShelter(Model model, @RequestParam(defaultValue = "12") Integer limit, @RequestParam(defaultValue = "0") Integer offset, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "所有收容所") String shelterName, @RequestParam(defaultValue = "不分種類") String animalKind) {
-
-        AnimalQueryParams animalQueryParams = new AnimalQueryParams();
-        animalQueryParams.setLimit(limit);
-        animalQueryParams.setOffset(offset);
-        animalQueryParams.setPage(page);
-        animalQueryParams.setShelter(shelterName);
-        animalQueryParams.setKind(animalKind);
-
-
-        model.addAttribute("shelters", animalService.getShelter());
-        model.addAttribute("pages", animalService.getAnimals(animalQueryParams).getPages());
-        model.addAttribute("animals", animalService.getAnimals(animalQueryParams).getAnimals());
+    public String goPublicShelter() {
         return "public_shelter";
     }
 
