@@ -81,9 +81,9 @@ public class HtmlController {
         return "forum";
     }
 
-    @GetMapping("/public_shelter")
+    @GetMapping("/animal_public")
     public String goPublicShelter() {
-        return "public_shelter";
+        return "animal_public";
     }
 
 }

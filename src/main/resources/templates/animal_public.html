@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>走失協尋</title>
+    <title>收容所認養</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -81,19 +81,12 @@
         <div class="row p-3 m-auto ftco-animate text-center justify-content-center" id="top">
             <div class="p-1">
                 <select class="custom-select" id="area">
-                    <option value="default">不限地區</option>
+                    <option value="default">所有收容所</option>
                 </select>
             </div>
             <div class="p-1">
                 <select class="custom-select" id="kind">
-                    <option value="default">不限種類</option>
-                </select>
-            </div>
-            <div class="p-1">
-                <select class="custom-select" id="sex">
-                    <option value="default">不限性別</option>
-                    <option value="公">公</option>
-                    <option value="母">母</option>
+                    <option value="default">所有種類</option>
                 </select>
             </div>
             <div class="p-1">
@@ -138,18 +131,18 @@
                         <!-- 標題定位用主區塊 -->
                         <div class="col-4 px-0 d-flex justify-content-center">
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
-                            <h3 class="modal-title font-weight-bold" id="name_static">這裡是寵物名字</h3>
+                            <h3 class="modal-title font-weight-bold" id="animalName_static">這裡是寵物名字</h3>
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
                         </div>
                         <!-- 標題定位用右區塊 -->
                         <div class="col-4 px-0">
                             <div class="row m-0 pr-4 font-weight-bold justify-content-end">
                                 <span id="createdDate_static"></span>
-                                <span>&nbsp;刊登日期</span>
+                                <span>&nbsp;刊登</span>
                             </div>
                             <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                <span id="missingDate_static"></span>
-                                <span>&nbsp;走失日期</span>
+                                <span id="lastModifiedDate_static"></span>
+                                <span>&nbsp;更新</span>
                             </div>
                             <!-- 強制定位關閉功能於最右上角 -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -170,42 +163,50 @@
                             </div>
                             <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
                                 <div class="col-4 mt-0">
-                                    <div class="d-block">
-                                        <span>會員編號 :</span>
-                                        <span id="userId_static"></span>
-                                    </div>
+<!--                                    <div class="d-block">-->
+<!--                                        <span>會員編號 :</span>-->
+<!--                                        <span id="userId_static"></span>-->
+<!--                                    </div>-->
                                     <div class="d-block">
                                         <span>動物編號 :</span>
                                         <span id="animalId_static"></span>
                                     </div>
                                     <div class="d-block">
                                         <span>物種 :</span>
-                                        <span id="kind_static"></span>
+                                        <span id="animalKind_static"></span>
                                     </div>
                                     <div class="d-block">
                                         <span>品種 :</span>
-                                        <span id="variety_static"></span>
+                                        <span id="animalVariety_static"></span>
                                     </div>
                                 </div>
                                 <div class="col-4 mt-0">
                                     <div class="d-block">
                                         <span>性別 :</span>
-                                        <span id="sex_static"></span>
+                                        <span id="animalSex_static"></span>
                                     </div>
                                     <div class="d-block">
                                         <span>年齡 :</span>
-                                        <span id="age_static"></span>
+                                        <span id="animalAge_static"></span>
                                     </div>
                                     <div class="d-block">
                                         <span>體型 :</span>
-                                        <span id="bodysize_static"></span>
+                                        <span id="animalBodysize_static"></span>
                                     </div>
                                     <div class="d-block">
                                         <span>毛色 :</span>
-                                        <span id="color_static"></span>
+                                        <span id="animalColor_static"></span>
                                     </div>
                                 </div>
                                 <div class="col-4 mt-0">
+                                    <div class="d-block">
+                                        <span>絕育 :</span>
+                                        <span id="animalSterilization_static"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        <span>疫苗 :</span>
+                                        <span id="animalBacterin_static"></span>
+                                    </div>
                                     <div class="d-block">
                                         <span>地區 :</span>
                                         <span id="area_static"></span>
@@ -268,7 +269,7 @@
 
     $.ajax({//載入頁面先執行一次
         type: "GET",
-        url: "/animalsMissing",
+        url: "/publicAnimals",
         success: function (data) {
             getAnimalMissingList(data);
         }
@@ -277,14 +278,14 @@
     // 載入篩選區下拉選單
     $.ajax({
         type: "GET",
-        url: "/animalsMissing?limit=1000",
+        url: "/publicAnimals?limit=5000",
         success: function (data) {
             // 使用 Set 排除重複迭代結果
             var areaSet = new Set();
             var kindSet = new Set();
             $.each(data["results"], function (index, item) {
-                areaSet.add(item.area);
-                kindSet.add(item.kind);
+                areaSet.add(item.animalShelterName);
+                kindSet.add(item.animalKind);
             })
 
             // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
@@ -314,15 +315,15 @@
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="published">
                         <div class="img-wrap d-flex align-items-stretch">
-                            <div class="work mb-4 img d-flex align-items-end" style="background-image: url('${item.imageUrl}?random=${Date.now()}');"></div>
+                            <div class="work mb-4 img d-flex align-items-end" style="background-image: url('${item.animalAlbumFile}?random=${Date.now()}');"></div>
                         </div>
                         <div class="text pt-3 px-3 pb-4 text-center">
-                            <h3 id="${item.animalId}">${item.name}</h3>
+                            <h3 id="${item.animalId}">編號: ${item.animalId}</h3>
                             <div class="faded">
-                                <p>物種: ${item.kind}</p>
+                                <p>物種: ${item.animalKind}</p>
                                 <p>性別: ${item.sex}</p>
-                                <p>地區: ${item.area}</p>
-                                <p>日期: ${item.missingDate}</p>
+                                <p>${item.animalShelterName}</p>
+                                <p>日期: ${item.animalCreatetime}</p>
                             </div>
                             <button type="button" onclick="getAnimalMissingInfo(this)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                             詳細資料
@@ -361,23 +362,27 @@
         console.log(id);
         $.ajax({
             type: "GET",
-            url: "/animalsMissing/" + id,
+            url: "/publicAnimals?id=" + id,
             success: function (data) {
-                $("#userId_static").text(data.userId);
-                $("#animalId_static").text(data.animalId);
-                $("#name_static").text(data.name);
-                $("#kind_static").text(data.kind);
-                $("#variety_static").text(data.variety);
-                $("#bodysize_static").text(data.bodysize);
-                $("#sex_static").text(data.sex);
-                $("#color_static").text(data.color);
-                $("#age_static").text(data.age);
-                $("#description_static").html(data.description.replaceAll("\n", "<br>"));
+                var item = data["results"][0];
+                console.log(item)
+                // $("#userId_static").text(data.userId);
+                $("#animalId_static").text(item.animalId);
+                $("#animalName_static").text(item.animalId);
+                $("#animalKind_static").text(item.animalKind);
+                $("#animalVariety_static").text(item.animalVariety);
+                $("#animalSex_static").text(item.sex);
+                $("#animalAge_static").text(item.animalAge);
+                $("#animalBodysize_static").text(item.animalBodyType);
+                $("#animalColor_static").text(item.animalColour);
+                $("#animalSterilization_static").text(item.animalSterilization);
+                $("#animalBacterin_static").text(item.animalBacterin);
+                $("#area_static").text(item.animalShelterName);
+                $("#description_static").html(item.description);//.replaceAll("\n", "<br>")
+                $("#createdDate_static").text(item.animalCreatetime);
+                $("#lastModifiedDate_static").text(item.animalUpdate);
                 // 避免從快取獲得圖片 加入隨機網址參數
-                $("#imageUrl_static").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
-                $("#area_static").text(data.area);
-                $("#missingDate_static").text(data.missingDate);
-                $("#createdDate_static").text(data.createdDate);
+                $("#imageUrl_static").css("background-image", `url('${item.animalAlbumFile}')`);
             }
         });
     }
@@ -449,7 +454,6 @@
         var offset = limit * (page - 1);
         var area = $("#area").val();
         var kind = $("#kind").val();
-        var sex = $("#sex").val();
 
         queryParams += "&offset=" + offset;
 
@@ -460,13 +464,10 @@
         if (kind != "default") {
             queryParams += "&kind=" + kind;
         }
-        if (sex != "default") {
-            queryParams += "&sex=" + sex;
-        }
 
         $.ajax({
             type: "GET",
-            url: "/animalsMissing?" + queryParams,
+            url: "/publicAnimals?" + queryParams,
             success: function (data) {
                 getAnimalMissingList(data);
             }

@@ -17,7 +17,7 @@ import javax.validation.constraints.Min;
 
 
 @RestController
-public class publicAnimalController {
+public class PublicAnimalController {
 
     @Autowired
     AnimalService animalService;
@@ -39,22 +39,18 @@ public class publicAnimalController {
             @RequestParam(required = false) Integer id
 
 
-
     ) {
 
-        AnimalQueryParams animalQueryParams=new AnimalQueryParams();
+        AnimalQueryParams animalQueryParams = new AnimalQueryParams();
         animalQueryParams.setOffset(offset);
         animalQueryParams.setLimit(limit);
         animalQueryParams.setKind(kind);
         animalQueryParams.setShelter(area);
         animalQueryParams.setId(id);
-     Page page=   animalService.getAnimals(animalQueryParams);
+        Page page = animalService.getAnimals(animalQueryParams);
 
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
-
-
-
 
 
 }
