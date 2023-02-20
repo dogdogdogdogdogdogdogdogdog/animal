@@ -145,6 +145,7 @@
                         </div>
                         <!-- 標題定位用右區塊 -->
                         <div class="col-4 px-0">
+                            <!-- 日期排版於右上角的舊樣式
                             <div class="row m-0 pr-4 font-weight-bold justify-content-end">
                                 <span id="createdDate_static"></span>
                                 <span>&nbsp;刊登</span>
@@ -153,6 +154,8 @@
                                 <span id="lastModifiedDate_static"></span>
                                 <span>&nbsp;更新</span>
                             </div>
+                            -->
+
                             <!-- 強制定位關閉功能於最右上角 -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
@@ -161,8 +164,7 @@
                         </div>
                     </div>
                     <!-- 設定上下邊線效果 區隔 header 和 footer -->
-                    <div class="modal-body"
-                         style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
+                    <div class="modal-body" style="border-top: 3px dotted grey; border-bottom: 3px dotted grey;">
                         <div class="row m-auto col-12 justify-content-center">
                             <div class="col-xl-6 col-12">
                                 <!-- 彈出框圖片高度於小畫面顯示異常 強制設定600px高 -->
@@ -171,15 +173,19 @@
                                 </div>
                             </div>
                             <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
+                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
+                                    <div class="d-flex justify-content-start">
+                                        <span class="font-weight-bold">刊登日期 :</span>
+                                        <span class="font-weight-bold" id="createdDate_static"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
+                                    <div class="d-flex justify-content-end">
+                                        <span class="font-weight-bold">更新日期 :</span>
+                                        <span class="font-weight-bold" id="lastModifiedDate_static"></span>
+                                    </div>
+                                </div>
                                 <div class="col-4 mt-0">
-                                    <div class="d-block">
-                                        <span>會員編號 :</span>
-                                        <span id="userId_static"></span>
-                                    </div>
-                                    <div class="d-block">
-                                        <span>動物編號 :</span>
-                                        <span id="animalId_static"></span>
-                                    </div>
                                     <div class="d-block">
                                         <span>物種 :</span>
                                         <span id="animalKind_static"></span>
@@ -188,12 +194,12 @@
                                         <span>品種 :</span>
                                         <span id="animalVariety_static"></span>
                                     </div>
-                                </div>
-                                <div class="col-4 mt-0">
                                     <div class="d-block">
                                         <span>性別 :</span>
                                         <span id="animalSex_static"></span>
                                     </div>
+                                </div>
+                                <div class="col-4 mt-0">
                                     <div class="d-block">
                                         <span>年齡 :</span>
                                         <span id="animalAge_static"></span>
@@ -220,10 +226,17 @@
                                         <span>地區 :</span>
                                         <span id="area_static"></span>
                                     </div>
-                                    <!-- 這是一個保留欄位 -->
-                                    <div class="d-block" style="visibility: hidden;">
-                                        <span>dummy</span>
-                                        <span id="">dummy</span>
+                                </div>
+                                <div class="col-12 mt-0">
+                                    <!-- 這是一個隱藏欄位 -->
+                                    <div class="d-flex" style="display: none !important;">
+                                        <span>會員編號 :</span>
+                                        <span id="userId_static"></span>
+                                    </div>
+                                    <!-- 這是一個隱藏欄位 -->
+                                    <div class="d-flex" style="display: none !important;">
+                                        <span>動物編號 :</span>
+                                        <span id="animalId_static"></span>
                                     </div>
                                 </div>
                                 <!-- 備註(寵物描述) -->
@@ -236,7 +249,29 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                        <div class="row mx-0 my-2 col-12 justify-content-center">
+                            <div class="col-xl-6 col-12">
+                                <div class="row m-auto justify-content-center">
+                                        <span class="py-1 px-1" style="color: red;"><i
+                                                class="fa fa-user fa-2x"></i></span>
+                                    <span class="font-weight-bold" style="font-size: 20px;">聯絡人：</span>
+                                    <span class="font-weight-bold" style="font-size: 20px;"
+                                          id="userName_static"></span>
+                                    <span class="font-weight-bold" style="font-size: 20px;"
+                                          id="userGender_static"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-12">
+                                <div class="row m-auto justify-content-center">
+                                        <span class="py-1 px-1" style="color: red;"><i
+                                                class="fa fa-phone fa-2x"></i></span>
+                                    <span class="font-weight-bold" style="font-size: 20px;">電話：</span>
+                                    <span class="font-weight-bold" style="font-size: 20px;"
+                                          id="userTel_static"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>-->
                     </div>
                 </div>
             </div>
@@ -384,22 +419,24 @@
                 $("#lastModifiedDate_static").text(data.lastModifiedDate);
                 // 避免從快取獲得圖片 加入隨機網址參數
                 $("#imageUrl_static").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
-                // console.log("會員:" + data.userId +
-                //     "\n編號:" + data.animalId +
-                //     "\n名字:" + data.animalName +
-                //     "\n物種:" + data.animalKind +
-                //     "\n品種:" + data.animalVariety +
-                //     "\n性別:" + data.animalSex +
-                //     "\n年齡:" + data.animalAge +
-                //     "\n體型:" + data.animalBodysize +
-                //     "\n毛色:" + data.animalColor +
-                //     "\n絕育:" + data.animalSterilization +
-                //     "\n疫苗:" + data.animalBacterin +
-                //     "\n圖片:" + data.imageUrl +
-                //     "\n地區:" + data.area +
-                //     "\n備註:" + data.description +
-                //     "\n刊登日期:" + data.createdDate +
-                //     "\n更新日期:" + data.lastModifiedDate);
+
+                // 取得聯絡人資料
+                getAnimalInfoContact();
+            }
+        });
+    }
+
+    // 點擊詳細資料按鈕後取得聯絡人資料
+    function getAnimalInfoContact() {
+        userId = $("#userId_static").text();
+
+        $.ajax({
+            type: "GET",
+            url: "/user/" + userId,
+            success: function (data) {
+                $("#userName_static").text(data.name);
+                $("#userGender_static").text(data.gender == "男" ? " 先生" : "女士");
+                $("#userTel_static").text(data.tel);
             }
         });
     }

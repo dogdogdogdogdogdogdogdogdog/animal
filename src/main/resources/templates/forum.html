@@ -453,6 +453,7 @@
     var pages;
 
     function init() {//初始化
+        $("#typeCombobox").val("default");
         $.ajax({//取得所有文章
             type: "GET",
             url: "/forumArticles",
@@ -467,7 +468,7 @@
     // 載入篩選區下拉選單
     $.ajax({
         type: "GET",
-        url: "/forumArticles",
+        url: "/forumArticles?limit=1000",
         success: function (data) {
             // 使用 Set 排除重複迭代結果
             var typeSet = new Set();
@@ -523,7 +524,7 @@
 
         var title = `
             <tr class='h5'>
-                <th style='width: 5%;'><div>分類</div></th>
+                <th onclick="init()" style='width: 5%; cursor: pointer;'><div>分類</div></th>
                 <th style='width: 20%;'><div>標題</div></th>
                 <th style='width: 20%;'><div>摘要</div></th>
                 <th style='width: 10%;'><div>作者</div></th>
