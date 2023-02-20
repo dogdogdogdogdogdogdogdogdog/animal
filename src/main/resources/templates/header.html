@@ -257,50 +257,74 @@
     <div class="owl-carousel owl-theme animal-header">
         <div class="item img banner-img" style="background-image: url('/images/_banner1.jpg');">
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>毛孩幸福，從這裡開始</span>
+                <span>為自己和浪浪，</span>
             </div>
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>認養寵物，為生活增添無限溫馨</span>
+                <span>　帶來更多的美好</span>
             </div>
         </div>
         <div class="item img banner-img" style="background-image: url('/images/_banner2.jpg');">
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>認養不是負擔，而是一種回饋</span>
+                <span>給予流浪動物新家，</span>
             </div>
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>改變一隻流浪動物的命運，改變你自己的生活</span>
+                <span>　同時也擁有忠誠的朋友</span>
             </div>
         </div>
         <div class="item img banner-img" style="background-image: url('/images/_banner3.jpg');">
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>認養是一種美德</span>
+                <span>毛孩幸福，</span>
             </div>
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>給予流浪動物新生，為毛孩提供安全和愛</span>
+                <span>　從這裡開始</span>
             </div>
         </div>
         <div class="item img banner-img" style="background-image: url('/images/_banner4.jpg');">
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>拯救一隻流浪動物，是對生命的尊重</span>
+                <span>拯救流浪動物，</span>
             </div>
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>為它們和自己的生活，帶來更多的幸福</span>
+                <span>　是對生命的尊重</span>
             </div>
         </div>
         <div class="item img banner-img" style="background-image: url('/images/_banner5.jpg');">
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>文案還在想</span>
+                <span>認養浪浪，</span>
             </div>
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>你可以看下一張</span>
+                <span>　為生活增添無限溫馨</span>
             </div>
         </div>
         <div class="item img banner-img" style="background-image: url('/images/_banner6.jpg');">
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>文案還在想</span>
+                <span>認養，是一種美德</span>
             </div>
             <div style="position: relative; top: 25%; left: 5%;">
-                <span>你可以看下一張</span>
+                <span>　幸福，來自於信任</span>
+            </div>
+        </div>
+        <div class="item img banner-img" style="background-image: url('/images/_banner7.jpg');">
+            <div style="position: relative; top: 25%; left: 5%;">
+                <span>給予流浪動物新生，</span>
+            </div>
+            <div style="position: relative; top: 25%; left: 5%;">
+                <span>　為毛孩提供安全和愛</span>
+            </div>
+        </div>
+        <div class="item img banner-img" style="background-image: url('/images/_banner8.jpg');">
+            <div style="position: relative; top: 25%; left: 5%;">
+                <span>認養不是負擔，</span>
+            </div>
+            <div style="position: relative; top: 25%; left: 5%;">
+                <span>　而是一種回饋</span>
+            </div>
+        </div>
+        <div class="item img banner-img" style="background-image: url('/images/_banner9.jpg');">
+            <div style="position: relative; top: 25%; left: 5%;">
+                <span>改變流浪動物的命運，</span>
+            </div>
+            <div style="position: relative; top: 25%; left: 5%;">
+                <span>　改變你自己的生活</span>
             </div>
         </div>
     </div>
@@ -338,9 +362,9 @@
     // 輪播系統設定
     $(".animal-header").owlCarousel({
         // 輪播開始位置設為隨機 數字為項目總數量
-        startPosition: Math.floor(Math.random() * 6),
-        // startPosition: 0,
-        autoplay: true, // 自動輪播
+        // startPosition: Math.floor(Math.random() * 9),
+        startPosition: 0,
+        // autoplay: true, // 自動輪播
         loop: true, // 循環輪播
         margin: 10, // 外距 10px
         nav: true, // 顯示前後項箭頭
@@ -349,13 +373,13 @@
         autoplayHoverPause: true, // 滑鼠經過時暫停
         responsive: {
             0: {
-                items: 1 // 螢幕大小為 0~600 顯示 1 個項目
+                items: 1 // 螢幕大小為 0~576 顯示 1 個項目
             },
-            600: {
-                items: 1 // 螢幕大小為 600~1000 顯示 3 個項目
+            576: {
+                items: 1 // 螢幕大小為 576~992 顯示 3 個項目
             },
-            1000: {
-                items: 1 // 螢幕大小為 1000 以上 顯示 5 個項目
+            992: {
+                items: 1 // 螢幕大小為 992 以上 顯示 5 個項目
             }
         }
     });
