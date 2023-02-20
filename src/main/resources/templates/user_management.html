@@ -45,28 +45,30 @@
             border-radius: 0.5rem;
         }
 
-        /*ICON 鄰近輸入區邊角取消圓弧效果*/
-        span + input, span + select {
-            border-radius: 0 0.5rem 0.5rem 0 !important;
-        }
-
-        /*ICON 自訂樣式*/
-        .fa-icon {
-            color: black;
-            background: lightgrey;
-            text-align: center;
-            padding: 0.5rem 1rem;
-            min-width: 13%;
-            border-top-left-radius: 0.5rem !important;
-            border-bottom-left-radius: 0.5em !important;
-        }
-
         /*區塊標題樣式*/
         h2 {
             color: black !important;
             font-weight: bolder !important;
         }
 
+        /*資料類型樣式*/
+        h5 {
+            color: black;
+            background: lightgrey;
+            text-align: center !important;
+            width: 60px;
+            height: 52px;
+            /*padding: 0.5rem 1rem;*/
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5em !important;
+            border-right: 1px dotted grey;
+            flex-shrink: 0;
+        }
+
+        /*資料類型鄰近輸入區邊角取消圓弧效果*/
+        h5 + input, h5 + select {
+            border-radius: 0 0.5rem 0.5rem 0 !important;
+        }
     </style>
 </head>
 
@@ -81,65 +83,67 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group d-flex">
-                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">帳號</h5>
+                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">帳號</h5>
                             <input id="userEmail" type="email" class="form-control" placeholder="電子郵件"
                                    style="background-color: lightgrey !important; cursor: default;" readonly>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group d-flex">
-                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">姓名</h5>
+                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">姓名</h5>
                             <input id="userName" type="text" class="form-control" placeholder="姓名">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group d-flex">
-                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">性別</h5>
-                            <input id="userGender" type="text" class="form-control" placeholder="性別"
-                                   style="background-color: lightgrey !important; cursor: default;" readonly>
+                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">性別</h5>
+<!--                            <input id="userGender" type="text" class="form-control" placeholder="性別"-->
+<!--                                   style="background-color: lightgrey !important; cursor: default;" readonly>-->
+                            <select id="userGender" class="custom-select" type="text"
+                                    style="height: 52px !important;">
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group d-flex">
-                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">電話</h5>
+                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">電話</h5>
                             <input id="userTel" type="tel" class="form-control" placeholder="聯絡電話">
                         </div>
                     </div>
-                    <!--如果修改密碼，把editPassword清空，並移除readonly，顯示passwordCheckDiv-->
-                    <div class="col-md-12">
+                    <div id="editPwdDiv" class="col-md-12 ftco-animate" style="display: none">
                         <div class="form-group d-flex">
-                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">密碼</h5>
-                            <input id="editPassword" type="password" class="form-control" placeholder="密碼"
-                                   style="background-color: lightgrey !important; cursor: default; user-select: none;"
-                                   readonly>
+                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">密碼</h5>
+                            <input id="editPwd" type="password" class="form-control" placeholder="輸入新密碼">
                         </div>
                     </div>
-
-                    <div id="passwordCheckDiv" class="col-md-12" style="display: none">
+                    <div id="editPwdConfirmDiv" class="col-md-12 ftco-animate" style="display: none">
                         <div class="form-group d-flex">
-                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">密碼確認</h5>
-                            <input id="editPasswordCheck" type="password" class="form-control" placeholder="密碼確認">
+                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">確認</h5>
+                            <input id="editPwdConfirm" type="password" class="form-control" placeholder="確認新密碼">
                         </div>
                     </div>
-                    <div id="editDiv" class="col-md-12">
-                        <div class="form-group d-flex">
-                            <a href="javascript:;" onclick="editButton()">修改密碼</a>
-                        </div>
-                    </div>
-                    <div id="cancelDiv" class="col-md-12" style="display: none">
-                        <div class="form-group d-flex">
-                            <a href="javascript:;" onclick="cancelButton()">取消</a>
+                    <div class="col-12">
+                        <div class="form-group d-flex justify-content-center">
+                            <button id="editPwdBtn" class="btn btn-primary mx-1 ftco-animate" onclick="editPwdBtn()">
+                                密碼變更
+                            </button>
+                            <button id="cancelPwdBtn" class="btn btn-primary mx-1 ftco-animate" style="display: none;"
+                                    onclick="cancelPwdBtn()">取消
+                            </button>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group d-flex">
-                            <h5 class="font-weight-bold text-justify pb-0 py-2 px-0" style="width: 60px;">當前密碼</h5>
-                            <input id="userOldPassword" type="password" class="form-control" placeholder="當前密碼">
+                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">驗證</h5>
+                            <input id="userPwdCheck" type="password" class="form-control"
+                                   placeholder="輸入目前密碼進行驗證">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
-                            <button onclick="edit()" class="form-control btn btn-primary py-1 px-4">變更
+                            <button onclick="editSubmit()" class="form-control btn btn-primary py-1 px-4">變更
                             </button>
                         </div>
                     </div>
@@ -180,126 +184,137 @@
 <script src="js/_animal-init.js"></script>
 <script>
 
+    // 初始化將會員資料帶入表單
     $("#userEmail").val(user.email);
     $("#userName").val(user.name);
     $("#userTel").val(user.tel);
+    // 初始化密碼欄位清空
+    $("#editPwd").val("");
+    $("#editPwdConfirm").val("");
+    $("#userPwdCheck").val("");
+    // 性別下拉選單初始化
+    $("#userGender option").removeAttr("selected");
+    // 變更性別 select 外觀選取項目
+    $("#userGender").val(`${user.gender}`).change();
+    // 變更性別 option 實際選取項目
+    $(`#userGender option[value='${user.gender}']`).attr("selected", "selected");
 
-    function edit() {
+
+
+
+    function editSubmit() {
+
         var name = $("#userName").val();
+        var gender = $("#userGender").val();
         var tel = $("#userTel").val();
-        var editPasswd = $("#editPassword").val();
-        var editPasswdCheck = $("#editPasswordCheck").val();
-        var oldPasswd = $("#userOldPassword").val();
+        var editPasswd = $("#editPwd").val();
+        var editPasswdConfirm = $("#editPwdConfirm").val();
+        var pwdCheck = $("#userPwdCheck").val();
+
+        // 此判斷允許 新密碼兩欄位均為空值 或 新密碼兩欄位均為一致
+        if (name == "" || gender == "" || tel == "" || pwdCheck == "") {
+            // 基本資料存在空值
+            alert("請填寫所有欄位!");
+            return
+        } else if (editPasswd != editPasswdConfirm && (editPasswd != "" || editPasswdConfirm != "")) {
+            // 新密碼欄位有值但不一致
+            alert("新密碼不一致!");
+            return
+        }
+
         console.log("會員Id: " + user.id);
-        if (editPasswd != "" && editPasswdCheck == "") {//沒有修改密碼
-            if (name == "" || tel == "" || oldPasswd == "") {
-                alert("請填寫所有欄位!");
-                return
-            }
+
+        // 新密碼及再次輸入確認均為空值 = 沒有修改密碼 只修改基本資料
+        if (editPasswd == "" && editPasswdConfirm == "") {
+
             $.ajax({
                 type: "PUT",
                 url: "/user/" + user.id,
-                // async: false,
                 contentType: "application/json; charset=UTF-8",
                 data:
                     JSON.stringify({
                         "name": name,
-                        "password": oldPasswd,
-                        "tel": tel
+                        "gender": gender,
+                        "tel": tel,
+                        "password": pwdCheck
                     }),
                 success: function (data) {
                     console.log(data);
                     switch (data) {
                         case "1":
                             alert("修改成功! 請重新登入");
-                            goLoginAndRegist();
+                            signOutRedirect();
                             break
                         case "2":
                             alert("修改成功! 請使用新密碼登入");
-                            goLoginAndRegist();
+                            signOutRedirect();
                             break
                         case "0":
                             alert("密碼錯誤!");
                             break
                     }
                 }
-            })
-            console.log("沒有修改密碼")
-            console.log(name);
-            console.log(tel);
-            console.log(editPasswd);
-            console.log(editPasswdCheck);
-            console.log(oldPasswd);
+            });
 
-        } else if (editPasswd != "" && editPasswdCheck != "") {//有修改密碼
-            if (name == "" || tel == "" || editPasswd == "" || editPasswdCheck == "" || oldPasswd == "") {
-                alert("請填寫所有欄位!");
-                return
-            }
-            if (editPasswd == editPasswdCheck) {
-                $.ajax({
-                    type: "PUT",
-                    url: "/user/" + user.id,
-                    // async: false,
-                    contentType: "application/json; charset=UTF-8",
-                    data:
-                        JSON.stringify({
-                            "name": name,
-                            "password": oldPasswd,
-                            "tel": tel,
-                            "editPassword": editPasswd
-                        }),
-                    success: function (data) {
-                        console.log(data);
-                        switch (data) {
-                            case "1":
-                                alert("修改成功! 請重新登入");
-                                goLoginAndRegist();
-                                break
-                            case "2":
-                                alert("修改成功! 請使用新密碼登入");
-                                goLoginAndRegist();
-                                break
-                            case "0":
-                                alert("密碼錯誤!");
-                                break
-                        }
+            console.log("沒有修改密碼")
+
+            // 新密碼及再次輸入確認均為一致 = 有修改密碼
+        } else if (editPasswd == editPasswdConfirm) {
+            $.ajax({
+                type: "PUT",
+                url: "/user/" + user.id,
+                contentType: "application/json; charset=UTF-8",
+                data:
+                    JSON.stringify({
+                        "name": name,
+                        "gender": gender,
+                        "tel": tel,
+                        "editPassword": editPasswd,
+                        "password": pwdCheck
+                    }),
+                success: function (data) {
+                    console.log(data);
+                    switch (data) {
+                        case "1":
+                            alert("修改成功! 請重新登入");
+                            signOutRedirect();
+                            break
+                        case "2":
+                            alert("修改成功! 請使用新密碼登入");
+                            signOutRedirect();
+                            break
+                        case "0":
+                            alert("密碼錯誤!");
+                            break
                     }
-                })
-            } else {
-                alert("密碼不一致!");
-            }
-            console.log("有修改密碼");
-            console.log(name);
-            console.log(tel);
-            console.log(editPasswd);
-            console.log(editPasswdCheck);
-            console.log(oldPasswd);
-        } else {
-            alert("請填寫所有欄位!");
+                }
+            });
         }
     }
 
-    function editButton() {
-        $("#editDiv").attr("style", "display: none")
-        $("#cancelDiv").attr("style", "display: inline")
-        $("#editPassword").val("");
-        $("#editPassword").removeAttr("style");
-        $("#editPassword").removeAttr("readonly");
-        $("#passwordCheckDiv").val("");
-        $("#passwordCheckDiv").attr("style", "display: inline")
+    function editPwdBtn() {
+        // 按鈕顯示切換
+        $("#editPwdBtn").attr("style", "display: none")
+        $("#cancelPwdBtn").attr("style", "display: inline")
+        // 密碼欄位清空
+        $("#editPwd").val("");
+        $("#editPwdConfirm").val("");
+        // 密碼 div 區塊顯示
+        $("#editPwdDiv").attr("style", "display: inline")
+        $("#editPwdConfirmDiv").attr("style", "display: inline")
     }
 
-    function cancelButton() {
-        $("#editDiv").attr("style", "display: inline")
-        $("#cancelDiv").attr("style", "display: none")
-        $("#editPasswordCheck").val("");
-        $("#editPassword").val("****************");
-        $("#editPassword").attr("style", "background-color: lightgrey !important; cursor: default; user-select: none;");
-        $("#editPassword").attr("readonly", "");
-        $("#passwordCheckDiv").attr("style", "display: none")
+    function cancelPwdBtn() {
+        // 按鈕顯示切換
+        $("#editPwdBtn").attr("style", "display: inline")
+        $("#cancelPwdBtn").attr("style", "display: none")
+        // 密碼欄位清空
+        $("#editPwd").val("");
+        $("#editPwdConfirm").val("");
+        // 密碼 div 區塊隱藏
+        $("#editPwdDiv").attr("style", "display: none")
+        $("#editPwdConfirmDiv").attr("style", "display: none")
     }
-
 
 </script>
 

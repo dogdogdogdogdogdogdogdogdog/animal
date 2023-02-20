@@ -68,10 +68,11 @@ public class UserDaoImpl implements UserDao {
         String sql;
         if (userUpdateRequest.getEditPassword() == null) {//未修改密碼
 //            System.out.println("未修改密碼");
-            sql = "UPDATE user SET name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
+            sql = "UPDATE user SET name = :name, gender = :gender, tel = :tel, last_modified_date = :lastModifiedDate " +
                     "WHERE user_id = :userId";
             Map<String, Object> map = new HashMap<>();
             map.put("name", userUpdateRequest.getName());
+            map.put("gender", userUpdateRequest.getGender());
             map.put("tel", userUpdateRequest.getTel());
             map.put("lastModifiedDate", new Date());
             map.put("userId", userId);
@@ -81,13 +82,14 @@ public class UserDaoImpl implements UserDao {
             return "1";
         }else {
 //            System.out.println("修改密碼");
-            sql = "UPDATE user SET password = :password, name = :name, tel = :tel, last_modified_date = :lastModifiedDate " +
+            sql = "UPDATE user SET password = :password, name = :name, gender = :gender, tel = :tel, last_modified_date = :lastModifiedDate " +
                     "WHERE user_id = :userId";
 
             String hashedPassword = DigestUtils.md5DigestAsHex(userUpdateRequest.getEditPassword().getBytes());
             Map<String, Object> map = new HashMap<>();
             map.put("password", hashedPassword);
             map.put("name", userUpdateRequest.getName());
+            map.put("gender", userUpdateRequest.getGender());
             map.put("tel", userUpdateRequest.getTel());
             map.put("lastModifiedDate", new Date());
             map.put("userId", userId);

@@ -38,7 +38,7 @@ CREATE TABLE `animal_missing` (
   `missing_date` timestamp NOT NULL,
   `created_date` timestamp NOT NULL,
   PRIMARY KEY (`animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=460 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=460 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

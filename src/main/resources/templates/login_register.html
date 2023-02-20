@@ -269,7 +269,15 @@
             email: emailAjax,
             password: passwordAjax,
         }
+
+
+
+        var data = JSON.stringify(account);
+
         var xhr = new XMLHttpRequest();
+        xhr.open('post', '/user/login', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+
         xhr.addEventListener('load', function () {
 
             if (xhr.status == 200) {
@@ -284,9 +292,6 @@
             }
 
         })
-        xhr.open('post', '/user/login', true);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        var data = JSON.stringify(account);
         xhr.send(data);
     }
 
