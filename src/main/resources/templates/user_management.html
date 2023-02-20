@@ -51,6 +51,17 @@
             font-weight: bolder !important;
         }
 
+        /*ICON 自訂樣式*/
+        .fa-icon {
+            color: black;
+            background: lightgrey;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            min-width: 13%;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5em !important;
+        }
+
         /*資料類型樣式*/
         h5 {
             color: black;
@@ -66,7 +77,8 @@
         }
 
         /*資料類型鄰近輸入區邊角取消圓弧效果*/
-        h5 + input, h5 + select {
+        h5 + input, h5 + select,
+        span + input, span + select {
             border-radius: 0 0.5rem 0.5rem 0 !important;
         }
     </style>
@@ -114,13 +126,15 @@
                     </div>
                     <div id="editPwdDiv" class="col-md-12 ftco-animate" style="display: none">
                         <div class="form-group d-flex">
-                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">密碼</h5>
+                            <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
+<!--                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">密碼</h5>-->
                             <input id="editPwd" type="password" class="form-control" placeholder="輸入新密碼">
                         </div>
                     </div>
                     <div id="editPwdConfirmDiv" class="col-md-12 ftco-animate" style="display: none">
                         <div class="form-group d-flex">
-                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">確認</h5>
+                            <span class="fa-icon"><i class="fa fa-key fa-2x"></i></span>
+<!--                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">確認</h5>-->
                             <input id="editPwdConfirm" type="password" class="form-control" placeholder="確認新密碼">
                         </div>
                     </div>
@@ -136,7 +150,8 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group d-flex">
-                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">驗證</h5>
+                            <span class="fa-icon"><i class="fa fa-address-card-o fa-2x"></i></span>
+<!--                            <h5 class="d-flex text-center align-items-center font-weight-bold p-2">驗證</h5>-->
                             <input id="userPwdCheck" type="password" class="form-control"
                                    placeholder="輸入目前密碼進行驗證">
                         </div>
@@ -212,9 +227,13 @@
         var pwdCheck = $("#userPwdCheck").val();
 
         // 此判斷允許 新密碼兩欄位均為空值 或 新密碼兩欄位均為一致
-        if (name == "" || gender == "" || tel == "" || pwdCheck == "") {
+        if (pwdCheck == "") {
+            // 驗證密碼為空值
+            alert("請填寫驗證密碼!");
+            return
+        } else if (name == "" || gender == "" || tel == "" ) {
             // 基本資料存在空值
-            alert("請填寫所有欄位!");
+            alert("請填寫所有基本資料!");
             return
         } else if (editPasswd != editPasswdConfirm && (editPasswd != "" || editPasswdConfirm != "")) {
             // 新密碼欄位有值但不一致
@@ -224,7 +243,7 @@
 
         console.log("會員Id: " + user.id);
 
-        // 新密碼及再次輸入確認均為空值 = 沒有修改密碼 只修改基本資料
+        // 新密碼及新密碼確認均為空值 = 沒有修改密碼 只修改基本資料
         if (editPasswd == "" && editPasswdConfirm == "") {
 
             $.ajax({
@@ -258,7 +277,7 @@
 
             console.log("沒有修改密碼")
 
-            // 新密碼及再次輸入確認均為一致 = 有修改密碼
+            // 新密碼及新密碼確認均為一致 = 有修改密碼
         } else if (editPasswd == editPasswdConfirm) {
             $.ajax({
                 type: "PUT",
