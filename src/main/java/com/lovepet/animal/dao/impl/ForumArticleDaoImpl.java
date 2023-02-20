@@ -94,7 +94,7 @@ public class ForumArticleDaoImpl implements ForumArticleDao {
         }
 
         if (forumArticleQueryParams.getSearch() != null) {
-            sql = sql + " AND title LIKE :search1 OR content LIKE :search2";
+            sql = sql + " AND (title LIKE :search1 OR content LIKE :search2)";
             map.put("search1", "%" + forumArticleQueryParams.getSearch() + "%");
             map.put("search2", "%" + forumArticleQueryParams.getSearch() + "%");
         }
