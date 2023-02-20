@@ -130,12 +130,12 @@
                         </div>
                         <!-- 標題定位用主區塊 -->
                         <div class="col-4 px-0 d-flex justify-content-center">
-                            <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
+                            <h3 class="modal-title font-weight-bold">編號：</h3>
                             <h3 class="modal-title font-weight-bold" id="animalName_static">這裡是寵物名字</h3>
-                            <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
                         </div>
                         <!-- 標題定位用右區塊 -->
                         <div class="col-4 px-0">
+                            <!-- 日期排版於右上角的舊樣式
                             <div class="row m-0 pr-4 font-weight-bold justify-content-end">
                                 <span id="createdDate_static"></span>
                                 <span>&nbsp;刊登</span>
@@ -144,6 +144,8 @@
                                 <span id="lastModifiedDate_static"></span>
                                 <span>&nbsp;更新</span>
                             </div>
+                            -->
+
                             <!-- 強制定位關閉功能於最右上角 -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
@@ -162,15 +164,19 @@
                                 </div>
                             </div>
                             <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
-                                <div class="col-4 mt-0">
-<!--                                    <div class="d-block">-->
-<!--                                        <span>會員編號 :</span>-->
-<!--                                        <span id="userId_static"></span>-->
-<!--                                    </div>-->
-                                    <div class="d-block">
-                                        <span>動物編號 :</span>
-                                        <span id="animalId_static"></span>
+                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
+                                    <div class="d-flex justify-content-start">
+                                        <span class="font-weight-bold">刊登日期 :</span>
+                                        <span class="font-weight-bold" id="createdDate_static"></span>
                                     </div>
+                                </div>
+                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
+                                    <div class="d-flex justify-content-end">
+                                        <span class="font-weight-bold">更新日期 :</span>
+                                        <span class="font-weight-bold" id="lastModifiedDate_static"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-0">
                                     <div class="d-block">
                                         <span>物種 :</span>
                                         <span id="animalKind_static"></span>
@@ -179,8 +185,6 @@
                                         <span>品種 :</span>
                                         <span id="animalVariety_static"></span>
                                     </div>
-                                </div>
-                                <div class="col-4 mt-0">
                                     <div class="d-block">
                                         <span>性別 :</span>
                                         <span id="animalSex_static"></span>
@@ -189,6 +193,8 @@
                                         <span>年齡 :</span>
                                         <span id="animalAge_static"></span>
                                     </div>
+                                </div>
+                                <div class="col-6 mt-0">
                                     <div class="d-block">
                                         <span>體型 :</span>
                                         <span id="animalBodysize_static"></span>
@@ -197,8 +203,6 @@
                                         <span>毛色 :</span>
                                         <span id="animalColor_static"></span>
                                     </div>
-                                </div>
-                                <div class="col-4 mt-0">
                                     <div class="d-block">
                                         <span>絕育 :</span>
                                         <span id="animalSterilization_static"></span>
@@ -207,14 +211,23 @@
                                         <span>疫苗 :</span>
                                         <span id="animalBacterin_static"></span>
                                     </div>
+                                </div>
+                                <div class="col-12 mt-0">
                                     <div class="d-block">
                                         <span>地區 :</span>
                                         <span id="area_static"></span>
                                     </div>
-                                    <!-- 這是一個保留欄位 -->
-                                    <div class="d-block" style="visibility: hidden;">
-                                        <span>dummy</span>
-                                        <span id="">dummy</span>
+                                </div>
+                                <div class="col-12 mt-0">
+                                    <!-- 這是一個隱藏欄位 -->
+                                    <div class="d-flex" style="display: none !important;">
+                                        <span>會員編號 :</span>
+                                        <span id="userId_static"></span>
+                                    </div>
+                                    <!-- 這是一個隱藏欄位 -->
+                                    <div class="d-flex" style="display: none !important;">
+                                        <span>動物編號 :</span>
+                                        <span id="animalId_static"></span>
                                     </div>
                                 </div>
                                 <!-- 備註(寵物描述) -->
@@ -366,7 +379,7 @@
             success: function (data) {
                 var item = data["results"][0];
                 console.log(item)
-                // $("#userId_static").text(data.userId);
+                $("#userId_static").text(data.userId);
                 $("#animalId_static").text(item.animalId);
                 $("#animalName_static").text(item.animalId);
                 $("#animalKind_static").text(item.animalKind);
