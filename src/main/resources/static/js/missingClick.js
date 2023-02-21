@@ -34,7 +34,7 @@ function publishMissingAnimal() {
     let description = document.getElementById("description").value;
     let file = document.getElementById("animalPhoto").files[0];
     let fd = new FormData();
-    if (kind == "default" || sex == "default" || body == "default" || age == "default" ||
+    if (kind == "default" || sex == "default" || bodysize == "default" || age == "default" ||
         variety == null || name == null || color == null || area == null || missingDate == null || description == null) {
         alert("請填寫所有欄位!");
         return
