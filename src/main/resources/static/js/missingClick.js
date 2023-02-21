@@ -61,7 +61,7 @@ function publishMissingAnimal() {
             if (confirm("刊登成功!，要繼續刊登嗎?") == true) {
                 window.location.replace("/publish");
             } else {
-                window.location.replace("/missing");
+                window.location.replace("/animal_missing");
             }
         }
     })
