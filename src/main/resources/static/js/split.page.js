@@ -93,6 +93,7 @@ function ajaxToServer(request, tagName, index, url, changeTag) {
     function loadOk(){
         return new Promise(function(resolve, reject){
             window.setTimeout(function(){
+                // 重新載入 Bootstrap 模板 js
                 $.getScript('js/main.js');
                 console.log('顯示列表');
                 resolve('顯示列表');
