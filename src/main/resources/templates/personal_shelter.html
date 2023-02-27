@@ -371,8 +371,11 @@
         console.log("跳過幾筆資料offset:" + data["offset"]);
         console.log("總筆數:" + data["total"]);
 
+        // 暫時停用捲動功能
         // 查詢結束後捲動視窗至篩選欄
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+        // $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+
+        // 重新載入 Bootstrap 模板 js
         $.getScript('js/main.js');
     }
 
