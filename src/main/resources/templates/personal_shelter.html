@@ -371,9 +371,10 @@
         console.log("跳過幾筆資料offset:" + data["offset"]);
         console.log("總筆數:" + data["total"]);
 
+        // 暫時停用捲動功能
         // 查詢結束後捲動視窗至篩選欄
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
-        $.getScript('js/main.js');
+        // $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+        // $.getScript('js/main.js');
     }
 
     function getAnimalInfo(gid) {//點擊詳細資料按紐

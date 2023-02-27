@@ -149,7 +149,7 @@
                 <select class="custom-select" id="category">
                     <option value="default">不限種類</option>
                     <option value="乾飼糧">乾糧</option>
-                    <option value="半濕性飼糧">濕糧</option>
+                    <option value="半溼性飼糧">溼糧</option>
                     <option value="零食">零食</option>
                     <option value="罐頭">罐頭</option>
                     <option value="生鮮、冷凍">生鮮、冷凍</option>
@@ -270,7 +270,7 @@
 
         // 加入表格內容
         $.each(data["results"], function (index, item) {
-            var tableContent =`
+            var tableContent = `
                 <tr>
                     <td>${item.name}</td>
                     <td>${item.productionPlace}</td>
@@ -315,18 +315,20 @@
     function changePage(page) {
         var queryParams = "";
         var offset = limit * (page - 1);
-        var place = $("#place").val();
         var category = $("#category").val();
+        var place = $("#place").val();
         var search = $("#searchBar").val().trim();
 
         queryParams += "&offset=" + offset;
 
         // 取得篩選區的參數
+        if (category == "半溼性飼糧") {
+            queryParams += "&category=半溼性飼糧(水分含量20-35％)";
+        } else if (category != "default") {
+            queryParams += "&category=" + category;
+        }
         if (place != "default") {
             queryParams += "&place=" + place;
-        }
-        if (category != "default") {
-            queryParams += "&category=" + category;
         }
         if (search != "") {
             queryParams += "&search=" + search;

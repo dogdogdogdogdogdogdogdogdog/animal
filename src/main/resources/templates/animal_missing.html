@@ -365,8 +365,10 @@
         console.log("跳過幾筆資料offset:" + data["offset"]);
         console.log("總筆數:" + data["total"]);
 
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
-        $.getScript('js/main.js');
+        // 暫時停用捲動功能
+        // 查詢結束後捲動視窗至篩選欄
+        // $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);
+        // $.getScript('js/main.js');
     }
 
     // 點擊詳細資料按鈕
