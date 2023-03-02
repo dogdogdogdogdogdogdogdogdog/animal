@@ -830,6 +830,7 @@
                 alert("發文成功!");
                 // 發文成功後關閉彈出式互動視窗
                 $(".close[aria-label='postClose']").click();
+                $("#inputBox").val("");
                 changePage(1);
             }
         })
