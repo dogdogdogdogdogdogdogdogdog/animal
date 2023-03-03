@@ -125,28 +125,10 @@
                 <div class="modal-content modal-bg">
                     <!-- 寵物名字放在標題 -->
                     <div class="modal-header">
-                        <!-- 標題定位用左區塊 -->
-                        <div class="col-4 px-0">
-                        </div>
                         <!-- 標題定位用主區塊 -->
-                        <div class="col-4 px-0 d-flex justify-content-center">
+                        <div class="row m-auto col-12 px-0 justify-content-center">
                             <h3 class="modal-title font-weight-bold">編號：</h3>
                             <h3 class="modal-title font-weight-bold" id="animalName_static">這裡是寵物名字</h3>
-                        </div>
-                        <!-- 標題定位用右區塊 -->
-                        <div class="col-4 px-0">
-                            <!-- 日期排版於右上角的舊樣式
-                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                <span id="createdDate_static"></span>
-                                <span>&nbsp;刊登</span>
-                            </div>
-                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                <span id="lastModifiedDate_static"></span>
-                                <span>&nbsp;更新</span>
-                            </div>
-                            -->
-
-                            <!-- 強制定位關閉功能於最右上角 -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
                                 <span aria-hidden="true">&times;</span>
@@ -164,19 +146,20 @@
                                 </div>
                             </div>
                             <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
-                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
-                                    <div class="d-flex justify-content-start">
+                                <div class="col-sm-6 col-xs-12 my-1">
+                                    <div class="row m-auto justify-content-start">
                                         <span class="font-weight-bold">刊登日期 :</span>
                                         <span class="font-weight-bold" id="createdDate_static"></span>
                                     </div>
                                 </div>
-                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
-                                    <div class="d-flex justify-content-end">
+                                <div class="col-sm-6 col-xs-12 my-1">
+                                    <div class="row m-auto justify-content-start">
                                         <span class="font-weight-bold">更新日期 :</span>
                                         <span class="font-weight-bold" id="lastModifiedDate_static"></span>
                                     </div>
                                 </div>
-                                <div class="col-6 mt-0">
+                                <hr class="m-0" style="width: 100%;">
+                                <div class="col-sm-6 col-xs-12 mt-0">
                                     <div class="d-block">
                                         <span>物種 :</span>
                                         <span id="animalKind_static"></span>
@@ -194,7 +177,7 @@
                                         <span id="animalAge_static"></span>
                                     </div>
                                 </div>
-                                <div class="col-6 mt-0">
+                                <div class="col-sm-6 col-xs-12 mt-0">
                                     <div class="d-block">
                                         <span>體型 :</span>
                                         <span id="animalBodysize_static"></span>
@@ -273,7 +256,6 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/scrollax.min.js"></script>
-<script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 <script src="js/_animal-init.js"></script>
 <script>
@@ -364,7 +346,11 @@
         console.log("跳過幾筆資料offset:" + data["offset"]);
         console.log("總筆數:" + data["total"]);
 
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);//捲動視窗至篩選欄
+        // 暫時停用捲動功能
+        // 查詢結束後捲動視窗至篩選欄
+        // $("html,body").animate({"scrollTop": $("#top").offset().top}, 500);
+
+        // 重新載入 Bootstrap 模板 js
         $.getScript('js/main.js');
     }
 

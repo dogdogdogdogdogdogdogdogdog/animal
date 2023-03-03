@@ -48,7 +48,6 @@ public class AnimalDaoImpl implements AnimalDao {
         map.put("limit", animalQueryParams.getLimit());
         map.put("offset", animalQueryParams.getOffset());
 
-        System.out.println(sql);
         page.setResults(namedParameterJdbcTemplate.query(sql, map, new AnimalRowmapper()));
         page.setLimit(animalQueryParams.getLimit());
         page.setOffset(animalQueryParams.getOffset());

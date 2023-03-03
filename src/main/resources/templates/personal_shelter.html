@@ -87,8 +87,6 @@
             <div class="p-1">
                 <select class="custom-select" id="kind">
                     <option value="default">不限種類</option>
-                    <option value="狗">狗</option>
-                    <option value="貓">貓</option>
                 </select>
             </div>
             <div class="p-1">
@@ -134,29 +132,11 @@
                 <div class="modal-content modal-bg">
                     <!-- 寵物名字放在標題 -->
                     <div class="modal-header">
-                        <!-- 標題定位用左區塊 -->
-                        <div class="col-4 px-0">
-                        </div>
                         <!-- 標題定位用主區塊 -->
-                        <div class="col-4 px-0 d-flex justify-content-center">
+                        <div class="row m-auto col-12 px-0 justify-content-center">
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
                             <h3 class="modal-title font-weight-bold" id="animalName_static">這裡是寵物名字</h3>
                             <span class="py-1 px-1" style="color: orange;"><i class="fa fa-paw fa-2x"></i></span>
-                        </div>
-                        <!-- 標題定位用右區塊 -->
-                        <div class="col-4 px-0">
-                            <!-- 日期排版於右上角的舊樣式
-                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                <span id="createdDate_static"></span>
-                                <span>&nbsp;刊登</span>
-                            </div>
-                            <div class="row m-0 pr-4 font-weight-bold justify-content-end">
-                                <span id="lastModifiedDate_static"></span>
-                                <span>&nbsp;更新</span>
-                            </div>
-                            -->
-
-                            <!-- 強制定位關閉功能於最右上角 -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="position: absolute !important; top: 0; right: 0; padding: 10px !important;">
                                 <span aria-hidden="true">&times;</span>
@@ -173,19 +153,20 @@
                                 </div>
                             </div>
                             <div class="row mx-0 col-xl-6 col-12" style="height: 100% !important;">
-                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
-                                    <div class="d-flex justify-content-start">
+                                <div class="col-sm-6 col-xs-12 my-1">
+                                    <div class="row m-auto justify-content-start">
                                         <span class="font-weight-bold">刊登日期 :</span>
                                         <span class="font-weight-bold" id="createdDate_static"></span>
                                     </div>
                                 </div>
-                                <div class="col-6 my-1" style="border-bottom: 1px dotted grey">
-                                    <div class="d-flex justify-content-end">
+                                <div class="col-sm-6 col-xs-12 my-1">
+                                    <div class="row m-auto justify-content-start">
                                         <span class="font-weight-bold">更新日期 :</span>
                                         <span class="font-weight-bold" id="lastModifiedDate_static"></span>
                                     </div>
                                 </div>
-                                <div class="col-4 mt-0">
+                                <hr class="m-0" style="width: 100%;">
+                                <div class="col-sm-4 col-xs-12 mt-0">
                                     <div class="d-block">
                                         <span>物種 :</span>
                                         <span id="animalKind_static"></span>
@@ -199,7 +180,7 @@
                                         <span id="animalSex_static"></span>
                                     </div>
                                 </div>
-                                <div class="col-4 mt-0">
+                                <div class="col-sm-4 col-xs-12 mt-0">
                                     <div class="d-block">
                                         <span>年齡 :</span>
                                         <span id="animalAge_static"></span>
@@ -213,7 +194,7 @@
                                         <span id="animalColor_static"></span>
                                     </div>
                                 </div>
-                                <div class="col-4 mt-0">
+                                <div class="col-sm-4 col-xs-12 mt-0">
                                     <div class="d-block">
                                         <span>絕育 :</span>
                                         <span id="animalSterilization_static"></span>
@@ -326,8 +307,10 @@
         success: function (data) {
             // 使用 Set 排除重複迭代結果
             var areaSet = new Set();
+            var kindSet = new Set();
             $.each(data["results"], function (index, item) {
                 areaSet.add(item.area);
+                kindSet.add(item.animalKind);
             })
 
             // Set 類型不能使用 jQuery 的 each 方法 須使用原生 forEach
@@ -338,6 +321,12 @@
                     <option value="${area}">${area}</option>
                 `;
                 $("#area").append(comboBoxContent);
+            })
+            kindSet.forEach(function (kind) {
+                let kindComboBox = `
+                    <option value="${kind}">${kind}</option>
+                `;
+                $("#kind").append(kindComboBox);
             })
         }
     });
@@ -388,9 +377,14 @@
         console.log("跳過幾筆資料offset:" + data["offset"]);
         console.log("總筆數:" + data["total"]);
 
-        // 查詢結束後捲動視窗至篩選欄
-        $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
-        $.getScript('js/main.js');
+
+        setTimeout(function () {
+            // 重新載入 Bootstrap 模板 js
+            $.getScript('js/main.js');
+            // 暫時停用捲動功能
+            // 查詢結束後捲動視窗至篩選欄
+            $("html,body").animate({"scrollTop": $("#top").offset().top}, 300);
+        },300);
     }
 
     function getAnimalInfo(gid) {//點擊詳細資料按紐

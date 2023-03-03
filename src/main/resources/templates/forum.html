@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- 全域自訂CSS樣式 -->
     <link rel="stylesheet" href="css/_custom.css">
-    <script src="js/button.click.js"></script>
     <!--  自訂樣式  -->
     <style>
         /*按鈕樣式*/
@@ -34,6 +33,41 @@
         .btn.btn-primary:hover {
             color: white !important;
             background: #ffa500 !important;
+            outline: 1px solid;
+            opacity: 1;
+        }
+
+        /*刪除按鈕樣式-滑鼠掠過*/
+        .btn.btn-del:hover {
+            color: white !important;
+            background: red !important;
+            outline: 1px solid;
+            opacity: 1;
+        }
+
+        /*取消按鈕樣式-滑鼠掠過*/
+        .btn.btn-cancel:hover {
+            color: white !important;
+            background: grey !important;
+            outline: 1px solid;
+            opacity: 1;
+        }
+
+        /*發文按鈕樣式*/
+        .btn.btn-post {
+            color: black !important;
+            padding: 6px 20px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: transparent !important;
+            background: #6ac3eb !important;
+            opacity: 1;
+        }
+
+        /*發文按鈕樣式-滑鼠掠過*/
+        .btn.btn-post:hover {
+            color: white !important;
+            background: #81a5ff !important;
             outline: 1px solid;
             opacity: 1;
         }
@@ -238,7 +272,9 @@
             </div>
             <!-- 發文按鈕 -->
             <div class="p-1">
-                <button id="postFormBtn" class="btn btn-primary" onclick="postFormInit()">發文</button>
+                <button id="postFormBtn" class="btn btn-post" onclick="postFormInit()">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>發文
+                </button>
             </div>
         </div>
         <!-- 顯示資料內容 -->
@@ -322,11 +358,11 @@
                                             style="display: none;">
                                         保存
                                     </button>
-                                    <button id="cancelButton" class="btn btn-primary ftco-animate"
+                                    <button id="cancelButton" class="btn btn-primary btn-cancel ftco-animate"
                                             style="display: none;">取消
                                     </button>
                                     <button id="deleteButton" articleId=""
-                                            class="btn btn-primary ftco-animate">刪除</button>
+                                            class="btn btn-primary btn-del ftco-animate">刪除</button>
                                 </span>
                             </div>
                         </div>
@@ -341,7 +377,7 @@
                                 <button id="saveMsgBtn" class="btn btn-primary ftco-animate" onclick="saveMsg()"
                                         style="display: none;">保存
                                 </button>
-                                <button id="cancelMsgBtn" class="btn btn-primary ftco-animate" onclick="cancelMsg()"
+                                <button id="cancelMsgBtn" class="btn btn-primary btn-cancel ftco-animate" onclick="cancelMsg()"
                                         style="display: none;">取消
                             </button>
                             </span>
@@ -610,7 +646,7 @@
                 $("#articleUserName").text(userArticleData.name);
                 $("#articlePostDate").text(articleData.postDate);
                 $("#articleModifiedDate").text(articleData.modifiedDate);
-                $("#conTent").html(articleData.content);
+                $("#conTent").html(articleData.content.replaceAll("\n", "<br>"));
 
                 // 新增留言區賦予 articleId
                 $("#addMsgArea").attr("articleId", articleData.articleId);
@@ -766,7 +802,7 @@
 
         var type = $("#postType").val();
         var title = $("#postTitle").val();
-        var content = $("#postContent").val().replaceAll("\n", "<br>");
+        var content = $("#postContent").val();
 
         if (content == "") {
             alert('請填寫文章內容')
@@ -794,6 +830,7 @@
                 alert("發文成功!");
                 // 發文成功後關閉彈出式互動視窗
                 $(".close[aria-label='postClose']").click();
+                $("#inputBox").val("");
                 changePage(1);
             }
         })

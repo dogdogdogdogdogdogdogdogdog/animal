@@ -37,17 +37,6 @@
             opacity: 1;
         }
 
-        /*刪除按鈕樣式*/
-        .btn.btn-del {
-            color: black !important;
-            padding: 6px 20px;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            border: transparent !important;
-            background: #fcd601 !important;
-            opacity: 1;
-        }
-
         /*刪除按鈕樣式-滑鼠掠過*/
         .btn.btn-del:hover {
             color: white !important;
@@ -307,7 +296,7 @@
                                         <input type="file" id="animalPhoto_personal">
                                     </div>
                                 </div>
-                                <div class="col-4 mt-0">
+                                <div class="col-lg-4 col-md-12 mt-0">
                                     <div class="d-flex">
                                         <span>物種</span>
                                         <select id="animalKind_personal" class="custom-select" type="text"
@@ -345,7 +334,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-4 mt-0">
+                                <div class="col-lg-4 col-md-12 mt-0">
                                     <div class="d-flex">
                                         <span>體型</span>
                                         <select id="animalBodysize_personal" class="custom-select" type="text"
@@ -371,13 +360,11 @@
                                     </div>
                                     <div class="d-flex">
                                         <span>疫苗</span>
-                                        <select id="animalBacterin_personal" class="custom-select" type="text"
-                                                style="height: 40px !important;">
-                                            <option value="無資料">無資料</option>
-                                        </select>
+                                        <input id="animalBacterin_personal" class="form-control" type="text"
+                                               style="height: 40px !important;">
                                     </div>
                                 </div>
-                                <div class="col-4 mt-0">
+                                <div class="col-lg-4 col-md-12 mt-0">
                                     <div class="d-flex">
                                         <span>地區</span>
                                         <select id="area_personal" class="custom-select" type="text"
@@ -471,7 +458,7 @@
                                         <input type="file" id="animalPhoto_missing">
                                     </div>
                                 </div>
-                                <div class="col-6 mt-0">
+                                <div class="col-sm-6 col-xs-12 mt-0">
                                     <div class="d-flex">
                                         <span>物種</span>
                                         <select id="animalKind_missing" class="custom-select" type="text"
@@ -509,7 +496,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-6 mt-0">
+                                <div class="col-sm-6 col-xs-12 mt-0">
                                     <div class="d-flex">
                                         <span>體型</span>
                                         <select id="animalBodysize_missing" class="custom-select" type="text"
@@ -613,8 +600,11 @@
 <script src="js/_animal-init.js"></script>
 <script src="js/updatePublish.js"></script>
 <script src="js/delPublish.js"></script>
+<script src="js/pageController.js"></script>
 <script>
     // 載入頁面先執行一次
+    var pages;
+    var limit;
     getPersonal();
     getMissing();
 
@@ -642,20 +632,25 @@
                         <td>${item.createdDate}</td>
                         <td>${item.lastModifiedDate}</td>
                         <td>
-                            <button id="personalModifyBtn" animalId="${item.animalId}" class="btn btn-primary" onclick="personalModify(this)" data-toggle="modal" data-target="#personalModalCenter">修改</button>
-                            <button id="personalDelBtn" animalId="${item.animalId}" class="btn btn-del" onclick="personalDel(this)">刪除</button>
+                            <button id="personalModifyBtn" animalId="${item.animalId}" class="my-1 btn btn-primary" onclick="personalModify(this)" data-toggle="modal" data-target="#personalModalCenter">修改</button>
+                            <button id="personalDelBtn" animalId="${item.animalId}" class="my-1 btn btn-primary btn-del" onclick="personalDel(this)">刪除</button>
                         </td>
                     </tr>
                 `;
                     $("#personalTableAjax").append(tableContent);
                 })
 
+                // 當次查詢總頁數
                 pages = Math.ceil(data.total / data.limit);
+                // 當次查詢每頁資料筆數
+                limit = data.limit;
+
                 if (data.total == 0) {
                     $("#personPageInfo").text("查無資料");
                 } else {
                     $("#personPageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
                 }
+                pageSet(pages);
             }
         })
     }
@@ -670,7 +665,6 @@
         $("#animalAge_personal option").removeAttr("selected");
         $("#animalBodysize_personal option").removeAttr("selected");
         $("#animalSterilization_personal option").removeAttr("selected");
-        $("#animalBacterin_personal option").removeAttr("selected");
         $("#area_personal option").removeAttr("selected");
 
         // 取得更新按鈕上的 animalId
@@ -692,15 +686,14 @@
                 $(`#animalBodysize_personal option[value='${data.animalBodysize}']`).attr("selected", "selected");
                 $("#animalSterilization_personal").val(`${data.animalSterilization}`).change();
                 $(`#animalSterilization_personal option[value='${data.animalSterilization}']`).attr("selected", "selected");
-                $("#animalBacterin_personal").val(`${data.animalBacterin}`).change();
-                $(`#animalBacterin_personal option[value='${data.animalBacterin}']`).attr("selected", "selected");
                 $("#area_personal").val(`${data.area}`).change();
                 $(`#area_personal option[value='${data.area}']`).attr("selected", "selected");
 
                 $("#animalName_personal").text(data.animalName);
                 $("#animalVariety_personal").val(data.animalVariety);
                 $("#animalColor_personal").val(data.animalColor);
-                $("#description_personal").html(data.description);
+                $("#animalBacterin_personal").val(data.animalBacterin);
+                $("#description_personal").html(data.description.replaceAll("\n", "<br>"));
                 // 避免從快取獲得圖片 加入隨機網址參數
                 $("#imageUrl_personal").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
                 $("#userId_personal").text(data.userId);
@@ -728,7 +721,7 @@
         formData.append("animalBacterin", $("#animalBacterin_personal").val());
         formData.append("imageUrl", "");
         formData.append("area", $("#area_personal").val());
-        formData.append("description", $("#description_personal").html().replaceAll("<div>", "<br>").replaceAll("</div>", ""));
+        formData.append("description", $("#description_personal").html());
 
         $.ajax({
             type: "PUT",
@@ -782,19 +775,24 @@
                         <td>${item.createdDate}</td>
                         <td>${item.missingDate}</td>
                         <td>
-                            <button id="missingModifyBtn" animalId="${item.animalId}" class="btn btn-primary" onclick="missingModify(this)" data-toggle="modal" data-target="#missingModalCenter">修改</button>
-                            <button id="missingDelBtn" animalId="${item.animalId}" class="btn btn-del" onclick="missingDel(this)">刪除</button>
+                            <button id="missingModifyBtn" animalId="${item.animalId}" class="my-1 btn btn-primary" onclick="missingModify(this)" data-toggle="modal" data-target="#missingModalCenter">修改</button>
+                            <button id="missingDelBtn" animalId="${item.animalId}" class="my-1 btn btn-primary btn-del" onclick="missingDel(this)">刪除</button>
                         </td>
                     </tr>
                 `;
                     $("#missingTableAjax").append(tableContent);
                 })
+                // 當次查詢總頁數
                 pages = Math.ceil(data.total / data.limit);
+                // 當次查詢每頁資料筆數
+                limit = data.limit;
+
                 if (data.total == 0) {
                     $("#missingPageInfo").text("查無資料");
                 } else {
                     $("#missingPageInfo").text("總頁數:" + pages + "  總筆數:" + data.total);
                 }
+                pageSet(pages);
             }
         })
     }
@@ -833,7 +831,7 @@
                 $("#animalName_missing").text(data.name);
                 $("#animalVariety_missing").val(data.variety);
                 $("#animalColor_missing").val(data.color);
-                $("#description_missing").html(data.description);
+                $("#description_missing").html(data.description.replaceAll("\n", "<br>"));
                 // 避免從快取獲得圖片 加入隨機網址參數
                 $("#imageUrl_missing").css("background-image", `url('${data.imageUrl}?random=${Date.now()}')`);
                 $("#userId_missing").text(data.userId);
@@ -859,7 +857,7 @@
         formData.append("color", $("#animalColor_missing").val());
         formData.append("imageUrl", "");
         formData.append("area", $("#area_missing").val());
-        formData.append("description", $("#description_missing").html().replaceAll("<div>", "<br>").replaceAll("</div>", ""));
+        formData.append("description", $("#description_missing").html());
 
         $.ajax({
             type: "PUT",
@@ -891,6 +889,27 @@
         }
     }
 
+    // 換頁功能
+    function changePage(page) {
+        var queryParams = "";
+        var offset = limit * (page - 1);
+        // var area = $("#areaAjax").val();
+
+        queryParams += "&offset=" + offset;
+
+        // 取得篩選區的參數
+        // if (area != "default") {
+        //     queryParams += "&area=" + area;
+        // }
+
+        $.ajax({
+            type: "GET",
+            url: "/animalsMissing?" + queryParams,
+            success: function (data) {
+                getMissing();
+            }
+        })
+    }
 </script>
 
 </body>
